@@ -1,0 +1,196 @@
+  <!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>${platformBidding}</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" />
+		<link rel="stylesheet" href=" ${basePath}/static/css/common/select-line.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/scatteredGoods/scatteredGoods.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		   
+		    <main class="main">
+		    	 <div class="search-panel row">
+					<form onsubmit="return false" id="find_plan_info">
+						<div class="search-from" >
+							<div class="search-row-box">
+								<div class="both-row row">
+							        <div class="search-box">
+							          <div class="input-lable">零散货物</div>
+							          <div class="input-text">
+							            <input id="scatteredGoods" name="planInfoPo.scatteredGoods" class="input" placeholder="请输入零散货物名称" type="text">
+							          </div>
+							        </div>
+							        <div class="search-box">
+							          <div class="input-lable">委托方</div>
+							          <div class="input-text">
+							            <input id="entrust" name="planInfoPo.entrustName" class="input" placeholder="请输入委托方" type="text">
+							          </div>
+							        </div>
+							        <div class="search-box">
+							          <div class="input-lable">承运方</div>
+							          <div class="input-text">
+							            <input id="shipper" name="planInfoPo.shipperName" class="input" placeholder="请输入承运方" type="text">
+							          </div>
+							        </div>
+							        <div class="search-box">
+							          <div class="input-lable">发货单位</div>
+							          <div class="input-text">
+							            <input id="forwardingUnit" name="planInfoPo.forwardingUnit" class="input" placeholder="请输入到货单位" type="text">
+							          </div>
+							        </div>
+							        <div class="search-box">
+							          <div class="input-lable">到货单位</div>
+							          <div class="input-text">
+							            <input id="consignee" name="planInfoPo.consignee" class="input" placeholder="请输入到货单位" type="text">
+							          </div>
+							        </div>
+							        <div class="search-box">
+							          <div class="input-lable">运单状态</div>
+							          <div class="input-text">
+							            <select id="waybillStatus" name="planInfoPo.planStatus" class="input">
+							              <option value="" selected>请选择</option>
+							              <option value="1">新建</option>
+							              <option value="2">已派发</option>
+							              <option value="3">已撤回</option>
+							              <option value="4">已拒绝</option>
+							              <option value="5">已接单</option>
+							              <option value="6">已装货</option>
+							              <option value="7">在途</option>
+							              <option value="8">已卸货</option>
+							              <option value="9">已挂账</option>
+							              <option value="10">已发布</option>
+							              <option value="11">已回收报价</option>
+							            </select>
+							          </div>
+							        </div>
+							        <div class="search-box">
+							            <div class="input-lable">线路起点</div>
+							            <div class="address-input">
+							              <input class="input" type="hidden" id="SstartAddress"/>
+							              <div class="select-address" id="startAddress"></div>
+							            </div>
+							        </div>
+							        <div class="search-box">
+							            <div class="input-lable">线路终点</div>
+							            <div class="address-input">
+							              <input class="input" type="hidden" id="EendAddress" />
+							              <div class="select-address" id="endAddress"></div>
+							            </div>
+							        </div>
+							        <div class="search-box">
+										<div class="input-lable">计划拉运日期</div>
+										<div class="input-text time-input">
+											<input id="planTransportDateStart" class="input date-time"  type="text" />
+										</div>
+										<div class="input-line">—</div>
+										<div class="input-text time-input">
+											<input id="planTransportDateEnd" class="input date-time" type="text" />
+										</div>
+									</div>
+						      	</div>
+							</div>
+							<div class="search-button-box">
+								<button class="search-button" onclick="PBList(1)">
+									<div class="search-icon"></div>
+									<div class="text">查询</div>
+								</button>
+								<button class="search-button" type="reset" onclick="resetEmpty()">
+								      <div class="reset-icon"></div>
+								      <div class="text">重置</div>
+								</button>
+							</div>
+						</div>
+					</form>
+				 </div>
+				<div class="panel" >
+			     <div class="row">	
+				      <div class="operation-tab row">
+				        <button class="operation-button operation-blue" onclick="ChoicePlatformBiddingMation(4)">
+				          <div class="recycle-icon"></div>
+				          <div class="operation-text">回收报价</div>
+				        </button>
+				        <button class="operation-button operation-blue" onclick="ChoicePlatformBiddingMation(1)">
+				          <div class="on-line-icon"></div>
+				          <div class="operation-text">重新挂网</div>
+				        </button>
+				       <button  class="operation-button  operation-blue" onclick="ChoicePlatformBiddingMation(2)">
+							<div class="award-icon"></div>
+							<div class="operation-text">选择中标方</div>
+						</button>
+						<button  class="operation-button  operation-blue" onclick="ChoicePlatformBiddingMation(3)">
+							<div class="withdraw-icon"></div>
+							<div class="operation-text">撤回</div>
+						</button>
+				      </div>
+			      </div>
+			      <!-- 平台中标 -->
+				  <div id="platformBiddingModel"></div>
+			      <div class="panel-table">
+			      	<div class="iscroll">
+				        <table class="table-bule table-ellipsis" id="tableDrag" style="min-width:1680px">
+				          <thead>
+				             <tr class="table-title">
+				             <th  class="check" style="width:40px">
+				                <label class="i-checks">
+				                  <input name="all" type="checkbox" class="all_platfromBiddingMain_check"> 
+				                </label>
+				              </th>
+				              <th>运单状态</th>
+					          <th>委托方</th>
+					          <th>承运方</th>
+					          <th>司机编号</th>
+					          <th>当前运价(元)</th>
+					          <th>零散货物</th>
+					          <th>线路起点</th>
+					          <th>线路终点</th>
+					          <th>发货单位</th>
+					          <th>到货单位</th>
+					          <th>计量单位</th>
+					          <th>计划拉运量</th>
+					          <th>发布日期</th>
+					          <th>报价截止日期</th>
+					          <th>报价家数</th>
+					        </tr>
+				          </thead>
+				          <tbody id="platfromBiddingMainTtableList">
+				          </tbody>
+				        </table>
+			      	</div>
+			      </div>
+			      <div class="panel-pagination">
+				      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+				      <div class="pagination-list"></div>
+				      <div class="pagination-input">到
+				        <input type="text" />页</div>
+				      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			  	  </div> 
+			  </div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	  	<!-- 计划跟踪查看表单 -->
+	  	<form id="plan_look_form" action="" method="post">
+	  		<input id="plan_info_id" type="hidden" name="planInfoId">
+	  	</form>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/scatteredGoods/platformBidding/platfromBiddingMain.js"></script>
+</html>

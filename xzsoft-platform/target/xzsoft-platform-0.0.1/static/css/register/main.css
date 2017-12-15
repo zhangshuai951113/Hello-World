@@ -1,0 +1,180 @@
+.register-content {
+    position: relative;
+    margin: 0 auto;
+    min-width: 1240px;
+}
+.register-line{
+	height:3px;
+    background: #2b84ea;
+	margin:0 auto;
+    min-width: 1240px;
+}
+
+.register-box{
+    width: 586px;
+    margin: auto;
+    text-align: center;
+    border: 1px solid #2b84ea;
+    box-shadow: 0 0 16px #2b84ea;
+    border-radius: 4px;
+    margin: 106px auto;
+    padding: 14px;
+}
+
+.register-title{
+	margin-top: 20px;
+    color: #666;
+    font-size: 18px;
+    text-align: left;
+    margin-left: 20px;
+}
+.register-from {
+    padding: 8px;
+    width: 456px;
+    margin: 24px auto 0;
+}
+
+.register-box .type-box:after, .register-box .re-input-box:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+
+.register-box .input-lable{
+	float: left;
+    color: #333333;
+    font-size: 14px;
+    margin-right: 10px;
+    width: 95px;
+    text-align: right;
+}
+.register-box .input-text {
+	float: left;
+}
+
+.register-box div span {
+	color:#FC0200
+}
+.register-box .radio-box,.register-box .radio-icon,.register-box .radio-text{
+	float: left;
+}
+.register-box .radio-box{
+	position: relative;
+}
+
+.register-box .input-text>.radio-box:not(:first-child) {
+ 	margin-left: 12px;
+}
+.register-box .radio-box input {
+	opacity: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.register-box .radio-icon{
+    background: #F8F8F8;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #CCCCCC;
+    border-radius: 50%;
+    margin-top: 4px;
+    padding: 3px;
+}
+.register-box .radio-text{
+    margin-left: 6px;
+    font-size: 12px;
+    color: #666666;
+    margin-top: 2px;
+}
+.register-box input+ div.radio-icon .radio-point{
+	display: none;
+}
+.register-box input:checked+ div.radio-icon .radio-point
+{
+	width: 6px;
+	height:6px;
+	background: #666666;
+	border-radius: 50%;
+	display: block;
+}
+
+.register-input-box {
+	margin-top:16px;
+	height: 30px;
+}
+.register-input-box .input-lable {
+	line-height: 30px;
+}
+.register-input-box .input-text{
+	width: 306px;
+}
+.register-input-box .input{
+	border: 1px solid #d8d8d8;
+    outline: none;
+    text-indent: 5px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.register-input-box .input:focus{
+    border-color: #2b84ea;
+}
+.register-input-box .code-input {
+	width:226px;
+}
+
+.register-input-box .code-button {
+	margin-left: 8px;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    background: #f2f3f7;
+    padding: 0px 6px;
+    font-size: 12px;
+    color: #333333;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.register-box .button-box{
+	margin: 30px auto;
+    text-align: left;
+    position: relative;
+}
+.register-box .button {
+    background: #517fcd;
+    color: #fff;
+    border: 0;
+    font-size: 12px;
+    padding: 9px 42px;
+    border-radius: 3px;
+    margin-left: 106px;
+}
+
+.register-box .button-text{
+	position: absolute;
+    left: 50%;
+    top: 4px;
+    margin-left: 66px;
+    line-height: 30px;
+}
+
+.register-box .button-text a{
+ 	font-size:12px;
+}
+
+.register-box .a-member{
+	color:#666666
+}
+
+.register-box .a-login{
+	color:#517fcd
+}
+
+.jc-bs3-row {
+	width:400px;
+	margin:auto;
+}

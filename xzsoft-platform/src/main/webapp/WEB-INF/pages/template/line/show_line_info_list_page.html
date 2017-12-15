@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>线路管理</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/line/line-manage.css" type="text/css" />
+
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--线路管理模板-->
+				<div class="line-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+							<div class="search-from" style="max-width:1390px">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">线路名称</div>
+											<div class="input-text">
+												<input id="lineName" class="input" placeholder="请输入线路名称" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">起点</div>
+											<div class="input-text">
+												<input id="startPoints" class="input" placeholder="请输入起点" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">终点</div>
+											<div class="input-text">
+												<input id="endPoints" class="input" placeholder="请输入终点" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+								            <div class="input-lable">运距(公里)</div>
+								            <div class="input-text money-input" style="width:98px">
+								              <input class="input" id="distanceStart" name="distanceStart" placeholder="" type="text" />
+								            </div>
+								              <div class="input-line">—</div>
+								            <div class="input-text money-input" style="width:98px">
+								              <input class="input" id="distanceEnd" name="distanceEnd" placeholder="" type="text" />
+								            </div>
+								          </div>
+										<div class="search-box">
+											<div class="input-lable">线路状态</div>
+											<div class="input-text">
+												<select id="lineStatus" class="input">
+													<option value="0">启用</option>
+													<option value="1">停用</option>
+												</select>
+											</div>
+										</div>
+										<div class="search-box" style="width:320px;">
+						            		 
+						          		</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchLineInfo(1)">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">
+						<div class="row">
+							<div class="operation-tab row">
+								<@shiro.hasPermission name="basicInfo:line:create">
+					      		<button class="operation-button operation-blue" onclick="addOrEditLineInfoPage()">
+						          <div class="add-icon"></div>
+						          <div class="operation-text">新增</div>
+						        </button>
+						        </@shiro.hasPermission>
+						        <@shiro.hasPermission name="basicInfo:line:delete">
+						        <button class="operation-button operation-blue" onclick="deleteCheckedLineInfo()">
+						          <div class="delete-icon"></div>
+						          <div class="operation-text">删除</div>
+						        </button>
+						        </@shiro.hasPermission>
+						        <@shiro.hasPermission name="basicInfo:line:enable">
+								<button class="operation-button operation-blue" onclick="operateCheckedLine(0)">
+									<div class="enable-icon"></div>
+									<div class="operation-text">启用</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="basicInfo:line:disable">
+								<button class="operation-button operation-blue" onclick="operateCheckedLine(1)">
+									<div class="disable-icon"></div>
+									<div class="operation-text">停用</div>
+								</button>
+								</@shiro.hasPermission>
+							</div>
+						</div>	
+						<div id="search-line-info" class="panel-table">
+						</div>
+					</div>
+					
+					<!-- 新增/编辑线路管理 -->
+					<div id="show_line_info"></div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/line/lineInfoManage.js"></script>
+</html>

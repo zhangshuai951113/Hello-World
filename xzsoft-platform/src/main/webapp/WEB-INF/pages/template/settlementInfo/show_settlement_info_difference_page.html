@@ -1,0 +1,78 @@
+<!-- 模态框 调差设置选择-->
+<div id="difference-data-info" >
+<div class="modal" id="differenceModal" tabindex="-1" role="dialog" aria-hidden="true" style="display:block">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close difference-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title ">调差设置</h4>
+      </div>
+      <div class="modal-body">
+        <form id="sub_re_order_settlement_info_difference_form" name="myForm" onsubmit="return false">
+        <div class="model-from">
+          <div class="group-box">
+            <div class="input-lable"><span>*</span>调整运价:</div>
+              <div class="input-text">
+                <input id="reviseTransportPrice" name="settlementRevisePo.reviseTransportPrice" class="form-control" readonly="readonly" placeholder="请输入调整运价" type="text" />
+            </div>
+          </div>
+          <div class="group-box">
+            <div class="input-lable"><span>*</span>调整到货吨位:</div>
+              <div class="input-text">
+                <input id="reviseArriveTonnage" name="settlementRevisePo.reviseArriveTonnage" class="form-control" readonly="readonly" placeholder="请输入调整到货吨位" type="text" />
+            </div>
+          </div>
+          <div class="group-box">
+            <div class="input-lable"><span>*</span>其他项目调整:</div>
+              <div class="input-text">
+                <input id="otherProjectRevise" name="settlementRevisePo.otherProjectRevise" class="form-control" readonly="readonly" placeholder="请输入其他项目调整" type="text" />
+            </div>
+          </div>
+           
+          <div class="group-box">
+            <div class="input-lable"><span>*</span>调差类型：</div>
+              <div class="input-text">
+                <select id="reviseType" class="input" name="settlementRevisePo.reviseType" onchange="selectDifferenceType()">
+                  <option value="1">调整运价</option>
+                  <option value="2">调整到货吨位</option>
+                  <option value="3">其他调整</option>
+                </select>
+            </div>
+          </div>
+<!--           <div class="group-box"> -->
+<!--             <div class="input-lable"><span>*</span>确认运价:</div> -->
+<!--               <div class="input-text"> -->
+<!--                 <input class="input" name="settlementRevisePo.confirmTransportPrice" readonly="readonly" type="text" /> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <div class="group-box"> -->
+<!--             <div class="input-lable"><span>*</span>确认吨位:</div> -->
+<!--               <div class="input-text"> -->
+<!--                 <input class="input" name="settlementRevisePo.confirmTonnage" readonly="readonly" type="text" /> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <div class="group-box"> -->
+<!--             <div class="input-lable"><span>*</span>调差金额:</div> -->
+<!--               <div class="input-text"> -->
+<!--                 <input class="input" name="settlementRevisePo.revisePrice" readonly="readonly" type="text" /> -->
+<!--             </div> -->
+<!--           </div> -->
+          <div class="group-box" style="height:100px;">
+            <div class="input-lable">备注：</div>
+            <div class="textarea-text">
+              <textarea class="input" name="settlementRevisePo.reviseTransportPrice" placeholder="请输入备注信息" name="remark" id="remark"></textarea>
+            </div>
+          </div>
+          <input id="reviseTransportPrice" type="hidden" name="settlementRevisePo.settlementInfoId" value="${settlementInfoId}">
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="difference()">保存</button>
+        <button class="close-button difference-opt-close" data-dismiss="modal">取消</button>
+      </div>
+    </div> 
+  </div>
+</div>
+<div class="modal-backdrop fade in"></div>
+</div>

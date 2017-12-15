@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>无车承运人路单上报</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/showLoading.css" type="text/css" />
+		<style>
+			.search-box .input-lable {
+			    width: 90px;
+			}
+		</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--无车承运人路单上报管理模板-->
+				<div class="cuteinfo-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+						    <div class="search-from" style="max-width:1390px">
+						      	<div class="search-row-box">
+						      	
+						      	
+						        	<div class="both-row row">
+						        	
+						          		<div class="search-box">
+						            		<div class="input-lable">结算单编号</div>
+						            		<div class="input-text">
+						              			<input id="settlementNo" class="input" placeholder="请输入结算单编号" type="text" />
+						            		</div>
+						          		</div>
+						     
+							          	<div class="search-box">
+						            		<div class="input-lable">运单编号</div>
+						            		<div class="input-text">
+						              			<input id="waybillNo" class="input" placeholder="请输入运单编号" type="text" />
+						            		</div>
+						          		</div>
+						          		
+						          		<div class="search-box">
+						            		<div class="input-lable">数据检查</div>
+						            		<div class="input-text">
+							              		<select id="checkStatus" class="input">
+									            		<option value="">请选择</option>
+														<option value="1">符合条件</option>
+														<option value="0">不符合条件</option>
+							             		</select>
+						            		</div>
+						          		</div>
+						          		
+						          		<div class="search-box">
+						            		<div class="input-lable">上报状态</div>
+						            		<div class="input-text">
+							              		<select id="roadsheetStatus" class="input">
+									            	<option value="">请选择</option>
+														<option value="0">未上报</option>
+														<option value="1">上报成功</option>
+														<option value="2">上报失败</option>
+									            
+							             		</select>
+						            		</div>
+						          		</div>
+						          		
+						          	
+						       <div class="search-box">
+				            <div class="input-lable">发货日期</div>
+				            <div class="input-text time-input">
+				              <input  class="input date-time" type="text" id = "forwardingTimeStart"/>
+				            </div>
+				            <div class="input-line">—</div>
+				            <div class="input-text time-input">
+				              <input class="input date-time" type="text" id = "forwardingTimeEnd"/>
+				            </div>
+				          </div>
+				          <div class="search-box">
+				            <div class="input-lable">到货日期</div>
+				            <div class="input-text time-input">
+				              <input class="input date-time" type="text" id = "arriveTimeStart"/>
+				            </div>
+				            <div class="input-line">—</div>
+				            <div class="input-text time-input">
+				              <input class="input date-time" type="text" id = "arriveTimeEnd"/>
+				            </div>
+				          </div>
+						        	</div>
+						        	
+						        	
+						        	
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchCuteInfo(1)">
+							        	<div class="search-icon"></div>
+							        	<div class="text">查询</div>
+							      	</button>
+							      	<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">
+						<div class="row">
+					    	<div class="operation-tab row">
+					    	
+						<button id="sendBtn" class="operation-button operation-blue" onclick="reportRoadSheet()">
+							<div class="send-icon"></div>
+							<div class="operation-text">上报路单</div>
+						</button>
+				   
+				        <button class="operation-button operation-blue " onclick="exportExcel()">
+				          <div class="download-file-icon"></div>
+				          <div class="operation-text">导出Excel</div>
+					     </button>
+					   
+					    	</div>
+				    	</div>
+				    	<!-- 结算单列表 -->
+				    	<div id="search_cuteinfo_info" class="panel-table">
+				    	
+				    	</div>
+				  	</div>
+				  	
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+		<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+			<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/cuteinfo/cuteinfoManage.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/jquery.showLoading.min.js"></script>
+</html>
+

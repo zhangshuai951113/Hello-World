@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>货源信息管理</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+		<link rel="stylesheet" href=" ${basePath}/static/css/common/select-line.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/supplyOfGoods/supply-of-goods-manage.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--货源信息管理模板-->
+				<div class="waybill-source-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+							<div class="search-from" >
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">货物</div>
+											<div class="input-text">
+												<input id="s_goods_info_id" class="input" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">委托方</div>
+											<div class="input-text">
+												<input id="s_entrust" class="input" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">发货单位</div>
+											<div class="input-text">
+												<input id="s_forwarding_unit" class="input" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">到货单位</div>
+											<div class="input-text">
+												<input id="s_consignee" class="input" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+								            <div class="input-lable">线路起点</div>
+								            <div class="input-text">
+								              <input id="line_start_point" class="input" type="text" />
+								            </div>
+								         </div>
+								         <div class="search-box">
+								            <div class="input-lable">线路终点</div>
+								            <div class="input-text">
+								              <input id="line_end_point" class="input" type="text" />
+								            </div>
+								         </div>
+								         <div class="search-box">
+								            <div class="input-lable">计划拉运日期</div>
+								            <div class="input-text time-input">
+								              <input class="input date-time" id="plan_transport_date_start" name="planTransportDateStart" placeholder="" type="text" />
+								            </div>
+								              <div class="input-line">—</div>
+								            <div class="input-text time-input">
+								              <input class="input date-time" id="plan_transport_date_end" name="planTransportDateEnd" placeholder="" type="text" />
+								            </div>
+								        </div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchSupplyOfGoods(1)">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" onclick="resetEmpty()">
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">	
+						<div id="search-supply-of-goods" class="panel-table">
+						</div>
+					</div>
+					
+					<!-- 新增/编辑货源报价信息管理 -->
+					<div id="show_supply_of_goods"></div>
+					
+					<!-- 查询报价方信息管理 -->
+					<div id="show_offer_party_info"></div>
+					
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/supplyOfGoods/waybillSourceManage.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/supplyOfGoods/offerPartySearch.js"></script>
+</html>

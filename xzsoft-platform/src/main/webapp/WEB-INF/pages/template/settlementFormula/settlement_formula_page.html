@@ -1,0 +1,95 @@
+  <!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>${settlementFormula}</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		   
+		    <main class="main">
+				<div class="panel" >	
+			      <div class="operation-tab row">
+			        <button class="operation-button operation-blue" onclick="addSettlementFormulaPage()">
+			          <div class="add-icon"></div>
+			          <div class="operation-text">新增</div>
+			        </button>
+			        <button class="operation-button operation-blue" onclick="ChoicSettlementFormulaMation(1)">
+			          <div class="modify-icon"></div>
+			          <div class="operation-text">修改</div>
+			        </button>
+			       <button  class="operation-button  operation-blue" onclick="ChoicSettlementFormulaMation(2)">
+						<div class="delete-icon"></div>
+						<div class="operation-text">删除</div>
+					</button>
+					<button  class="operation-button  operation-blue" onclick="ChoicSettlementFormulaMation(3)">
+						<div class="submit-icon"></div>
+						<div class="operation-text">分配核算主体</div>
+					</button>
+					<button  class="operation-button  operation-blue" onclick="ChoicSettlementFormulaMation(4)">
+						<div class="view-icon"></div>
+						<div class="operation-text">查看核算主体</div>
+					</button>
+			      </div>
+			      
+			      <!-- 结算公式 -->
+				<div id="add_settlement_formula_info"></div>
+				<div id="update_settlement_formula_info"></div>
+				<div id="find_org_info_page"></div>
+				<div id="see_settlement_formula_detail_page"></div>
+			      <div class="panel-table">
+			        <table class="table-bule">
+			          <thead>
+			             <tr class="table-title">
+			             <th  class="check">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="all_settlement_formula_check"> 
+			                </label>
+			              </th>
+				          <th>综合税率(%)</th>
+				          <th>个人所得税(%)</th>
+				          <th>企业代扣税税率(%)</th>
+				          <th>司机运费进项税税率(%)</th>
+				          <th>创建日期</th>
+				        </tr>
+			          </thead>
+			          <tbody id="settlementFormulaTtableList">
+			          </tbody>
+			        </table>
+			      </div>
+			     <div class="panel-pagination">
+			      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			  </div> 
+			  </div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	  	<!-- 结算明细信息查看表单 -->
+	  	<form id="settlement_formula_look_form" action="" method="post">
+	  		<input id="settlement_formula_info_id" type="hidden" name="settlementFormulaId">
+	  	</form>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/settlementFormula/settlementFormula.js"></script>
+
+</html>

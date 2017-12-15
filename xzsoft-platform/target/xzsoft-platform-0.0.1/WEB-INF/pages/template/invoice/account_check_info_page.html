@@ -1,0 +1,83 @@
+<!-- 对账单列表-->
+<div id="accountCheckInfolist" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog"
+		aria-labelledby="receivablerModalLabel" aria-hidden="true"
+		style="display: block">
+		<div class="modal-dialog" style="width: 96%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close account-opt-close"
+						data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="accountModalLabel">对账单信息</h4>
+				</div>
+				<div class="modal-body">
+					<!-- 
+					<div class="search-from" style="width: 450px;">
+						<div class="search-row-box">
+							<div class="both-row row">
+								<div class="search-box">
+									<div class="input-lable">对账单编号</div>
+									<div class="input-text">
+										<input id="ci_car_code" class="input" placeholder="请输入对账单编号" type="text" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="search-button-box">
+							<button class="search-button" onclick="accounttList(1)">
+								<div class="search-icon"></div>
+								<div class="text">查询</div>
+							</button>
+						</div>
+					</div> 
+					-->
+					<div style="width:100%; overflow-x: auto;overflow-y: hidden;">
+						<table class="table-bule" align="center" id="accountTableDrag" >
+							<thead>
+								<tr class="table-title">
+									<th>
+										<input class="all_account_check" name="all" type="checkbox">
+									</th>
+									<th>对账单编号</th>
+									<th>确认账款</th>
+									<th>已开金额</th>
+									<th>未开金额</th>
+									<th>确认到货吨位</th>
+									<th>确认损耗吨位</th>
+									<th>确认出车次数</th>
+									<th>确认发货吨位</th>
+									<th>损耗差异</th>
+									<th>其他差异</th>
+									<th>收入税率</th>
+									<th>差异收入</th>
+									<th>应收总额（客户）</th>
+									<th>应付总额（物流/司机）</th>
+									<th>代开总额</th>
+									<th>出车数</th>
+									<th>单据总数</th>
+									<th>制单人</th>
+								</tr>
+							</thead>
+							<tbody id="accountTBody">
+							</tbody>
+						</table>
+					</div>
+					<!-- 分页 -->
+					<div class="panel-pagination">
+						<div id="panel-num-account" class="panel-num">搜索相关结果共0条</div>
+						<div class="pagination-list-account"></div>
+						<div class="pagination-input">
+							到 <input type="text" />页
+						</div>
+						<div class="pagination-button" onclick="accountJumpPage(this)">确定</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="accountSelect()">确认</button>
+					<button class="close-button account-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

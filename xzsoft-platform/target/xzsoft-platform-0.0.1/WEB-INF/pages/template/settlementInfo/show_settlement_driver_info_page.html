@@ -1,0 +1,108 @@
+<!-- 模态框 司机查询选择-->
+<div id="driver-data-info" >
+<div class="modal" id="driverSelectModal" tabindex="-5" role="dialog" aria-hidden="true" style="display:block">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close driver-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          选择车辆
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row">
+                <div class="search-box">
+                  <div class="input-lable">车牌号</div>
+                  <div class="input-text">
+                    <input id="carCode" class="input" placeholder="请输入车牌号" type="text" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search-button-box">
+              <button class="search-button" onclick="searchDriverInfo(1)">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+            <div class="search-button-box" style="text-align: left;">
+              <button class="save-button" onclick="addTempDriverInfoPage()">
+                	新增临时司机
+              </button>
+              <button class="save-button" onclick="addTempCarInfoPage()">
+              		新增临时车辆
+              </button>
+            </div>
+          </form>
+        </div>
+        <div id="show_department_info"></div>
+        <div class="modal-table row" style="overflow:hidden;">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px" id="tableDrag">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;">
+                </th>
+                <th>车牌号</th>
+                <th>司机名称</th>
+                <th>外协单位</th>
+                <th>车辆类型</th>
+              </tr>
+            </thead>
+            <tbody>
+	 			<#if carInfoPager?exists && carInfoPager.rows?exists>
+		 			<#list carInfoPager.rows as carInfo>
+			   			<tr class="table-body ">
+			     			<td style="width:40px;">
+			       				<label class="i-checks">
+		           					<input type="checkbox" class="sub_driver_info_check" data-id="<#if carInfo.driverType==2>${carInfo.driverInfoId}<#else>${carInfo.userInfoId}</#if>" 
+		           					data-driver-name="${carInfo.driverName}" data-driver-type="${carInfo.driverType}" data-car-code="${carInfo.carCode}" data-car-type="${carInfo.carPart}"><i></i>
+		         				</label>
+			     			</td>
+			     			<td>${(carInfo.carCode)!''}</td>
+					        <td>${(carInfo.driverName)!''}</td>
+					        <td>
+					        <#if carInfo.carPart?exists>
+					        	<#if carInfo.carPart == 2>
+					        		${(carInfo.carPartPerson)!''}
+								</#if>
+					        </#if>
+					        </td>
+					        <td>
+					        	<#if carInfo.carPart?exists>
+					        		<#if carInfo.carPart == 1>
+					        			企业内部车
+					        		<#elseif carInfo.carPart == 2>
+					        			企业临时车
+					        		<#elseif carInfo.carPart == 3>
+					        			个人车
+					        		</#if>
+					        	</#if>
+					        </td>
+			   			</tr>
+		 			</#list>
+	   			</#if>
+ 			</tbody>
+          </table>
+        </div>
+          <input id="driver" class="input" type="hidden" value="5"/>
+          <div class="panel-pagination">
+      		${carInfoPager.pageHtml}
+     	  </div>
+      </div>
+      <div id="show_department_info"></div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectDriver()">保存</button>
+        <button class="close-button driver-opt-close" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+</div>

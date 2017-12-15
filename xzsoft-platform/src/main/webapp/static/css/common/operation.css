@@ -1,0 +1,756 @@
+.operation-tab {
+  float: right;
+  margin-bottom: 10px;
+}
+.operation-button{
+  padding: 0 8px;
+  float: left;
+  margin-left: 10px;
+  border: none;
+  height: 30px;
+}
+.operation-gray {
+  background: #999999;
+}
+
+.operation-blue {
+  background:#2b84ea;
+}
+.operation-text {
+  color:#ffffff;
+  font-size:12px;
+  float: left;
+  margin-right: 4px;
+  margin-left: 4px;
+  height: 30px;
+  line-height: 30px;
+}
+.operation-button div:first-child{
+	margin-top: 7px;
+}
+.operation-button .password-reset-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/password-reset-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .logout-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/logout-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .disable-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/disable-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .enable-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/enable-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .add-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/add-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .modify-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/modify-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .delete-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/delete-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .audit-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/audit-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .excel-import-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/excel-import-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .receive-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/receive-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .refund-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/refund-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .allocate-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/allocate-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .submit-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/submit-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .authorization-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/authorization-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .cancel-auth-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/cancel-auth-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .distribution-icon{
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/distribution-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .allocation-icon{
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/allocation-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .print-icon{
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/print-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .terminate-icon{
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/terminate-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .change-icon{
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/change-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .confirm-icon{
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/confirm-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .withdraw-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/withdraw-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .send-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/send-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .waybill-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/waybill-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .split-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/split-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .award-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/award-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .on-line-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/on-line-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .recycle-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/recycle-button-icon.png") no-repeat;
+  float: left;
+}
+
+.operation-button .release-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/release-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .waybill-confirm-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/waybill-confirm-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .waybill-loading-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/waybill-loading-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .waybill-unloading-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/waybill-unloading-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .up-account-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/up-account-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .difference-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/difference-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .export-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/export-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .quote-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/quote-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .waybill-refuse-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/waybill-refuse-button-icon.png") no-repeat;
+  float: left;
+}
+.operation-button .statement-icon{
+  width:16px;
+  height:16px;
+  background: url("../../images/operation/statement-icon.png") no-repeat;
+  float: left;
+}
+.operation-td {
+  /*padding:10px 0;*/
+}
+.operation-m {
+  cursor: pointer;
+  margin-right: 5px;
+  height: 16px;
+  display: inline-block;
+  margin-top: 2px;
+   margin-bottom: 2px;
+}
+.operation-m .text{
+  float: left;
+  margin-left:5px;
+}
+
+.enabled-icon{
+  background: url('../../images/operation/enabled-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+
+.op-icon{
+  background: url('../../images/operation/op-type-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+
+.download-file-icon{
+  background: url('../../images/operation/download-file-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.add-icon{
+  background: url('../../images/operation/add-button-icon-b.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.add-operation .text{
+  color: #2b84ea;
+}
+.enabled-operation .text{
+  color:#8fc31f;
+}
+
+.modify-icon {
+  background: url('../../images/operation/modify-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.modify-operation .text{
+  color:#2b84ea;
+}
+
+.disable-icon {
+  background: url('../../images/operation/disable-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.disable-operation .text{
+  color:#f63535;
+}
+
+.logout-icon {
+  background: url('../../images/operation/logout-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.logout-operation .text{
+  color: #666666;
+}
+
+.delete-icon {
+  background: url('../../images/operation/delete-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.delete-operation .text{
+  color:#f63232;
+}
+
+.view-icon {
+  background: url('../../images/operation/view-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.view-operation .text{
+  color: #448aca;
+}
+
+.audit-icon {
+  background: url('../../images/operation/audit-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.audit-operation .text{
+ color: #1f8839;
+}
+
+.refund-icon {
+  background: url('../../images/operation/refund-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.refund-operation .text{
+  color: #f18d47;
+}
+
+.receive-icon {
+  background: url('../../images/operation/receive-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.receive-operation .text{
+  color: #62c472;
+}
+
+.allocate-icon {
+  background: url('../../images/operation/allocate-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.allocate-operation .text{
+  color: #33c0cd;
+}
+
+.operation-icon {
+  background: url('../../images/operation/operation-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.operation-operation .text{
+  color: #44b879;
+}
+
+.outage-icon {
+  background: url('../../images/operation/outage-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.outage-operation .text{
+  color: #999999;
+}
+
+.password-reset-icon {
+  background: url('../../images/operation/password-reset-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.password-reset-operation .text{
+  color: #2b84ea;
+} 
+
+.submit-icon {
+  background: url('../../images/operation/submit-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.submit-operation .text{
+  color: #2b84ea;
+}
+
+.authorization-icon {
+  background: url('../../images/operation/authorization-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.authorization-operation .text{
+  color: #009900;
+}
+
+.cancel-auth-icon {
+  background: url('../../images/operation/cancel-auth-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.cancel-auth-operation .text{
+  color: #ff3333;
+}
+
+.distribution-icon {
+  background: url('../../images/operation/distribution-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.distribution-operation .text{
+  color: #0068b7;
+}
+
+.allocation-icon {
+  background: url('../../images/operation/allocation-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.allocation-operation .text{
+  color:#33cccc;
+}
+
+.print-icon {
+  background: url('../../images/operation/print-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.print-operation .text{
+  color:#49c6c3;
+}
+
+.terminate-icon {
+  background: url('../../images/operation/terminate-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.terminate-operation .text{
+  color:#ff6666;
+}
+
+.change-icon {
+  background: url('../../images/operation/change-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.change-operation .text{
+  color:#00cc99;
+}
+
+.confirm-icon {
+  background: url('../../images/operation/confirm-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.confirm-operation .text{
+  color:#0066ff;
+}
+
+.withdraw-icon {
+  background: url('../../images/operation/withdraw-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.withdraw-operation .text{
+  color:#6699cc;
+}
+
+.send-icon {
+  background: url('../../images/operation/send-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.send-operation .text{
+  color:#ff9900;
+}
+
+.waybill-icon {
+  background: url('../../images/operation/waybill-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.waybill-operation .text{
+  color:#009900;
+}
+
+.split-icon {
+  background: url('../../images/operation/split-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.split-operation .text{
+  color:#ff6600;
+}
+
+.award-icon {
+  background: url('../../images/operation/award-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.award-operation .text{
+  color:#35c68a
+}
+
+.on-line-icon {
+  background: url('../../images/operation/on-line-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.on-line-operation .text{
+  color:#999999
+}
+
+.recycle-icon {
+  background: url('../../images/operation/recycle-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.recycle-operation .text{
+  color:#f7ca17
+}
+
+.release-icon {
+  background: url('../../images/operation/release-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.release-operation .text{
+  color:#ff5c35
+}
+
+.waybill-confirm-icon {
+  background: url('../../images/operation/waybill-confirm-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.waybill-confirm-operation .text{
+  color: #009900;
+}
+
+.waybill-loading-icon {
+  background: url('../../images/operation/waybill-loading-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.waybill-loading-operation .text{
+  color: #2ed2b7;
+}
+
+.waybill-unloading-icon {
+  background: url('../../images/operation/waybill-unloading-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.waybill-unloading-operation .text{
+  color:#61afe4;
+}
+
+.up-account-icon {
+  background: url('../../images/operation/up-account-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.up-account-operation .text{
+  color: #ff6e39;
+}
+
+.difference-icon {
+  background: url('../../images/operation/difference-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.difference-operation .text{
+  color: #329998;
+}
+
+.export-icon {
+  background: url('../../images/operation/export-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.export-operation .text{
+  color: #619dda;
+}
+
+.quote-icon {
+  background: url('../../images/operation/quote-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.quote-operation .text{
+  color: #f99406
+}
+
+.waybill-refuse-icon {
+  background: url('../../images/operation/waybill-refuse-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.waybill-refuse-operation .text{
+  color: #ff6666
+}
+
+.statement-icon {
+  background: url('../../images/operation/statement-td-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+.statement-operation .text{
+  color: #fd9c31;
+}
+
+.operation-button .view-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/view-button-icon.png") no-repeat;
+  float: left;
+}
+
+.detail-icon {
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/detail-td-icon.png") no-repeat;
+  float: left;
+}
+.detail-operation {
+	color: #769cdd
+;
+}
+
+.operation-button .yxpz-icon{
+  width:16px;
+  height: 16px;
+  background: url("../../images/operation/yxpz.png") no-repeat;
+  float: left;
+}
+
+.box{ 
+	float:left;
+	width: 500px;
+}
+#input-lable{
+	width: 55px;
+	float: left;
+	line-height: 24px;
+	margin-left: 0px;
+	
+}
+#input-text{
+	width: 250px;
+    float: left;
+	
+}

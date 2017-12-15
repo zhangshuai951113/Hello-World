@@ -1,0 +1,55 @@
+<!-- 项目信息列表-->
+<div id="contractList" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="receivablerModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close contract-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="receivablerModalLabel">合同列表</h4>
+				</div>
+				<div class="modal-body">
+				<div class="search-from" style="width: 450px;">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">合同名称</div>
+								<div class="input-text">
+									<input id="contract-name" class="input" placeholder="请输入合同名称" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="loadContracts(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+					</div>
+				</div>
+					<table class="table-bule" align="center" id="contractTable">
+						<thead>
+							<tr class="table-title">
+								<th style="width: 20px;"><input class="all_contract_check" name="all" type="checkbox"></th>
+								<th>合同编号</th>
+								<th>合同名称</th>
+							</tr>
+						</thead>
+						<tbody id="contractTBody"></tbody>
+					</table>
+					<!-- 分页 -->
+					<div class="panel-pagination">
+						<div id="panel-num-project" class="panel-num">搜索相关结果共<span id="contractNum">0</span>条 </div>
+						<div class="contractTool"></div>
+						<div class="pagination-input">到 <input type="text" />页</div>
+						<div class="pagination-button" onclick="contractJumpPage(this)">确定</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="contractSelect()">确认</button>
+					<button class="close-button contract-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

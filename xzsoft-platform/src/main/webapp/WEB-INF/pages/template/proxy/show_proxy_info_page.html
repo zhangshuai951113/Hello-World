@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>代理信息管理</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/user/user-manage.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/viewer.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--代理信息管理模板-->
+				<div class="proxy-Info-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+							<div class="search-from" >
+								<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">代理人名称</div>
+											<div class="input-text">
+												<input id="proxyName" class="input" placeholder="请输入代理人名称	" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">证件号</div>
+											<div class="input-text">
+												<input id="idCard" class="input" placeholder="请输入证件号" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">银行账号</div>
+											<div class="input-text">
+												<input id="bankAccount" class="input" placeholder="请输入银行账号" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">开户行</div>
+											<div class="input-text">
+												<input id="bankName" class="input" placeholder="请输入开户行" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">证件类型</div>
+											<div class="input-text">
+												<select id="cardType" class="input">
+													<option value="">请选择</option>
+													<option value="1">身份证</option>
+													<option value="2">企业统一信用代码证</option>
+												</select>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">代理状态</div>
+											<div class="input-text">
+												<select id="proxyStatus" class="input">
+													<option value="">请选择</option>
+													<option value="1">起草</option>
+													<option value="2">待审核</option>
+													<option value="3">审核通过</option>
+													<option value="4">驳回</option>
+												</select>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">启用状态</div>
+											<div class="input-text">
+												<select id="isAvailable" class="input">
+													<option value="">请选择</option>
+													<option value="1">启用</option>
+													<option value="0">停用</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchProxyInfo(1)">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">
+						<div class="row">
+							<div class="operation-tab row">
+					      		<button class="operation-button operation-blue" onclick="addOrEditProxyInfoPage()">
+									<div class="add-icon"></div>
+									<div class="operation-text">新增</div>
+								</button>
+								<button class="operation-button operation-blue" onclick="operateCheckedProxyInfo(2)">
+									<div class="submit-icon"></div>
+									<div class="operation-text">提交审核</div>
+								</button>
+								<button class="operation-button operation-blue" onclick="operateCheckedProxyInfo(4)">
+									<div class="audit-icon"></div>
+									<div class="operation-text">审核</div>
+								</button>
+								<button class="operation-button operation-blue" onclick="operateCheckedProxyInfo(1)">
+									<div class="enable-icon"></div>
+									<div class="operation-text">启用</div>
+								</button>
+								<button class="operation-button operation-blue" onclick="operateCheckedProxyInfo(0)">
+									<div class="disable-icon"></div>
+									<div class="operation-text">停用</div>
+								</button>
+								<button class="operation-button operation-blue" onclick="operateCheckedProxyInfo(3)">
+									<div class="delete-icon"></div>
+									<div class="operation-text">删除</div>
+								</button>
+							</div>
+						</div>	
+						<div id="search-proxy-info" class="panel-table">
+						</div>
+					</div>
+					<!-- 新增/编辑普通员工 -->
+					<div id="edit_proxy_info_modal"></div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/proxy/proxyInfoManage.js"></script>
+</html>

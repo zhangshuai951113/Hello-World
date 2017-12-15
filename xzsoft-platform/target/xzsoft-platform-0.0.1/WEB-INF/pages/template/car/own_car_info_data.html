@@ -1,0 +1,123 @@
+﻿<div id="own_car_info">
+	<div class="iscroll">      	
+		<table class="table-bule  table-ellipsis" style="min-width:1672px" id="tableDrag">
+			<thead>
+				<tr class="table-title">
+					<th style="width: 40px;">
+						<label class="i-checks"> <input class="all_check" name="all" type="checkbox"><i></i></label>
+					</th>
+					<th>车牌号码</th>
+					<th>车辆类型</th>
+					<th>车辆品牌</th>
+					<th>核定载重量</th>
+					<th>核定油耗</th>
+					<th>机动车所有人</th>
+					<th>使用机构</th>
+					<th>车属单位</th>
+					<th>司机姓名</th>
+					<th>司机电话</th>
+					<th>燃料种类</th>
+					<th>营运证到期日期</th>
+					<th>商业险到期日期</th>
+					<th>交强险到期日期</th>
+					<th>车辆审核状态</th>
+					<th>车辆营运状态</th>
+					<th>车辆调配状态</th>
+					<th class="operation" style="width:190px">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#if carInfoPoPager?exists && carInfoPoPager.rows?exists> <#list carInfoPoPager.rows as carInfoPo>
+				<tr class="table-body ">
+					<td style="width: 40px;">
+						<label class="i-checks"> <input type="checkbox" class="sub_check" data-id="${carInfoPo.id}" data-status="${carInfoPo.carStatus}"><i></i></label>
+					</td>
+					<td>${(carInfoPo.carCode)!''}</td>
+					<td>${(carInfoPo.carTypeName)!''}</td>
+					<td>${(carInfoPo.brandName)!''}</td>
+					<td>${(carInfoPo.checkLoad)!''}</td>
+					<td>${(carInfoPo.checkFuel)!''}</td>
+					<td>${(carInfoPo.carPartPerson)!''}</td>
+					<td>${(carInfoPo.orgName)!''}</td>
+					<td>${(carInfoPo.carUnitName)!''}</td>
+					<td>${(carInfoPo.driverName)!''}</td>
+					<td>${(carInfoPo.mobilePhone)!''}</td>
+					<td><#if carInfoPo.fuelType?exists> <#if carInfoPo.fuelType==1> 汽油 <#elseif carInfoPo.fuelType==2> 柴油 <#elseif carInfoPo.fuelType==3> 天然气<#elseif carInfoPo.fuelType==3> 液化气 </#if> </#if></td>
+					<td><#if carInfoPo.operationEndTime?exists>${(carInfoPo.operationEndTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>				
+					<td><#if carInfoPo.businessInsuranceEndTime?exists>${(carInfoPo.businessInsuranceEndTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+					<td><#if carInfoPo.trafficInsuranceEndTime?exists>${(carInfoPo.trafficInsuranceEndTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+					<td><#if carInfoPo.carStatus?exists> <#if carInfoPo.carStatus==1> 待审核 <#elseif carInfoPo.carStatus==2> 审核通过 <#elseif carInfoPo.carStatus==3> 审核不通过 </#if> </#if></td>
+					<td><#if carInfoPo.operationStatus?exists> <#if carInfoPo.operationStatus==1> 空车可用 <#elseif carInfoPo.operationStatus==2> 满载在途 <#elseif carInfoPo.operationStatus==3> 停用 </#if> </#if></td>
+					<td><#if carInfoPo.allocateStatus?exists> <#if carInfoPo.allocateStatus==1>有司机 <#elseif carInfoPo.allocateStatus==2>无司机 </#if> </#if></td>
+					<td>
+						<div class="operation-td" car-info-id="${(carInfoPo.id)!'0'}" root-org-info-id="${(carInfoPo.rootOrgInfoId)!'0'}">
+							<#if carInfoPo.carStatus==1> <!--待审核状态可查看、审核操作-->
+							<@shiro.hasPermission name="car:ownCar:review">
+							<div class="audit-operation operation-m">
+								<div class="audit-icon"></div>
+								<div class="text">审核</div>
+							</div>
+							</@shiro.hasPermission>
+							<@shiro.hasPermission name="car:ownCar:modify">
+							<div class="modify-operation operation-m">
+								<div class="modify-icon"></div>
+								<div class="text">修改</div>
+							</div>
+							</@shiro.hasPermission>
+							<@shiro.hasPermission name="car:ownCar:delete">
+							<div class="delete-operation operation-m">
+								<div class="delete-icon"></div>
+								<div class="text">删除</div>
+							</div>
+							</@shiro.hasPermission>
+							<#else> <#if carInfoPo.carStatus==2> <!-- 审核通过 -->
+							<@shiro.hasPermission name="car:ownCar:modify">
+							<div class="modify-operation operation-m">
+								<div class="modify-icon"></div>
+								<div class="text">修改</div>
+							</div>
+							</@shiro.hasPermission>
+							<@shiro.hasPermission name="car:ownCar:allocate">
+							<div class="allocate-operation operation-m">
+								<div class="allocate-icon"></div>
+								<div class="text">调配</div>
+							</div>
+							</@shiro.hasPermission>
+							<#if carInfoPo.operationStatus==1><!-- 运营状态为空车可用  -->
+							<@shiro.hasPermission name="car:ownCar:outage">
+							<div class="outage-operation operation-m">
+								<div class="outage-icon"></div>
+								<div class="text">停运</div>
+							</div>
+							</@shiro.hasPermission>
+							<#elseif carInfoPo.operationStatus==3><!-- 运营状态为停用  -->
+							<@shiro.hasPermission name="car:ownCar:operation">
+							<div class="operation-operation operation-m">
+								<div class="operation-icon"></div>
+								<div class="text">营运</div>
+							</div>
+							</@shiro.hasPermission>
+							</#if>
+							<#else><#if carInfoPo.carStatus==3><!-- 审核不通过 -->
+							<@shiro.hasPermission name="car:ownCar:modify">
+							<div class="modify-operation operation-m">
+								<div class="modify-icon"></div>
+								<div class="text">修改</div>
+							</div>
+							</@shiro.hasPermission>
+							<@shiro.hasPermission name="car:ownCar:delete">
+							<div class="delete-operation operation-m">
+								<div class="delete-icon"></div>
+								<div class="text">删除</div>
+							</div>
+							</@shiro.hasPermission>
+							</#if></#if></#if>
+						</div>
+					</td>
+				</tr>
+				</#list> </#if>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-pagination">${carInfoPoPager.pageHtml}</div>
+</div>

@@ -1,0 +1,70 @@
+﻿<div id="contract_info">
+<div class="iscroll"> 
+	<table class="table-bule table-ellipsis" id="tableDrags" style="min-width:1800px" title="合同信息表">
+		<thead>
+			<tr class="table-title">
+				<th style="width: 40px;">
+					<label class="i-checks"> <input class="all_check" name="all" type="checkbox"></label>
+				</th>
+				<th  style="width:155px" class="operation">操作</th>
+				<th>合同编号</th>
+				<th>合同名称</th>
+				<th>业务类型</th>
+				<th>合同类型</th>
+				<th>委托方（甲方）</th>
+				<th>承运方（乙方）</th>
+				<th>合同金额</th>
+				<th>合同状态</th>
+				<th>协同状态</th>
+				<th>创建日期</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<#if contractInfoPager?exists && contractInfoPager.rows?exists> <#list contractInfoPager.rows as contractInfo>
+			<tr class="table-body ">
+				<td style="width: 40px;">
+					<label class="i-checks"> <input type="checkbox" class="sub_check" data-id="${contractInfo.id}" data-status="${contractInfo.carStatus}"></label>
+				</td>
+				<td style="white-space: inherit;">
+					<div class="operation-td" contract-info-id="${(contractInfo.id)!'0'}" shipper-org-root="${(contractInfo.shipperOrgRoot)!'0'}">
+						<#if contractInfo.contractStatus==5> <!-- 等待确认 -->
+						<div class="confirm-operation operation-m">
+						<div class="confirm-icon"></div>
+							<div class="text">确认</div>
+						</div>
+						<div class="view-operation view-receive-contract operation-m">
+							<div class="view-icon"></div>
+							<div class="text">查看</div>
+						</div>
+						<#elseif contractInfo.contractStatus==8> <!-- 已确认 -->
+						<div class="view-operation view-receive-contract operation-m">
+							<div class="view-icon"></div>
+							<div class="text">查看</div>
+						</div></#if>
+						<div class="detail-view operation-m">
+							<div class="view-icon"></div>
+							<div class="text" style="color: #2b84ea;">明细查看</div>
+						</div>
+					</div>
+				</td>
+
+				<td>${(contractInfo.contractCode)!''}</td>
+				<td>${(contractInfo.contractName)!''}</td>
+				<td><#if contractInfo.businessType?exists> <#if contractInfo.businessType=1>运输<#elseif contractInfo.businessType=2>采购<#elseif contractInfo.businessType=3>其它</#if></#if></td>
+				<td><#if contractInfo.contractType?exists> <#if contractInfo.contractType=1>运输合同<#elseif contractInfo.contractType=2>框架协议合同</#if></#if></td>
+				<td>${(contractInfo.entrustName)!''}</td>
+				<td>${(contractInfo.shipperName)!''}</td>
+				<td>${(contractInfo.contractMoney)!''}</td>
+				<td><#if contractInfo.contractStatus?exists> <#if contractInfo.contractStatus==1> 新建 <#elseif contractInfo.contractStatus==2> 审核中 <#elseif contractInfo.contractStatus==3>
+					审核驳回 <#elseif contractInfo.contractStatus==4> 审核通过 <#elseif contractInfo.contractStatus==5> 等待确认 <#elseif contractInfo.contractStatus==6> 已撤回 <#elseif
+						contractInfo.contractStatus==7> 已拒绝 <#elseif contractInfo.contractStatus==8> 已确认 <#elseif contractInfo.contractStatus==9> 已结束 </#if> </#if></td>
+				<td><#if contractInfo.cooperateStatus?exists> <#if contractInfo.cooperateStatus==1> 协同 <#elseif contractInfo.cooperateStatus==2> 半协同 </#if> </#if></td>
+				<td><#if contractInfo.createTime?exists>${(contractInfo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+			</tr>
+			</#list> </#if>
+		</tbody>
+	</table>
+	</div>
+	<div class="panel-pagination">${contractInfoPager.pageHtml}</div>
+</div>

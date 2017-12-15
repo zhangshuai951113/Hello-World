@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>用户管理</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<!-- 		<link rel="stylesheet" href="${basePath}/static/css/driver/driver.css" type="text/css" />
+ -->		
+<style type="text/css">
+ .from-both-box .input-remarksLable{
+		float: left;
+	    color: #333333;
+	    font-size: 14px;
+	    margin-right: 2px;
+	    margin-left: -90px;
+	    margin-top: 10px;
+	    width: 190px;
+	    text-align: right;
+	    line-height: 24px;
+	    
+	}
+.from-both-box .remarksInput{
+	width: 460px;
+	height: 100px;
+	border: 1px solid #cccccc;
+	float: left;
+	outline: none;
+    text-indent: 5px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--用户管理模板-->
+				<div class="user-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+							<div class="search-from" style="max-width:1390px">
+								<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">用户名</div>
+											<div class="input-text">
+												<input id="userName" class="input" placeholder="请输入用户名" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">手机号</div>
+											<div class="input-text">
+												<input id="mobilePhone" class="input" placeholder="请输入手机号" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">企业用户类型</div>
+											<div class="input-text">
+												<select id="enterpriseUserType" class="input">
+													<option value="">请选择</option>
+													<option value="2">企业司机</option>
+													<option value="3">企业普通用户</option>
+												</select>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">启用状态</div>
+											<div class="input-text">
+												<select id="isAvailable" class="input">
+													<option value="">请选择</option>
+													<option value="1">启用</option>
+													<option value="0">停用</option>
+												</select>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">注销状态</div>
+											<div class="input-text">
+												<select id="userState" class="input">
+													<option value="">请选择</option>
+													<option value="0">未注销</option>
+													<option value="1">已注销</option>
+												</select>
+											</div>
+										</div>
+										
+										<div class="search-box">
+											<div class="input-lable">真实姓名</div>
+											<div class="input-text">
+												<input id="realName" class="input" placeholder="请输入真实姓名" type="text" />
+											</div>
+										</div>
+										
+										<div class="search-box" style="width:320px;">
+						            		 
+						          		</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchUserInfo(1)">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">
+						<div class="row">	
+							<div class="operation-tab row">
+								<@shiro.hasPermission name="basicInfo:user:create">
+					      		<button class="operation-button operation-blue" onclick="addOrEditEnterpriseUserInfoPage()">
+									<div class="add-icon"></div>
+									<div class="operation-text">新增普通员工</div>
+								</button>
+								</@shiro.hasPermission>
+<!-- 								<button class="operation-button operation-blue" onclick="addOrEditDriverInfoPage()"> -->
+<!-- 									<div class="add-icon"></div> -->
+<!-- 									<div class="operation-text">新增企业司机</div> -->
+<!-- 								</button> -->
+								<button class="operation-button operation-blue" onclick="operateCheckedUser(1)">
+									<div class="enable-icon"></div>
+									<div class="operation-text">启用</div>
+								</button>
+								<button class="operation-button operation-blue" onclick="operateCheckedUser(2)">
+									<div class="disable-icon"></div>
+									<div class="operation-text">停用</div>
+								</button>
+								<button class="operation-button operation-blue" onclick="operateCheckedUser(3)">
+									<div class="logout-icon"></div>
+									<div class="operation-text">注销</div>
+								</button>
+								<button class="operation-button operation-blue" data-toggle="modal" data-target="#resetPwdModal" onclick="resetCheckedPwdPre()">
+									<div class="password-reset-icon"></div>
+									<div class="operation-text">密码重置</div>
+								</button>
+							</div>
+						</div>
+						<div id="search-user-info" class="panel-table">
+						</div>
+					</div>
+					<!-- 重置密码模板 -->
+					<div class="modal fade" id="passwordReset" tabindex="0" role="dialog" aria-labelledby="resetPwdModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+					    	<div class="modal-content">
+						      	<div class="modal-header">
+						        	<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						        	<h4 class="modal-title" id="resetPwdModalLabel">密码重置</h4>
+						      	</div>
+						      	<div class="modal-body">
+						         	<div class="model-from">
+						            	<div class="group-box">
+						              	<div class="input-lable"><span>*</span>新密码：</div>
+						              	<div class="input-text">
+						                	<input id="new_password" class="input" placeholder="请输入新密码" type="password" />
+						              	</div>
+						            	</div>
+						            <div class="group-box">
+						              	<div class="input-lable"><span>*</span>确认密码：</div>
+						              	<div class="input-text">
+						                	<input id="re_new_password" class="input" placeholder="请输入确认密码" type="password" />
+						              	</div>
+						            </div>
+						            <input type="hidden" id="hidden_user_info_ids">
+						          </div>
+						      	</div>
+						      	<div class="modal-footer">
+							        <button class="save-button" onClick="resetPassword()">保存</button>
+							        <button class="close-button" data-dismiss="modal">取消</button>
+						      	</div>
+					    	</div>
+					  	</div>
+					</div>
+					<!-- 新增/编辑司机 -->
+					<div id="show_driver_info"></div>
+					<!-- 维护司机 -->
+					<div id="show_ownDriver_info"></div>
+					<!-- 新增/编辑普通员工 -->
+					<div id="show_enterprise_user_info"></div>
+					<div class="panel-pagination">
+				        <div class="panel-num" id="panel-num">搜索相关结果共0条</div>
+				        <div class="pagination-list"></div>
+				        <div class="pagination-input">到
+				          <input type="text" />页</div>
+				        <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			      	</div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/user/userInfoManage.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+</html>

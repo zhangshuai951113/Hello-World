@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>有价券退还信息</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    
+			<div class="panel">	
+			    <div class="panel-table">
+			    <input type="hidden" name="couponInfoId" value=${couponInfoId} id="couponInfoId" >
+			      <table class="table-bule">
+			        <thead>
+			          <tr class="table-title">
+			            <th>领用单号</th>
+			            <th>有价券编号</th>
+			            <th>卡号</th>
+			            <th>有价劵所属机构</th>
+			            <th>退还金额</th>
+			            <th>备注</th>
+			            <th>领用人</th>
+			            <th>领用时间</th>
+			            <th>创建人</th>
+			            <th>创建日期</th>
+			          </tr>
+			        </thead>
+			        <tbody id="couponRebackTableList">
+			        </tbody>
+			      </table>
+			    </div>
+			    <div class="panel-pagination">
+			      <div class="panel-num" id="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			    </div>
+			    <div class="from-both-box">
+					<div class="button-box">
+		            	<button class="button"  onclick="returnCouponInfo()">返回</button>
+					</div>
+		    	</div>
+			</div>
+		    <main class="main">
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/coupon/couponRebackInfoOperate.js"></script>
+</html>

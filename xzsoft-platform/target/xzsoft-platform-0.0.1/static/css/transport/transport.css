@@ -1,0 +1,35 @@
+ 
+  .search-select-list {
+    background-image: url('../../images/nav/arrow-down.png');
+    background-repeat: no-repeat;
+    background-position: 200px;
+    background-size: 10px;
+    width: 218px;
+    border: 1px solid #cccccc;
+    height: 26px;
+    line-height: 24px;
+    float: left;
+    position: relative;
+    padding: 0 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #fff;
+    text-align: left;
+}
+.ht-textarea-text {
+     min-height: 90px;
+    height: auto;
+    float: left;
+    width: 218px;
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 4px 4px;
+    font-size: 12px;
+}
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+    width: 100%;
+    height: 8px;
+    margin: 20px auto;
+}

@@ -1,0 +1,177 @@
+<!-- 新增/修改发票模板-->
+<div id="invoice-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="InvoiceModalLabel" aria-hidden="true" style="display: block">
+	  	<div class="modal-dialog modal-dialog-both">
+	    	<div class="modal-content" style="width: 801px;">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close invoice-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="InvoiceModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+		        	<form id="invoice_info_form">
+		        		<input id="hidden_invoice_info_id" type="hidden" name="invoiceInfoPo.id" value="${invoiceInfoPo.id}">
+		        		<input id="hidden_invoice_status" type="hidden" name="invoiceInfoPo.invoiceStatus" value="${invoiceInfoPo.invoiceStatus}">
+		        		<input id="hidden_no_amount"type="hidden" name="updateNoAmount" value="${noAmount}"/>
+		        		<input id="hidden_confirm_price"type="hidden" name="updateConfirmPrice" value="${confirmPrice}"/>
+		          		<div class="from-both-box">
+		            		<div class="group-textarea">
+				              	<div class="input-lable"><span>*</span>发票号码：</div>
+				              	<div class="textarea-text">
+				                	<textarea id="invoice_code" name="invoiceInfoPo.invoiceCode" class="required" placeholder="请输入发票号码">${invoiceInfoPo.invoiceCode}</textarea>
+				              	</div>
+				            </div>
+		            		<div class="group-box" >
+		              			<div class="input-lable"><span>*</span>发票编号：</div>
+		              			<div class="input-text">
+		                			<input id="invoice_id" name="invoiceInfoPo.invoiceId" class="input" readonly="readonly" style="background:#eee" type="text" value="${invoiceInfoPo.invoiceId}"/>
+		              			</div>
+		            		</div>
+		            		<div class="group-box">
+				              	<div class="input-lable"><span>*</span>对账单编号：</div>
+				              	<div class="input-text">
+				                	<input id="account_check_id" name="invoiceInfoPo.accountCheckIds" class="input" placeholder="请输入对账单编号" type="text" value="${invoiceInfoPo.accountCheckIds}" onclick="searchAccountCheck();"/>
+				                	<input id="confirm_price" name="invoiceDetailInfoPo.confirmPrice" class="input" type="hidden" value="${invoiceDetailInfoPo.confirmPrice}"/>
+				                	<input id="confirm_arrive_tonnage" name="invoiceDetailInfoPo.confirmArriveTonnage" class="input" type="hidden" value="${invoiceDetailInfoPo.confirmArriveTonnage}"/>
+				                	<input id="confirm_loss_tonnage" name="invoiceDetailInfoPo.confirmLossTonnage" class="input" type="hidden" value="${invoiceDetailInfoPo.confirmLossTonnage}"/>
+				                	<input id="confirm_out_car" name="invoiceDetailInfoPo.confirmOutCar" class="input" type="hidden" value="${invoiceDetailInfoPo.confirmOutCar}"/>
+				                	<input id="confirm_forwarding_tonnage" name="invoiceDetailInfoPo.confirmForwardingTonnage" class="input" type="hidden" value="${invoiceDetailInfoPo.confirmForwardingTonnage}"/>
+				                	<input id="loss_difference" name="invoiceDetailInfoPo.lossDifference" class="input" type="hidden" value="${invoiceDetailInfoPo.lossDifference}"/>
+				                	<input id="other_difference" name="invoiceDetailInfoPo.otherDifference" class="input" type="hidden" value="${invoiceDetailInfoPo.otherDifference}"/>
+				                	<input id="income_tax_rate" name="invoiceDetailInfoPo.incomeTaxRate" class="input" type="hidden" value="${invoiceDetailInfoPo.incomeTaxRate}"/>
+				                	<input id="difference_income" name="invoiceDetailInfoPo.differenceIncome" class="input" type="hidden" value="${invoiceDetailInfoPo.differenceIncome}"/>
+				                	<input id="receivable_total" name="invoiceDetailInfoPo.receivableTotal" class="input" type="hidden" value="${invoiceDetailInfoPo.receivableTotal}"/>
+				                	<input id="payable_total" name="invoiceDetailInfoPo.payableTotal" class="input" type="hidden" value="${invoiceDetailInfoPo.payableTotal}"/>
+				                	<input id="proxy_invoice_total" name="invoiceDetailInfoPo.proxyInvoiceTotal" class="input" type="hidden" value="${invoiceDetailInfoPo.proxyInvoiceTotal}"/>
+				                	<input id="out_car" name="invoiceDetailInfoPo.outCar" class="input" type="hidden" value="${invoiceDetailInfoPo.outCar}"/>
+				                	<input id="documents_total" name="invoiceDetailInfoPo.documentsTotal" class="input" type="hidden" value="${invoiceDetailInfoPo.documentsTotal}"/>
+				                	<input id="already_amount" name="invoiceDetailInfoPo.alreadyAmount" class="input" type="hidden" value="${invoiceDetailInfoPo.alreadyAmount}"/>
+				                	<input id="no_amount" name="invoiceDetailInfoPo.noAmount" class="input" type="hidden" value="${invoiceDetailInfoPo.noAmount}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">购买方：</div>
+				              	<div class="input-text">
+				                	<input id="purchaser" name="invoiceInfoPo.purchaser" class="input" placeholder="请输入购买方" type="text" value="${invoiceInfoPo.purchaser}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">购买方纳税识别号：</div>
+				              	<div class="input-text">
+				                	<input id="purchaser_tax_distinguish_id" name="invoiceInfoPo.purchaserTaxDistinguishId" class="input" placeholder="请输入购买方纳税识别号" type="text" value="${invoiceInfoPo.purchaserTaxDistinguishId}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">发货人：</div>
+				              	<div class="input-text">
+				                	<input id="forwarding" name="invoiceInfoPo.forwarding" class="input" placeholder="请输入发货人" type="text" value="${invoiceInfoPo.forwarding}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">发货人纳税识别号：</div>
+				              	<div class="input-text">
+				                	<input id="forwarding_tax_distinguish_id" name="invoiceInfoPo.forwardingTaxDistinguishId" class="input" placeholder="请输入发货人纳税识别号" type="text" value="${invoiceInfoPo.forwardingTaxDistinguishId}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>销售方：</div>
+				              	<div class="input-text form-item">
+				                	<input id="sales" name="invoiceInfoPo.sales" class="input required" placeholder="请输入销售方" type="text" value="${invoiceInfoPo.sales}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>销售方纳税识别号：</div>
+				              	<div class="input-text form-item">
+				                	<input id="sales_tax_distinguish_id" name="invoiceInfoPo.salesTaxDistinguishId" class="input required" placeholder="请输入销售方纳税识别号" type="text" value="${invoiceInfoPo.salesTaxDistinguishId}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>数量（重量）：</div>
+				              	<div class="input-text form-item">
+				                	<input id="quantity" name="invoiceInfoPo.quantity" class="input required" placeholder="请输入数量（重量）" type="text" value="${invoiceInfoPo.quantity}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>其他费用：</div>
+				              	<div class="input-text form-item">
+				                	<input id="other_price" name="invoiceInfoPo.otherPrice" class="input required" placeholder="请输入其他费用" type="text" value="${invoiceInfoPo.otherPrice}" onkeyup="totalPriceFun()"/>
+				              	</div>
+				            </div>
+		          		</div>
+			          	<div class="from-both-box">
+			          		<div class="group-box">
+		              			<div class="input-lable"><span>*</span>项目名称：</div>
+		              			<div class="input-text">
+		              				<input id="project_info_name" class="input" placeholder="请输入项目名称" type="text" value="${projectInfoName}" onclick="searchProject();"/>
+		                			<input id="project_info_id" name="invoiceInfoPo.projectInfoId" class="input" type="hidden" value="${invoiceInfoPo.projectInfoId}"/>
+		              			</div>
+		            		</div>
+		            		<div class="group-box">
+		              			<div class="input-lable"><span>*</span>客户名称：</div>
+		              			<div class="input-text">
+		                		    <input id="customer_name"class="input" placeholder="请输入客户名称" type="text" value="${customerName}" onclick="searchCustomer()"/>
+		                			<input id="customer_id" name="invoiceInfoPo.customerId" class="input" type="hidden" value="${invoiceInfoPo.customerId}"/>
+		              			</div>
+		            		</div>
+		            		
+		            		<div class="group-box">
+				              	<div class="input-lable"><span>*</span>发票分类：</div>
+				              	<div class="input-text">
+					                <select id="invoice_classify" name="invoiceInfoPo.invoiceClassify" class="input" >
+					                  	<option value="1" <#if invoiceInfoPo?exists && invoiceInfoPo.invoiceClassify==1>selected</#if>>成本发票</option>
+					                  	<option value="2" <#if invoiceInfoPo?exists && invoiceInfoPo.invoiceClassify==2>selected</#if>>收入发票</option>
+					                </select>
+				              	</div>
+			            	</div>
+			          	</div>
+			          	
+			        <!-- <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable"><span>*</span>发票附件：</div>
+							<div class="input-img">
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="invoiceImage" id="invoiceImage">
+								<input type="hidden" id="invoiceImage" name="invoiceImage">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable"><span>*</span>身份证反面附件：</div>
+							<div class="input-img">
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="idCardImageCopy" id="myIdCardImageCopy">
+								<input type="hidden" id="idCardImageCopy" name="DriverInfo.idCardImgCopy">
+							</div>
+					</div>
+			      	</div> -->
+			          	
+			          	<div class="from-both-box">
+		            		<div class="group-textarea">
+		              			<div class="input-lable">备注：</div>
+		              			<div class="textarea-text">
+		                			<textarea id="remarks" name="invoiceInfoPo.remarks" placeholder="请填写备注">${invoiceInfoPo.remarks}</textarea>
+		              			</div>
+		            		</div>
+		          		</div>
+		          		<div class="from-both-box">
+		          		 <div class="group-box">
+			              	<div class="input-lable"><span>*</span>运费小计：</div>
+			              	<div class="input-text">
+			                	<input id="transport_price_subtotal" name="invoiceInfoPo.transportPriceSubtotal" class="input" placeholder="0" type="text" value="${invoiceInfoPo.transportPriceSubtotal}" onkeyup="totalPriceFun()"/>
+			              	</div>
+			            </div>
+			            <div class="group-box">
+			              	<div class="input-lable"><span>*</span>合计金额：</div>
+			              	<div class="input-text">
+			                	<input id="total_price" name="invoiceInfoPo.totalPrice" class="input" readonly="readonly" style="background:#eee" placeholder="0" type="text" value="${invoiceInfoPo.totalPrice}"/>
+			              	</div>
+			            </div>
+		          		</div>
+			          </form>
+		        	</div>
+	      		
+		      	<div class="modal-footer">
+		        	<button class="save-button" onclick="addOrUpdateInvoiceInfo()">保存</button>
+		        	<button class="close-button invoice-opt-close" data-dismiss="modal">取消</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

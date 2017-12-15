@@ -1,0 +1,176 @@
+<div id="re_order_settlement_info" class="panel-table row">
+    <div class="iscroll">
+      <table style="min-width:3000px" class="table-bule table-ellipsis" id="tableDrag">
+        <thead>
+          <tr class="table-title">
+            <th style="width:40px;">
+              <label class="i-checks">
+                <input class="all-settlement-check" type="checkbox">
+              </label>
+            </th>
+            <th>结算单状态</th>
+            <th>是否挂账红冲</th>
+            <th>是否对账</th>
+            <th>是否调差</th>
+            <th>结算单号</th>
+            <th>运单号</th>
+            <th>车牌号码</th>
+            <th>货物</th>
+            <th>发货单位</th>
+            <th>到货单位</th>
+            <th>零散货物</th>
+            <th>委托方</th>
+            <th>承运方</th>
+            <th>司机名称</th>
+            <th>发货单号</th>
+            <th>到货单号</th>
+            <th>发货时间</th>
+            <th>到货时间</th>
+            <th>发货吨位</th>
+            <th>毛重吨位</th>
+            <th>到货吨位</th>
+            <th>线路</th>
+            <th>组织部门</th>
+            <th>是否包车</th>
+            <th>客户运费</th>
+            <th>结算吨位</th>
+            <th>扣损吨位</th>
+            <th>扣款吨位</th>
+            <th>当前运价</th>
+            <th>承运方运费</th>
+            <th>应付运费</th>
+            <th>代理方</th>
+            <th>运费成本</th>
+            <th>运费进项税</th>
+            <th>进项税</th>
+            <th>本次付款</th>
+            <th>工本费</th>
+            <th>代扣税</th>
+            <th>预付款</th>
+            <th>单车保险</th>
+            <th>扣损单价</th>
+            <th>其他扣款</th>
+            <th>制单人</th>
+            <th>制单日期</th>
+            <th>核算主体</th>
+          </tr>
+        </thead>
+        <tbody>
+ 			<#if settlementInfoPager?exists && settlementInfoPager.rows?exists>
+	 			<#list settlementInfoPager.rows as settlementInfo>
+		   			<tr class="table-body ">
+		     			<td style="width:40px;">
+		       				<label class="i-checks">
+	           					<input type="checkbox" class="re_order_settlement_check" data-id="${settlementInfo.id}" data-waybillInfoId="${settlementInfo.waybillInfoId}" 
+	           					data-rootWaybillInfoId="${settlementInfo.rootWaybillInfoId}" data-settlementStatus="${settlementInfo.settlementStatus}" data-scatteredGoods="${settlementInfo.scatteredGoods}" 
+	           					data-isWriteOff="${settlementInfo.isWriteOff}" data-lineInfoId="${settlementInfo.lineInfoId}" data-endPoints="${settlementInfo.endPoints}"><i></i>
+	         				</label>
+		     			</td>
+				        <td>
+				        	<#if settlementInfo.settlementStatus?exists>
+				        		<#if settlementInfo.settlementStatus==1>
+				        			起草
+				        		<#elseif settlementInfo.settlementStatus==2>
+				        			待复核
+				        		<#elseif settlementInfo.settlementStatus==3>
+				        			复核通过
+				        		<#elseif settlementInfo.settlementStatus==4>
+				        			<a style="color:red;text-decoration:none;" onclick="viewAuditLog(${settlementInfo.id})">驳回</a>
+				        		</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+				        </td>
+				        <td>
+				        	<#if settlementInfo.isWriteOff?exists>
+				        		<#if settlementInfo.isWriteOff==0>
+				        			否
+				        		<#elseif settlementInfo.isWriteOff==1>
+				        			是
+				        		</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+				        </td>
+				        <td>
+				        	<#if settlementInfo.isAccount?exists>
+				        		<#if settlementInfo.isAccount==0>
+				        			否
+				        		<#elseif settlementInfo.isAccount==1>
+				        			是
+				        		</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+				        </td>
+				        <td>
+				        	<#if settlementInfo.isRevise?exists>
+				        		<#if settlementInfo.isRevise==0>
+				        			否
+				        		<#elseif settlementInfo.isRevise==1>
+				        			是
+				        		</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+				        </td>
+				        <td>${(settlementInfo.settlementId)!''}</td>
+				        <td><a style="color:red;text-decoration:none;" onclick="viewAttachment(${settlementInfo.rootWaybillInfoId})">${(settlementInfo.rootWaybillId)!''}</a></td>
+				        <td>${(settlementInfo.carCode)!''}</td>
+				        <td>${(settlementInfo.goodsName)!''}</td>
+				        <td>${(settlementInfo.forwardingUnit)!''}</td>
+		   				<td>${(settlementInfo.consignee)!''}</td>
+				        <td>${(settlementInfo.scatteredGoods)!''}</td>
+				        <td>${(settlementInfo.entrustName)!''}</td>
+				        <td>${(settlementInfo.shipperName)!''}</td>
+				        <td>${(settlementInfo.driverName)!''}</td>
+				        <td>${(settlementInfo.forwardingId)!''}</td>
+				        <td>${(settlementInfo.arriveId)!''}</td>
+				        <td><#if settlementInfo.forwardingTime?exists>${(settlementInfo.forwardingTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+				        <td><#if settlementInfo.arriveTime?exists>${(settlementInfo.arriveTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+		   				<td>${(settlementInfo.forwardingTonnage)!''}</td>
+		   				<td>${(settlementInfo.roughWeightTonnage)!''}</td>
+		   				<td>${(settlementInfo.arriveTonnage)!''}</td>
+		   				<td>${(settlementInfo.lineName)!''}</td>
+		   				<td>${(settlementInfo.projectName)!''}</td>
+		   				<td>
+		   					<#if settlementInfo.isChartered?exists>
+		   						<#if settlementInfo.isChartered==0>
+		   							否
+		   						<#else>
+		   							是
+		   						</#if>
+		   					</#if>
+		   				</td>
+		   				<td>${(settlementInfo.customerPrice)!''}</td>
+		   				<td>${(settlementInfo.settlementTonnage)!''}</td>
+		   				<td>${(settlementInfo.lossTonnage)!''}</td>
+		   				<td>${(settlementInfo.deductionTonnage)!''}</td>
+		   				<td>${(settlementInfo.currentTransportPrice)!''}</td>
+		   				<td>${(settlementInfo.shipperPrice)!''}</td>
+		   				<td>${(settlementInfo.payablePrice)!''}</td>
+		   				<td>${(settlementInfo.proxy)!''}</td>
+		   				<td>${(settlementInfo.transportPriceCost)!''}</td>
+		   				<td>${(settlementInfo.transportPriceIncomeTax)!''}</td>
+		   				<td>${(settlementInfo.incomeTax)!''}</td>
+		   				<td>${(settlementInfo.thisPayPrice)!''}</td>
+		   				<td>${(settlementInfo.costPrice)!''}</td>
+		   				<td>${(settlementInfo.withholdingTax)!''}</td>
+		   				<td>${(settlementInfo.advancePrice)!''}</td>
+		   				<td>${(settlementInfo.singleCarInsurance)!''}</td>
+		   				<td>${(settlementInfo.deductionUnitPrice)!''}</td>
+		   				<td>${(settlementInfo.otherPrice)!''}</td>
+		   				<td>${(settlementInfo.userName)!''}</td>
+		   				<td>${(settlementInfo.makeTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+		   				<td>${(settlementInfo.accountingEntityName)!''}</td>
+		   			</tr>
+	 			</#list>
+   			</#if>
+ 		</tbody>
+      </table>
+    </div>
+      <input id="settlement" class="input" type="hidden" value="1"/>
+    <div class="panel-pagination">
+      ${settlementInfoPager.pageHtml}
+    </div>
+</div>

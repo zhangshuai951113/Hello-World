@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>结算挂账管理</title>
+		<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css"/>
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/select-line.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css"/>
+<link rel="stylesheet" href="${basePath}/static/css/settlementInfo/settlement.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/reset.css" type="text/css" />
+
+<style>
+	.first{
+	 float:left;
+	}
+	.second{
+	float:left; 
+	}
+</style>
+
+</head>
+	<body class="app-body" onload = "showSettlementInfo(1)">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+	    	<main class="main">
+<div class="search-panel row">
+  <div class="search-from">
+    <form onsubmit="return false">
+      <div class="search-row-box">
+        <div class="both-row row">
+          <div class="search-box">
+            <div class="input-lable">委托方</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入委托方" type="text" id = "mhentrustName"/>
+            </div>
+          </div>
+           <div class="search-box">
+            <div class="input-lable">货物</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入货物名称" type="text" id = "mhgoodsName"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">零散货物</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入零散货物" type="text" id = "mhscatteredGoods"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">车牌号码</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入车牌号码" type="text" id = "mhcarCode"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">发货单号</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入发货单号" type="text" id = "mhforwardingId"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">到货单号</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入到货单号" type="text" id="mharriveId"/>
+            </div>
+          </div>
+        <!--   <div class="search-box">
+            <div class="input-lable">线路起点</div>
+            <div class="address-input">
+              <input class="input" type="hidden" />
+              <div class="select-address" id="startAddress"></div>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">线路终点</div>
+            <div class="address-input">
+              <input class="input" type="hidden" />
+              <div class="select-address" id="endAddress"></div>
+            </div>
+          </div> -->
+         <!--  <div class="search-box">
+            <div class="input-lable">货物</div>
+            <div class="search-select-list" id="selectGoods" onclick="goodsSelect()"></div>
+            <input class="input" type="hidden">
+          </div> -->
+          <div class="search-box">
+            <div class="input-lable">组织部门</div>
+            <div class="search-select-list" id="selectOrg" onclick="orgSelect(1)"></div>
+            <input class="input" type="hidden">
+            <input class="input" type="hidden" id = "projectId">
+          </div>
+          <div class="search-box">
+            <div class="input-lable">核算主体</div>
+            <div class="search-select-list" id="selectAcc" onclick="orgSelectAccoun(1)"></div>
+            <input class="input" type="hidden">
+            <input class="input" type="hidden" id = "accId">
+          </div>
+          <div class="search-box">
+            <div class="input-lable">结算单状态</div>
+            <div class="input-text">
+              <select class="input" id = "mhsettlementStatus">
+                <option value="">请选择</option>
+                <option value="1">起草</option>
+                <option value="2">待审核</option>
+                <option value="3">审核通过</option>
+                <option value="4">审核驳回</option>
+              </select>
+            </div>
+          </div>
+            <div class="search-box">
+            <div class="input-lable">结算单状态</div>
+            <div class="input-text">
+              <select class="input" id = "mhsettlementStatus">
+                <option value="">请选择</option>
+                <option value="1">起草</option>
+                <option value="2">待审核</option>
+                <option value="3">审核通过</option>
+                <option value="4">审核驳回</option>
+              </select>
+            </div>
+          </div>
+            <div class="search-box">
+            <div class="input-lable">是否对账</div>
+            <div class="input-text">
+              <select class="input" id = "mhisAccount">
+                <option value="">请选择</option>
+                <option value="0">未对账</option>
+                <option value="1">已对账</option>
+              </select>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">是否开票</div>
+            <div class="input-text">
+              <select class="input" id = "mhisInvoice">
+                <option value="">请选择</option>
+                <option value="0">未开票</option>
+                <option value="1">已开票</option>
+              </select>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">发货日期</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mhforwardingTime" />
+            </div>
+            <div class="input-line">—</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mhforwardingTime1" />
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">回单日期</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mhmakeTime" />
+            </div>
+            <div class="input-line">—</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mhmakeTime1" />
+            </div>
+          </div>
+          
+          <div class="search-box">
+            <div class="input-lable">备注</div>
+            <div class="search-select-list" id="mhremarks" ></div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">到货日期</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mharriveTime" />
+            </div>
+            <div class="input-line">—</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mharriveTime1" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-button-box">
+        <button class="search-button" id = "searchSettlementInfo">
+          <div class="search-icon"></div>
+          <div class="text">查询</div>
+        </button>
+        <button class="search-button" type="reset" onclick="resetEmpty()">
+          <div class="reset-icon"></div>
+          <div class="text">重置</div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="panel">
+  <div class="row">
+    <div class="operation-tab row">
+    <@shiro.hasPermission name="settle:debts:create">
+     <button class="operation-button operation-blue" id = "goAddSettlement">
+        <div class="add-icon"></div>
+        <div class="operation-text">新增</div>
+      </button>
+         </@shiro.hasPermission>
+	 <@shiro.hasPermission name="settle:debts:update">
+      <button class="operation-button operation-blue" id= "goEditSettlement">
+        <div class="modify-icon"></div>
+        <div class="operation-text">修改</div>
+      </button>
+      </@shiro.hasPermission>
+	 <@shiro.hasPermission name="settle:debts:delete">
+      <button class="operation-button operation-blue" id = "delSettlementInfo">
+        <div class="delete-icon"></div>
+        <div class="operation-text">删除</div>
+      </button>
+      </@shiro.hasPermission>
+	 <@shiro.hasPermission name="settle:debts:submit">
+       <button class="operation-button operation-blue" id = "tijiaoButton">
+        <div class="submit-icon"></div>
+        <div class="operation-text">提交审核</div>
+      </button>
+      </@shiro.hasPermission>
+	 <@shiro.hasPermission name="settle:debts:review">
+      <button class="operation-button operation-blue" id = "audit">
+        <div class="audit-icon"></div>
+        <div class="operation-text">审核</div>
+      </button>
+      </@shiro.hasPermission>
+	 <@shiro.hasPermission name="settle:debts:adjustPay">
+      <button class="operation-button operation-blue" id = "adjustment">
+        <div class="difference-icon"></div>
+        <div class="operation-text">应付调差</div>
+      </button>
+      </@shiro.hasPermission>
+	 <@shiro.hasPermission name="settle:debts:debtsRed">
+      <button class="operation-button operation-blue" id = "lossesRed">
+        <div class="up-account-icon"></div>
+        <div class="operation-text">挂账红冲</div>
+      </button>
+      </@shiro.hasPermission>
+	 <@shiro.hasPermission name="settle:debts:export">
+      <button class="operation-button operation-blue" id="exportSettlement">
+        <div class="export-icon"></div>
+        <div class="operation-text">导出</div>
+      </button>
+      </@shiro.hasPermission>
+      
+      <@shiro.hasPermission name="settle:debts:EASexport">
+      <button class="operation-button operation-blue" id="EASexportSettlement">
+        <div class="export-icon"></div>
+        <div class="operation-text">EAS导出</div>
+      </button>
+      </@shiro.hasPermission>
+      
+	 <@shiro.hasPermission name="settle:debts:print">
+      <button class="operation-button operation-blue" onclick = "myPrint()">
+        <div class="print-icon"></div>
+        <div class="operation-text">直接打印</div>
+      </button>
+      </@shiro.hasPermission>
+      <@shiro.hasPermission name="settle:debts:printView">
+      <button class="operation-button operation-blue" onclick = "myPreview()">
+        <div class="print-icon"></div>
+        <div class="operation-text">打印预览</div>
+      </button>
+      </@shiro.hasPermission>
+    </div>
+  </div>
+  <div class="panel-table row">
+    <div class="iscroll">
+      <table style="min-width:3000px" class="table-bule table-ellipsis" id="tableDrag">
+        <thead>
+          <tr class="table-title">
+            <th style="width:40px;">
+              <label class="i-checks">
+                <input class="all-settlement-check" type="checkbox">
+              </label>
+            </th>
+            <th style= "width:90px;">结算单状态</th>
+            <th style= "width:90px;">车牌号码</th>
+            <th style= "width:130px;">结算单编号</th>
+            <th style= "width:130px;">运单号</th>
+            <th style= "width:80px;">是否对账</th>
+            <th style= "width:80px;">是否开票</th>
+            <th style= "width:80px;">是否红冲</th>
+            <th style= "width:80px;">是否调差</th>
+            <th style= "width:80px;">打印次数</th>
+            <th>货物</th>
+            <th style= "width:80px;">零散货物</th>
+            <th style= "width:80px;">委托方</th>
+            <th style= "width:110px;">发货时间</th>
+            <th style= "width:110px;">到货时间</th>
+            <th style= "width:80px;">发货单位</th>
+            <th style= "width:80px;">到货单位</th>
+            <th style= "width:80px;">发货吨位</th>
+            <th style= "width:80px;">毛重吨位</th>
+            <th style= "width:80px;">到货吨位</th>
+           <!--  <th>线路起点</th>
+            <th>线路终点</th> -->
+            <th style= "width:80px;">线路</th>
+            <th style= "width:80px;">承运方</th>
+            <th style= "width:80px;">组织部门</th>
+            <th style= "width:80px;">是否包车</th>
+            <th style= "width:80px;">客户运费</th>
+            <th style= "width:80px;">结算吨位</th>
+            <th style= "width:80px;">扣损吨位</th>
+            <th style= "width:80px;">扣款吨位</th>
+            <th style= "width:80px;">当前运价</th>
+            <th style= "width:90px;">承运方运费</th>
+            <th style= "width:80px;">应付运费</th>
+            <th style= "width:80px;">代理方</th>
+            <th style= "width:80px;">运费成本</th>
+            <th style= "width:80px;">运费进项税</th>
+            <th style= "width:80px;">进项税</th>
+            <th style= "width:80px;">本次付款</th>
+            <th style= "width:80px;">工本费</th>
+            <th style= "width:80px;">代扣税</th>
+            <th style= "width:80px;">预付款</th>
+            <th style= "width:80px;">单车保险</th>
+            <th style= "width:80px;">扣损单价</th>
+            <th style= "width:80px;">其他扣款</th>
+            <th style= "width:80px;">制单人</th>
+            <th style= "width:80px;">制单日期</th>
+            <th style= "width:80px;">核算主体</th>
+           
+          </tr>
+        </thead>
+        <tbody id = "allSettlementInfo">
+         <!--  <tr class="table-body">
+            <td>
+              <label class="i-checks">
+                <input class="sub-settlement-check" type="checkbox">
+              </label>
+            </td>
+            <td>结算单状态</td>
+            <td>车牌号码</td>
+            <td>货物</td>
+            <td>零散货物</td>
+            <td>委托方</td>
+            <td>发货时间</td>
+            <td>到货时间</td>
+            <td>发货吨位</td>
+            <td>毛重吨位</td>
+            <td>到货吨位</td>
+            <td>线路起点</td>
+            <td>线路终点</td>
+            <td>承运方</td>
+            <td>组织部门</td>
+            <td>是否包车</td>
+            <td>客户运费</td>
+            <td>结算吨位</td>
+            <td>扣损吨位</td>
+            <td>扣款吨位</td>
+            <td>当前运价</td>
+            <td>承运方运费</td>
+            <td>应付运费</td>
+            <td>代理方</td>
+            <td>运费成本</td>
+            <td>运费进项税</td>
+            <td>进项税</td>
+            <td>本次付款</td>
+            <td>工本费</td>
+            <td>代扣税</td>
+            <td>预付款</td>
+            <td>单车保险</td>
+            <td>扣损单价</td>
+            <td>其他扣款</td>
+            <td>制单人</td>
+            <td>制单日期</td>
+            <td>核算主体</td>
+            <td>发货单位</td>
+            <td>到货单位</td>
+          </tr>
+          <tr class="table-body ">
+            <td>
+              <label class="i-checks">
+                <input class="sub-settlement-check" type="checkbox">
+              </label>
+            </td>
+           <td>结算单状态</td>
+            <td>车牌号码</td>
+            <td>货物</td>
+            <td>零散货物</td>
+            <td>委托方</td>
+            <td>发货时间</td>
+            <td>到货时间</td>
+            <td>发货吨位</td>
+            <td>毛重吨位</td>
+            <td>到货吨位</td>
+            <td>线路起点</td>
+            <td>线路终点</td>
+            <td>承运方</td>
+            <td>组织部门</td>
+            <td>是否包车</td>
+            <td>客户运费</td>
+            <td>结算吨位</td>
+            <td>扣损吨位</td>
+            <td>扣款吨位</td>
+            <td>当前运价</td>
+            <td>承运方运费</td>
+            <td>应付运费</td>
+            <td>代理方</td>
+            <td>运费成本</td>
+            <td>运费进项税</td>
+            <td>进项税</td>
+            <td>本次付款</td>
+            <td>工本费</td>
+            <td>代扣税</td>
+            <td>预付款</td>
+            <td>单车保险</td>
+            <td>扣损单价</td>
+            <td>其他扣款</td>
+            <td>制单人</td>
+            <td>制单日期</td>
+            <td>核算主体</td>
+            <td>发货单位</td>
+            <td>到货单位</td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-pagination">
+      <div class="panel-num">搜索相关结果共<span id="settlementNum">0</span>条</div>
+      <div id="settlementPage" class="pagination-list"></div>
+      <div class="pagination-input">到<input type="text"/>页</div>
+      <div class="pagination-button" onclick="settlementPageSlect(this)">确定</div>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- 模态框 货物查询选择-->
+<div class="modal fade" id="goodsSelectModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          货物选择
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row">
+                <div class="search-box">
+                  <div class="input-lable">货物名称</div>
+                  <div class="input-text">
+                    <input class="input" placeholder="请输入货物名称" type="text" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search-button-box">
+              <button class="search-button">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-table row">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;"></th>
+                <th>货物编号</th>
+                <th>货物名称</th>
+                <th>物资类别</th>
+                <th>规格型号</th>
+                <th>计量单位</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                      <input data-id="1" data-name="货物名称" class="goods-check" type="checkbox">
+                    </label>
+                </td>
+                <td>货物编号</td>
+                <td>货物名称</td>
+                <td>物资类别</td>
+                <td>规格型号</td>
+                <td>计量单位</td>
+              </tr>
+              <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                      <input data-id="2" data-name="货物名称" class="goods-check" type="checkbox">
+                    </label>
+                </td>
+                <td>货物编号</td>
+                <td>货物名称</td>
+                <td>物资类别</td>
+                <td>规格型号</td>
+                <td>计量单位</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="panel-pagination">
+            <div class="panel-num">搜索相关结果共<span id="goodsNum">0</span>条</div>
+            <div id="goodsPage" class="pagination-list"></div>
+            <div class="pagination-input">到
+              <input type="text" />页</div>
+            <div class="pagination-button" onclick="goodsSlect(this)">确定</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectGoods()">保存</button>
+        <button class="close-button" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 模态框 组织部门查询选择-->
+<div class="modal fade" id="orgSelectModal" tabindex="-2" role="dialog">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          选择代机构
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row">
+                <div class="search-box">
+                  <div class="input-lable">组织名称</div>
+                  <div class="input-text">
+                    <input class="input" placeholder="请输入组织名称" type="text" id = "projectName"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search-button-box">
+              <button class="search-button" id = "searchProject">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-table row">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px">
+            <thead>
+              <!-- <tr class="table-title">
+                <th style="width:40px;">
+                </th>
+                <th>组织名称</th>
+                <th>当前版本号</th>
+                <th>联系人</th>
+                <th>联系地址</th>
+                <th>联系电话</th>
+              </tr> -->
+              <tr class="table-title">
+                <th style="width:40px;">
+                </th>
+                <th>项目编号</th>
+                <th>项目名称</th>
+                <th>组织机构编号</th>
+                <th>组织机构名称</th>
+              </tr>
+            </thead>
+            <tbody id = "projectTable">
+            <!--   <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                    <input data-id="1" data-name="组织名称" class="org-check" type="checkbox">
+                  </label>
+                </td>
+                <td>组织名称</td>
+                <td>所属机构</td>
+                <td>联系人</td>
+                <td>移动电话</td>
+              </tr>
+              <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                    <input data-id="2" data-name="组织名称" class="org-check"  type="checkbox">
+                  </label>
+                </td>
+                <td>组织名称</td>
+                <td>所属机构</td>
+                <td>联系人</td>
+                <td>移动电话</td>
+              </tr> -->
+            </tbody>
+          </table>
+          <div class="panel-pagination">
+            <div class="panel-num">搜索相关结果共<span id="orgNum">0</span>条</div>
+            <div id="orgPage" class="pagination-list"></div>
+            <div class="pagination-input">到
+              <input type="text" />页</div>
+            <div class="pagination-button" onclick="orgPageSlect(this)">确定</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectOrg()">保存</button>
+        <button class="close-button" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 模态框 核算主体查询选择-->
+<div class="modal fade" id="accSelectModal" tabindex="-2" role="dialog">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          选择代机构
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row">
+                <div class="search-box">
+                  <div class="input-lable">核算主体名称</div>
+                  <div class="input-text">
+                    <input class="input" placeholder="请输入组织名称" type="text" id = "orgName"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search-button-box">
+              <button class="search-button" id = "searchAccounting">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-table row">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;">
+                </th>
+                <th>组织名称</th>
+                <th>当前版本号</th>
+                <th>联系人</th>
+                <th>联系地址</th>
+                <th>联系电话</th>
+              </tr>
+            </thead>
+            <tbody id = "accouningTable">
+            <!--   <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                    <input data-id="1" data-name="组织名称" class="org-check" type="checkbox">
+                  </label>
+                </td>
+                <td>组织名称</td>
+                <td>所属机构</td>
+                <td>联系人</td>
+                <td>移动电话</td>
+              </tr>
+              <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                    <input data-id="2" data-name="组织名称" class="org-check"  type="checkbox">
+                  </label>
+                </td>
+                <td>组织名称</td>
+                <td>所属机构</td>
+                <td>联系人</td>
+                <td>移动电话</td>
+              </tr> -->
+            </tbody>
+          </table>
+          <div class="panel-pagination">
+            <div class="panel-num">搜索相关结果共<span id="accounNum">0</span>条</div>
+            <div id="accounPage" class="pagination-list"></div>
+            <div class="pagination-input">到
+              <input type="text" />页</div>
+            <div class="pagination-button" onclick="accounPageSlect(this)">确定</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectAcc()">保存</button>
+        <button class="close-button" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id = "differenceDiv" class="modal-open"></div>
+
+<!-- 打印页面 -->
+<input type="hidden" size="9.45" value="2400" id="W1"><input type="hidden" size="5.5" value="1400" id="H1">
+<div id="printBody1" class="print-body" style = "font-family:'yahei';">
+</div>
+<div id="printBody2" class="print-body" style = "font-family:'yahei';">
+</div>
+	<footer class="app-footer"></footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/LodopFuncs.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/settlementInfo/settlement_losses.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/settlementInfo/settlementINfoForPrint.js"></script>
+
+<script>
+</script>
+</html>

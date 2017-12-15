@@ -1,0 +1,91 @@
+.search-box .input-lable {
+	width: 56px;
+}
+
+.search-box .time-input {
+	width: 98px;
+}
+
+.search-box .money-input {
+	width: 80px;
+}
+
+.search-select-list {
+	background-image: url('../../images/nav/arrow-down.png');
+	background-repeat: no-repeat;
+	background-position: 200px;
+	background-size: 10px;
+	width: 218px;
+	border: 1px solid #cccccc;
+	height: 26px;
+	line-height: 26px;
+	float: left;
+	position: relative;
+	padding: 0 4px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	background-color: #fff;
+	text-align: left;
+}
+
+.ht-textarea-text {
+	min-height: 100px;
+	height: auto;
+	float: left;
+	width: 218px;
+	position: relative;
+	border: 1px solid #ccc;
+	padding: 4px 2px;
+}
+ 
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+	height: 12px;
+}
+
+.JCLRgrip {
+	top: 0;
+}
+
+.list-both {
+	border: 1px solid #cccccc;
+	width: 100%;
+}
+
+.list-both .list-box {
+	border-bottom: 1px solid #cccccc;
+	padding: 10px 5px;
+	margin: 0;
+	width: 100%;
+	line-height: 24px;
+	float: left;
+	font-size: 14px;
+}
+
+.list-both .list-box:last-child {
+	border-bottom: none;
+}
+
+.list-both .list-box .text-left {
+	color: #333333;
+	width: 100px;
+	text-align: right;
+	display: inline-block;
+}
+
+.list-both .list-box .text-right {
+	display: inline-block;
+	text-align: left;
+	color: #666666;
+}
+
+.list-both, .list-both .list-box:after {
+	display: table;
+	content: " ";
+	clear: both;
+}
+.panel-table {
+	width: 100%; 
+	overflow-x: scroll;
+	overflow-y: hidden;
+}

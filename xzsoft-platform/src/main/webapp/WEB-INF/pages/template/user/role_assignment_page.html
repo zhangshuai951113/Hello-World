@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>角色分配</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/shiro/bootstrap-table.css">
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css">
+<style type="text/css">
+.operation-button .confirm-icon{
+	margin-top: 7px;
+}
+.maincontent{
+	overflow-x: hidden;
+	width: 1110px;
+    margin: 0 auto;
+}
+table thead th{
+	background: #9dc6dd;
+	color: #fff;
+}
+.fixed-table-container thead th .th-inner, .fixed-table-container tbody td .th-inner{
+	padding: 4px;
+}
+.operation-button{
+	margin-left: 0;
+}
+</style>
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+  	<div class="main-body">
+   	<#include "../../common/common_menu.html" />
+    <!-- 内容 -->
+    <main class="main">
+	<div class="maincontent">
+		<div class="row">
+			<div class="col-md-5">
+				<div>
+					<table id="userTab" data-toggle="table" data-url="${basePath}/user/findUsers"
+						data-classes="table table-hover"
+						data-pagination="true" data-page-list="[5, 10, 20, 50]"
+						data-click-to-select="true" data-search="true"
+						data-toolbar="#custom-toolbar">
+						<thead>
+							<tr>
+								<th data-align="center" id='ids' data-radio="true"></th>
+								<th data-field="userName" data-align="center">用户名</th>
+								<th data-field="realName" data-align="center">用户名</th>
+								<th data-field="userRole" data-align="center" data-formatter="typeFormatter">用户类型</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			
+			<div class="col-md-7">
+				<div>
+					<table id="roleTab" data-toggle="table" data-url="${basePath}/role/findRoles"
+						data-classes="table table-hover"
+						data-pagination="true" data-page-list="[5, 10, 20, 50]"
+						data-click-to-select="true" data-single-select="true"
+						data-search="true">
+						<thead>
+							<tr>
+								<th data-align="center" data-checkbox="true"></th>
+								<th data-field="role" data-align="center">角色名称</th>
+								<th data-field="description" data-align="center">角色描述</th>
+								<th data-field="roleType" data-align="center" data-formatter="typeFormatter">角色类型</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="custom-toolbar">
+			<div>
+				<@shiro.hasPermission name="basicInfo:resource:user:update">
+				<button class="operation-button operation-blue" onclick="save();">
+			        <div class="confirm-icon"></div>
+			        <div class="operation-text">保存</div>
+		        </button>
+		        </@shiro.hasPermission>
+			</div>
+		</div>
+	</div>
+	</main>
+	</div>
+	<footer class="app-footer">
+	</footer>
+</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/shiro/jQuery.bootstrap.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/shiro/bootstrap-table.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/shiro/user.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>完善个体货主信息</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/individualOwner/main.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+	
+	</head>
+	<body class="app-body"> 
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<div class="panel">
+					<div class="panel-head">完善个体货主信息</div>
+			  		<div class="panel-body">
+			  			<form id="updateIndividualOwnerForm" onsubmit="return false">
+			    			<div class="from-body">
+			      				<div class="from-both-box">
+				        			<div class="group-box">
+					          			<div class="input-lable">用户名：</div>
+					          			<div class="text-content" id="userName"></div>
+				        			</div>
+				        			<div class="group-box">
+							          	<div class="input-lable">手机号：</div>
+							          	<div class="text-content" id="mobilePhone"></div>
+							        </div>
+			      				</div>
+						      	<div class="from-both-box">
+						        	<div class="group-box">
+						          		<div class="input-lable"><span>*</span>真实姓名：</div>
+						          		<div class="input-text">
+						            		<input class="input" id="realName"  name="IndividualOwnerPo.realName"  placeholder="请输入真实姓名" type="text" />
+						          		</div>
+						        	</div>
+						        	<div class="group-box">
+							          	 <div class="input-lable"><span>*</span>性别：</div>
+							          	<div class="input-text">
+								          	<select  class="input" id="sex" name="IndividualOwnerPo.sex">
+								          		<option value="1">男</option>
+								          		<option value="0">女</option>
+								          	</select>
+							          	</div>
+							        </div>
+						      	</div>
+			      				<div class="from-both-box">
+						        	<div class="group-box">
+						          		<div class="input-lable"><span>*</span>身份证号码：</div>
+						          		<div class="input-text">
+						            		<input class="input" id="idCard"   name="IndividualOwnerPo.idCard"  placeholder="请输入身份证号码"  type="text"  value="${individualOwner.idCard}"/>
+						          		</div>
+						        	</div>
+				        			<div class="group-box">
+							          	<div class="input-lable"><span>*</span>居住地址：</div>
+							          	<div class="input-text" >
+							            	<input class="input" id="address"  name="IndividualOwnerPo.address" placeholder="请输入现居住地址" type="text"/>
+							          	</div>
+				        			</div>
+			      				</div>
+						      	<div class="from-both-box">
+						        	<div class="group-box">
+						          		<div class="input-lable"><span>*</span>开户行： </div>
+						          		<div class="input-text">
+						            		<input class="input" id="openingBank"  name="IndividualOwnerPo.openingBank"  placeholder="请输入开户行" type="text"/>
+						          		</div>
+						        	</div>
+						        	<div class="group-box">
+						          		<div class="input-lable"><span>*</span>开户名：</div>
+						          		<div class="input-text">
+						            		<input class="input" id="accountName"  name="IndividualOwnerPo.accountName" placeholder="请输入开户名" type="text"/>
+						          		</div>
+						        	</div>
+						      	</div>
+						      	<div class="from-both-box">
+						        	<div class="group-box">
+						          		<div class="input-lable"><span>*</span>银行账号：</div>
+						          		<div class="input-text">
+						            		<input class="input" id="bankAccount"  name="IndividualOwnerPo.bankAccount" placeholder="请输入银行账号" type="text"/>
+						          		</div>
+						        	</div>
+						      	</div>
+						      	<div id="license img_div" class="from-both-box">
+						        	<div class="group-img">
+							          	<div class="input-lable"><span>*</span>身份证正面照片附件：</div>
+							          	<div class="input-img">
+								          	<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="idCardImage" id="myIdCardImage">
+							          		<input id="idCardImage" type="hidden" name="IndividualOwnerPo.idCardImage" >
+							          	</div>
+							          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+							        </div>
+						      	</div>
+						      	<div id="license img_div" class="from-both-box">
+						        	<div class="group-img">
+							          	<div class="input-lable"><span>*</span>身份证反面照片附件：</div>
+							          	<div class="input-img">
+							          		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="idCardImageCopy" id="myIdCardImageCopy">
+							          		<input id="idCardImageCopy" type="hidden" name="IndividualOwnerPo.idCardImageCopy">
+							          	</div>
+							          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。 <br/>图片大小不超过3M。 </div>
+						        	</div>
+						        	<div class="group-box">
+						            		<input class="input" id="userInfoId"  name="IndividualOwnerPo.userInfoId" type="hidden"/>
+						        	</div>
+						      	</div>
+						    	<div class="from-both-box">
+									<div class="button-box">
+						            	<button class="button" id="updateButton">保存</button>
+									</div>
+						    	</div>
+							</div>
+			    		</form>
+			    	</div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/individualOwner/main.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+</html>

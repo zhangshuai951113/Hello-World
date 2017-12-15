@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>运单生成</title> <#include "../../common/common_header.html" />
+<!--运单生成模板-->
+
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/tab.css"/>
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/search.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/table.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/modal.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/confirm.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/from-both.css" >
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/reset.css" />
+
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+		<div class="search-panel row">
+			<div class="search-from" id="mainDiv">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">货物</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入货物" type="text" id="goodsInfoName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">线路</div>
+								<div class="search-select-list" id="selectLine" onclick="lineSelect()"></div>
+								<input class="input" type="hidden" id="lineInfoId"/>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">发货日期</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="deliveryDateS"/>
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="deliveryDateE"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">到货日期</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="arrivalDateS"/>
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="arrivalDateE"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">委托方</div>
+								<div class="input-text">
+									<input class="input" type="text" id="entrustName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">承运方</div>
+								<div class="input-text">
+									<input class="input" type="text" id="shipperName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">发货单位</div>
+								<div class="input-text">
+									<input class="input" type="text" id="forwardingUnit"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">到货单位</div>
+								<div class="input-text">
+									<input class="input" type="text" id="consignee"/>
+								</div>
+							</div>
+							
+							
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="getInfoList()">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetEmpty()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="panel">
+			<div style="width:100%;overflow-x:auto;overflow-y:hidden; ">
+				<table style="min-width: 1780px" class="table-bule table-ellipsis" id="waybillMonitorTable">
+					<thead>
+						<tr class="table-title">
+							<th style="width: 100px;">运单编号</th>
+							<th style="width: 100px;">货物</th>
+							<th style="width: 100px;">起点</th>
+							<th style="width: 100px;">终点</th>
+							<th style="width: 100px;">车牌号</th>
+							<th style="width: 100px;">道路运输证号</th>
+							<th style="width: 100px;">载重</th>
+							<th style="width: 80px;">发货日期</th>
+							<th style="width: 80px;">到货日期</th>
+							<th style="width: 150px;">运费</th>
+							<th style="width: 150px;">到货量(吨)</th>
+							<th style="width: 80px;">上报状态</th>
+							<th style="width: 80px;">上报日期</th>
+							<th style="width: 80px;">车辆类型</th>
+							<th style="width: 80px;">车主姓名</th>
+							<th style="width: 80px;">车主电话</th>
+							<th style="width: 80px;">外协单位</th>
+						</tr>
+					</thead>
+					<tbody id="waybillMonitorTbody"></tbody>
+				</table>
+			</div>
+			<div class="panel-pagination">
+				<div class="panel-num">搜索相关结果共<span id="waybillMonitorTotal">0</span>条</div>
+				<div id="waybillMonitorPage" class="pagination-list"></div>
+				<div class="pagination-input">到<input type="text"/>页</div>
+				<div class="pagination-button" onclick="pageJump(this)">确定</div>
+			</div>
+		</div>
+		
+		<!--模态框 线路查询模块-->
+		<div class="modal fade" id="lineSelectModal" tabindex="-6" role="dialog">
+			<div class="modal-dialog" style="width: 96%">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">线路选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">线路起点</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入线路起点" type="text" id="lineSelectModal_startPoints"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">线路终点</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入线路终点" type="text" id="lineSelectModal_endPoints"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="getLineList()">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th style="width: 40px;"></th>
+										<th>线路名称</th>
+										<th>起点</th>
+										<th>终点</th>
+										<th>运距（公里）</th>
+										<th>在途天数</th>
+									</tr>
+								</thead>
+								<tbody id="lineSelectModal_tbody">
+									
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">搜索相关结果共<span id="lineNum">0</span>条</div>
+								<div id="linePage" class="pagination-list"></div>
+								<div class="pagination-input">到 <input type="text" />页</div>
+								<div class="pagination-button" onclick="linePageSelect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectLine()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	
+
+
+		
+		</main>
+	</div>
+	
+	
+</body>
+<#include "../../common/common_footer.html" />
+
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/reportForm/tianshun/waybillMonitor/waybill-monitor.js"></script>
+
+</html>

@@ -1,0 +1,229 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeButton()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						修改承运人信息
+					</h4>
+				</div>
+				<div class="modal-body" style="height:850px">
+					<form id="update_constomer_info_form" onsubmit="return false">
+		    			<input  id="orgId" name="orgDetailInfoPo.id" type="hidden" />
+		      				<div class="from-both-box">
+			        			<div class="group-box">
+				          			<div class="input-lable"><span>*</span>组织机构名称：</div>
+				          			<div class="input-text">
+				            			<input class="input" id="CorgName" name="orgDetailInfoPo.orgName"   placeholder="请输入组织名称" type="text" />
+				          			</div>
+			        			</div>
+			        			<div class="group-box">
+					          		<div class="input-lable"><span>*</span>注册地址：</div>
+					          		<div class="input-text">
+					            		<input class="input" id="CregisterAddress"   name="orgDetailInfoPo.registerAddress" placeholder="请输入注册地址" type="text"/>
+					          		</div>
+					        	</div>
+		      				</div>
+		      				<div class="from-both-box">
+					        	<div class="group-box">
+					          		<div class="input-lable"><span>*</span>联系人姓名：</div>
+					          		<div class="input-text">
+					            		<input class="input" id="CcontactNames"    name="orgDetailInfoPo.contactName"  placeholder="请输入联系人姓名"  type="text" />
+					          		</div>
+					        	</div>
+			        			<div class="group-box">
+						          	<div class="input-lable"><span>*</span>移动电话：</div>
+						          	<div class="input-text" >
+						            	<input class="input" id="CmobilePhones"   name="orgDetailInfoPo.mobilePhone"  placeholder="请输入移动电话" type="text" />
+						          	</div>
+			        			</div>
+		      				</div>
+		      				<div class="from-both-box">
+						        <div class="group-box">
+						          	<div class="input-lable"><span>*</span>法定代表人：</div>
+						          	<div class="input-text">
+						            	<input class="input" id="ClegalPersonName"   name="orgDetailInfoPo.legalPersonName"  placeholder="请输入法定代表人" type="text" />
+						          	</div>
+						        </div>
+						        <div class="group-box">
+						          	<div class="input-lable"><span>*</span>固定电话：</div>
+						          	<div class="input-text">
+						            	<input class="input" id="Ctelephone"     name="orgDetailInfoPo.telephone"   placeholder="请输入固定电话" type="text" />
+						          	</div>
+						        </div>
+					      	</div>
+					      		<div id="is_combine_div" class="from-both-box">
+						        <div class="group-box">
+			          				<div class="input-lable"><span>*</span>组织机构代码证：</div>
+			          				<div class="input-text">
+			            				<input class="input" id="CorgNum"    name="orgDetailInfoPo.orgNum"  placeholder="组织机构代码证" type="text"/>
+			          				</div>
+			        			</div>
+						        <div class="group-box">
+						          	<div class="input-lable"><span>*</span>税务登记号： </div>
+						          	<div class="input-text">
+						            	<input class="input" id="CtaxNum"   name="orgDetailInfoPo.taxNum"  placeholder="请输入税务登记号" type="text"/>
+						          	</div>
+						        </div>
+					      	</div>
+					      	<div class="from-both-box">
+					        	<div class="group-box">
+					          		<div class="input-lable">通讯地址：</div>
+					          		<div class="input-text">
+					            		<input class="input" id="CcontactAddress"   name="orgDetailInfoPo.contactAddress" placeholder="请输入通讯地址" type="text" />
+					          		</div>
+					        	</div>
+					        	<div class="group-box">
+						          	<div class="input-lable">营业执照号：</div>
+						          	<div class="input-text">
+						            	<input class="input" id="ClicenseNum"   name="orgDetailInfoPo.licenseNum"  placeholder="请输入营业执照号" type="text"/>
+						          	</div>
+						        </div>
+					      	</div>
+					      	
+		      				<div class="from-both-box">
+						        <div class="group-box">
+						          	<div class="input-lable">法人身份证号：</div>
+						          	<div class="input-text">
+						            	<input class="input" id="CidCard"   name="orgDetailInfoPo.idCard"  placeholder="请输入法人身份证号" type="text"/>
+						          	</div>
+						        </div>
+						        <div class="group-box">
+						          	<div class="input-lable">统一社会信用代码： </div>
+						          	<div class="input-text">
+						            	<input class="input" id="CcreditCode"   name="orgDetailInfoPo.creditCode"   placeholder="请输入统一社会信用代码"  type="text" />
+						          	</div>
+						        </div>
+		      				</div>
+					      
+					      	<div class="from-both-box">
+					        	<div class="group-box">
+						          	<div class="input-lable">邮编：</div>
+						          	<div class="input-text">
+						            	<input class="input" id="Cpostcode"    name="orgDetailInfoPo.postcode"  placeholder="请输入邮编" type="text"/>
+						          	</div>
+						        </div>
+						        <div class="group-box">
+						          	<div class="input-lable">传真：</div>
+						          	<div class="input-text">
+						            	<input class="input" id="Cfax"   name="orgDetailInfoPo.fax" placeholder="请输入传真" type="text"/>
+						          	</div>
+						        </div>
+					      	</div>
+					      	<div class="from-both-box">
+					        	<div class="group-box">
+						          	<div class="input-lable">电子邮箱：</div>
+							    	<div class="input-text">
+							            <input class="input" id="Cemail"    name="orgDetailInfoPo.email" placeholder="请输入电子邮箱" type="email"/>
+							    	</div>
+					        	</div>
+					        	<div class="group-box">
+					          		<div class="input-lable">开户行： </div>
+					          		<div class="input-text">
+					            		<input class="input" id="CbankName"   name="orgDetailInfoPo.bankName"  placeholder="请输入开户行" type="text"/>
+					          		</div>
+					        	</div>
+					      	</div>
+					      	<div class="from-both-box">
+					        	<div class="group-box">
+					          		<div class="input-lable">开户名：</div>
+					          		<div class="input-text">
+					            		<input class="input" id="CaccountName"   name="orgDetailInfoPo.accountName" placeholder="请输入开户名" type="text"/>
+					          		</div>
+					        	</div>
+					        	<div class="group-box">
+					          		<div class="input-lable">银行账号：</div>
+					          		<div class="input-text">
+					            		<input class="input" id="CbankAccount"   name="orgDetailInfoPo.bankAccount" placeholder="请输入银行账号" type="text"/>
+					          		</div>
+					        	</div>
+					      	</div>
+					      	<div class="from-both-box">
+						        <div class="group-box">
+						          	<div class="input-lable">道路运输许可证号：</div>
+						          	<div class="input-text">
+						            	<input class="input" id="CroadTransportPermitNum"   name="orgDetailInfoPo.roadTransportPermitNum" placeholder="请输入道路运输许可证号" type="text"/>
+						          	</div>
+						        </div>
+						        <div class="group-box">
+						          	<div class="input-lable"><span>*</span>是否三证合一：</div>
+						          	<div class="input-text">
+							          	<select id="is_combine" class="input" name="orgDetailInfoPo.isCombine" onchange="changeIsCombine()">
+							          		<option value="1">是</option>
+							          		<option value="0">否</option>
+							          	</select>
+						          	</div>
+						        </div>
+					      	</div>
+					      	<div class="from-both-box" id="user_role_form_box">
+					        <div class="group-box">
+					          	<div class="input-lable"><span>*</span>客户角色：</div>
+					          	<div class="input-text">
+						          	<select id="user_role" class="input" name="orgInfoPo.userRole">
+						          		<option value="2">物流公司</option>
+						          	</select>
+					          	</div>
+					        </div>
+				      	</div>
+					      	<div id="license img_div" class="from-both-box">
+					        	<div class="group-img">
+						          	<div class="input-lable"><span>*</span>营业执照附件：</div>
+						          	<div class="input-img">
+						          			<img id="licenseImg" src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="license_img">
+						          		<input id="license_img" type="hidden" name="orgDetailInfoPo.licenseImg">
+						          	</div>
+						          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。 <br/>图片大小不超过3M。 </div>
+					        	</div>
+					      	</div>
+					      	<div id="org_img_div" class="from-both-box">
+						        <div class="group-img">
+						          	<div class="input-lable"><span>*</span>组织机构代码证附件：</div>
+						          	<div class="input-img">
+							          		<img id="orgImg" src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="org_img">
+						          		<input id="org_img" type="hidden" name="orgDetailInfoPo.orgImg">
+						          	</div>
+						          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+						        </div>
+					      	</div>
+					      	<div id="tax_img_div" class="from-both-box">
+						        <div class="group-img">
+						          	<div class="input-lable"><span>*</span>税务登记证附件：</div>
+						          	<div class="input-img">
+						          			<img id="taxImg" src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="tax_img">
+						          		<input id="tax_img" type="hidden" name="orgDetailInfoPo.taxImg">
+						          	</div>
+						          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+						        </div>
+					      	</div>
+					      	<div class="from-both-box">
+					        	<div class="group-img">
+					          		<div class="input-lable"><span>*</span>统一社会信用代码证附件：</div>
+					          		<div class="input-img">
+					          				<img id="creditImg" src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="credit_img">
+					          			<input id="credit_img" type="hidden" name="orgDetailInfoPo.creditImg">
+					          		</div>
+					          		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。 </div>
+					        	</div>
+					      	</div>
+					      	<div class="from-both-box">
+					        	<div class="group-textarea">
+						          	<div class="input-lable">备注：</div>
+						          	<div class="input-textarea">
+						            	<textarea id="Cremarks" name="orgDetailInfoPo.remarks"></textarea>
+						          	</div>
+					        	</div>
+					      	</div>
+		    		</form>
+					<div id="enterprise-tab" class="tab-content"></div>
+				</div>
+				<div class="modal-footer">
+			        <button class="save-button" onclick="updateCoustomerMationBtn()">修改</button>
+			        <button class="close-button" onclick="closeButton()">取消</button>
+			     </div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

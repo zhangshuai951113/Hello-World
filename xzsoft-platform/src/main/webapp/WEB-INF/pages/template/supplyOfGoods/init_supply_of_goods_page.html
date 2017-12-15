@@ -1,0 +1,74 @@
+<!-- 新增/修改货源报价模板-->
+<div id="supply-of-goods-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="offerModalLabel" aria-hidden="true" style="display: block">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close offer-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="offerModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+		        	<form id="offer_info_form">
+		        		<input id="hidden_offer_info_id" type="hidden" name="offerInfoPo.id" value="${offerInfoPo.id}">
+		        		<input id="hidden_waybill_info_id" type="hidden" name="offerInfoPo.waybillInfoId" value="${waybillSourceInfoId}">
+		        		<input id="userRole" type="hidden" value="${userRole}">
+		        		<div class="model-from">
+				            <div class="group-box" id="org_div">
+				              	<div class="input-lable"><span>*</span>报价方：</div>
+				              	<div class="input-text">
+				              		<input id="offer_party_name" class="input" placeholder="请输入报价方" type="text" value="${offerPartyName}" onclick="searchOfferInfo()" readonly="readonly"/>
+				                	<input id="offer_party" name="offerInfoPo.offerParty" class="input" type="hidden" value="${offerInfoPo.offerParty}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box" id="driver_div">
+				              	<div class="input-lable"><span>*</span>报价方：</div>
+				              	<div class="input-text">
+				              		<input id="offer_party_name" class="input" type="text" value="${driverName}"readonly="readonly"/>
+				                	<input id="offer_party_driver" name="offerInfoPo.offerParty" class="input" type="hidden" value="${userInfoId}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>报价（元）：</div>
+				              	<div class="input-text">
+				                	<input id="offer_price" name="offerInfoPo.offerPrice" class="input" placeholder="请输入报价" type="text" value="${offerInfoPo.offerPrice}"/>
+				              	</div>
+				            </div>
+		          		
+		                    <div class="file-box row" style="margin-top: 10px;width: 456px;">
+		                        <div class="input-lable">附件：</div>
+		                        <div id="offer_text" class="file-input" style="width: 220px;">${offerInfoPo.offerImg}</div>
+		                        <div class="file-button-box">
+		                            <button class="file-buttton upload_img" img-type="offer_img" img-text="offer_text">
+		                              <div class="file-icon"></div>
+		                              <div class="file-text">上传</div>
+		                            </button>
+		                        </div>
+	                            <input id="offer_img" type="hidden" name="offerInfoPo.offerImg" value="">
+		                    </div>
+		                  </div>
+		          		<!--  <div class="from-both-box">
+			            	<div class="group-img">
+			              		<div class="input-lable">附件：</div>
+				              	<div class="input-img">
+				              		<#if offerInfoPo.offerImg?exists && offerInfoPo.offerImg!="">
+				              			<img src="${fastdfsServer}/${offerInfoPo.offerImg}" class="upload_img img_box" img-type="offer_img">
+				              		<#else>
+				                		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="offer_img">
+				              		</#if>
+				                	<input id="offer_img" type="hidden" name="offerInfoPo.offerImg" value="${offerInfoPo.offerImg}">
+				              	</div>
+			              		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。</div>
+			            	</div>
+		          		</div>-->
+		          		
+		        	</div>
+	      		</form>
+		      	<div class="modal-footer">
+		        	<button class="save-button" onclick="addOrUpdateOfferInfo()">保存</button>
+		        	<button class="close-button offer-opt-close" data-dismiss="modal">取消</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

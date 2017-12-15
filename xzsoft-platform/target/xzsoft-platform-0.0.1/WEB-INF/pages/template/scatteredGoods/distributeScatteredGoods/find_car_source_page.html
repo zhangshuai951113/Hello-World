@@ -1,0 +1,54 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:96%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeCButton()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${carSource}
+					</h4>
+				</div>
+				<div class="modal-body">
+				
+					<!-- 表格 -->
+					<div id="show_goods_info"></div>
+					<div class="modal-table">
+					    <table class="table-bule">
+					      <thead>
+					        <tr class="table-title">
+					          <th  class="check" style="width:40px"></th>
+				              <th>发布方编号</th>
+				              <th>发布方主机构</th>
+				              <th>发布方</th>
+					          <th>车牌号</th>
+					          <th>发布方角色</th>
+					        </tr>
+					      </thead>
+					      <tbody id="carSourceTBody">
+					       
+					      </tbody>
+					    </table>
+					    <div class="row">
+			 				<!-- 分页 -->
+							<div class="panel-pagination">
+							      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+							      <div class="pagination-list" id="carSource-list"></div>
+							      <div class="pagination-input">到
+							        <input type="text" />页</div>
+							      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+							</div>
+						</div> 
+					</div>
+					<div id="find_contract_info_model"></div>
+				</div>
+				<div class="modal-footer">
+			        <button class="save-button" onclick="submitCMation()">保存</button>
+			        <button class="close-button"  onclick="closeCButton()">取消</button>
+			    </div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+	<script type="text/javascript" src="${basePath}/static/js/scatteredGoods/distributeScatteredGoods/checkCarSource.js"></script>

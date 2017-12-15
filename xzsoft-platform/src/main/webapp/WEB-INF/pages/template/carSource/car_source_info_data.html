@@ -1,0 +1,97 @@
+<div id="car-source-info-data">
+	<div class="iscroll">
+		<table  class="table-bule table-ellipsis" style="margin-top:0; min-width:1700px" id="tableDrag">
+			<thead>
+				<tr class="table-title">
+					<th style="width:40px;">
+						<input name="all-check" type="checkbox" class="all_car_source_check">
+					</th>
+					<th>车源编号</th>
+					<th>车辆状态</th>
+					<th>车牌号</th>
+					<th>车辆类型</th>
+					<th>车辆图片</th>
+					<th>载重量（吨）</th>
+					<th>外廓尺寸（米）</th>
+					<th>车辆当前所在地</th>
+					<th>发布方</th>
+					<th>联系人</th>
+					<th>联系方式</th>
+					<th>发布日期</th>
+					<th>截止日期</th>
+					<th>发布内容</th>
+					<th>车源信息状态</th>
+					<th>创建时间</th>
+					<th class="operation" style="width:260px">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#if carSourceInfoPager?exists && carSourceInfoPager?exists>
+					<#list carSourceInfoPager.rows as carSourceInfo>
+						<tr class="table-body ">
+							<td style="width:40px;">
+								<input type="checkbox" class="sub_car_source_check" data-id="${carSourceInfo.id}">
+							</td>
+							<td>${(carSourceInfo.id)!''}</td>
+							<td><#if carSourceInfo.carSourceStatus?exists>
+									<#if carSourceInfo.carSourceStatus==1>
+										已发布
+									<#elseif carSourceInfo.carSourceStatus==2>
+										已撤回
+									</#if>
+								</#if></td>
+							<td>${(carSourceInfo.carCode)!''}</td>
+							<td>${(carSourceInfo.carTypeName)!''}</td>
+							<td><img style="width: 60px;height: 60px;"  src ="${fastdfsServer}/${(carSourceInfo.carImage)!''}" title="点击查看图片"/></td>		
+							<td>${(carSourceInfo.loads)!''}</td>
+							<td>${(carSourceInfo.gabarite)!''}</td>
+							<td>${(carSourceInfo.carLocationName)!''}</td>
+							<td>${(carSourceInfo.releasePersonName)!''}</td>
+							<td>${(carSourceInfo.contactName)!''}</td>
+							<td>${(carSourceInfo.mobilePhone)!''}</td>
+							<td>${(carSourceInfo.releaseTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+							<td>${(carSourceInfo.endTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+							<td>${(carSourceInfo.releaseContent)!''}</td>
+							<td><#if carSourceInfo.carSourceStatus?exists>
+									<#if carSourceInfo.carSourceStatus==1>
+										已发布
+									<#elseif carSourceInfo.carSourceStatus==2>
+										已撤回
+									</#if>
+								</#if></td>
+							<td>${(carSourceInfo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+							<td>
+								<div class="operation-td" car-source-info-id="${(carSourceInfo.id)}">
+									<#if carSourceInfo.carStatus?exists>
+										<!-- 物流公司 2 司机 4-->
+											<#if userRole==2 || userRole==4>
+												<div class="modify-operation operation-m">
+													<div class="modify-icon"></div>
+													<div class="text">修改</div>
+												</div>
+												<div class="release-operation operation-m">
+													<div class="release-icon"></div>
+													<div class="text">发布</div>
+												</div>
+												<div class="withdraw-operation operation-m" data-toggle="modal" data-target="#disableModal">
+								               		<div class="withdraw-icon"></div>
+								               		<div class="text">撤回</div>
+								             	</div>
+												<div class="delete-operation operation-m">
+								               		<div class="delete-icon"></div>
+								               		<div class="text">删除</div>
+								             	</div>
+											</#if>
+									</#if>
+								</div>
+							</td>
+						</tr>
+					</#list>
+				</#if>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-pagination">
+		${carSourceInfoPager.pageHtml}
+	</div>
+</div>

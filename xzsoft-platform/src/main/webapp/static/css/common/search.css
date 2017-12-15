@@ -1,0 +1,142 @@
+.row {
+    margin: 0;
+}
+.search-panel {
+  background: #f1f1f1;
+  padding: 10px 30px;
+  border-bottom: 1px solid #cccccc;
+  margin: auto;
+}
+
+.search-from {
+  width: auto;
+  margin: auto;
+}
+.both-row .search-box {
+  float: none;
+  margin: 5px 10px;
+  display: inline-block;
+  height: 26px;
+}
+
+.search-box .input-lable {
+  float: left;
+  color: #333333;
+  font-size: 12px;
+  margin-right: 10px;
+  width: 90px;
+  line-height: 24px;
+  text-align: right;
+}
+
+.search-box .input-text {
+  width: 220px;
+  border: 1px solid #cccccc;
+  float: left;
+  background: #ffffff;
+  position: relative;
+  height: inherit;
+}
+
+.search-box .input {
+  border: 0;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  font-size: 12px;
+  text-indent:4px;
+}
+
+.search-box .time-input {
+    width: 98px;
+}
+
+.search-box .money-input {
+    width:80px;
+}
+
+.search-button{
+  height: 30px;
+  width: 64px;
+  background: #2b84ea;
+  line-height: 30px;
+  padding: 0px 9px;
+  border: 0;
+  border-radius: 3px;
+  margin: 0 5px;
+}
+
+.check-button{
+  height: 30px;
+  width: 128px;
+  background: #2b84ea;
+  line-height: 30px;
+  padding: 0px 9px;
+  border: 0;
+  border-radius: 3px;
+  margin: 0 5px;
+}
+
+.search-icon{
+  background: url('../../images/common/search-row.png') no-repeat;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-top: 8px;
+}
+
+.reset-icon {
+  background: url('../../images/common/reset-icon.png') no-repeat;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-top: 7px;
+}
+.search-button .text {
+  color: #ffffff;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.check-button .text {
+  color: #ffffff;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+
+.search-box .input-line {
+  float: left;
+  padding: 0 5px;
+}
+
+.search-box .select-list {
+  position: absolute;
+  top: 24px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin: 0 -1px;
+  box-sizing: content-box;
+  display: none;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.search-box .select-list ul {
+  margin-left: 0;
+  list-style: none;
+  padding-left:0;
+  text-align: left;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.search-box .select-list ul li {
+  padding-left: 7px;
+}
+.search-box .select-list ul li:hover {
+  background: #ececec;
+}
+.search-button-box{
+	text-align: center;
+}

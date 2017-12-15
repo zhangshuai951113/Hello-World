@@ -1,0 +1,59 @@
+<!-- 报价方信息列表-->
+<div id="listInfo" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="waybillSourceModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close offer-party-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="carSourceModalLabel">报价方信息</h4>
+				</div>
+				<div class="modal-body">
+				<div class="search-from">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">报价方</div>
+								<div class="input-text">
+									<input id="o_offer_party" class="input" placeholder="请输入报价方" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="offerPartyList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+					</div>
+				</div>
+					<table class="table-bule" align="center">
+						<thead>
+							<tr class="table-title">
+								<th style="width: 40px;"></th>
+								<th>报价方</th>
+							</tr>
+						</thead>
+						<tbody id="offerTBody">
+						</tbody>
+					</table>
+					<!-- 分页 -->
+					<div class="row">
+						<div class="panel-pagination">
+							<div id="panel-num-offer-party" class="panel-num">搜索相关结果共0条</div>
+							<div class="pagination-list-offer-party"></div>
+							<div class="pagination-input">
+								到 <input type="text" />页
+							</div>
+							<div class="pagination-button" onclick="offerPartyJumpPage(this)">确定</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="offerPartySelect()">确认</button>
+					<button class="close-button offer-party-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

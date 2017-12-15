@@ -1,0 +1,116 @@
+<!-- 司机运单维护信息模板-->
+<div id="maintain-driver-waybill-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="enterpriseUserModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close maintain-win-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="matintainModalLabel">装货信息维护</h4>
+				</div>
+					<div class="modal-body">
+						<form id="maintain_driver_waybill_form">
+						<input id="hidden_waybill_info_id" type="hidden" name="driverWaybillMaintainPo.waybillInfoId" value="${driverWaybillMaintainPo.waybillInfoId}"/>
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>委托方：
+								</div>
+								<div class="input-text">
+									<input id="entrust_name" name="driverWaybillMaintainPo.entrustName" class="input" readonly="readonly" type="text" value="${driverWaybillMaintainPo.entrustName}" /> <input id="entrust"
+										name="driverWaybillMaintainPo.entrust" class="input" hidden="true" type="text" value="${driverWaybillMaintainPo.entrust}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">发货单位：</div>
+								<div class="input-text">
+									<input id="forwarding_unit" name="driverWaybillMaintainPo.forwardingUnit" class="input" readonly="readonly" type="text" value="${driverWaybillMaintainPo.forwardingUnit}" />
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>收货单位：
+								</div>
+								<div class="input-text">
+									<input id="consignee" name="driverWaybillMaintainPo.consignee" class="input" readonly="readonly" type="text" value="${driverWaybillMaintainPo.consignee}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">装货量：</div>
+								<div class="input-text">
+									<input id="loading_amount" name="driverWaybillMaintainPo.loadingAmount" class="input" placeholder="请输入装货量" type="number" value="${driverWaybillMaintainPo.loadingAmount}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">装货日期：</div>
+								<div class="input-text">
+									<input id="loading_date" name="driverWaybillMaintainPo.loadingDateStr" class="input date-time-ss" placeholder="请输入装货日期" type="text"
+										value="<#if driverWaybillMaintainPo.loadingDate?exists >'${(driverWaybillMaintainPo.loadingDate)?string('yyyy-MM-dd')}'</#if>" />
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="from-both-box">
+							<div class="group-img">
+								<div class="input-lable">上传装货磅单照片：</div>
+								<div class="input-img">
+									<#if driverWaybillMaintainPo.loadingImg?exists && driverWaybillMaintainPo.loadingImg!=""> <img src="${fastdfsServer}/${driverWaybillMaintainPo.loadingImg}" class="upload_img img_box"
+										img-type="loading_img"> <#else> <img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="loading_img"></#if>
+									<input id="loading_img" type="hidden" name="driverWaybillMaintainPo.loadingImg" value="${driverWaybillMaintainPo.loadingImg}">
+								</div>
+							</div>
+							<div class="group-img">
+								<div class="input-img">
+									<#if driverWaybillMaintainPo.loadingImg1?exists && driverWaybillMaintainPo.loadingImg1!=""> <img src="${fastdfsServer}/${driverWaybillMaintainPo.loadingImg1}" class="upload_img img_box"
+										img-type="loading_img1"> <#else> <img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="loading_img1"></#if>
+									<input id="loading_img1" type="hidden" name="driverWaybillMaintainPo.loadingImg1" value="${driverWaybillMaintainPo.loadingImg1}">
+								</div>
+							</div>
+							</div>
+							<div class="from-both-box">
+							<div class="group-img" style="margin-left:19.7%">
+								<div class="input-img">
+									<#if driverWaybillMaintainPo.loadingImg2?exists && driverWaybillMaintainPo.loadingImg2!=""> <img src="${fastdfsServer}/${driverWaybillMaintainPo.loadingImg2}" class="upload_img img_box"
+										img-type="loading_img2"> <#else> <img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="loading_img2"></#if>
+									<input id="loading_img2" type="hidden" name="driverWaybillMaintainPo.loadingImg2" value="${driverWaybillMaintainPo.loadingImg2}">
+								</div>
+							</div>
+							<div class="group-img">
+								<div class="input-img">
+									<#if driverWaybillMaintainPo.loadingImg3?exists && driverWaybillMaintainPo.loadingImg3!=""> <img src="${fastdfsServer}/${driverWaybillMaintainPo.loadingImg3}" class="upload_img img_box"
+										img-type="loading_img3"> <#else> <img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="loading_img3"></#if>
+									<input id="loading_img3" type="hidden" name="driverWaybillMaintainPo.loadingImg3" value="${driverWaybillMaintainPo.loadingImg3}">
+								</div>
+							</div>
+							</div>
+							<div class="from-both-box">
+							<div class="group-img" style="margin-left:19.7%">
+								<div class="input-img">
+									<#if driverWaybillMaintainPo.loadingImg4?exists && driverWaybillMaintainPo.loadingImg4!=""> <img src="${fastdfsServer}/${driverWaybillMaintainPo.loadingImg4}" class="upload_img img_box"
+										img-type="loading_img4"> <#else> <img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="loading_img4"></#if>
+									<input id="loading_img4" type="hidden" name="driverWaybillMaintainPo.loadingImg4" value="${driverWaybillMaintainPo.loadingImg4}">
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="from-both-box">
+								<div class="input-notice">
+									*上传照片可以是扫描件或数码拍摄照片。文件仅支持jpg,bmp,png的图片格式。<br />图片大小不超过3M。
+								</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="saveDriverWaybillLoadingInfo()">保存</button>
+					<button class="close-button maintain-win-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

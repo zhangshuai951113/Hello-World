@@ -1,0 +1,79 @@
+.download-content {
+    position: relative;
+    margin: 0 auto;
+}
+
+.download-nav-box{
+   width: 1240px;
+   margin: auto;
+}
+
+
+.download-tab-box{
+    width: 1240px;
+    padding: 0 80px;
+    margin: 20px auto 0;
+}
+
+.download-tab-box .tab-pane{
+        width: 120px;
+    height: 32px;
+    background: #517fcd;
+    border-radius: 3px;
+    line-height: 32px;
+    color: #fff;
+        float: left;
+}
+
+.download-tab-box .tab-icon{
+      background: url(../../images/download-center/tab-icon.png) no-repeat;
+    width: 23px;
+    height: 20px;
+    margin-left: 15px;
+    margin-top: 6px;
+    float: left;
+}
+
+.download-tab-box  .tab-text{
+      float: left;
+    margin-left: 8px;
+}
+
+.download-tab-box .tab-content{
+      float: left;
+    border-top: 2px solid #517fcd;
+    width: 880px;
+    margin-left: 40px;
+    margin-top: 30px;
+       padding: 30px 98px;
+    color: #666666;
+}
+.list-box {
+    text-align: center;
+    float: left;
+    width: 228px;
+    margin: 20px auto 0;
+}
+.word-icon {
+    width:128px;
+    height:128px;
+    margin: 0 50px;
+    background:url("../../images/download-center/word-icon.png") no-repeat;
+}
+.excel-icon {
+    width:128px;
+    height:128px;
+    margin: 0 50px;
+    background:url("../../images/download-center/excel-icon.png") no-repeat;
+}
+.pdf-icon {
+    width:128px;
+    height:128px;
+    margin: 0 50px;
+    background:url("../../images/download-center/pdf-icon.png") no-repeat;
+}
+.download-tab-box .list-text{
+        margin-top: 12px;
+    font-size: 14px;
+    color: #999999;
+}

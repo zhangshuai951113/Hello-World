@@ -1,0 +1,62 @@
+﻿<div id="contract_detail_info">
+<div class="iscroll"> 
+	<table class="table-bule table-ellipsis" style="min-width:1800px" title="合同明细表" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th class="operation">操作</th>
+				<th>货物名称</th>
+				<th>数量</th>
+				<th>单位运价（元）</th>
+				<th>总金额（元）</th>
+				<th>损耗扣款</th>
+				<th>线路名称</th>
+				<th>运距（公里）</th>
+				<th>发货单位</th>
+				<th>收货单位</th>
+				<th>生效日期</th>
+				<th>截止日期</th>
+				<th>已执行量</th>
+				<th>未执行量</th>
+				<th>已对账金额</th>
+				<th>未对账金额</th>
+				<th>已开票金额</th>
+				<th>未开票金额</th>
+				<th>备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if contractDetailInfoPager?exists && contractDetailInfoPager.rows?exists> <#list contractDetailInfoPager.rows as contractDetailInfo>
+			<tr class="table-body ">
+				<td>
+					<div class="operation-td" contract-detail-info-id="${(contractDetailInfo.id)!'0'}" root-org-info-id="${(contractDetailInfo.rootOrgInfoId)!'0'}">
+						<div class="view-operation operation-m">
+							<div class="view-icon"></div>
+							<div class="text">明细详情</div>
+						</div>
+					</div>
+				</td>
+				<td>${(contractDetailInfo.goodsName)!''}</td>
+				<td>${(contractDetailInfo.quantity)!''}</td>
+				<td>${(contractDetailInfo.unitPrice)!''}</td>
+				<td>${(contractDetailInfo.totalMoney)!''}</td>
+				<td>${(contractDetailInfo.lossDeductMoney)!''}</td>
+				<td>${(contractDetailInfo.lineName)!''}</td>
+				<td>${(contractDetailInfo.distance)!''}</td>
+				<td>${(contractDetailInfo.forwardingUnit)!''}</td>
+				<td>${(contractDetailInfo.consignee)!''}</td>
+				<td>${(contractDetailInfo.effectiveDateStr)!''}</td>
+				<td>${(contractDetailInfo.endDateStr)!''}</td>
+				<td>${(contractDetailInfo.executedAmount)!''}</td>
+				<td>${(contractDetailInfo.unexecutedAmount)!''}</td>
+				<td>${(contractDetailInfo.accountAmount)!''}</td>
+				<td>${(contractDetailInfo.unaccountAmount)!''}</td>
+				<td>${(contractDetailInfo.invoiceAmount)!''}</td>
+				<td>${(contractDetailInfo.uninvoiceAmount)!''}</td>
+				<td>${(contractDetailInfo.remarks)!''}</td>
+			</tr>
+			</#list> </#if>
+		</tbody>
+	</table>
+	</div>
+	<div class="panel-pagination">${contractDetailInfoPager.pageHtml}</div>
+</div>

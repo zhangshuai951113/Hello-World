@@ -1,0 +1,54 @@
+<div id="project-info-data">
+	<table class="table-bule  table-ellipsis" style="width:100%" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width:40px;">
+					<input name="all-check" type="checkbox" class="all_check">
+				</th>
+				<th>项目编号</th>
+				<th>项目名称</th>
+				<th>所属组织</th>
+				<th>上级组织</th>
+				<th>创建人</th>
+				<th>创建时间</th>
+				<th class="operation" style="width:120px">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if projectInfoPager?exists && projectInfoPager.rows?exists>
+				<#list projectInfoPager.rows as projectInfoPo>
+					<tr class="table-body ">
+						<td style="width:40px;">
+							<input type="checkbox" class="sub_check" data-id="${projectInfoPo.id}" data-status ="${projectInfoPo.couponStatus}">
+						</td>
+						<td>${(projectInfoPo.projectId)!''}</td>
+						<td>${(projectInfoPo.projectName)!''}</td>
+						<td>${(projectInfoPo.orgInfoName)!''}</td>
+						<td>${(projectInfoPo.parentOrgName)!''}</td>
+						<td>${(projectInfoPo.createUserName)!''}</td>
+						<td><#if projectInfoPo.createTime?exists >${(projectInfoPo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td>
+							<div class="operation-td" project-info-id="${projectInfoPo.id}">
+								<@shiro.hasPermission name="basicInfo:project:modify">
+								<div class="modify-operation operation-m">
+									<div class="modify-icon"></div>
+									<div class="text">修改</div>
+								</div>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="basicInfo:project:delete">
+								<div class="delete-operation operation-m">
+									<div class="delete-icon"></div>
+									<div class="text">删除</div>
+								</div>
+								</@shiro.hasPermission>
+							</div>
+						</td>
+					</tr>
+				</#list>
+			</#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">
+		${projectInfoPager.pageHtml}
+	</div>
+</div>

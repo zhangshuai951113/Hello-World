@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>资金账户管理</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/contract/contract-manage.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/coupon/couponOperation.css" type="text/css" />
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main" id="mainPage">
+
+		<div class="search-panel row" style="height:75px">
+			<form onsubmit="return false">
+				<div class="search-from" >
+					<div class="search-row-box" >
+						<div class="both-row row" style="padding-top: 12px;">
+							<div class="search-box" >
+								<div class="input-lable" >账户名:</div>
+								<div id="zhName" style="margin-left: 60px;">${rechargeOrWithdrawalsInfoPo.userName}</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">账户金额(元):</div>
+								<div id="zhPrice" style="margin-left: 50px;">${rechargeOrWithdrawalsInfoPo.accountAmount}</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">被冻结金额(元):</div>
+								<div style="margin-left: 50px;"><a style="color:blue" href="${basePath}/fundAccountManagement/goWaybillCoverFrozenInfoPage">${rechargeOrWithdrawalsInfoPo.coverFreezingAmount}</a></div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">可用金额(元):</div>
+								<div id="kyPrice" style="margin-left: 50px;">${rechargeOrWithdrawalsInfoPo.availableAmount}</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">账户说明:</div>
+								<div style="margin-left: 50px;">${rechargeOrWithdrawalsInfoPo.userRoleStr}</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">冻结金额(元):</div>
+								<div style="margin-left: 50px;"><a style="color:blue" href="${basePath}/fundAccountManagement/goWaybillFrozenInfoPage">${rechargeOrWithdrawalsInfoPo.freezingAmount}</a></div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box" style="padding-left: 550px;margin-top: -37px;">
+						<button class="search-button" onclick="recharge()">
+							<div class="search-icon"></div>
+							<div class="text">充值</div>
+						</button>
+						<button class="search-button" type="reset" onclick="withdrawals()">
+							<div class="reset-icon"></div>
+							<div class="text">提现</div>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="initiate-contract-tab" class="tab-content" style="display: block">
+			<div class="panel">
+				<div class="row">
+					<div class="search-from" >
+					<div class="search-row-box" >
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">收支类型</div>
+								<div class="input-text">
+									<select id="balanceOfPaymentsType" class="input">
+										<option value="">请选择</option>
+										<option value="1">充值</option>
+										<option value="2">提现</option>
+										<option value="3">保证金冻结</option>
+										<option value="4">保证金解冻</option>
+										<option value="5">现金收款</option>
+										<option value="6">现金付款</option>
+										<option value="7">综合收款</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">交易时间</div>
+								<div class="input-text time-input">
+									<input id="transactionStartDate" class="input date-time" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input id="transactionEndDate" class="input date-time" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box" style="padding-left: 500px;margin-top: -37px;">
+						<button class="search-button" onclick="findCapitalAccountFlowInfo(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" id="resetCapMation">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+						<button class="search-button" id="exportSettlement">
+							<div class="export-icon" style="margin-top:7px"></div>
+							<div class="text">导出</div>
+						</button>
+					</div>
+				</div>
+				</div>
+			
+			<div class="panel-table" style="padding-top: 20px;">
+		        <table class="table-bule" style="table-layout: fixed;">
+		          <thead>
+		             <tr class="table-title">
+		             <th  style="width:50px" class="check">
+		                <label class="i-checks">
+		                  <input name="all" type="checkbox" class="all_my_cap_check"> 
+		                </label>
+		              </th>
+		              <th style="width:120px">序号</th>
+			          <th style="width:160px">流水号</th>
+			          <th style="width:120px">单据号</th>
+			          <th style="width:120px">交易信息</th>
+			          <th style="width:120px">收支类型</th>
+			          <th style="width:160px">有价券交易金额(元)</th>
+			          <th style="width:120px">现金交易金额(元)</th>
+			          <th style="width:120px">账户余额(元)</th> 
+			          <th style="width:120px">被冻结金额(元)</th>
+			          <th style="width:120px">可用余额(元)</th>
+			          <th style="width:120px">冻结金额(元)</th>
+			          <th style="width:120px">交易日期</th>
+			          <th style="width:120px">交易渠道</th>
+			          <th style="width:120px">对方信息</th>
+			          <th style="width:120px">有价券供应商</th>
+			        </tr>
+		          </thead>
+		          <tbody id="findCapitalAccountFlowInfoList">
+		          </tbody>
+		        </table>
+		      </div>
+		      <div class="panel-pagination">
+		      <div id="cap-num" class="panel-num">搜索相关结果共0条</div>
+		      <div class="pagination-list"></div>
+		      <div class="pagination-input">到
+		        <input type="text" />页</div>
+		      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+		  </div> 
+		  </div>
+	<footer class="app-footer"> </footer>
+	<form id="recharge_form" action="" method="post">
+		<input id="CZZHName" type="hidden" name="CZZHName">
+		<input id="CZZHPrice" type="hidden" name="CZZHPrice">
+		<input id="CZKYPrice" type="hidden" name="CZKYPrice">
+	</form>
+	<form id="withdrawals_form" action="" method="post">
+		<input id="TXZHName" type="hidden" name="TXZHName">
+		<input id="TXZHPrice" type="hidden" name="TXZHPrice">
+		<input id="TXKYPrice" type="hidden" name="TXKYPrice">
+	</form>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/fundAccountManagement/fundAccountManagementMain.js"></script>
+</html>

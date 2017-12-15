@@ -1,0 +1,152 @@
+.row {
+  margin-left: 0;
+  margin-right:0;
+}
+.table-bule {
+    width: 100%;
+    max-width: 100%;
+}
+
+.table-bule .table-title {
+      border-top: 1px solid #3c8dbc;
+    border-bottom: 1px solid #3c8dbc;
+    /* padding: 10px; */
+    border-left: 1px solid #3c8dbc;
+    background: #9dc6dd;
+}
+
+.table-bule .table-title th {
+    padding: 5px 10px;
+    border-right: 1px solid #3c8dbc;
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    min-width:60px;
+    height: 30px;
+} 
+
+.table-bule label {
+    margin-bottom:0;
+}
+
+.table-bule .table-body td {
+    padding:5px 5px;
+    border-right: 1px solid #cccccc;
+    font-size: 12px;
+    color: #333333;
+    text-align: center;
+    font-family: SimSun;
+    min-width:60px;
+    height: 30px;
+}
+
+.table-bule tr:hover td, .table-bule tr:focus td{
+	 background: #e7f5ff;
+}
+
+.panel-pagination>div {
+    float: left;
+}
+.panel-pagination {
+    margin-top: 20px;
+    float: right;
+    height: 22px;
+    line-height: 22px;
+        margin-bottom: 20px;
+}
+
+.pagination-list>div {
+    float:left;
+}
+.panel-num {
+    font-size: 12px;
+    color: #999999;
+}
+
+.pagination-num {
+	  float:left;
+      color: #666666;
+    font-size: 12px;
+    margin: 0 4px;
+    cursor: pointer;
+    padding: 0 6px;
+}
+.pagination-num.active{
+	  float:left;
+  background: #2b84ea;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 0 6px;
+}
+.pagination-button {
+    background: #2b84ea;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 0 6px;
+    font-size: 12px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.pagination-point {
+      color: #666666;
+    margin-top: -3px;
+    float:left;
+}
+.pagination-input {
+  font-size: 12px;
+    color: #666666;
+    margin: 0 10px;
+}
+
+.pagination-input input {
+  width: 30px;
+    height: 22px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    text-indent: 3px;
+    padding: 2px;
+    margin: 0 5px;
+}
+
+.pagination-arrow-left {
+	float:left;
+  background-image: url('../../images/common/arrow-left.png');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    margin: 1px 10px;
+    cursor: pointer;
+}
+
+
+.pagination-arrow-right {
+	float:right;
+  background-image: url('../../images/common/arrow-right.png');
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  margin: 1px 10px;
+  cursor: pointer;
+}
+
+.table-ellipsis{
+  table-layout:fixed;
+  word-break:break-all;
+}
+
+.table-ellipsis th, .table-ellipsis td {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+    height: 8px;
+    margin: 20px auto;
+}

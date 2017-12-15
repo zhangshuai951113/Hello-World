@@ -1,0 +1,78 @@
+<!-- 模态框 组织部门选择-->
+<div id="project-data-info" >
+	<div class="modal" id="orgSelectModal" tabindex="-4" role="dialog" aria-hidden="true" style="display:block">
+	  <div class="modal-dialog" style="width:96%">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <div type="button" class="mode-close project-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+	        <h4 class="modal-title">
+	          选择组织部门
+	        </h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="search-from">
+	          <form onsubmit="return false">
+	            <div class="search-row-box">
+	              <div class="both-row row">
+	                <div class="search-box">
+	                  <div class="input-lable">项目名称</div>
+	                  <div class="input-text">
+	                    <input id="projectName" class="input" placeholder="请输入项目名称" type="text" />
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	            <div class="search-button-box">
+	              <button class="search-button" onclick="searchReOrderProjectInfo(1)">
+	                <div class="search-icon"></div>
+	                <div class="text">查询</div>
+	              </button>
+	              <button class="search-button" type="reset">
+	                <div class="reset-icon"></div>
+	                <div class="text">重置</div>
+	              </button>
+	            </div>
+	          </form>
+	        </div>
+	        <div class="modal-table row" style="overflow:hidden;">
+	          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px" id="tableDrag">
+	            <thead>
+	              <tr class="table-title">
+	                <th style="width:40px;">
+	                </th>
+	                <th>项目编号</th>
+	                <th>项目名称</th>
+	              </tr>
+	            </thead>
+		          <tbody>
+		 			<#if projectInfoPager?exists && projectInfoPager.rows?exists>
+			 			<#list projectInfoPager.rows as projectInfo>
+				   			<tr class="table-body ">
+				     			<td style="width:40px;">
+				       				<label class="i-checks">
+			           					<input type="checkbox" class="sub_project_info_check" data-id="${projectInfo.id}" data-projectName="${projectInfo.projectName}"><i></i>
+			         				</label>
+				     			</td>
+						        <td>${(projectInfo.projectId)!''}</td>
+						        <td>${(projectInfo.projectName)!''}</td>
+				   			</tr>
+			 			</#list>
+		   			</#if>
+	 			</tbody>
+	          </table>
+	        </div>
+	          <input id="project" class="input" type="hidden" value="2"/>
+	          	<div class="panel-pagination">
+      				${projectInfoPager.pageHtml}
+     	  		</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button class="save-button" onclick="submitSelectOrg()">保存</button>
+	        <button class="close-button project-opt-close" data-dismiss="modal">取消</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+</div>

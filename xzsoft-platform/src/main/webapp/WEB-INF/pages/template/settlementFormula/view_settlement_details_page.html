@@ -1,0 +1,52 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog" style="width:630px">
+			
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeCButton()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					${seeSettlementFormulaMationModel}
+				</h4>
+			</div>
+			<div class="modal-body">
+			
+			<!-- 表格 -->
+			<div class="panel">
+			<input id="SFDIds" type="hidden">
+			<div id="show_goods_info"></div>
+				<div class="panel-table">
+				    <table class="table-bule">
+				      <thead>
+				        <tr class="table-title">
+				          <th>编号</th>
+			              <th>核算主体</th>
+				          <th>创建时间</th>
+				        </tr>
+				      </thead>
+				      <tbody id="SFDTBody">
+				       
+				      </tbody>
+				    </table>
+	 				<!-- 分页 -->
+					<div class="panel-pagination">
+					      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+					      <div class="pagination-list"></div>
+					      <div class="pagination-input">到
+					        <input type="text" />页</div>
+					      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+					</div> 
+				</div>
+				
+			</div>
+					<div id="find_contract_info_model"></div>
+			</div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<script type="text/javascript" src="${basePath}/static/js/settlementFormula/seeSettementFormula.js"></script>

@@ -1,0 +1,476 @@
+<div id="settlement-data-info">
+<div class="modal" tabindex="-2" role="dialog" aria-labelledby="contractModalLabel" aria-hidden="true" style="display: block">
+<div id='page1' class="rTable2_1" >
+<div type="button" class="mode-close settlement-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+    <div class="tbTitle">
+       ${settlementInfo.printListHeader}结算单
+    </div>
+  <table  width="86%" border="0" cellspacing="0" class="table1" style="margin-left: 80px;">
+    <tr>
+      <td width="38%" align="left">
+       <label>发货单位:</label>${settlementInfo.forwardingUnit}
+      </td>
+      <td width="37%" align="left"><label>收货单位:</label>
+      		${settlementInfo.consignee}
+      </td>
+      <td align="left">
+        <label>运单号:</label>
+     	${settlementInfo.waybillId}
+       </td>
+    </tr>
+    <tr>
+      <td align="left">
+        <label>客户名称:</label>
+        ${settlementInfo.entrustName}
+      </td>
+      <td align="left">
+        
+      <label>外协单位:</label>
+     	${settlementInfo.shipperName}
+       </td>
+    </tr>
+    <tr>
+      <td ><label>组织部门:</label>${settlementInfo.projectName}
+      </td>
+      <td ><label>制单日期:</label>
+      ${settlementInfo.makeTime?string('yyyy-MM-dd HH:mm:ss')}
+      </td>
+      <td width="25%" ><label>结算单号:</label>${settlementInfo.settlementId}</td>
+    </tr>
+  </table>
+  <div style="margin-left: 80px;">
+  <table width="86%" cellspacing="0" class="table2" >
+		<tr>
+			<th width="100">
+				<label>车牌号码</label>
+			</th><td  width="140">
+				${settlementInfo.carCode}
+			</td>
+			<th width="100">
+				<label>发货日期</label>
+			</th><td  colspan="2" >
+			${settlementInfo.forwardingTime?string('yyyy-MM-dd HH:mm:ss')}
+			</td>
+			
+			<th  width="100">
+				<label>回单日期</label>
+			</th><td colspan="2">
+			${settlementInfo.makeTime?string('yyyy-MM-dd HH:mm:ss')}
+			</td>
+		</tr>	
+			
+		<tr>
+			<th>
+				<label>起点</label>
+			</th>
+			<td colspan="3">
+				${settlementInfo.forwardingUnit}
+			</td>
+			<th width="100">
+				<label>终点</label>
+			</th>
+			<td colspan="3">
+				${settlementInfo.consignee}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<label>货物名称</label>
+			</th>
+			<th width="120">
+				<label>运单号</label>
+			</th>
+			<th>
+				<label>发货单号</label>
+			</th>
+			<th width="140">
+				<label>到货单号</label>
+			</th>
+			<th>
+				<label>发货吨位</label>
+			</th>
+			<th>
+				<label>到货吨位</label>
+			</th>
+			<th width="80">
+				<label>运输单价</label>
+			</th>
+			<th width="100">
+				<label>运费</label>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				${settlementInfo.goodsName}
+			</td>
+			<td>
+				${settlementInfo.driverWaybillId}
+			</td>
+			<td>
+				${settlementInfo.forwardingId}
+			</td>
+			<td>
+				${settlementInfo.arriveId}
+			</td>
+			<td>
+				${settlementInfo.forwardingTonnage} 
+			</td>
+			<td>
+				${settlementInfo.arriveTonnage} 
+			</td>
+			<td>
+				<!-- ${settlementInfo.proxyCostRatio} -->
+				${(settlementInfo.currentTransportPrice/0.95)?string('#.##')} 
+			</td>
+			<td>
+				${settlementInfo.proxyInvoiceTotal+settlementInfo.deductionPrice} 
+			</td>
+		</tr>
+		
+		<tr>
+			<th>
+				<label>扣损吨位</label>
+			</th>
+			<th>
+				<label>扣损单价</label>
+			</th>
+			<th>
+				<label>扣损金额</label>
+			</th>
+			<th>
+				<label>其他扣款</label>
+			</th>
+			<th>
+				<label>应付运费</label>
+			</th>
+			<th>
+				<label>其他税费</label>
+			</th>
+			<th>
+				<label>运费成本</label>
+			</th>
+			<th>
+				<label>进项税</label>
+			</th>
+		</tr>	
+		<tr>
+			<td>
+			${settlementInfo.lossTonnage}
+			</td>
+			<td>
+			${settlementInfo.deductionUnitPrice}
+			</td>
+			<td>
+			${settlementInfo.deductionPrice}
+			</td>
+			<td>
+			${settlementInfo.otherPrice}
+			</td>
+			<td>
+			${settlementInfo.payablePrice}
+			</td>
+			<td>
+			${settlementInfo.otherTaxPrice}
+			</td>
+			<td>
+			${settlementInfo.transportPriceCost}
+			<td>
+			${settlementInfo.incomeTax}
+			</td>
+		</tr>	
+				
+		<tr>
+			<th>
+				<label>工本费</label>
+			</th>
+			<th>
+				<label>实付金额</label>
+			</th>
+			<th>
+				<label>预付款</label>
+			</th>
+			<th>
+				<label>本次付款</label>
+			</th>
+			<th colspan="4" rowspan="1" style="text-align:left;">
+				&nbsp;&nbsp;<label>备注:</label>${settlementInfo.remarks}
+			</th>
+			
+		</tr>
+		<tr>
+			<td>
+				${settlementInfo.costPrice}
+			</td>
+			<td>
+				${settlementInfo.actualPaymentPrice}
+			</td>
+			<td>
+				${settlementInfo.advancePrice}
+			</td>
+			<td>
+				${settlementInfo.proxyInvoiceTotal}
+			</td>
+			<td  colspan="4" rowspan="2	" style="text-align:left">
+			有价券金额:${settlementInfo.couponUseTotalPrice}
+			公路通行费:${(settlementInfo.highwayToll)!'0'}
+			高速公路通行费:${(settlementInfo.superHighwayToll)!'0'}
+			财政通行费:${(settlementInfo.otherToll)!'0'}
+			<br/>有价券卡号:${settlementInfo.cardCode}
+		  </td>
+		</tr>	
+		<tr>
+			<td height="25" colspan="4" class="paymentCn">
+				大写金额：人民币${settlementInfo.capitalAmount}
+		  </td>
+		</tr>
+  </table>
+		<table  width="86%" class="jsdtb">
+			<tr>
+				<td><label>制单人：</label>${settlementInfo.makeUserName}</td>
+				<td><label>复核人：</label></td>
+				<td><label>收款人：</label></td>
+				<td><label>出纳：</label></td>
+			</tr>
+		</table>
+	</div>
+	</div>
+	<div id='page1' class="rTable2">
+    <div class="tbTitle">
+       ${settlementInfo.proxyName}结算单
+    </div>
+  <table  width="86%" border="0" cellspacing="0" class="table1" style="margin-left: 80px;">
+    <tr>
+      <td width="38%" align="left">
+       <label>发货单位:</label>${settlementInfo.forwardingUnit}
+      </td>
+      <td width="37%" align="left"><label>收货单位:</label>
+      		${settlementInfo.consignee}
+      </td>
+      <td align="left">
+        <label>运单号:</label>
+     	${settlementInfo.waybillId}
+       </td>
+    </tr>
+    <tr>
+      <td align="left">
+        <label>客户名称:</label>
+        ${settlementInfoProxy.entrustName}
+      </td>
+      <td align="left">
+        
+      <label>外协单位:</label>
+     	${settlementInfo.shipperName}
+       </td>
+    </tr>
+    <tr>
+      <td ><label>组织部门:</label>${settlementInfo.projectName}
+      </td>
+      <td ><label>制单日期:</label>
+      ${settlementInfo.makeTime?string('yyyy-MM-dd HH:mm:ss')}
+      </td>
+      <td width="25%" ><label>结算单号:</label>${settlementInfo.settlementId}</td>
+    </tr>
+  </table>
+  <div style="margin-left: 80px;">
+  <table width="86%" cellspacing="0" class="table2" >
+		<tr>
+			<th width="100">
+				<label>车牌号码</label>
+			</th><td  width="140">
+				${settlementInfo.carCode}
+			</td>
+			<th width="100">
+				<label>发货日期</label>
+			</th><td  colspan="2" >
+			${settlementInfo.forwardingTime?string('yyyy-MM-dd HH:mm:ss')}
+			</td>
+			
+			<th  width="100">
+				<label>回单日期</label>
+			</th><td colspan="2">
+			${settlementInfo.makeTime?string('yyyy-MM-dd HH:mm:ss')}
+			</td>
+		</tr>	
+			
+		<tr>
+			<th>
+				<label>起点</label>
+			</th>
+			<td colspan="3">
+				${settlementInfo.forwardingUnit}
+			</td>
+			<th width="100">
+				<label>终点</label>
+			</th>
+			<td colspan="3">
+				${settlementInfo.consignee}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<label>货物名称</label>
+			</th>
+			<th width="120">
+				<label>运单号</label>
+			</th>
+			<th>
+				<label>发货单号</label>
+			</th>
+			<th width="140">
+				<label>到货单号</label>
+			</th>
+			<th>
+				<label>发货吨位</label>
+			</th>
+			<th>
+				<label>到货吨位</label>
+			</th>
+			<th width="80">
+				<label>运输单价</label>
+			</th>
+			<th width="100">
+				<label>运费</label>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				${settlementInfo.goodsName}
+			</td>
+			<td>
+				${settlementInfo.driverWaybillId}
+			</td>
+			<td>
+				${settlementInfo.forwardingId}
+			</td>
+			<td>
+				${settlementInfo.arriveId}
+			</td>
+			<td>
+				${settlementInfo.forwardingTonnage} 
+			</td>
+			<td>
+				${settlementInfo.arriveTonnage} 
+			</td>
+			<td>
+				${settlementInfo.currentTransportPrice} 
+			</td>
+			<td>
+				${settlementInfoProxy.shipperPrice} 
+			</td>
+		</tr>
+		
+		<tr>
+			<th>
+				<label>扣损吨位</label>
+			</th>
+			<th>
+				<label>扣损单价</label>
+			</th>
+			<th>
+				<label>扣损金额</label>
+			</th>
+			<th>
+				<label>其他扣款</label>
+			</th>
+			<th>
+				<label>应付运费</label>
+			</th>
+			<th>
+				<label>其他税费</label>
+			</th>
+			<th>
+				<label>运费成本</label>
+			</th>
+			<th>
+				<label>进项税</label>
+			</th>
+		</tr>	
+		<tr>
+			<td>
+			${settlementInfo.lossTonnage}
+			</td>
+			<td>
+			${settlementInfo.deductionUnitPrice}
+			</td>
+			<td>
+			${settlementInfo.deductionPrice}
+			</td>
+			<td>
+			${settlementInfo.otherPrice}
+			</td>
+			<td>
+			${settlementInfoProxy.payablePrice}
+			</td>
+			<td>
+			${settlementInfoProxy.otherTaxPrice}
+			</td>
+			<td>
+			${settlementInfoProxy.transportPriceCost}
+			<td>
+			${settlementInfoProxy.incomeTax}
+			</td>
+		</tr>	
+				
+		<tr>
+			<th>
+				<label>工本费</label>
+			</th>
+			<th>
+				<label>实付金额</label>
+			</th>
+			<th>
+				<label>预付款</label>
+			</th>
+			<th>
+				<label>本次付款</label>
+			</th>
+			<th colspan="4" rowspan="1" style="text-align:left;">
+				&nbsp;&nbsp;<label>备注:</label>${settlementInfo.remarks}
+			</th>
+			
+		</tr>
+		<tr>
+			<td>
+				${settlementInfo.costPrice}
+			</td>
+			<td>
+				${settlementInfoProxy.actualPaymentPrice}
+			</td>
+			<td>
+				${settlementInfo.advancePrice}
+			</td>
+			<td>
+				${settlementInfoProxy.thisPayPrice}
+			</td>
+			<td  colspan="4" rowspan="2	" style="text-align:left">
+			有价券金额:${settlementInfo.couponUseTotalPrice}
+			公路通行费:${(settlementInfo.highwayToll)!'0'}
+			高速公路通行费:${(settlementInfo.superHighwayToll)!'0'}
+			财政通行费:${(settlementInfo.otherToll)!'0'}
+			<br/>有价券卡号:${settlementInfo.cardCode}
+		  </td>
+		</tr>	
+		<tr>
+			<td height="25" colspan="4" class="paymentCn">
+				大写金额：人民币${settlementInfo.capitalAmount}
+		  </td>
+		</tr>
+  </table>
+		<table  width="86%" class="jsdtb">
+			<tr>
+				<td><label>制单人：</label>${settlementInfo.makeUserName}</td>
+				<td><label>复核人：</label></td>
+				<td><label>收款人：</label></td>
+				<td><label>出纳：</label></td>
+			</tr>
+		</table>
+	</div>
+	
+		<div  id="btndiv" style="width:100%;height:70px;text-align:center;margin-top: 10px;" >
+			<button class="save-button" onclick="audit_reject(${settlementInfo.id},0,'不通过')">不通过</button>
+			<button class="save-button" onclick="audit_reject(${settlementInfo.id},1,'通过')">审核通过</button>
+			<button class="close-button settlement-opt-close" data-dismiss="modal">关闭</button>
+		</div>
+		</div>
+</div>
+</div>

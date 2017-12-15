@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>发票管理</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/viewer.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/line/line-manage.css" type="text/css" />
+		
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--发票管理模板-->
+				<div class="invoice-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+							<div class="search-from" style="max-width:1390px">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">发票号码</div>
+											<div class="input-text">
+												<input id="s_invoice_id" class="input" placeholder="请输入发票号码" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">发票代码</div>
+											<div class="input-text">
+												<input id="s_invoice_code" class="input" placeholder="请输入发票代码" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">对账单号</div>
+											<div class="input-text">
+												<input id="s_account_check_id" class="input" placeholder="请输入对账单号" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+								            <div class="input-lable">开票日期</div>
+								            <div class="input-text money-input" style="width:98px">
+								              <input class="input date-time" id="billing_date_start" name="billingDateStart" placeholder="" type="text" />
+								            </div>
+								              <div class="input-line">—</div>
+								            <div class="input-text money-input" style="width:98px">
+								              <input class="input date-time" id="billing_date_end" name="billingDateEnd" placeholder="" type="text" />
+								            </div>
+								          </div>
+								          <div class="search-box">
+											<div class="input-lable">客户名称</div>
+											<div class="input-text">
+												<input id="s_customer_id" class="input" placeholder="请输入客户名称" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">组织部门</div>
+											<div class="input-text">
+												<input id="s_project_info_id" class="input" placeholder="请输入组织部门" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">发票分类</div>
+											<div class="input-text">
+												<select id="s_invoice_classify" class="input">
+													<option value="">请选择</option>
+													<option value="1">成本发票</option>
+													<option value="2">收入发票</option>
+												</select>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">单据状态</div>
+											<div class="input-text">
+												<select id="s_invoice_status" class="input">
+													<option value="">请选择</option>
+													<option value="1">起草</option>
+													<option value="2">待审核</option>
+													<option value="3">审核通过</option>
+													<option value="4">驳回</option>
+												</select>
+											</div>
+										</div>
+										<div class="search-box" style="width:320px;">
+						            		 
+						          		</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchInvoiceInfo(1)">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">	
+						<div class="operation-tab row">
+				      		<button class="operation-button operation-blue" onclick="addOrEditInvoiceInfoPage()">
+					          <div class="add-icon"></div>
+					          <div class="operation-text">新增</div>
+					        </button>
+					        <button class="operation-button operation-blue" onclick="deleteCheckedInvoiceInfo()">
+					          <div class="delete-icon"></div>
+					          <div class="operation-text">删除</div>
+					        </button>
+							<button class="operation-button operation-blue" onclick="operateInvoiceDetail()">
+								<div class="enable-icon"></div>
+								<div class="operation-text">发票明细信息</div>
+							</button>
+							<button class="operation-button operation-blue" onclick="invoiceImage()">
+								<div class="enable-icon"></div>
+								<div class="operation-text">发票附件</div>
+							</button>
+						</div>
+					</div>
+					<div id="search-invoice-info" class="panel-table">
+					</div>
+					
+					<!-- 新增/编辑发票管理 -->
+					<div id="show_invoice_info"></div>
+					
+					<!-- 查询项目信息管理 -->
+					<div id="show_project_info"></div>
+					
+					<!-- 查询客户编号 -->
+					<div id="show_customer_info"></div>
+					
+					<!-- 查询对账单编号 -->
+					<div id="show_account_check_info"></div>
+					
+					<!-- 查询发票明细信息 -->
+					<div id="show_invoice_detail_info"></div>
+						
+					<!-- 发票附件 -->
+					<div id="show_invoice_image_info"></div>
+						
+					<!-- 审核模板 -->
+					<div class="modal fede" id="disableModal" tabindex="-3" role="dialog" aria-labelledby="myOptModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+									<h4 class="modal-title" id="myOptModalLabel">
+										发票审核
+									</h4>
+								</div>
+								<div class="modal-body">
+									<div class="model-from row">
+										<div class="group-box">
+							              	<div class="input-lable"><span>*</span>审核结果：</div>
+							              	<div class="input-text">
+								                <select id="modal_audit_result" name="invoiceAuditLogInfoPo.auditResult" class="input" >
+								                  	<option value="3" <#if invoiceAuditLogInfoPo?exists && invoiceAuditLogInfoPo.auditResult==3>selected</#if>>审核通过</option>
+								                  	<option value="4" <#if invoiceAuditLogInfoPo?exists && invoiceAuditLogInfoPo.auditResult==4>selected</#if>>审核驳回</option>
+								                </select>
+							              	</div>
+						            	</div>
+										<div class="group-box">
+											<div id="modal_opearate_title" class="input-lable">停用原因:</div>
+											<div class="textarea-text" style="width:294px">
+												<textarea id="modal_opearate_reason" class="input" placeholder="请输入停用原因"></textarea>
+											</div>
+											<input id="modal_invoice_info_id" type="hidden" operate-type="">
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="close-button" onclick="auditInvoiceInfo()">确认</button>
+									<button class="close-button" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/invoice/invoiceManage.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/invoice/projectSearch.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/invoice/customerSearch.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/invoice/accountSearch.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/invoice/invoiceDetailSearch.js"></script>
+</html>

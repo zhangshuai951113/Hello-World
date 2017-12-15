@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>有价券</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/coupon/coupon.css" type="text/css" />
+		
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <main class="main">
+		    	 <div class="search-panel row">
+			    	 <form onsubmit="return false">
+					    <div class="search-from" style="max-width:1665px;">
+					      <div class="search-row-box">
+					        <div class="both-row row">
+					          <div class="search-box">
+					            <div class="input-lable">卡号</div>
+					            <div class="input-text">
+					              <input class="input" id="cardCode" name="cardCode"  placeholder="请输入卡号" type="text" />
+					            </div>
+					          </div>
+					          <div class="search-box">
+								<div class="input-lable">有价券类型</div>
+								<div class="input-text">
+								<select id="couponType" class="input">
+									<option value="">请选择</option>
+									<#if couponTypeInfoList?exists> <#list couponTypeInfoList as couponTypeInfo>
+									<option value="${couponTypeInfo.id}">${couponTypeInfo.couponType}</option>
+									</#list> </#if>
+								</select>
+								</div>
+							</div>
+					          <div class="search-box">
+					            <div class="input-lable">供应商</div>
+					            <div class="input-text">
+					              <input class="input" id="supplierCode" name="supplierCode" placeholder="请输入供应商" type="text" />
+					            </div>
+					          </div>
+					          <div class="search-box">
+					            <div class="input-lable">有价券状态</div>
+					            <div class="input-text">
+					              <select class="input" id="couponStatus" name="couponStatus">
+					                <option value="">请选择</option>
+					                <option value="1">登记</option>
+					                <option value="2">审核不通过</option>
+					                <option value="3">审核通过</option>
+					              </select>
+					            </div>
+					          </div>
+					   
+					          <div class="search-box">
+					            <div class="input-lable">卡片类型</div>
+					            <div class="input-text">
+					              <select class="input" id="cardType" name="cardType" >
+					                <option value="">请选择</option>
+					                <option value="1">定额卡</option>
+					              </select>
+					            </div>
+					          </div>
+					          <div class="search-box">
+					            <div class="input-lable" >有价券名称</div>
+					            <div class="input-text">
+					              <input class="input" id="couponName" name="couponName" placeholder="请输入有价券名称" type="text" />
+					            </div>
+					          </div>
+<!-- 					          <div class="search-box"> -->
+<!-- 					            <div class="input-lable" >所属组织</div> -->
+<!-- 					            <div class="input-text"> -->
+<!-- 					              <input class="input" id="orgName" name="orgName" placeholder="请输入所属组织" type="text" /> -->
+<!-- 					            </div> -->
+<!-- 					          </div> -->
+<!-- 					          <div class="search-box"> -->
+<!-- 					            <div class="input-lable" >上级组织</div> -->
+<!-- 					            <div class="input-text"> -->
+<!-- 					              <input class="input" id="parentOrgName" name="parentOrgName" placeholder="请输入上级组织" type="text" /> -->
+<!-- 					            </div> -->
+<!-- 					          </div> -->
+<!-- 					          <div class="search-box"> -->
+<!-- 					            <div class="input-lable" >录入人</div> -->
+<!-- 					            <div class="input-text"> -->
+<!-- 					              <input class="input" id="createUser" name="createUser" placeholder="请输入录入人" type="text" /> -->
+<!-- 					            </div> -->
+<!-- 					          </div> -->
+<!-- 					          <div class="search-box"> -->
+<!-- 					         	<div class="input-lable">登记日期</div> -->
+<!-- 						         <div class="input-text time-input"> -->
+<!-- 						            <input class="input date-time" type="text" id="rCreateStartTime" name="rCreateStartTime" readonly="readonly"/> -->
+<!-- 						         </div> -->
+<!-- 						         <div class="input-line">—</div> -->
+<!-- 						         <div class="input-text time-input"> -->
+<!-- 						             <input class="input date-time" type="text" id="rCreateEndTime" name="rCreateEndTime" readonly="readonly"/> -->
+<!-- 						         </div> -->
+<!-- 				          	  </div> -->
+					          <div class="search-box">
+					            <div class="input-lable">总额(元)</div>
+					            <div class="input-text time-input">
+					              <input class="input" id="amountStart" name="amountStart" placeholder="" type="text" />
+					            </div>
+					              <div class="input-line">—</div>
+					            <div class="input-text time-input">
+					              <input class="input" id="amountEnd" name="amountEnd" placeholder="" type="text" />
+					            </div>
+					          </div><!-- 
+					          <div class="search-box">
+					            <div class="input-lable">余额(元)</div>
+					            <div class="input-text time-input">
+					              <input class="input"  id="balanceStart" name="balanceStart" placeholder="" type="text" />
+					            </div>
+					              <div class="input-line" >—</div>
+					            <div class="input-text time-input">
+					              <input class="input" id="balanceEnd" name="balanceEnd" placeholder="" type="text" />
+					            </div>
+					          </div> -->
+					          <div class="search-box" style="width:320px;"></div>
+					        </div>
+					      </div>
+					      <div class="search-button-box">
+					      	<button class="search-button" id="searchCouponInfo">
+						        <div class="search-icon"></div>
+						        <div class="text">查询</div>
+						    </button>
+						    <button class="search-button" type="reset">
+						        <div class="reset-icon"></div>
+						        <div class="text">重置</div>
+						   </button>
+					      </div>
+					    </div>
+			    	 </form>
+				 </div>
+				<div class="panel" >
+				  <div class="row">	
+				      <div class="operation-tab row">
+				        <button class="operation-button operation-blue" onclick="addOrEditCouponInfoPage()">
+				          <div class="add-icon"></div>
+				          <div class="operation-text">新增</div>
+				        </button>
+				        <button class="operation-button operation-blue" onclick="batchCouponUseInfoPage()">
+				          <div class="receive-icon"></div>
+				          <div class="operation-text">批量领用</div>
+				        </button>
+				        <button class="operation-button operation-blue" onclick="deleteCheckedCouponInfo()">
+				          <div class="delete-icon"></div>
+				          <div class="operation-text">删除</div>
+				        </button>
+				        <button class="operation-button operation-blue " onclick="downExample()">
+				          <div class="download-file-icon"></div>
+				          <div class="operation-text">下载导入模板</div>
+					     </button>
+					     <button  class="operation-button operation-blue " style="position:relative">
+					     	<div class="loadExcels" style="width:79px;height: 35px;position: absolute;left: 0;top: 0;"></div>
+				          <div class="excel-import-icon" style="margin-top: 7px"></div>
+				          <div class="operation-text">Excel导入</div>
+					     </button>
+					     <button class="operation-button operation-blue" onclick="operationCoupon()">
+				          <div class="audit-icon"></div>
+				          <div class="operation-text">审核</div>
+					     </button>
+					     <button class="operation-button operation-blue" onclick="initCouponSettlementInfoPage()">
+				          <div class="search-icon"></div>
+				          <div class="operation-text">查看结算单</div>
+					     </button>
+					     <button class="operation-button operation-blue" onclick="returnCoupon()">
+				          <div class="search-icon"></div>
+				          <div class="operation-text">有价券退卡</div>
+					     </button>
+				     </div>
+			      </div>
+			      
+			      <!-- 有价券展示 -->
+					<div id="show_coupon_info"></div>
+				  <!-- 有价券领用页面展示 -->
+				  <div id="show_coupon_use_info"></div>
+				   <!-- 批量有价券领用页面展示 -->
+				  <div id="show_batch_coupon_use_info"></div>
+				    <!-- 批量有价券领用页面展示 -->
+				  <div id="back_coupon_page"></div>
+				  <!-- 结算单信息展示 -->
+				  <div id="show-settlement-data-info" class="modal-open"></div>
+			      <div class="panel-table">
+			      	<div class="iscroll">
+			      	
+			        <table class="table-bule  table-ellipsis" style="min-width:2116px; margin-top:" id="tableDrag">
+			          <thead>
+			            <tr class="table-title">
+			              <th  class="check">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="all_coupon_check"><i></i>
+			                </label>
+			              </th>
+			              <!-- <th>有价券编号</th> -->
+			              <th class="op" style="width: 246.8182px;">操作</th>
+			              <th>卡号</th>
+			              <th>所属组织</th>
+			              <th>上级组织</th>
+			              <th>有价券类型</th>
+			              <th>供应商</th>
+			              <th>结算单号</th>
+			              <th>领用人</th>
+			              <th>卡片类型</th>
+			              <th>有价券名称</th>
+<!-- 			              <th>数量</th> -->
+			              <th>计量单位</th>
+			              <th>总额(元)</th>
+			              <th>采购人</th>
+			              <th>采购时间</th>
+			              <th>创建人</th>
+			              <th>创建时间</th>
+			              <th>领用情况</th>
+			              <th>退还情况</th>
+<!-- 			              <th>变更情况</th> -->
+			              <th>结算使用情况</th>
+			              <th>有价券状态</th>
+			              <th>备注</th>
+			            </tr>
+			          </thead>
+			          <tbody id="tableList">
+			          </tbody>
+			        </table>
+			      	</div>
+			      </div>
+			      <div class="panel-pagination">
+			        <div class="panel-num" id="panel-num">搜索相关结果共0条</div>
+			        <div class="pagination-list"></div>
+			        <div class="pagination-input">到
+			          <input type="text" />页</div>
+			        <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			      </div>
+			  </div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	  	<!-- 导出Excel模板 -->
+	  	<form id="downExampleTemplate" action="" method="post" enctype="multipart/form-data">
+		</form>
+		<!-- 导入Excel模板 -->
+	  	<form id="loadExampleTemplate" action="" method="post" enctype="multipart/form-data">
+		</form>
+		<!-- 有价券领用表单 -->
+		<form id="coupon_use_form" action="" method="post">
+			<input id="couponInfoId" type="hidden" name="couponInfoId">
+		</form>
+		<!-- 有价券退还表单 -->
+		<form id="coupon_reback_form" action="" method="post">
+			<input id="couponId" type="hidden" name="couponId">
+		</form>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/coupon/rootCouponOperate.js"></script>
+</html>

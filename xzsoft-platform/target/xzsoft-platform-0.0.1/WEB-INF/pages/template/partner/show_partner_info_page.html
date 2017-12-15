@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>合作伙伴申请</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+		<style>
+		
+		  	.search-box .time-input {
+		    	width: 98px;
+		  	}
+		  	.JCLRgrip {
+			    top:0
+			}
+		</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+		    <!-- Main content -->
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<div class="search-panel row">
+					<form onsubmit="return false">
+  						<div class="search-from">
+	    					<div class="search-row-box">
+	      						<div class="both-row row">  
+		        					<div class="search-box">
+			          					<div class="input-lable">启用状态</div>
+							          	<div class="input-text">
+							            	<select id="is_available" class="input">
+								              	<option value="">请选择</option>
+								              	<option value="1">启用</option>
+								              	<option value="0">停用</option>
+							            	</select>
+							          	</div>
+		        					</div>
+							        <div class="search-box">
+							          	<div class="input-lable">确认时间</div>
+							          	<div class="input-text time-input">
+							            	<input id="confirm_time_start_str" class="input date-time" placeholder="" type="text" />
+							          	</div>
+							       		<div class="input-line">—</div>
+							          	<div class="input-text time-input">
+							            	<input id="confirm_time_end_str" class="input date-time" placeholder="" type="text" />
+							          	</div>
+							        </div>
+	      						</div>
+	    					</div>
+	    					<div class="search-button-box">
+								<button class="search-button" onclick="searchPartnerInfo(1)">
+									<div class="search-icon"></div>
+									<div class="text">查询</div>
+								</button>
+								<button class="search-button" type="reset" >
+								      <div class="reset-icon"></div>
+								      <div class="text">重置</div>
+								 </button>
+							</div>
+	  					</div>
+	  				</form>
+				</div>
+				<div class="panel">	
+					<div id="search_partner_info" class="panel-table">
+					</div>
+				</div>
+				
+				<!-- 模态框 启用/停用弹出 -->
+				<div class="modal fade" id="partnerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+								<h4 class="modal-title" id="myModalLabel">
+									启用合作伙伴
+								</h4>
+							</div>
+							<div class="modal-body">
+								<input id="hidden_partner_info_ids" type="hidden" value="">
+								<input id="hidden_is_available" type="hidden" value="">
+								<div class="model-from row">
+									<div class="input-lable"><span>*</span>备注：</div>
+									<div class="textarea-text">
+										<textarea id="remarks" class="input" placeholder="请输入备注信息"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer ng-scope">
+								<button class="close-button" onclick="optPartnerInfo()">确认</button>
+								<button class="close-button" data-dismiss="modal">取消</button>
+							</div>
+						</div>
+					</div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/partner/partnerInfoManager.js"></script>
+</html>

@@ -1,0 +1,189 @@
+<!-- 普通用户模板-->
+<div id="enterprise-user-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="enterpriseUserModalLabel" aria-hidden="true" style="display: block">
+	  	<div class="modal-dialog modal-dialog-both">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close enterprise-user-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="enterpriseUserModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+		        	<form id="enterprise_user_form">
+		        		<input id="hidden_enterprise_user_id" type="hidden" name="userInfo.id" value="${userEnterprise.userInfoId}">
+		          		<div class="from-both-box">
+		            		<div class="group-box">
+		              			<div class="input-lable"><span>*</span>员工姓名：</div>
+		              			<div class="input-text">
+		                			<input id="e_user_real_name" name="enterpriseUserInfo.realName" class="input" placeholder="请输入员工姓名" type="text" value="${userEnterprise.realName}"/>
+		              			</div>
+		            		</div>
+		            		<div class="group-box">
+		              			<div class="input-lable">员工编号：</div>
+		              			<div class="input-text">
+		                			<input id="e_user_person_code" name="enterpriseUserInfo.personCode" class="input" placeholder="请输入员工编号" type="text" value="${userEnterprise.personCode}"/>
+		              			</div>
+		            		</div>
+		          		</div>
+			          	<div class="from-both-box">
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>登录账号：</div>
+				              	<div class="input-text">
+				                	<input id="e_user_user_name" name="userInfo.userName" class="input" placeholder="请输入登录账号" type="text" value="${userEnterprise.userName}"/>
+				              	</div>
+				            </div>
+				            <#if operateType?exists && operateType==2>
+			            	<#else>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>密码：</div>
+				              	<div class="input-text">
+				                	<input id="e_user_password" name="userInfo.password" class="input" placeholder="请输入密码" type="text" />
+				              	</div>
+				            </div>
+				            </#if>
+		          		</div>
+			          	<div class="from-both-box">
+			            	<div class="group-box">
+			              		<div class="input-lable">学历：</div>
+				              	<div class="input-text">
+				                	<select id="e_user_education" name="enterpriseUserInfo.education" class="input">
+				                		<option value="">请选择</option>
+				                		<#list educationList as educationInfo>
+				                			<#if userEnterprise?exists && userEnterprise.education==educationInfo.code>
+				                				<option value="${educationInfo.code}" selected>${educationInfo.desc}</option>
+				                			<#else>
+				                				<option value="${educationInfo.code}">${educationInfo.desc}</option>
+				                			</#if>
+				                		</#list>
+				                	</select>
+				              	</div>
+			            	</div>
+			            	<div class="group-box">
+			              		<div class="input-lable">民族：</div>
+			              		<div class="input-text">
+				                	<select id="e_user_nationality" name="enterpriseUserInfo.nationality" class="input">
+				                		<option value="">请选择</option>
+				                		<#list nationalityList as nationalityInfo>
+				                			<#if userEnterprise?exists && userEnterprise.nationality==nationalityInfo.code>
+				                				<option value="${nationalityInfo.code}" selected>${nationalityInfo.desc}</option>
+				                			<#else>
+				                				<option value="${nationalityInfo.code}">${nationalityInfo.desc}</option>
+				                			</#if>
+				                		</#list>
+				                	</select>
+			              		</div>
+			            	</div>
+			          	</div>
+			          	<div class="from-both-box">
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>身份证号：</div>
+				              	<div class="input-text">
+				                	<input id="e_user_id_card" name="enterpriseUserInfo.idCard" class="input" placeholder="请输入身份证号" type="text" value="${userEnterprise.idCard}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">居住地址：</div>
+				              	<div class="input-text">
+				                	<input id="e_user_address" name="enterpriseUserInfo.address" class="input" placeholder="请输入居住地址" type="text" value="${userEnterprise.address}"/>
+				              	</div>
+				            </div>
+			          	</div>
+			          	<div class="from-both-box">
+			            	<div class="group-box">
+				              	<div class="input-lable">性别：</div>
+				              	<div class="input-text">
+					                <select id="e_user_sex" name="enterpriseUserInfo.sex" class="input">
+					                  	<option value="1" <#if userEnterprise?exists && userEnterprise.sex==1>selected</#if>>男</option>
+					                  	<option value="2" <#if userEnterprise?exists && userEnterprise.sex==2>selected</#if>>女</option>
+					                </select>
+				              	</div>
+			            	</div>
+			            	<div class="group-box">
+				              	<div class="input-lable"><span>*</span>手机号：</div>
+				              	<div class="input-text">
+				                	<input id="e_user_mobile_phone" name="userInfo.mobilePhone" class="input" placeholder="请输入手机号" type="text" value="${userEnterprise.mobilePhone}"/>
+				              	</div>
+			            	</div>
+			          	</div>
+			          	<div class="from-both-box">
+				            <div class="group-box">
+				              	<div class="input-lable">邮箱：</div>
+				              	<div class="input-text">
+				                	<input id="e_user_mail" name="enterpriseUserInfo.mail" class="input" placeholder="请输入邮箱" type="text" value="${userEnterprise.mail}"/>
+				              	</div>
+				            </div>
+				            <!-- 组织信息展示 -->
+							<div id="show-org-data-info" class="modal-open"></div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>组织名称：</div>
+				              	<div class="input-text">
+<!-- 	                				<select id="enterprise_user_org_info_id" name="userInfo.orgInfoId" class="input"> -->
+<!-- 					                	<option value="">请选择</option> -->
+<!-- 										<#if orgInfoList?exists> -->
+<!-- 											<#list orgInfoList as orgInfo> -->
+<!-- 												<#if userEnterprise?exists && orgInfo.id==userEnterprise.orgInfoId> -->
+<!-- 													<option value="${orgInfo.id}" selected>${orgInfo.orgName}</option> -->
+<!-- 												<#else> -->
+<!-- 													<option value="${orgInfo.id}">${orgInfo.orgName}</option> -->
+<!-- 												</#if> -->
+<!-- 											</#list> -->
+<!-- 										</#if> -->
+<!-- 	                				</select> -->
+										<input id="orgName" class="input" type="text" onclick="showOrgInfoPage(1)" value="${orgInfoPo.orgName}" readonly="readonly"/>
+										<input id="enterprise_user_org_info_id" name="userInfo.orgInfoId" class="input" type="hidden" value="${userEnterprise.orgInfoId}"/>
+			              		</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>上级组织：</div>
+				              	<div class="input-text">
+										<input id="orgParentName" class="input" type="text" readonly="readonly" value="${orgInfoPo.parentOrgName}"/>
+										<input id="orgParentId" name="userInfo.parentOrgInfoId" class="input" type="hidden" value="${userEnterprise.parentOrgInfoId}"/>
+			              		</div>
+				            </div>
+			          	</div>
+		          		<div class="from-both-box">
+			            	<div class="group-img">
+			              		<div class="input-lable">上传身份证(正面)：</div>
+				              	<div class="input-img">
+				              		<#if userEnterprise.idCardImage?exists && userEnterprise.idCardImage!="">
+				              			<img src="${fastdfsServer}/${userEnterprise.idCardImage}" class="upload_img img_box" img-type="id_card_image">
+				              		<#else>
+				                		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="id_card_image">
+				              		</#if>
+				                	<input id="id_card_image" type="hidden" name="enterpriseUserInfo.idCardImage" value="${userEnterprise.idCardImage}">
+				              	</div>
+			              		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。</div>
+			            	</div>
+		          		</div>
+		          		<div class="from-both-box">
+			            	<div class="group-img">
+			              		<div class="input-lable">上传身份证(反面)：</div>
+				              	<div class="input-img">
+				              		<#if userEnterprise.idCardImageCopy?exists && userEnterprise.idCardImageCopy!="">
+				              			<img src="${fastdfsServer}/${userEnterprise.idCardImageCopy}" class="upload_img img_box" img-type="id_card_image_copy">
+				              		<#else>
+				                		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="id_card_image_copy">
+				              		</#if>
+				                	<input id="id_card_image_copy" type="hidden" name="enterpriseUserInfo.idCardImageCopy" value="${userEnterprise.idCardImageCopy}">
+				              	</div>
+			              		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。</div>
+			            	</div>
+		          		</div>
+		          		<div class="from-both-box">
+		            		<div class="group-textarea">
+		              			<div class="input-lable">备注：</div>
+		              			<div class="textarea-text">
+		                			<textarea id="e_user_remark" name="enterpriseUserInfo.remark" placeholder="请填写备注">${userEnterprise.remark}</textarea>
+		              			</div>
+		            		</div>
+		          		</div>
+		        	</div>
+	      		</form>
+		      	<div class="modal-footer">
+		        	<button class="save-button" onclick="addOrUpdateEnterpriseUser()">保存</button>
+		        	<button class="close-button enterprise-user-opt-close" data-dismiss="modal">取消</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

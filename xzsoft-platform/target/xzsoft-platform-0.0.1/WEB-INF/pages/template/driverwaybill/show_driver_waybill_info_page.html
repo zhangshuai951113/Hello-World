@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<title>运单管理(司机)</title>
+	<#include "../../common/common_header.html" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+	<link rel="stylesheet" href="${basePath}/static/css/common/viewer.css" type="text/css" />
+	<style>
+		.search-box .time-input {
+		    width: 98px;
+		}
+		 .from-both-box .view-img img {
+		    width:100%;
+		    height:100%;
+		  }
+		  .from-both-box .view-img .input {
+		    position: absolute;
+		      width: 100%;
+		      height: 100%;
+		      opacity: 0;
+		  }
+		.from-both-box .view-img {
+		    height: 80px;
+		    width: 90px;
+		    float: left;
+		    margin-right: 20px;
+		    position: relative;
+		    border: 1px solid #ccc;
+		}
+		.from-both-box .input-notice {
+		    float: left;
+		    color: #666666;
+		    font-size: 12px;
+		    margin-top: 10px;
+		    margin-left: 20%;
+		    width: 70%;
+		    text-align: left;
+		    line-height: 14px;
+		    letter-spacing: 6px;
+		    vertical-align: super;
+		}
+	</style>
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main" id="mainPage">
+		<div class="search-panel row">
+			<form onsubmit="return false">
+				<div class="search-from" >
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">货物名称</div>
+								<div class="input-text">
+									<input id="goodsName" class="input" placeholder="请输入货物名称" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">委托方</div>
+								<div class="input-text">
+									<input id="entrustName" class="input" placeholder="请输入委托方" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">发货单位</div>
+								<div class="input-text">
+									<input id="forwardingUnit" class="input" placeholder="请输入发货单位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">收货单位</div>
+								<div class="input-text">
+									<input id="_consignee" class="input" placeholder="请输入收货单位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">线路</div>
+								<div class="input-text">
+									<input id="lineInfoId" class="input" placeholder="请选择线路" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">运单状态</div>
+								<div class="input-text">
+									<select id="waybillStatus" class="input">
+										<option value="">请选择</option>
+										<option value="1">新建</option>
+										<option value="5">已接单</option>
+										<option value="6">已装货</option>
+										<option value="7">在途</option>
+										<option value="8">已卸货</option>
+										<option value="9">已挂账</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">计划拉运日期</div>
+								<div class="input-text time-input">
+									<input id="planTransportDateStart" class="input date-time" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input id="planTransportDateEnd" class="input date-time" placeholder="" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="searchDriverWaybillInfo(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="panel">
+			<div class="operation-tab row">
+				<@shiro.hasPermission name="waybillDriver:confirmOrder">
+				<button id="confirmBtn" class="operation-button operation-blue" onclick="operateCheckedDriverWaybillInfo(1)">
+					<div class="waybill-confirm-icon"></div>
+					<div class="operation-text">确认接单</div>
+				</button>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name="waybillDriver:confirmRejection">
+				<button id="refusalBtn" class="operation-button operation-blue" onclick="operateCheckedDriverWaybillInfo(2)">
+					<div class="waybill-refuse-icon"></div>
+					<div class="operation-text">确认拒单</div>
+				</button>
+				</@shiro.hasPermission>
+			</div>
+			<div id="search_driver_waybill_info" class="panel-table"></div>
+		</div>
+
+		<!--卸货、装货信息编辑模板-->
+		<div id="driver_waybill_maintain_info_edit" class="tab-content" style="display: block" class="modal-open"></div>
+
+		<!-- 日志信息列表 -->
+		<div class="modal fade" id="logModal" tabindex="-2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">操作日志查看</h4>
+					</div>
+					<div class="modal-body">
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th>操作人</th>
+										<th style="width: 80px;">操作时间</th>
+										<th>操作描述</th>
+										<th>操作意见</th>
+									</tr>
+								</thead>
+								<tbody id="logTBody">
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="logNum">0</span>条
+								</div>
+								<div id="goodsPage" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="logSelect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="close-button" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/driverwaybill/waybillManageForDriver.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+</html>

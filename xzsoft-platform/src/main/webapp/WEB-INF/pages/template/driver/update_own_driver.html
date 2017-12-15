@@ -1,0 +1,150 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both">
+			
+		
+		<div class="modal-content" style="width:830px; height:800px">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeButton()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					${msg}
+				</h4>
+			</div>
+			<div class="modal-body">
+			<form id="updateDriverInfo">
+					<div id="driver-tab" class="tab-content" style="display: block">
+						<div class="from-both-box" style="width:784px">
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>司机姓名：</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入司机姓名" type="text" id="ownDriverName" name="DriverInfo.driverName">
+								</div>
+	        			</div>
+	        			<div class="group-box">
+				          <div class="input-lable">手机号：</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入手机号" type="text" id="ownMobilePhone" name="DriverInfo.mobilePhone">
+								</div>
+				        </div>
+      				</div>
+							<div class="from-both-box" style="width:784px">
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>身份证号：</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入身份证号" type="text" id="ownIdCard" name="DriverInfo.idCard">
+								</div>
+	        			</div>
+	        			<div class="group-box">
+				          <div class="input-lable"><span>*</span>驾驶证编号：</div>
+							<div class="input-text">
+								<input class="input" placeholder="请输入驾驶证编号" type="text" id="ownDrivingLicense" name="DriverInfo.drivingLicense">
+							</div>
+				        </div>
+      				</div>
+							<div class="from-both-box" style="width:784px">
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>开户行：</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入开户行" type="text" id="ownOpeningBank" name="DriverInfo.openingBank">
+								</div>
+	        			</div>
+	        			<div class="group-box">
+				          	<div class="input-lable"><span>*</span>开户名：</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入开户名" type="text" id="ownAccountName" name="DriverInfo.accountName">
+								</div>
+				        </div>
+      				</div>
+							<div class="from-both-box" style="width:784px">
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>银行账号：</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入银行账号" type="text" id="ownBankAccount" name="DriverInfo.bankAccount">
+								</div>
+	        			</div>
+	        			<div class="group-box">
+				          	<div class="input-lable">车牌号：</div>
+								<div class="input-text">
+									<input class="input"  type="text" id="ownCarCode" name="DriverInfo.carCode">
+								</div>
+				        </div>
+      				</div>
+							<div class="from-both-box" style="width:784px">
+	        			<div class="group-box">
+		          			<div class="input-lable">所属机构：</div>
+								<div class="input-text">
+									<input class="input"  type="text" id="ownOrgInfoId">
+								</div>
+	        			</div>
+	        			<div class="group-box">
+				          	<div class="input-lable">司机状态：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="ownDriverStatus">
+								</div>
+				        </div>
+      				</div>
+					<div class="from-both-box" style="width:784px">
+	        			<div class="group-box">
+		          			<div class="input-lable">是否启用：</div>
+								<div class="input-text">
+								<input class="input" type="text" id="ownIsAvailable">
+								</div>
+	        		     </div>
+      				</div>
+			      	
+			      	<div class="from-both-box" style="width:784px">
+			        	<div class="group-img">
+							<div class="input-lable"><span>*</span>身份证正面附件：</div>
+							<div class="input-img">
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="idCardImage" id="myIdCardImage">
+								<input type="hidden" id="idCardImage" name="DriverInfo.idCardImg">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable"><span>*</span>身份证反面附件：</div>
+							<div class="input-img">
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="idCardImageCopy" id="myIdCardImageCopy">
+								<input type="hidden" id="idCardImageCopy" name="DriverInfo.idCardImgCopy">
+							</div>
+					</div>
+			      	</div>
+			      	
+			      	<div class="from-both-box" style="width:784px">
+			        	
+			      	<div class="group-img">
+							<div class="input-lable"><span>*</span>司机驾驶证正面附件：</div>
+							<div class="input-img">
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="driverLicenseImg" id="myDriverLicenseImg">
+								<input type="hidden" id="driverLicenseImg" name="DriverInfo.driverLicenseImg">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable"><span>*</span>司机驾驶证反面附件：</div>
+							<div class="input-img">
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="driverLicenseImgCopy" id="myDriverLicenseImgCopy">
+								<input type="hidden" id="driverLicenseImgCopy" name="DriverInfo.driverLicenseImgCopy">
+							</div>
+					</div>
+			      	</div>
+			      	<div class="from-both-box">
+			        	<div class="input-remarksLable">备注：</div>
+					<div class="textarea-text">
+						<textarea class="remarksInput" placeholder="请输入备注" name="DriverInfo.remarks" id="remarks"></textarea>
+					</div>
+			      	</div>
+			      	<input type="hidden" id="ownId" name="DriverInfo.id">
+					</div>
+					</form>
+					<div id="enterprise-tab" class="tab-content"></div>
+			</div>
+			<div class="modal-footer">
+				<button class="save-button" onclick="saveDriver()">保存</button>
+				<button class="close-button" data-dismiss="modal" onclick="closeButton()">取消</button>
+			</div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

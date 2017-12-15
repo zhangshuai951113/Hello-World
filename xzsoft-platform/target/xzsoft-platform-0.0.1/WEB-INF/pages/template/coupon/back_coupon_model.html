@@ -1,0 +1,73 @@
+<!-- 模态框 有价券退卡 -->
+<div id="department-data-info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeBackCoupon()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						有价券退卡
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="back_coupon_form">
+						<div class="dep-from-box model-from">
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>面值：</div>
+								<div class="input-text">
+									<input id="" class="input"  name="amount" type="text" readOnly="true" value="${couponInfoPo.amount}"/>
+									<input id="couponIds" class="input"  name="couponIds" type="hidden" readOnly="true" value="${couponInfoPo.ids}"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>张数：</div>
+								<div class="input-text">
+									<input id="" class="input" name="cardNum" type="text" readOnly="true" value="${couponInfoPo.cardNum}"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>合计金额：</div>
+								<div class="input-text">
+									<input id="" class="input" name="totalMoney" type="text" readOnly="true" value="${couponInfoPo.totalMoney}"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>组织名称：</div>
+								<div class="input-text">
+									<input id="" class="input" name="" type="text" readOnly="true" value="${couponInfoPo.orgInfoName}"/>
+									<input id="orgInfoId" class="input" name="orgInfoId" type="hidden" readOnly="true" value="${couponInfoPo.orgInfoId}"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>上级组织：</div>
+								<div class="input-text">
+									<input id="" class="input" name="" type="text" readOnly="true" value="${couponInfoPo.parentOrgName}"/>
+									<input id="parentOrgInfoId" class="input" name="parentOrgInfoId" type="hidden" readOnly="true" value="${couponInfoPo.parentOrgInfoId}"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>退卡人：</div>
+								<div class="input-text">
+									<input id="backUser" class="input" name="backUser" type="text" value="${couponInfoPo.receiveUser}"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>退卡时间：
+								</div>
+								<div class="input-text">
+									<input id="backTime" name="backTime" class="input date-time" type="text" value="${couponInfoPo.backTimeStr}"/>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="close-button" onclick="backCoupon()">退卡</button>
+					<button class="close-button" data-dismiss="modal" onclick="closeBackCoupon()">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

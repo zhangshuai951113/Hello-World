@@ -1,0 +1,62 @@
+﻿<div id="contract_detail_info">
+<div class="iscroll"> 
+	<table class="table-bule table-ellipsis" id="tableDrag" style="min-width:1800px" title="合同明细表">
+		<thead>
+			<tr class="table-title">
+				<th style="width: 40px;">
+					<label class="i-checks"> <input class="all_check" name ="all" type="checkbox"><i></i>
+					</label>
+				</th>
+				<th class="operation">操作</th>
+				<th>货物名称</th>
+				<th>数量</th>
+				<th>单位运价（元）</th>
+				<th>总金额（元）</th>
+				<th>损耗扣款</th>
+				<th>线路名称</th>
+				<th>运距（公里）</th>
+				<th>发货单位</th>
+				<th>收货单位</th>
+				<th>起始日期</th>
+				<th>结束日期</th>
+				<th>备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if contractDetailInfoPager?exists && contractDetailInfoPager.rows?exists> <#list contractDetailInfoPager.rows as contractDetailInfo>
+			<tr class="table-body ">
+				<td style="width: 20px;">
+						<label class="i-checks"> <input type="checkbox" class="sub_check" data-id="${contractDetailInfo.id}" data-status="${contractDetailInfo.carStatus}"><i></i>
+						</label>
+				</td>
+				<td>
+					<div class="operation-td" contract-detail-info-id="${(contractDetailInfo.id)!'0'}" root-org-info-id="${(contractDetailInfo.rootOrgInfoId)!'0'}">
+						<div class="modify-operation operation-m">
+							<div class="modify-icon"></div>
+							<div class="text">修改</div>
+						</div>
+						<div class="delete-operation operation-m">
+							<div class="delete-icon"></div>
+							<div class="text">删除</div>
+						</div>
+					</div>
+				</td>
+				<td>${(contractDetailInfo.goodsName)!''}</td>
+				<td>${(contractDetailInfo.quantity)!''}</td>
+				<td>${(contractDetailInfo.unitPrice)!''}</td>
+				<td>${(contractDetailInfo.totalMoney)!''}</td>
+				<td>${(contractDetailInfo.lossDeductMoney)!''}</td>
+				<td>${(contractDetailInfo.lineName)!''}</td>
+				<td>${(contractDetailInfo.distance)!''}</td>
+				<td>${(contractDetailInfo.forwardingUnit)!''}</td>
+				<td>${(contractDetailInfo.consignee)!''}</td>
+				<td><#if contractDetailInfo.effectiveDate?exists>${(contractDetailInfo.effectiveDate)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+				<td><#if contractDetailInfo.endDate?exists>${(contractDetailInfo.endDate)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+				<td>${(contractDetailInfo.remarks)!''}</td>
+			</tr>
+			</#list> </#if>
+		</tbody>
+	</table>
+	</div>
+	<div class="panel-pagination">${contractDetailInfoPager.pageHtml}</div>
+</div>

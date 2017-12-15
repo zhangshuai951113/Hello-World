@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>资金账户提现</title>
+		<#include "../../common/common_header.html"/>
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/contract/contract-manage.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/coupon/couponOperation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" />
+<style type="text/css">
+		.remarks-from-box{
+			padding-left:80px;
+		}
+</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+			    <div class="panel" style="width:1030px">
+					<div class="panel-head">账户提现</div>
+			  		<div class="panel-body">
+			  			<form id="" onsubmit="return false" >
+			    			<div class="from-body" style="padding-left: 100px;">
+			      				<div class="from-both-box">
+				        			<div class="group-box" style="position: relative;">
+					          			<div class="input-lable"><span>*</span>账户名：</div>
+					          			<span id="CZZHName" style="color:black; top: 4px;position: absolute;">${CZZHName}</span>
+				        			</div>
+				        			</div>
+				        			<div class="from-both-box">
+							        <div class="group-box" style="position: relative;">
+					          			<div class="input-lable" ><span>*</span>账户余额(元)：</div>
+					          			<span style="color:black;position: absolute;top: 6px;" id="CZZHPrice">${CZZHPrice}</span>
+				        			</div>
+				        			</div>
+				        			<div class="from-both-box">
+				        			<div class="group-box" style="position: relative;">
+					          			<div class="input-lable"><span>*</span>可用金额(元)：</div>
+					          			<span style="color:black;position: absolute;top: 4px;" id="CZKYPrice">${CZKYPrice}</span>
+				        			</div>
+				        			</div>
+				        			<div class="from-both-box">
+				        			<div class="group-box" style="position: relative;">
+							          	<div class="input-lable">提现单号：</div>
+							          	<span style="color:black;position: absolute;top: 4px;" id="CZRedis">${CZRedis}</span>
+							        </div>
+							        </div>
+							        <div class="from-both-box">
+							        <div class="group-box">
+							          	<div class="input-lable">本次提现金额：</div>
+							          	<div class="input-text">
+							            	<input id="thisPrice" class="input" type="text" placeholder="请输入提现金额"/>
+							          	</div>
+							        </div>
+							       </div>
+							      <div class="from-both-box">
+							        <div class="group-box">
+							          	<div class="input-lable">提现方式：</div>
+							            	<input type="radio" checked value="1" id="paymentMethod" name="paymentMethod"  style="margin-top: 8px;margin-right: 10px;"/><lable>支付宝</lable>
+							            	<input type="radio" value="2" name="paymentMethod" id="paymentMethod"  style="margin-top: 8px;margin-right: 10px;"/><lable>微信</lable>
+							        </div>
+							        </div>
+							        <div class="from-both-box">
+							        <div class="group-box">
+							          	<div class="input-lable">手机号：</div>
+							          	<div class="input-text">
+							            	<input id="mobilePhone" class="input" type="text" value="${mobilePhone}"/>
+							          	</div>
+							        </div>
+							         </div>
+							         <div class="from-both-box">
+							         <div class="group-box" id="carCodeDiv">
+							          	<div class="input-lable">验证码：</div>
+							          	<div class="input-text">
+							            	<input id="code" class="input" type="text" placeholder="请输入验证码"/>
+							          	</div>
+							          	<div class="code-button" style="cursor:pointer" id="mobilePhoneVerificationCode" onclick="getMobilePhoneVerificationCode(this)">获取验证码</div>
+							        </div>
+			      				 </div>
+						      	</div>
+						    	<div class="from-both-box">
+									<div class="button-center">
+										<button class="from-save-button" onclick="withdraealsMoneyBtn()">提现</button>
+										<button class="from-save-button" onclick="closeWithdrawalsPage()">取消</button>
+									</div>
+								</div>
+							</div>
+			    		</form>
+			    	</div>
+				</div>
+				
+				<!-- 模态框 注销弹出 -->
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+</html>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/fundAccountManagement/withdrawalsMain.js"></script>

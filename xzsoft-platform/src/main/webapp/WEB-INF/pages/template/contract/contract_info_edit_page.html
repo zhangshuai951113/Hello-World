@@ -1,0 +1,295 @@
+<!-- 合同模板-->
+<div id="contract-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="contractModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close contract-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="contractModalLabel">${operateTitle}</h4>
+				</div>
+				<div class="modal-body">
+					<form id="contract_info_form">
+						<input id="hidden_contract_id" type="hidden" name="contractInfo.id" value="${contractInfo.id}">
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>合同编号：
+								</div>
+								<div class="input-text">
+									<input id="contract_code" name="contractInfo.contractCode" class="input" placeholder="请输入合同编号" type="text" value="${contractInfo.contractCode}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span> 合同名称：
+								</div>
+								<div class="input-text">
+									<input id="contract_name" name="contractInfo.contractName" class="input" placeholder="请输入合同名称" type="text" value="${contractInfo.contractName}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>合同类型：</div>
+								<div class="input-text">
+									<select id="contract_type" name="contractInfo.contractType" class="input" value="${contractInfo.contractType}">
+										<option value="">请选择</option>
+										<option value=1 <#if contractInfo.contractType?exists && contractInfo.contractType==1>selected</#if>>运输合同</option>
+										<option value=2 <#if contractInfo.contractType?exists && contractInfo.contractType==2>selected</#if>>框架协议合同</option>
+									</select>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>协同状态：</div>
+								<div class="input-text">
+									<select id="cooperate_status" name="contractInfo.cooperateStatus" class="input" onchange="cooperateStatusChange()" value="${contractInfo.cooperateStatus}">
+										<option value=1 <#if contractInfo.cooperateStatus?exists && contractInfo.cooperateStatus==1>selected</#if>>协同</option>
+										<option value=2 <#if contractInfo.cooperateStatus?exists && contractInfo.cooperateStatus==2>selected</#if>>半协同</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>委托方：
+								</div>
+								<div class="input-text">
+									<input id="entrust_name" class="input" placeholder="请选择委托方" type="text" value="${contractInfo.entrustName}" readonly="readonly" /> 
+									<input id="entrust" name="contractInfo.entrust" class="input" type="hidden" type="text" value="${contractInfo.entrust}" readonly="readonly" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>承运方：
+								</div>
+								<div class="input-text">
+									<input id="shipper_name" name="contractInfo.shipperName" class="input" placeholder="请选择承运方" type="text" value="${contractInfo.shipperName}" readonly="readonly" /> 
+									<input id="shipper" name="contractInfo.shipper" class="input" type="hidden" type="text" value="${contractInfo.shipper}" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>委托方主机构：
+								</div>
+								<div class="input-text">
+									<input id="entrust_org_root_name" class="input" readonly="readonly" type="text" value="${contractInfo.entrustOrgRootName}" />
+									<input id="entrust_org_root" name="contractInfo.entrustOrgRoot" class="input" hidden="true" type="text" value="${contractInfo.entrustOrgRoot}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>承运方主机构：
+								</div>
+								<div class="input-text">
+									<input id="shipper_org_root_name" name="contractInfo.shipperOrgRootName" class="input" readonly="readonly" type="text" value="${contractInfo.shipperOrgRootName}" />
+									<input id="shipper_org_root" name="contractInfo.shipperOrgRoot" class="input" hidden="true" type="text" value="${contractInfo.shipperOrgRoot}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>授权代表人 甲方：
+								</div>
+								<div class="input-text">
+									<input id="entrust_authorize_person" name="contractInfo.entrustAuthorizePerson" class="input" placeholder="请输入授权代表人（甲方）" type="text" value="${contractInfo.entrustAuthorizePerson}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>授权代表人乙方 ：
+								</div>
+								<div class="input-text">
+									<input id="shipper_authorize_person" name="contractInfo.shipperAuthorizePerson" class="input" placeholder="请输入授权代表人（甲方）" type="text" value="${contractInfo.shipperAuthorizePerson}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+						
+							<div class="group-box"  style ="display :${entrustProjectHidden}">
+								<div class="input-lable">
+									<span>*</span>委托方项目：
+								</div>
+								<div class="input-text" >
+									<input id="entrust_project_name" name="contractInfo.entrustProjectName" class="input" placeholder="请选择项目" type="text" value="${contractInfo.entrustProjectName}" readonly="readonly" /> 
+									<input id="entrust_project" name="contractInfo.entrustProject" class="input" type="hidden" type="number" value="${contractInfo.entrustProject}" />
+								</div>
+							</div>
+							<div class="group-box" style ="display :${entrustProjectHidden}">
+								<div class="input-lable">
+									<span>*</span>项目所属组织/部门：
+								</div>
+								<div class="input-text">
+									<input id="entrust_project_org_name" class="input" readonly="readonly" type="text" value="${contractInfo.entrustProjectOrgName}" />
+								</div>
+							</div>
+							<div class="group-box" style = "display :${shipperProjectHidden}">
+								<div class="input-lable">
+									<span>*</span>承运方项目：
+								</div>
+								<div class="input-text" >
+									<input id="shipper_project_name" name="contractInfo.shipperProjectName" class="input" placeholder="请选择项目" type="text" value="${contractInfo.shipperProjectName}" readonly="readonly" /> 
+									<input id="shipper_project" name="contractInfo.shipperProject" class="input" type="hidden" type="number" value="${contractInfo.shipperProject}" />
+								</div>
+							</div>
+							<div class="group-box" style = "display :${shipperProjectHidden}">
+								<div class="input-lable">
+									<span>*</span>项目所属组织/部门：
+								</div>
+								<div class="input-text">
+									<input id="shipper_project_org_name" class="input" readonly="readonly" type="text" value="${contractInfo.shipperProjectOrgName}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>币种：</div>
+								<div class="input-text">
+									<select id="currency" name="contractInfo.currency" class="input" value="${contractInfo.currency}">
+										<option value="">请选择</option>
+										<option value=1 <#if contractInfo.currency?exists && contractInfo.currency ==1>selected</#if>>人民币</option>
+										<option value=2 <#if contractInfo.currency?exists && contractInfo.currency ==2>selected</#if>>美元</option>
+										<option value=3 <#if contractInfo.currency?exists && contractInfo.currency ==3>selected</#if>>欧元</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>支付方式：</div>
+								<div class="input-text">
+									<select id="payment_mode" name="contractInfo.paymentMode" class="input">
+										<option value="">请选择</option>
+										<option value=1 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==1>selected</#if>>现金
+										</option>
+										<option value=2 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==2>selected</#if>>电汇
+										</option>
+										<option value=3 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==3>selected</#if>>承兑
+										</option>
+										<option value=4 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==4>selected</#if>>汇票
+										</option>
+										<option value=5 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==5>selected</#if>>其他
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>运输方式：</div>
+								<div class="input-text">
+									<select id="transport_mode" name="contractInfo.transportMode" class="input">
+										<option value="">请选择</option>
+										<option value=2 <#if contractInfo.transportMode?exists && contractInfo.transportMode==2>selected</#if>>公路运输
+										</option>
+										<option value=1 <#if contractInfo.transportMode?exists && contractInfo.transportMode==1>selected</#if>>铁路运输
+										</option>
+										<option value=3 <#if contractInfo.transportMode?exists && contractInfo.transportMode==3>selected</#if>>水上运输
+										</option>
+										<option value=4 <#if contractInfo.transportMode?exists && contractInfo.transportMode==4>selected</#if>>航空运输
+										</option>
+										<option value=5 <#if contractInfo.transportMode?exists && contractInfo.transportMode==5>selected</#if>>管道运输
+										</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>签订地点：
+								</div>
+								<div class="input-text">
+									<input id="sign_address" name="contractInfo.signAddress" class="input" placeholder="请输入签订地点" type="text" value="${contractInfo.signAddress}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>签订日期：
+								</div>
+								<div class="input-text">
+									<input id="sign_date" name="contractInfo.signDateStr" class="input date-time-edit" placeholder="请输入签订日期" type="text" value="<#if contractInfo.signDate?exists>${(contractInfo.signDate)?string('yyyy-MM-dd')}</#if>"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>生效日期：
+								</div>
+								<div class="input-text">
+									<input id="effective_date" name="contractInfo.effectiveDateStr" class="input date-time-edit" placeholder="请输入生效日期" type="text" value="<#if contractInfo.effectiveDate?exists>${(contractInfo.effectiveDate)?string('yyyy-MM-dd')}</#if>"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>截止日期：
+								</div>
+								<div class="input-text">
+									<input id="end_date" name="contractInfo.endDateStr" class="input date-time-edit" placeholder="请输入截止日期" type="text" value="<#if contractInfo.endDate?exists>${(contractInfo.endDate)?string('yyyy-MM-dd')}</#if>"/>
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+		                    <div class="file-box row">
+		                        <div class="input-lable">上传合同附件：</div>
+		                        <div id="contract_text" class="file-input">${contractInfo.contractImg}</div>
+		                        <div class="file-button-box">
+		                            <button class="file-buttton upload_img"  img-type="contract_img" img-text="contract_text">
+		                              <div class="file-icon"></div>
+		                              <div class="file-text">上传</div>
+		                            </button>
+		                        </div>
+		                        <#if contractInfo.contractImg?exists && contractInfo.contractImg!="">
+		                        	<a target="view_frame"  class="file-buttton" onclick="window.location.href='${fastdfsServer}/${contractInfo.contractImg}'">
+		                               <div class="file-text">查看附件</div>
+		                            </a>
+		                        </#if>
+	                            <input id="contract_img" type="hidden" name="contractInfo.contractImg" value="${contractInfo.contractImg}">
+		                    </div>
+		                </div>
+						<!--  <div class="from-both-box">
+							<div class="group-img">
+								<div class="input-lable">
+									<span>*</span>上传合同附件：
+								</div>
+
+								<div class="input-img">
+									<#if contractInfo.contractImg?exists && contractInfo.contractImg!=""> <img src="${fastdfsServer}/${driverWaybillMaintainPo.loadingImg}" class="upload_img img_box"
+										img-type="contract_img"> <#else> <img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="contract_img"></#if>
+									<input id="contract_img" type="hidden" name="contractInfo.contractImg" value="${contractInfo.contractImg}">
+								</div>
+
+							</div>
+						</div>-->
+						<div class="from-both-box">
+							<div class="group-textarea">
+								<div class="input-lable">合同条款：</div>
+								<div class="textarea-text">
+									<textarea id="contract_clause" name="contractInfo.contractClause" placeholder="请填写合同条款">${contractInfo.contractClause}</textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-textarea">
+								<div class="input-lable">备注：</div>
+								<div class="textarea-text">
+									<textarea id="remartks" name="contractInfo.remarks" placeholder="请填写备注">${contractInfo.remarks}</textarea>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="saveContractInfo()">保存</button>
+					<button class="close-button contract-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 委托方/承运方/项目  列表 -->
+	<div id="commonTable"></div>
+	<div class="modal-backdrop fade in"></div>
+</div>

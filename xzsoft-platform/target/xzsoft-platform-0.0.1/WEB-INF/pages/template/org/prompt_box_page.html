@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>新疆天顺物流平台</title>
+<script type="text/javascript" src="${basePath}/static/js/common/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/prompt/main.js"></script>
+<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+<#include "../../common/common_header.html" />
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main"> <script>
+			alertTost('${content.msg}');
+		</script> </main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+</html>

@@ -1,0 +1,60 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeMyOfferInfo()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${offerOperateTitle}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="sub_plan_info_form" onsubmit="return false">
+						<input id="bidding-detail-id" type="hidden">
+						<input id="bidding-detail-sum" type="hidden">
+		      				<div class="from-both-box">
+			        		<div class="group-box">
+				              	<div class="input-lable"><span>*</span>运价：</div>
+				              	<div class="input-text">
+				              		<input id="transportPrice" class="input" placeholder="请输入运价" type="text" onkeyup="offerSum()"/>
+				              	</div>
+				           	</div>
+			        		<div class="group-box">
+				              	<div class="input-lable"><span>*</span>损耗比例(%)：</div>
+				              	<div class="input-text">
+				                	<input id="reasonableLossRatio" class="input" placeholder="请输入损耗比例" type="text"/>
+				              	</div>
+				            </div>
+		      				<div class="group-box">
+				              	<div class="input-lable"><span>*</span>损耗金额：</div>
+				              	<div class="input-text">
+				                	<input id="lossDeductionPrice" class="input" placeholder="请输入损耗金额" type="text"/>
+				              	</div>
+				            </div>
+						     <div class="group-box">
+				              	<div class="input-lable"><span>*</span>报价总额：</div>
+				              	<div class="input-text">
+				                	<input id="totalQuotedPrice" class="input" type="text" readonly="readonly"/>
+				              	</div>
+				            </div>
+		      				</div>
+		      				<div class="from-both-box">
+					        	<div class="group-textarea">
+						          	<div class="input-lable">报价说明：</div>
+						          	<div class="input-textarea">
+						            	<textarea id="quotationDescription"></textarea>
+						          	</div>
+					        	</div>
+					      	</div>
+		    		</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="addMyOfferInfo()">保存</button>
+		        	<button class="close-button offer-opt-close" data-dismiss="modal" onclick="closeMyOfferInfo()">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div> 
+	<div class="modal-backdrop fade in"></div>
+</div>

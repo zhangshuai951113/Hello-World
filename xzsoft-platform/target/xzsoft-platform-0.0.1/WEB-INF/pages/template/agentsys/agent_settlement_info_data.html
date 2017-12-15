@@ -1,0 +1,73 @@
+<div id="cunteinfo_info">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+ 		<thead>
+   			<tr class="table-title">
+     			<th style="width:40px;">
+				<label class="all-settlement-check"> <input class="all_check" name="all" type="checkbox"><i></i></label>					
+     			</th>
+		        <th>结算单编号</th>
+		        <th>车牌号码</th>
+		        <th>发货单位</th>
+		        <th>到货单位</th>
+		        <th>货物名称</th>
+		        <th>发货日期</th>
+		        <th>发货吨位</th>
+		        <th>到货日期</th>
+		        <th>到货吨位</th>
+		        <th>司机运价</th>
+		        <th>单据状态</th>
+		        <th>制单人</th>
+		        <th>客户名称</th>
+		     <!--    <th class="operation"style="width:255px">操作</th> -->
+   			</tr>
+ 		</thead>
+ 		<tbody>
+ 			<#if cuteinfoSettlementInfoPager?exists && cuteinfoSettlementInfoPager.rows?exists>
+	 			<#list cuteinfoSettlementInfoPager.rows as settlementInfo>
+		   			<tr class="table-body ">
+		     			<td style="width:40px;">
+		       				<label class="i-checks">
+	           					<input type="checkbox" class="sub_check" data-id="${settlementInfo.id}" data-waybillInfoId="${settlementInfo.waybillInfoId}" 
+	           					data-rootWaybillInfoId="${settlementInfo.rootWaybillInfoId}" data-settlementStatus="${settlementInfo.settlementStatus}" data-scatteredGoods="${settlementInfo.scatteredGoods}" 
+	           					 data-lineInfoId="${settlementInfo.lineInfoId}" data-endPoints="${settlementInfo.endPoints}"><i></i>
+	         				</label>
+		     			</td>
+		     			 <td>${(settlementInfo.settlementId)!''}</td>
+		     			 <td>${(settlementInfo.carCode)!''}</td>
+		     			 <td>${(settlementInfo.forwardingUnit)!''}</td>
+		   				<td>${(settlementInfo.consignee)!''}</td>
+		   					<td>${(settlementInfo.goodsName)!''}</td>
+		   						<td><#if settlementInfo.forwardingTime?exists>${(settlementInfo.forwardingTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+				        		<td>${(settlementInfo.forwardingTonnage)!''}</td>
+				             <td><#if settlementInfo.arriveTime?exists>${(settlementInfo.arriveTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+				       <td>${(settlementInfo.arriveTonnage)!''}</td>
+				       	<td>${(settlementInfo.payablePrice)!''}</td>
+				        <td>
+				        	<#if settlementInfo.settlementStatus?exists>
+				        		<#if settlementInfo.settlementStatus==1>
+				        			起草
+				        		<#elseif settlementInfo.settlementStatus==2>
+				        			待审核
+				        		<#elseif settlementInfo.settlementStatus==3>
+				        			审核通过
+				        		<#elseif settlementInfo.settlementStatus==4>
+				        			驳回
+				        		</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+				        </td>
+		   				<td>${(settlementInfo.userName)!''}</td>
+		   		
+		   		       	<td>${(settlementInfo.entrustName)!''}</td>
+		   			 
+		   			</tr>
+	 			</#list>
+   			</#if>
+ 		</tbody>
+	</table>
+   		<div class="panel-pagination">
+      	${cuteinfoSettlementInfoPager.pageHtml}
+   	</div>
+   	
+</div>

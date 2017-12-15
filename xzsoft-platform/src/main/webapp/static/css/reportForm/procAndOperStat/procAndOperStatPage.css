@@ -1,0 +1,17 @@
+.title-center{
+	text-align: center;
+}
+
+.panel-table {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	width: 100%;
+	padding-bottom: 20px;
+}
+.panel .row{
+	
+}
+
+.panel .row .item{
+	float: left;
+}

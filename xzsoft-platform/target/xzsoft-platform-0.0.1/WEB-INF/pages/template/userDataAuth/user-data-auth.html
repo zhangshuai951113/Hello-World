@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>数据授权</title> 
+	<#include "../../common/common_header.html" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+			<div class="tab-box">	
+			  <a href="showDataAuthPage"><div class="tab-text active">数据授权</div></a>
+			  <a href="showDataAuthDetailPage"><div class="tab-text ">授权明细</div></a>
+			</div>
+		<div class="search-panel row">
+			<div class="search-from">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">客户</div>
+								<div class="input-text">
+									<input id="customerName" class="input" placeholder="请输入客户名称"
+										type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">货物</div>
+								<div class="input-text">
+									<input id="goodsName" class="input" placeholder="请输入货物名称"
+										type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">线路</div>
+								<div class="input-text">
+									<input id="lineName" class="input" placeholder="请输入线路名称"
+										type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="searchDataAuthList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetDataAuth()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="panel">
+			<div class="row">
+				<div class="operation-tab row">
+					<button class="operation-button operation-blue" onclick="addDataAuth()">
+						<div class="add-icon"></div>
+						<div class="operation-text">新增</div>
+					</button>
+					<!-- <button class="operation-button operation-blue" onclick="editDataAuth()">
+						<div class="modify-icon"></div>
+						<div class="operation-text">修改</div>
+					</button> -->
+					<button class="operation-button operation-blue" onclick="delete_getIds()">
+						<div class="delete-icon"></div>
+						<div class="operation-text">删除</div>
+					</button>
+				</div>
+			</div>
+			<div id="search_data_auth" class="panel-table">
+				
+			</div>
+		</div>
+
+
+		<!-- 模态框 增加数据权限-->
+		<div class="modal fade" id="addDataAuthModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">新增权限数据</h4>
+					</div>
+					<div class="modal-body">
+						<div class="model-from row">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>权限名称：
+								</div>
+								<div class="input-text">
+									<input id="authName" name="dataAuthPo.authName" class="input" placeholder="请输入权限名称" type="text" />
+								</div>
+							</div>
+							<div class="group-box" id="customer-box">
+								<div class="input-lable">
+									<span>*</span>客户：
+								</div>
+								<div class="select-lists" id="selectCustomer" onclick="customerSelect()"></div>
+								<div><input id="customer" class="input" type="hidden"/></div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>货物：
+								</div>
+								<div class="select-lists" id="selectGoods" onclick="goodsSelect()"></div>
+								<input id="goods" name="dataAuthPo.goods" class="input" type="hidden"/>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>线路：
+								</div>
+								<div class="select-lists" id="selectLine" onclick="lineSelect()"></div>
+								<input id="line" name="dataAuthPo.line" class="input" type="hidden"/>
+							</div>
+								<input id="id" name="dataAuthPo.id" class="input" type="hidden"/>
+								<input id="cooperateStatus" name="dataAuthPo.cooperateStatus" class="input" type="hidden"/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectAuth()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 模态框 增加货物选择-->
+		<div class="modal fade" id="goodsSelectModal" tabindex="-2"
+			role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">货物选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">货物名称</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入货物名称" id="goodsInfoName" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box" onclick="searchGoodsInfoBtn()">
+									<button class="search-button">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" onclick="resetGoodsSelect()">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis" id="tableDrag1">
+								<thead>
+									<tr class="table-title">
+									   <th style="width:40px">
+						                  <label class="i-checks">
+						                    <input name="all" type="checkbox" class="all_goodsId_check"> 
+						                  </label>
+						                </th>
+										<th>货物编号</th>
+										<th>货物名称</th>
+										<th>物资类别</th>
+										<th>规格型号</th>
+										<th>计量单位</th>
+									</tr>
+								</thead>
+								<tbody class="goodsInfoTBody">
+									
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="goodsNum">0</span>条
+								</div>
+								<div id="goodsPage" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="goodsPageSlect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectGoods()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 模态框 增加线路选择-->
+		<div class="modal fade" id="lineSelectModal" tabindex="-3"
+			role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content" style="width: 840px;">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">线路选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">线路名称</div>
+											<div class="input-text">
+												<input class="input" id="lineInfoName" placeholder="请输入线路名称" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box" onclick="searchLineMation()">
+									<button class="search-button">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" onclick="resetLineMation()">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis" id="tableDrag2">
+								<thead>
+									<tr class="table-title">
+										<th style="width:40px">
+						                  <label class="i-checks">
+						                    <input name="all" type="checkbox" class="all_lineId_check"> 
+						                  </label>
+						                </th>
+										<th>线路名称</th>
+										<th>起点</th>
+										<th>终点</th>
+										<th>运距（公里）</th>
+										<th>在途天数</th>
+									</tr>
+								</thead>
+								<tbody class="lineTBody">
+									
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="lineNum">0</span>条
+								</div>
+								<div id="linePage" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="linePageSlect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectLine()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 模态框 增加客户选择-->
+		<div class="modal fade" id="customerSelectModal" tabindex="-4"
+			role="dialog">
+			<div class="modal-dialog" style="padding-right:1230px">
+				<div class="modal-content" style="width:1300px">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">合同选择</h4>
+					</div>
+					<div class="modal-body" style="height: 545px;">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row" style="text-align: left;">
+										<div class="search-box">
+											<div class="input-lable">合同名称</div>
+											<div class="input-text">
+												<input class="input" id="contractName" placeholder="请输入合同名称" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">货物</div>
+											<div class="input-text">
+												<input class="input" id="goodsNameStr" placeholder="请输入货物" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">线路</div>
+											<div class="input-text">
+												<input class="input" id="lineNameStr" placeholder="请输入线路" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">发货单位</div>
+											<div class="input-text">
+												<input class="input" id="forwardingUnitStr" placeholder="请输入发货单位" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">到货单位</div>
+											<div class="input-text">
+												<input class="input" id="consigneeStr" placeholder="请输入到货单位" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box" onclick="searchContract()">
+									<button class="search-button">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" onclick="resetContract()">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis" id = "customerTable">
+								<thead>
+									<tr class="table-title">
+										<th style="width:40px">
+						                  <label class="i-checks">
+						                    <input name="all" type="checkbox" class="all_customer_check"> 
+						                  </label>
+						                </th>
+										<th style="width:120px">合同编号</th>
+										<th style="width:120px">合同名称</th>
+										<th>委托方（甲方）</th>
+										<th style="width:80px">货物</th>
+										<th>线路</th>
+										<th>发货单位</th>
+										<th>到货单位</th>
+									</tr>
+								</thead>
+								<tbody class="customerTBody">
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="customerNum">0</span>条
+								</div>
+								<div id="customerPage" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="customerPageSlect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectCustomer()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 模态框 增加用户选择-->
+		<div class="modal fade" id="userSelectModal" tabindex="-4"
+			role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">授权用户</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">真实姓名</div>
+											<div class="input-text">
+												<input class="input" id="realName" placeholder="请输入真实姓名" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box" onclick="selectUserMation(1)">
+									<button class="search-button">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" onclick="resetUserInfo()">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis" id="tableDrag">
+								<thead>
+									<tr class="table-title">
+										<th style="width:40px">
+						                  <label class="i-checks">
+						                    <input name="all" type="checkbox" class="all_user_info_check"> 
+						                  </label>
+						                </th>
+										<th>用户名</th>
+										<th>真实姓名</th>
+										<th>手机号</th>
+										<th>所属组织</th>
+									</tr>
+								</thead>
+								<tbody class="dataAuthForUser">
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="userNum">0</span>条
+								</div>
+								<div id="userPage" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="userPageSlect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectUser()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+
+	<!-- 子机构操作表单 -->
+	<form id="form_sub_org_opt" action="" method="post">
+		<input id="hidden_sub_operate_type" type="hidden" name="operateType">
+		<input id="hidden_sub_org_info_id" type="hidden" name="orgInfoId">
+	</form>
+</body>
+<#include "../../common/common_footer.html" />
+
+
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/userDataAuth/dataAuth.js"></script>
+<script>
+	var authPage = null; //初始化数据权限page;
+	var linePage = null; //初始化线路page
+	var goodsPage = null; //初始化货路page
+	var customerPage = null;//初始化货路客户page
+	var userPage = null; //初始化用户page
+	var temp_data_auth_id = null; // 权限id 授权时，临时缓存用
+	
+	/**
+	 * 添加货物弹出框
+	 */
+	function goodsSelect() {
+		setTimeout(function(){
+			//允许表格拖着
+			$("#tableDrag1").colResizable({
+				  liveDrag:true, 
+				  gripInnerHtml:"<div class='grip'></div>", 
+				  draggingClass:"dragging",
+				  ifDel: 'tableDrag1'
+			});
+		},1000);
+		
+		$("#goodsSelectModal").modal('show');
+		
+		goodsList(1);
+		//全选/全不选
+		$("body").on("click",".all_goodsId_check",function(){
+			if($(".all_goodsId_check").is(":checked")){
+				//全选时
+				$(".sub_goodsId_check").each(function(){
+					$(this).prop("checked",true);
+				});
+			}else{
+				//全不选时
+				$(".sub_goodsId_check").each(function(){
+					$(this).prop("checked",false);
+				});
+			}
+		});
+		
+	}
+
+	//当货物模态框弹出时，查询货物信息
+	function goodsList(number){
+		//禁止刷新页面时，货物信息多次进行追加
+		$(".goodsInfoTBody").html("");
+		//调用ajax进行货物查询
+		$.ajax({
+			url:basePath+"/dataAuth/findGoodsInfoMationAll",
+			data:{"page":number,"rows":10,"goodsInfoName":$("#goodsInfoName").val()},
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				var objs=eval(resp);
+				$.each(objs,function(index,ele){
+					//判断是否为空
+					if(ele.materialTypeName==null){
+						ele.materialTypeName='';
+					}
+					var tr="<tr class='table-body'>";
+						tr+="<td><label class='i-checks'><input name='cId' id='id' type='checkbox' class='sub_goodsId_check' data-id=\""+ele.id+"\" ></label></td>";
+					    tr+="<td>"+ele.id+"</td>";
+					    tr+="<td>"+ele.goodsName+"</td>";
+					    tr+="<td>"+ele.materialTypeName+"</td>";
+					    tr+="<td>"+ele.specModel+"</td>";
+					    tr+="<td>"+ele.units+"</td>";
+					    tr+="</tr>";
+					    //追加数据
+					    $(".goodsInfoTBody").append(tr);
+				});
+			}
+		});
+		//调用ajax查询货物数量
+		$.ajax({
+			url:basePath+"/dataAuth/getGoodsInfoMationAllCount",
+			data:{"goodsInfoName":$("#goodsInfoName").val()},
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				 parent.getGoodsTotalRecords=resp;
+				 paginationGoods.setTotalItems(resp);
+				 $("#goodsNum").text("搜索结果共"+resp);
+			}
+		});
+	}
+	
+	//货物分页
+	var paginationGoods = $("#goodsPage").operationList({
+	  "current":1,    //当前目标
+	  "maxSize":4,  //前后最大列表
+	  "itemPage":10,  //每页显示多少条
+	  "totalItems":0,  //总条数
+	  "chagePage":function(current){
+	    //调用ajax请求拿最新数据
+	      goodsList(current);
+	  }
+	});
+	
+	//货物页面跳转
+	function goodsPageSlect(e) {
+	      var totalPage=Math.floor((parent.getGoodsTotalRecords+9)/10);
+		  var myreg=/^[0-9]+.?[0-9]*$/;
+		  var re = new RegExp(myreg);
+		  var number=$(e).prev().find('input').val();
+		  if(!re.test(number)){
+			  commonUtil.showPopup("提示","请输入正确的数字!");
+			  $(e).prev().find('input').val("");
+			  return false;
+		  }
+		   var value = parseInt(number);
+		   if(value<1){
+			   $(e).prev().find('input').val("1")
+			   value=1;
+		   }
+		   if(value>=totalPage){
+			   $(e).prev().find('input').val(totalPage);
+			   value=totalPage;
+		   }
+		   paginationGoods.setCurrentPage(value);
+		}
+	
+	//货物查询按钮
+	function searchGoodsInfoBtn(){
+		goodsList(1);
+	}
+	//货物重置按钮
+	function resetGoodsSelect(){
+		 setTimeout(function() {
+			 goodsList(1);
+			 pagination.setCurrentPage(1);
+		  },100)
+	}
+
+	/**
+	 *拼接货物ID ，用“,”隔开
+	 */
+	function submitSelectGoods() {
+		
+		var goodsIds=new Array();
+		$(".sub_goodsId_check").each(function(){
+			if($(this).is(":checked")){
+				goodsIds.push($(this).attr("data-id"));
+			}
+		});
+		//选择长度
+		var goodsIdsLength=goodsIds.length;
+		//调用选择选择货物方法
+		checkedGoodsInfoMation(goodsIds.join(","),goodsIdsLength);
+	}
+	
+	//选择货物信息
+	function checkedGoodsInfoMation(goodsIds,goodsIdsLength){
+		//判断选择长度
+		if(goodsIdsLength>1){
+			  commonUtil.showPopup("提示","请选择一条数据!");
+		}else if(goodsIdsLength<1){
+			  commonUtil.showPopup("提示","请选择一条数据!");
+		}else if(goodsIdsLength=1){
+			
+			$.confirm({
+				title:"提示",
+				content:"您确定要选择这条货物信息吗?",
+				buttons:{
+					'确定':function(){
+						
+						//根据选择的货物id查询货物信息
+						$.ajax({
+							url:basePath+"/dataAuth/findGoodsMationById",
+							data:{"goodsIds":goodsIds},
+							dataType:"JSON",
+							type:"POST",
+							async:false,
+							success:function(resp){
+								if(resp){
+									$("#selectGoods").text(resp.goodsName);
+									$("#goods").val(resp.id);
+									$("#goodsSelectModal").modal('hide');
+								}else{
+									 commonUtil.showPopup("提示","系统异常,请稍后再试!");
+								}
+							}
+						});
+						
+					},
+					'取消':function(){
+						
+					}
+				}
+			});
+			
+		}
+	}
+	
+	/**
+	 * 添加线路弹出框
+	 */
+	function lineSelect() {
+		
+		setTimeout(function(){
+			//允许表格拖着
+			$("#tableDrag2").colResizable({
+				  liveDrag:true, 
+				  gripInnerHtml:"<div class='grip'></div>", 
+				  draggingClass:"dragging",
+				  ifDel: 'tableDrag2'
+			});
+		},1000);
+		
+		
+		
+		$("#lineSelectModal").modal('show');
+		lineList(1);
+		//全选/全不选
+		$("body").on("click",".all_lineId_check",function(){
+			if($(".all_lineId_check").is(":checked")){
+				//全选时
+				$(".sub_lineId_check").each(function(){
+					$(this).prop("checked",true);
+				});
+			}else{
+				//全不选时
+				$(".sub_lineId_check").each(function(){
+					$(this).prop("checked",false);
+				});
+			}
+		});
+	}
+
+	//线路信息全查
+	function lineList(number){
+		//禁止多次追加
+		$(".lineTBody").html("");
+		//调用ajax查询线路信息
+		$.ajax({
+			url:basePath+"/dataAuth/findLineInfoMationAll",
+			data:{"lineName":$("#lineInfoName").val(),"page":number,"rows":10},
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				if(resp){
+					var objs=eval(resp);
+					$.each(objs,function(index,ele){
+						//非空判断
+						if(ele.startPoints==null){
+							ele.startPoints="";
+						}
+						if(ele.endPoints==null){
+							ele.endPoints="";
+						}
+						var tr="<tr class='table-body'>";
+						tr+="<td><label class='i-checks'><input name='cId' id='id' type='checkbox' class='sub_lineId_check' data-id=\""+ele.id+"\" ></label></td>";
+					    tr+="<td>"+ele.lineName+"</td>";
+					    tr+="<td>"+ele.startPoints+"</td>";
+					    tr+="<td>"+ele.endPoints+"</td>";
+					    tr+="<td>"+ele.distance+"</td>";
+					    tr+="<td>"+ele.days+"</td>";
+					    tr+="</tr>";
+					    //追加数据
+					    $(".lineTBody").append(tr);
+					});
+				}else{
+					 commonUtil.showPopup("提示","系统异常,请稍后再试!");
+				}
+			}
+		});
+		//调用ajax查询线路数量
+		$.ajax({
+			url:basePath+"/dataAuth/getLineInfoMationAllCount",
+			data:{"lineName":$("#lineInfoName").val()},
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				 parent.getLineTotalRecords=resp;
+				 paginationLine.setTotalItems(resp);
+				 $("#lineNum").text("搜索结果共"+resp);
+			}
+		});
+	}
+	
+	//线路分页
+	var paginationLine = $("#linePage").operationList({
+	  "current":1,    //当前目标
+	  "maxSize":4,  //前后最大列表
+	  "itemPage":10,  //每页显示多少条
+	  "totalItems":0,  //总条数
+	  "chagePage":function(current){
+	    //调用ajax请求拿最新数据
+	     lineList(current);
+	  }
+	});
+	
+	//线路页面跳转
+	function linePageSlect(e) {
+	      var totalPage=Math.floor((parent.getLineTotalRecords+9)/10);
+		  var myreg=/^[0-9]+.?[0-9]*$/;
+		  var re = new RegExp(myreg);
+		  var number=$(e).prev().find('input').val();
+		  if(!re.test(number)){
+			  commonUtil.showPopup("提示","请输入正确的数字!");
+			  $(e).prev().find('input').val("");
+			  return false;
+		  }
+		   var value = parseInt(number);
+		   if(value<1){
+			   $(e).prev().find('input').val("1")
+			   value=1;
+		   }
+		   if(value>=totalPage){
+			   $(e).prev().find('input').val(totalPage);
+			   value=totalPage;
+		   }
+		   paginationLine.setCurrentPage(value);
+		}
+	
+	//线路模糊查询按钮
+	function searchLineMation(){
+		lineList(1);
+	}
+	
+	//线路重置按钮
+	function resetLineMation(){
+		 setTimeout(function() {
+			 lineList(1);
+			 pagination.setCurrentPage(1);
+		  },100)
+	}
+	
+	/**
+	 *线路ID拼接，用“，”隔开
+	 */
+	function submitSelectLine() {
+		var lineIds=new Array();
+		$(".sub_lineId_check").each(function(){
+			if($(this).is(":checked")){
+				lineIds.push($(this).attr("data-id"));
+			}
+		});
+		var lineIdsLength=lineIds.length;
+		checkedLineMation(lineIds.join(","),lineIdsLength);
+	}
+	
+	//选择线路信息
+	function checkedLineMation(lineIds,lineIdsLength){
+		if(lineIdsLength>1){
+			commonUtil.showPopup("提示","请选择一条数据!");
+		}else if(lineIdsLength<1){
+			commonUtil.showPopup("提示","请选择一条数据!");
+		}else if(lineIdsLength=1){
+			
+			$.confirm({
+				title:'提示',
+				content:'您确定要选择这条线路信息吗',
+				buttons:{
+					'确定':function(){
+						//根据选择的线路ID查询线路信息
+						$.ajax({
+							url:basePath+"/dataAuth/findLineInfoById",
+							data:{"lineIds":lineIds},
+							dataType:"json",
+							type:"post",
+							async:false,
+							success:function(resp){
+								if(resp){
+									$("#lineSelectModal").modal('hide');
+									$("#selectLine").text(resp.lineName);
+									$("#line").val(resp.id);
+								}else{
+									commonUtil.showPopup("提示","系统异常,请稍后再试!");
+								}
+							}
+						});
+					},
+					'取消':function(){
+						
+					}
+				}
+			});
+			
+		}
+	}
+	
+	/**
+	 * 添加客户弹出框
+	 */
+	function customerSelect() {
+		$("#customerSelectModal").modal('show');
+		setTimeout(function(){
+			$("#customerTable").colResizable({
+		      liveDrag:true, 
+		      gripInnerHtml:"<div class='grip'></div>", 
+		      draggingClass:"dragging",
+		      ifDel: 'wlTable'
+		    });
+		},1000)
+		customerList(1);
+		//全选/全不选
+		$("body").on("click",".all_customer_check",function(){
+			if($(".all_customer_check").is(":checked")){
+				//全选时
+				$(".sub_customer_check").each(function(){
+					$(this).prop("checked",true);
+				});
+			}else{
+				//全不选时
+				$(".sub_customer_check").each(function(){
+					$(this).prop("checked",false);
+				});
+			}
+		});
+	}
+	//合同信息全查
+	function customerList(number){
+		//禁止多次追加
+		$(".customerTBody").html("");
+		//货物
+		var goodsName = $("#goodsNameStr").val();
+		//线路
+		var lineName = $("#lineNameStr").val();
+		//发货单位
+		var forwardingUnit = $("#forwardingUnitStr").val();
+		//到货单位
+		var consignee = $("#consigneeStr").val();
+		//合同信息查询
+		$.ajax({
+			url:basePath+"/dataAuth/findContractMationAll",
+			data:{"page":number,"rows":10,"contractName":$("#contractName").val(),"goodsName":goodsName,
+				"lineName":lineName,"forwardingUnit":forwardingUnit,"consignee":consignee},
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				var objs=eval(resp);
+				$.each(objs,function(index,ele){
+					//非空判断
+					if(ele.contractCode==null){
+						ele.contractCode="";
+					}
+					if(ele.contractName==null){
+						ele.contractName="";
+					}
+					if(ele.entrustName==null){
+						ele.entrustName="";
+					}
+					if(ele.shipperName==null){
+						ele.shipperName="";
+					}
+					if(ele.goodsName==null){
+						ele.goodsName="";
+					}
+					if(ele.lineName==null){
+						ele.lineName="";
+					}
+				var tr="<tr class='table-body'>";
+					tr+="<td><label class='i-checks'><input name='cId' id='id' type='checkbox' class='sub_customer_check' data-id=\""+ele.id+"\" ></label></td>";
+				    tr+="<td>"+ele.contractCode+"</td>";
+				    tr+="<td>"+ele.contractName+"</td>";
+				    tr+="<td>"+ele.entrustName+"</td>";
+				    tr+="<td>"+ele.goodsName+"</td>";
+				    tr+="<td>"+ele.lineName+"</td>";
+				    tr+="<td>"+ele.forwardingUnit+"</td>";
+				    tr+="<td>"+ele.consignee+"</td>";
+				    tr+="</tr>";
+				    $(".customerTBody").append(tr);
+				});
+			}
+		});
+		//查询合同信息数量
+		$.ajax({
+			url:basePath+"/dataAuth/getContractMationAllCount",
+			data:{"contractName":$("#contractName").val(),"goodsName":goodsName,
+				"lineName":lineName,"forwardingUnit":forwardingUnit,"consignee":consignee},
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				 parent.getContractTotalRecords=resp;
+				 paginationContract.setTotalItems(resp);
+				 $("#customerNum").text("搜索结果共"+resp);
+			}
+		});
+	}
+	
+	//合同分页
+	var paginationContract = $("#customerPage").operationList({
+	  "current":1,    //当前目标
+	  "maxSize":4,  //前后最大列表
+	  "itemPage":10,  //每页显示多少条
+	  "totalItems":0,  //总条数
+	  "chagePage":function(current){
+	    //调用ajax请求拿最新数据
+	     customerList(current);
+	  }
+	});
+	
+	//合同页面跳转
+	function customerPageSlect(e) {
+		
+	      var totalPage=Math.floor((parent.getContractTotalRecords+9)/10);
+		  var myreg=/^[0-9]+.?[0-9]*$/;
+		  var re = new RegExp(myreg);
+		  var number=$(e).prev().find('input').val();
+		  if(!re.test(number)){
+			  commonUtil.showPopup("提示","请输入正确的数字!");
+			  $(e).prev().find('input').val("");
+			  return false;
+		  }
+		   var value = parseInt(number);
+		   if(value<1){
+			   $(e).prev().find('input').val("1")
+			   value=1;
+		   }
+		   if(value>=totalPage){
+			   $(e).prev().find('input').val(totalPage);
+			   value=totalPage;
+		   }
+		   paginationContract.setCurrentPage(value);
+		}
+	
+	//合同信息模糊查
+	function searchContract(){
+		customerList(1);
+	}
+	//合同模糊查询条件重置
+	function resetContract(){
+		setTimeout(function(){
+			customerList(1);
+			pagination.setCurrentPage(1);
+		},100);
+	}
+
+	/**
+	 *拼接合同ID，用“，”隔开
+	 */
+	function submitSelectCustomer() {
+		
+		var contractIds=new Array();
+		$(".sub_customer_check").each(function(){
+			if($(this).is(":checked")){
+				contractIds.push($(this).attr("data-id"));
+			}
+		});
+		var contractIdsLength=contractIds.length;
+		checkedContracted(contractIds.join(","),contractIdsLength);
+	}
+
+	//选择合同信息
+	function checkedContracted(contractIds,contractIdsLength){
+		if(contractIdsLength>1){
+			commonUtil.showPopup("提示","请选择一条数据!");
+		}else if(contractIdsLength<1){
+			commonUtil.showPopup("提示","请选择一条数据!");
+		}else if(contractIdsLength=1){
+			$.confirm({
+				title:'提示',
+				content:'您确定要选择这条合同信息吗?',
+				buttons:{
+					'确定':function(){
+						//根据选择的合同ID查询合同信息
+						$.ajax({
+							url:basePath+"/dataAuth/findContractMationById",
+							data:{"contractId":contractIds},
+							dataType:"JSON",
+							type:"POST",
+							async:false,
+							success:function(resp){
+								if(resp){
+									$("#customerSelectModal").modal('hide');
+									$("#selectCustomer").text(resp.entrustName);
+									$("#customer").val(resp.entrust);
+									$("#selectGoods").text(resp.goodsName);
+									$("#goods").val(resp.goodsInfoId);
+									$("#selectLine").text(resp.lineName);
+									$("#line").val(resp.lineInfoId);
+									$("#cooperateStatus").val(resp.cooperateStatus);
+								}else{
+									commonUtil.showPopup("提示","系统异常，请稍后再试!");
+								}
+							}
+						});
+						
+					},
+					'取消':function(){
+						
+					}
+				}
+			});
+		}
+	}
+	
+	/**
+	 * 添加用户弹出框
+	 */
+	function userSelect() {
+		$("#userSelectModal").modal('show');
+		$(".modal-title").text("授权用户");
+		selectUserMation(1);
+		//全选/全不选
+		$("body").on("click",".all_user_info_check",function(){
+			if($(".all_user_info_check").is(":checked")){
+				//全选时
+				$(".sub_user_info_check").each(function(){
+					$(this).prop("checked",true);
+				});
+			}else{
+				//全不选时
+				$(".sub_user_info_check").each(function(){
+					$(this).prop("checked",false);
+				});
+			}
+		});
+	}
+	
+	//用户查询
+	function selectUserMation(number){
+		//禁止多次追加
+		$(".dataAuthForUser").html("");
+		//调用ajax查询用户信息
+		$.ajax({
+			url:basePath+"/dataAuth/findUserMationAll",
+			data:{"realName":$("#realName").val(),"page":number,"rows":10},
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				var objs=eval(resp);
+				$.each(objs,function(index,ele){
+					var tr="<tr class='table-body'>";
+					tr+="<td><label class='i-checks'><input name='cId' id='id' type='checkbox' class='sub_user_info_check' data-id=\""+ele.userInfoId+"\" ></label></td>";
+				    tr+="<td>"+ele.userName+"</td>";
+				    tr+="<td>"+ele.realName+"</td>";
+				    tr+="<td>"+ele.mobilePhone+"</td>";
+				    tr+="<td>"+ele.orgName+"</td>";
+				    tr+="</tr>";
+				    $(".dataAuthForUser").append(tr);
+				});
+			}
+		});
+		//查询用户信息数量
+		$.ajax({
+			url:basePath+"/dataAuth/getUserMationAllCount",
+			data:{"realName":$("#realName").val()},
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				 parent.getUserTotalRecords=resp;
+				 paginationUser.setTotalItems(resp);
+				 $("#userNum").text("搜索结果共"+resp);
+			}
+		});
+	}
+	
+	//用户分页
+	var paginationUser = $("#userPage").operationList({
+	  "current":1,    //当前目标
+	  "maxSize":4,  //前后最大列表
+	  "itemPage":10,  //每页显示多少条
+	  "totalItems":0,  //总条数
+	  "chagePage":function(current){
+	    //调用ajax请求拿最新数据
+	     selectUserMation(current);
+	  }
+	});
+	 
+	//用户页面跳转
+	function userPageSlect(e) {
+		
+	      var totalPage=Math.floor((parent.getUserTotalRecords+9)/10);
+		  var myreg=/^[0-9]+.?[0-9]*$/;
+		  var re = new RegExp(myreg);
+		  var number=$(e).prev().find('input').val();
+		  if(!re.test(number)){
+			  commonUtil.showPopup("提示","请输入正确的数字!");
+			  $(e).prev().find('input').val("");
+			  return false;
+		  }
+		   var value = parseInt(number);
+		   if(value<1){
+			   $(e).prev().find('input').val("1")
+			   value=1;
+		   }
+		   if(value>=totalPage){
+			   $(e).prev().find('input').val(totalPage);
+			   value=totalPage;
+		   }
+		   paginationUser.setCurrentPage(value);
+		}
+
+	/**
+	 *用户选择
+	 */
+	function submitSelectUser() {
+		var selectlist = findAllCheck(".sub_user_info_check");
+		
+		var userInfoIds = null;
+		for (var i = 0; i < selectlist.length; i++) {
+			if (i == 0) {
+				userInfoIds = selectlist[0].id;
+			} else {
+				userInfoIds = userInfoIds + ',' +selectlist[i].id;
+			}
+		}
+
+		var params = {"userInfoIds":userInfoIds,"dataAuthId":temp_data_auth_id};
+		//插入用户
+		$.ajax({
+			url : basePath + "/dataAuth/authDataAuth",
+			asyn : false,
+			type : "POST",
+			data : params,
+			dataType : "json" ,
+			success : function(dataStr) {
+				if (dataStr) {
+					if (dataStr.success) {
+						//关闭弹框
+						$("#addDataAuthModal").modal('hide');
+						commonUtil.showPopup("提示", "授权成功");
+						searchDataAuthList(1);
+						//刷新页面
+						//window.location.href = basePath+"/orgInfo/showOrgInfoListPage";
+					} else {
+						commonUtil.showPopup("提示", dataStr.msg);
+						return;
+					}
+				} else {
+					commonUtil.showPopup("提示", "保存部门信息服务异常忙，请稍后重试");
+					return;
+				}
+			}
+		});
+		console.log(selectlist[0].id);
+		$("#userSelectModal").modal('hide');
+	}
+
+	
+
+	/**
+	 * 添加数据权限弹出框
+	 */
+	function addDataAuth() {
+		//调用ajax判断当前登录用户角色
+		$.ajax({
+			url:basePath+"/dataAuth/judgeUserRole",
+			data:"",
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				 
+				if(resp){
+					
+					//企业货主
+					if(resp==1){
+						document.getElementById("customer-box").style.display='none';
+					}else 
+						//物流公司
+						if(resp==2){
+						$("#selectGoods").removeAttr("onclick");
+						$("#selectLine").removeAttr("onclick");
+						document.getElementById("selectGoods").style.readonly='readonly';
+						document.getElementById("selectLine").style.readonly='readonly';
+					}else{
+						commonUtil.showPopup("提示", "非法操作!");
+					}
+					$("#addDataAuthModal").modal('show');
+					$(".modal-title").text("新增权限数据");
+					$("#id").val("");
+					$("#authName").val("");
+					$("#selectGoods").text("");
+					$("#selectGoods").next("input").val("");
+					$("#selectLine").text("");
+					$("#selectLine").next("input").val("");
+					$("#selectCustomer").text("");
+					$("#selectCustomer").next("");
+					$("#cooperateStatus").val("");
+				}else{
+					commonUtil.showPopup("提示", "系统异常,请稍后再试!");
+				}
+			}
+		});
+	}
+	
+
+	/**
+	 * 修改数据权限
+	 */
+	function editDataAuth() {
+		var selectlist = findAllCheck(".data-auth-check");
+		if (selectlist.length == 0 || selectlist.length > 1) {
+			$.alert("请选择一条数据");
+			return;
+		}
+		//插入用户
+		showEditView(id);
+		
+	}
+	/**
+	 * 显示修改界面
+	 */
+	function showEditView(id){
+		
+		//调用ajax查询登录用户角色信息
+		//调用ajax判断当前登录用户角色
+		$.ajax({
+			url:basePath+"/dataAuth/judgeUserRole",
+			data:"",
+			dataType:"JSON",
+			type:"POST",
+			async:false,
+			success:function(resp){
+				 
+				if(resp){
+					
+					//企业货主
+					if(resp==1){
+						document.getElementById("customer-box").style.display='none';
+					}else 
+						//物流公司
+						if(resp==2){
+						$("#selectGoods").removeAttr("onclick");
+						$("#selectLine").removeAttr("onclick");
+						document.getElementById("selectGoods").style.readonly='readonly';
+						document.getElementById("selectLine").style.readonly='readonly';
+					}else{
+						commonUtil.showPopup("提示", "非法操作!");
+					}
+					$.ajax({
+						url : basePath + "/dataAuth/getDataAuthById",
+						asyn : false,
+						type : "POST",
+						data : {"id":id},
+						dataType : "json" ,
+						success : function(dataStr) {
+							console.log(dataStr);
+							if (dataStr) {
+								var id = dataStr.dataAuthPo.id;
+								var authName = dataStr.dataAuthPo.authName;
+								var customer = dataStr.dataAuthPo.customer;
+								var customerName = dataStr.dataAuthPo.customerName;
+								var goods = dataStr.dataAuthPo.goods;
+								var goodsName = dataStr.dataAuthPo.goodsName;
+								var line = dataStr.dataAuthPo.line;
+								var lineName = dataStr.dataAuthPo.lineName;
+								var cooperateStatus=dataStr.dataAuthPo.cooperateState;
+								
+								$("#addDataAuthModal").modal('show');
+								$(".modal-title").text("修改数据权限");
+								$("#id").val(id);
+								$("#authName").val(authName);
+								$("#selectGoods").text(goodsName);
+								$("#goods").val(goods);
+								//$("#selectGoods").next("input").val(goods);
+								$("#selectLine").text(lineName);
+								$("#line").val(line);
+								//$("#selectLine").next("input").val(line);
+								$("#selectCustomer").text(customerName);
+								$("#customer").val(customer);
+								//$("#selectCustomer").next("input").val(customer);
+								$("#cooperateStatus").val(cooperateStatus);
+								searchDataAuthList(1);
+							}
+						}
+					});
+				}else{
+					commonUtil.showPopup("提示", "系统异常,请稍后再试!");
+				}
+			}
+		});
+		
+		
+	}
+	/**
+	 * 批量删除
+	 */
+	function delete_getIds(){
+		var selectlist = findAllCheck(".data-auth-check");
+		if (selectlist.length == 0 ) {
+			$.alert("请选择数据");
+			return;
+		}
+		var ids = null;
+		for (var i = 0; i < selectlist.length; i++) {
+			if (i == 0) {
+				ids = selectlist[i].id;
+			} else {
+				ids = ids + ',' + selectlist[i].id;
+			}
+		}
+		deleteDataAuth(ids);
+	}
+	/**
+	 * 保存数据权限
+	 */
+	function submitSelectAuth() {
+		// id
+		var id = $.trim($("#id").val());
+		//权限名称
+		var authName = $.trim($("#authName").val());
+		//货物
+		var goods = $.trim($("#goods").val());
+		//线路
+		var line = $.trim($("#line").val());
+		//客户
+		var customer = $.trim($("#customer").val());
+		//协同状态
+		var cooperateStatus = $.trim($("#cooperateStatus").val());
+		//参数
+		var params = {
+				"id" : id,
+			"authName" : authName,
+			"goods" : goods,
+			"line" : line,
+			"customer" : customer,
+			"cooperateStatus" : cooperateStatus
+		};
+		//6、保存数据权限信息
+		  $.ajax({
+			url : basePath + "/dataAuth/addOrUpdateDataAuth",
+			asyn : false,
+			type : "POST",
+			data : params,
+			dataType : "json",
+			success : function(dataStr) {
+				if (dataStr) {
+					if (dataStr.success) {
+						//关闭弹框
+						$("#addDataAuthModal").modal('hide');
+						commonUtil.showPopup("提示", "保存成功");
+						searchDataAuthList(1);
+						//刷新页面
+						//window.location.href = basePath+"/orgInfo/showOrgInfoListPage";
+					} else {
+						commonUtil.showPopup("提示", dataStr.msg);
+						return;
+					}
+				} else {
+					commonUtil.showPopup("提示", "保存部门信息服务异常忙，请稍后重试");
+					return;
+				}
+			}
+		});  
+	}
+
+	/**
+	 * 数据权限页面跳转
+	 */
+	function authPageSlect(e) {
+		var value = $(e).prev().find('input').val();
+		authPage.setCurrentPage(value);
+	}
+
+	/**
+	 * 查找选择
+	 */
+	function findAllCheck(element) {
+		var checkList = new Array();
+		$(element).each(function() {
+			if ($(this).is(":checked")) {
+				var params = {
+					"id" : $(this).attr("data-id"),
+					"name" : $(this).attr("data-name")
+				}
+				checkList.push(params);
+			}
+		});
+		return checkList;
+	}
+	
+	/**
+	 * 删除数据权限信息
+	 * @param ids 数据权限ids
+	 */
+	function deleteDataAuth(ids){
+	
+		var params = {"ids":ids};
+		 $.ajax({
+			url : basePath + "/dataAuth/deleteDataAuth",
+			asyn : false,
+			type : "POST",
+			data : params,
+			dataType : "json" ,
+			success : function(dataStr) {
+				if (dataStr) {
+					if (dataStr.success) {
+						commonUtil.showPopup("提示", "删除成功");
+						searchDataAuthList(1);
+					} else {
+						commonUtil.showPopup("提示", dataStr.msg);
+						return;
+					}
+				} else {
+					commonUtil.showPopup("提示", "服务异常忙，请稍后重试");
+					return;
+				}
+			}
+		}); 
+	}
+	
+	
+</script>
+</html>

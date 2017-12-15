@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>导入代理系统</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/transport/transport.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/showLoading.css" type="text/css" />
+		<style>
+			.search-box .input-lable {
+			    width: 90px;
+			}
+		</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--结算单上报金网运通平台管理模板-->
+				<div class="cuteinfo-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+						    <div class="search-from" style="max-width:1390px">
+						      	<div class="search-row-box">
+						      	
+						      	
+						        	<div class="both-row row">
+						        	
+						          		<div class="search-box">
+						            		 <div class="input-lable">代理机构</div>
+				             <div class="search-select-list" id="selectOrg" onclick="orgSelect(1)"></div>
+			            <input class="input"  type="hidden" id = "orgId"/>
+						            		
+						          		</div>
+						          		
+						          		<div class="search-box">
+						          		
+						            		<div class="input-lable">客户名称</div>
+				             					<div class="search-select-list" id="selectCustomer" ></div>
+			           							 	<input class="input"  type="hidden" id = "customerId"/>
+						          			</div>
+						          		
+						          		 		<div class="search-box">
+						            		<div class="input-lable">发货单位</div>
+						            		<div class="input-text">
+						              			<input id="forwardingName" class="input" placeholder="发货单位" type="text" />
+						            		</div>
+						          		</div>
+						          		
+						          		 		<div class="search-box">
+						            		<div class="input-lable">结算单编号</div>
+						            		<div class="input-text">
+						              			<input id="settlementNo" class="input" placeholder="请输入结算单编号" type="text" />
+						            		</div>
+						          		</div>
+						          		
+						          			 		<div class="search-box">
+						            		<div class="input-lable">制单人</div>
+						            		<div class="input-text">
+						              			<input id="makeUser" class="input" placeholder="请输入制单人" type="text" />
+						            		</div>
+						          		</div>
+						          		
+						        	</div>
+						        	
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchAgentSettlementInfo(1)">
+							        	<div class="search-icon"></div>
+							        	<div class="text">查询</div>
+							      	</button>
+							      	<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">
+						<div class="row">
+						
+						
+							<div class="box">
+					    				   
+						            		<div class="input-text"  id="input-text">
+						            		    <div class="input-lable"  id="input-lable">登录账号</div>
+						              			<input id="loginUser" class="input"  type="text" />
+						            		</div>
+						            
+						            		<div class="input-text" id="input-text">
+						            			<div class="input-lable" id="input-lable">登录密码</div>
+						              			<input id="loginPassword" class="input"  type="text" />
+						            		</div>
+					         </div>
+					         
+					         
+					         
+					    	<div class="operation-tab row">        		
+						<button id="sendBtn" class="operation-button operation-blue" onclick="reportAgentSettlementInfo()">
+							<div class="send-icon"></div>
+							<div class="operation-text">上传金网运通平台</div>
+						</button>
+				     
+					    	</div>
+				    	</div>
+				    	<!-- 结算单列表 -->
+				    	<div id="search_cuteinfo_info" class="panel-table">
+				    	
+				    	</div>
+				  	</div>
+				  	
+				</div>
+		    </main>
+		    	<!-- 模态框 代理方查询选择-->
+			<div class="modal fade" id="orgSelectModal" tabindex="-4" role="dialog">
+			 <div class="modal-dialog" style="width:96%">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+			        <h4 class="modal-title" >
+			          选择代理方
+			        </h4>
+			      </div>
+			      <div class="modal-body">
+			     
+			        <div class="modal-table row">
+			          <table  width="100%"   style="margin-top:8px"  class="table-bule table-ellipsis" >
+			            <thead>
+			              <tr class="table-title">
+			                <th style="width:40px;">
+			                </th>
+			                <th>代理方编号</th>
+			                <th>代理方名称</th>
+			              </tr>
+			            </thead>
+			            <tbody id="proxyTbody">
+			            
+			            </tbody>
+			          </table>
+			          <div class="panel-pagination" >
+			            <div class="panel-num">搜索相关结果共<span id="orgNum">0</span>条</div>
+			            <div id="orgPage" class="pagination-list"></div>
+			            <div class="pagination-input">到
+			              <input type="text" />页</div>
+			            <div class="pagination-button" onclick="orgPageSlect(this)">确定</div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button class="save-button" onclick="submitSelectOrg()">保存</button>
+			        <button class="close-button" data-dismiss="modal">取消</button>
+			      </div>
+			    </div> 
+			  </div>
+			</div>
+			
+			
+				<!-- 客户名称列表-->
+				<div class="modal fade" tabindex="-2" role="dialog" id="entrustSelectModal" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+								<h4 class="modal-title" id="projectModalLabel">客户名称列表</h4>
+							</div>
+							<div class="modal-body">
+								<div class="search-from">
+									<form onsubmit="return false">
+										<div class="search-row-box">
+											<div class="both-row row">
+												<div class="search-box">
+													<div class="input-lable">客户名称</div>
+													<div class="input-text">
+														<input class="input" id ="entrustNameQuery" placeholder="请输入客户名称" type="text" />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="search-button-box">
+											<button class="search-button" onclick="entrustList(1)">
+												<div class="search-icon"></div>
+												<div class="text">查询</div>
+											</button>
+											<button class="search-button" type="reset" onclick="resetEntrust()">
+												<div class="reset-icon"></div>
+												<div class="text">重置</div>
+											</button>
+										</div>
+									</form>
+								</div>
+								<div class ="modal-table">
+								<table class="table-bule table-ellipsis">
+									<thead>
+										<tr class="table-title">
+											<th style="width: 40px;">
+												<label class="i-checks"><input class="all_entrust_check" name="all" type="checkbox"></label>
+											</th>
+											<th>委托方</th>
+											<th>委托方主机构（甲方）</th>
+										</tr>
+									</thead>
+									<tbody id="entrustTBody">
+									</tbody>
+								</table>
+								</div>
+								<!-- 分页 -->
+								<div class="row">
+									<div class="panel-pagination">
+										<div id="panel-num-entrust" class="panel-num">搜索相关结果共0条</div>
+										<div class="pagination-list pagination-list-entrust"></div>
+										<div class="pagination-input">
+											到 <input type="text" />页
+										</div>
+										<div class="pagination-button" onclick="entrustJumpPage(this)">确定</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="save-button" onclick="entrustSelect()">确认</button>
+								<button class="close-button commonTable-opt-close" data-dismiss="modal">取消</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+			
+			
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+		<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+			<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/agentsys/agent-org.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/agentsys/agentsysManage.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/jquery.showLoading.min.js"></script>
+</html>
+

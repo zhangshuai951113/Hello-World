@@ -1,0 +1,93 @@
+<!-- 模态框 运单编号选择-->
+<div id="waybill-data-info" >
+<div class="modal" id="waybillSelectModal" tabindex="-3" role="dialog" aria-hidden="true" style="display:block">
+  <div class="modal-dialog" style="width:96%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close waybill-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          选择运单
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row" style="text-align: left;">
+                <div class="search-box">
+                  <div class="input-lable">运单号</div>
+                  <div class="input-text">
+                    <input id="waybillInput" class="input" placeholder="请输入运单号" type="text" />
+                  </div>
+                </div>
+                <div class="search-box">
+                  <div class="input-lable">货物</div>
+                  <div class="input-text">
+                    <input id="goodsNameQuery" class="input" placeholder="请输入货物" type="text" />
+                  </div>
+                </div>
+                   <div class="search-box">
+                  <div class="input-lable">零散货物</div>
+                  <div class="input-text">
+                    <input id="scatteredGoodsQuery" class="input" placeholder="请输入零散货物" type="text" />
+                  </div>
+                </div>
+                <div class="search-box">
+	            	<div class="input-lable">制单日期</div>
+		            <div class="input-text time-input">
+		              <input class="input date-time" type="text" id="makeStartTime" readonly="readonly"/>
+		            </div>
+		            <div class="input-line">—</div>
+		            <div class="input-text time-input">
+		              <input class="input date-time" type="text" id="makeEndTime" readonly="readonly"/>
+		            </div>
+          		</div>
+                <div class="search-box">
+                  <div class="input-lable">发货单位</div>
+                  <div class="input-text">
+                    <input id="forwardingUnitQuery" class="input" placeholder="请输入发货单位" type="text" />
+                  </div>
+                </div>
+                <div class="search-box">
+                  <div class="input-lable">到货单位</div>
+                  <div class="input-text">
+                    <input id="consigneeQuery" class="input" placeholder="请输入到货单位" type="text" />
+                  </div>
+                </div>
+                <div class="search-box">
+                  <div class="input-lable">委托方</div>
+                  <div class="input-text">
+                    <input id="entrustNameQuery" class="input" placeholder="请输入委托方" type="text" />
+                  </div>
+                </div>
+                <div class="search-box">
+                  <div class="input-lable">承运方</div>
+                  <div class="input-text">
+                    <input id="shipperQuery" class="input" placeholder="请输入承运方" type="text" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search-button-box">
+              <button class="search-button" onclick="waybillInfoList(1)">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div id="search_waybill_info" class="panel-table"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="reOrderSelectWaybill()">确认</button>
+        <button class="close-button waybill-opt-close" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+</div>

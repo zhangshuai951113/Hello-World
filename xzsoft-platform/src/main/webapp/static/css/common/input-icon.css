@@ -1,0 +1,11 @@
+.input-icon-clean{
+	position: absolute;
+	background-image: url("../../images/common/clean-icon.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 15px;
+	height: 15px;
+	top: 7px;
+	right: 1px;		
+	z-index: 5;
+}

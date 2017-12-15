@@ -1,0 +1,48 @@
+<div id="user_data_auth">
+	<table width="100%" class="table-bule table-ellipsis" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width: 40px;"><label class="i-checks"> <input
+						class="all-auth-check" type="checkbox">
+				</label></th>
+				<th>权限名称</th>
+				<th>用户名</th>
+<!-- 				<th>手机号</th>
+ -->				<th>所属组织</th>
+				<th>条件组</th>
+				<th>协同状态</th>
+				<th class="operation" style="width:110px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if userDataAuthPager?exists && userDataAuthPager.rows?exists> 
+			<#list userDataAuthPager.rows as userDataAuth>
+			<tr class="table-body ">
+				<td><label class="i-checks"><input class="sub-auth-check" data-id="${userDataAuth.id}" type="checkbox"></label></td>
+				<td>${(userDataAuth.authName)!''}</td>
+				<td>${(userDataAuth.realName)!''}</td>
+			<!-- 	<td>${(userDataAuth.mobilePhone)!''}</td> -->
+				<td>${(userDataAuth.orgInfoName)!''}</td>
+				<td>${(userDataAuth.conditionGroup)!''}</td>
+				<td><#if userDataAuth.cooperateState?exists> 
+						<#if userDataAuth.cooperateState==1> 协同 
+						<#else> 半协同 
+						</#if>
+					<#else> 
+					</#if>
+				</td>
+				<td>
+					<div class="operation-td" data-id="${userDataAuth.id}">
+						<div class="cancel-auth-operation operation-m" >
+							<div class="cancel-auth-icon"></div>
+							<div class="text">取消授权</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			</#list>
+			</#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">${userDataAuthPager.pageHtml}</div>
+</div>

@@ -1,0 +1,387 @@
+<!-- 新增/修改发票模板-->
+<div id="invoice-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="InvoiceModalLabel" aria-hidden="true" style="display: block">
+	  	<div class="modal-dialog modal-dialog-both">
+	    	<div class="modal-content" style="width: 801px;">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close invoice-opt-close" data-dismiss="modal" aria-hidden="true" onclick="closeewew()"></div>
+		        	<h4 class="modal-title" id="InvoiceModalLabel">${invoiceImage}</h4>
+		      	</div>
+	      		<div class="modal-body">
+		        	<form id="invoice_image_form">
+		        		<input id="hidden_invoice_info_id" type="hidden" name="invoiceInfoId">
+		          		
+			          	
+			        <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件1：</div>
+							<div class="input-img">
+							<#if imageModel.firstInvoiceImage?exists && imageModel.firstInvoiceImage!=""> 
+							<img src="${fastdfsServer}/${imageModel.firstInvoiceImage}" class="upload_img img_box" img-type="firstInvoiceImage" img-text="firstInvoiceImage"> 
+							    <#else> 
+							    	<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="firstInvoiceImage" img-text="firstInvoiceImage">
+							 </#if>
+								<input type="hidden" id="firstInvoiceImage" name="firstInvoiceImage" value="${imageModel.firstInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件2：</div>
+							<div class="input-img">
+							<#if imageModel.secondInvoiceImage?exists && imageModel.secondInvoiceImage!="">
+							<img src="${fastdfsServer}/${imageModel.secondInvoiceImage}" class="upload_img img_box" img-type="secondInvoiceImage" img-text="secondInvoiceImage">
+							<#else>
+							<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="secondInvoiceImage" img-text="secondInvoiceImage">
+							</#if>
+								<input type="hidden" id="secondInvoiceImage" name="secondInvoiceImage" value="${imageModel.secondInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+					 <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件3：</div>
+							<div class="input-img">
+							<#if imageModel.thirdInvoiceImage?exists && imageModel.thirdInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.thirdInvoiceImage}" class="upload_img img_box" img-type="thirdInvoiceImage" img-text="thirdInvoiceImage">
+							<#else>
+							<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="thirdInvoiceImage" img-text="thirdInvoiceImage">
+							</#if>
+								<input type="hidden" id="thirdInvoiceImage" name="thirdInvoiceImage" value="${imageModel.thirdInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件4：</div>
+							<div class="input-img">
+							<#if imageModel.fourthInvoiceImage?exists && imageModel.fourthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.fourthInvoiceImage}" class="upload_img img_box" img-type="fourthInvoiceImage" img-text="fourthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="fourthInvoiceImage" img-text="fourthInvoiceImage">
+							</#if>
+								<input type="hidden" id="fourthInvoiceImage" name="fourthInvoiceImage" value="${imageModel.fourthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+					 <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件5：</div>
+							<div class="input-img">
+							<#if imageModel.fifthInvoiceImage?exists && imageModel.fifthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.fifthInvoiceImage}" class="upload_img img_box" img-type="fifthInvoiceImage" img-text="fifthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="fifthInvoiceImage" img-text="fifthInvoiceImage">
+							</#if>
+								<input type="hidden" id="fifthInvoiceImage" name="fifthInvoiceImage" value="${imageModel.fifthInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件6：</div>
+							<div class="input-img">
+							<#if imageModel.sixthInvoiceImage?exists && imageModel.sixthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.sixthInvoiceImage}" class="upload_img img_box" img-type="sixthInvoiceImage" img-text="sixthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="sixthInvoiceImage" img-text="sixthInvoiceImage">
+							</#if>
+								<input type="hidden" id="sixthInvoiceImage" name="sixthInvoiceImage" value="${imageModel.sixthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+					 <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件7：</div>
+							<div class="input-img">
+							<#if imageModel.seventhInvoiceImage?exists && imageModel.seventhInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.seventhInvoiceImage}" class="upload_img img_box" img-type="seventhInvoiceImage" img-text="seventhInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="seventhInvoiceImage" img-text="seventhInvoiceImage">
+							</#if>
+								<input type="hidden" id="seventhInvoiceImage" name="seventhInvoiceImage" value="${imageModel.seventhInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件8：</div>
+							<div class="input-img">
+							<#if imageModel.eighthInvoiceImage?exists && imageModel.eighthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.eighthInvoiceImage}" class="upload_img img_box" img-type="eighthInvoiceImage" img-text="eighthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="eighthInvoiceImage" img-text="eighthInvoiceImage">
+							</#if>
+								<input type="hidden" id="eighthInvoiceImage" name="eighthInvoiceImage" value="${imageModel.eighthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+					 <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件9：</div>
+							<div class="input-img">
+							<#if imageModel.ninthInvoiceImage?exists && imageModel.ninthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.ninthInvoiceImage}" class="upload_img img_box" img-type="invoiceImage" img-text="ninthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="invoiceImage" img-text="ninthInvoiceImage">
+							</#if>
+								<input type="hidden" id="ninthInvoiceImage" name="ninthInvoiceImage" value="${imageModel.ninthInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件10：</div>
+							<div class="input-img">
+							<#if imageModel.tenthInvoiceImage?exists && imageModel.tenthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.tenthInvoiceImage}" class="upload_img img_box" img-type="tenthInvoiceImage" img-text="tenthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="tenthInvoiceImage" img-text="tenthInvoiceImage">
+							</#if>
+								<input type="hidden" id="tenthInvoiceImage" name="tenthInvoiceImage" value="${imageModel.tenthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+			       <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件11：</div>
+							<div class="input-img">
+							<#if imageModel.eleventhInvoiceImage?exists && imageModel.eleventhInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.eleventhInvoiceImage}" class="upload_img img_box" img-type="eleventhInvoiceImage" img-text="eleventhInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="eleventhInvoiceImage" img-text="eleventhInvoiceImage">
+							</#if>
+								<input type="hidden" id="eleventhInvoiceImage" name="eleventhInvoiceImage" value="${imageModel.eleventhInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件12：</div>
+							<div class="input-img">
+							<#if imageModel.twelfthInvoiceImage?exists && imageModel.twelfthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twelfthInvoiceImage}" class="upload_img img_box" img-type="twelfthInvoiceImage" img-text="twelfthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twelfthInvoiceImage" img-text="twelfthInvoiceImage">
+							</#if>
+								<input type="hidden" id="twelfthInvoiceImage" name="twelfthInvoiceImage" value="${imageModel.twelfthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件13：</div>
+							<div class="input-img">
+							<#if imageModel.thirteenthInvoiceImage?exists && imageModel.thirteenthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.thirteenthInvoiceImage}" class="upload_img img_box" img-type="thirteenthInvoiceImage" img-text="thirteenthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="thirteenthInvoiceImage" img-text="thirteenthInvoiceImage">
+							</#if>
+								<input type="hidden" id="thirteenthInvoiceImage" name="thirteenthInvoiceImage" value="${imageModel.thirteenthInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件14：</div>
+							<div class="input-img">
+							<#if imageModel.fourteenthInvoiceImage?exists && imageModel.fourteenthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.fourteenthInvoiceImage}" class="upload_img img_box" img-type="fourteenthInvoiceImage" img-text="fourteenthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="fourteenthInvoiceImage" img-text="fourteenthInvoiceImage">
+							</#if>
+								<input type="hidden" id="fourteenthInvoiceImage" name="fourteenthInvoiceImage" value="${imageModel.fourteenthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件15：</div>
+							<div class="input-img">
+							<#if imageModel.fifteenthInvoiceImage?exists && imageModel.fifteenthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.fifteenthInvoiceImage}" class="upload_img img_box" img-type="fifteenthInvoiceImage" img-text="fifteenthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="fifteenthInvoiceImage" img-text="fifteenthInvoiceImage">
+							</#if>
+								<input type="hidden" id="fifteenthInvoiceImage" name="fifteenthInvoiceImage" value="${imageModel.fifteenthInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件16：</div>
+							<div class="input-img">
+							<#if imageModel.sixteenthInvoiceImage?exists &&imageModel.sixteenthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.sixteenthInvoiceImage}" class="upload_img img_box" img-type="sixteenthInvoiceImage" img-text="sixteenthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="sixteenthInvoiceImage" img-text="sixteenthInvoiceImage">
+							</#if>
+								<input type="hidden" id="sixteenthInvoiceImage" name="sixteenthInvoiceImage" value="${imageModel.sixteenthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件17：</div>
+							<div class="input-img">
+							<#if imageModel.seventeenthInvoiceImage?exists && imageModel.seventeenthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.seventeenthInvoiceImage}" class="upload_img img_box" img-type="seventeenthInvoiceImage" img-text="seventeenthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="seventeenthInvoiceImage" img-text="seventeenthInvoiceImage">
+							</#if>
+								<input type="hidden" id="seventeenthInvoiceImage" name="seventeenthInvoiceImage" value="${imageModel.seventeenthInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件18：</div>
+							<div class="input-img">
+							<#if imageModel.eighteenthInvoiceImage?exists && imageModel.eighteenthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.eighteenthInvoiceImage}" class="upload_img img_box" img-type="eighteenthInvoiceImage" img-text="eighteenthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="eighteenthInvoiceImage" img-text="eighteenthInvoiceImage">
+							</#if>
+								<input type="hidden" id="eighteenthInvoiceImage" name="eighteenthInvoiceImage" value="${imageModel.eighteenthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件19：</div>
+							<div class="input-img">
+							<#if imageModel.nineteenthInvoiceImage?exists && imageModel.nineteenthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.nineteenthInvoiceImage}" class="upload_img img_box" img-type="nineteenthInvoiceImage" img-text="nineteenthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="nineteenthInvoiceImage" img-text="nineteenthInvoiceImage">
+							</#if>
+								<input type="hidden" id="nineteenthInvoiceImage" name="nineteenthInvoiceImage" value="${imageModel.nineteenthInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件20：</div>
+							<div class="input-img">
+							<#if imageModel.twentiethInvoiceImage?exists && imageModel.twentiethInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentiethInvoiceImage}" class="upload_img img_box" img-type="twentiethInvoiceImage" img-text="twentiethInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentiethInvoiceImage" img-text="twentiethInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentiethInvoiceImage" name="twentiethInvoiceImage" value="${imageModel.twentiethInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件21：</div>
+							<div class="input-img">
+							<#if imageModel.twentyFirstInvoiceImage?exists && imageModel.twentyFirstInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentyFirstInvoiceImage}" class="upload_img img_box" img-type="twentyFirstInvoiceImage" img-text="twentyFirstInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentyFirstInvoiceImage" img-text="twentyFirstInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentyFirstInvoiceImage" name="twentyFirstInvoiceImage" value="${imageModel.twentyFirstInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件22：</div>
+							<div class="input-img">
+							<#if imageModel.twentySecondInvoiceImage?exists && imageModel.twentySecondInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentySecondInvoiceImage}" class="upload_img img_box" img-type="twentySecondInvoiceImage" img-text="twentySecondInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentySecondInvoiceImage" img-text="twentySecondInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentySecondInvoiceImage" name="twentySecondInvoiceImage" value="${imageModel.twentySecondInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件23：</div>
+							<div class="input-img">
+							<#if imageModel.twentyThirdInvoiceImage?exists && imageModel.twentyThirdInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentyThirdInvoiceImage}" class="upload_img img_box" img-type="twentyThirdInvoiceImage" img-text="twentyThirdInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentyThirdInvoiceImage" img-text="twentyThirdInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentyThirdInvoiceImage" name="twentyThirdInvoiceImage" value="${imageModel.twentyThirdInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件24：</div>
+							<div class="input-img">
+							<#if imageModel.twentyFourthInvoiceImage?exists && imageModel.twentyFourthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentyFourthInvoiceImage}" class="upload_img img_box" img-type="twentyFourthInvoiceImage" img-text="twentyFourthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentyFourthInvoiceImage" img-text="twentyFourthInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentyFourthInvoiceImage" name="twentyFourthInvoiceImage" value="${imageModel.twentyFourthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件25：</div>
+							<div class="input-img">
+							<#if imageModel.twentyFifthInvoiceImage?exists && imageModel.twentyFifthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentyFifthInvoiceImage}" class="upload_img img_box" img-type="twentyFifthInvoiceImage" img-text="twentyFifthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentyFifthInvoiceImage" img-text="twentyFifthInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentyFifthInvoiceImage" name="twentyFifthInvoiceImage" value="${imageModel.twentyFifthInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件26：</div>
+							<div class="input-img">
+							<#if imageModel.twentySixthInvoiceImage?exists && imageModel.twentySixthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentySixthInvoiceImage}" class="upload_img img_box" img-type="twentySixthInvoiceImage" img-text="twentySixthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentySixthInvoiceImage" img-text="twentySixthInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentySixthInvoiceImage" name="twentySixthInvoiceImage" value="${imageModel.twentySixthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件27：</div>
+							<div class="input-img">
+							<#if imageModel.twentySeventhInvoiceImage?exists && imageModel.twentySeventhInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentySeventhInvoiceImage}" class="upload_img img_box" img-type="twentySeventhInvoiceImage" img-text="twentySeventhInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentySeventhInvoiceImage" img-text="twentySeventhInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentySeventhInvoiceImage" name="twentySeventhInvoiceImage" value="${imageModel.twentySeventhInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件28：</div>
+							<div class="input-img">
+							<#if imageModel.twentyEighthInvoiceImage?exists && imageModel.twentyEighthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentyEighthInvoiceImage}" class="upload_img img_box" img-type="twentyEighthInvoiceImage" img-text="twentyEighthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentyEighthInvoiceImage" img-text="twentyEighthInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentyEighthInvoiceImage" name="twentyEighthInvoiceImage" value="${imageModel.twentyEighthInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				    <div class="from-both-box" style="width:784px;padding-left: 14px;">
+			        <div class="group-img">
+							<div class="input-lable">发票附件29：</div>
+							<div class="input-img">
+							<#if imageModel.twentyNinthInvoiceImage?exists && imageModel.twentyNinthInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.twentyNinthInvoiceImage}" class="upload_img img_box" img-type="twentyNinthInvoiceImage" img-text="twentyNinthInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="twentyNinthInvoiceImage" img-text="twentyNinthInvoiceImage">
+							</#if>
+								<input type="hidden" id="twentyNinthInvoiceImage" name="twentyNinthInvoiceImage" value="${imageModel.twentyNinthInvoiceImage}">
+							</div>
+					</div>
+					<div class="group-img">
+							<div class="input-lable">发票附件30：</div>
+							<div class="input-img">
+							<#if imageModel.thirtiethInvoiceImage?exists && imageModel.thirtiethInvoiceImage!="">
+								<img src="${fastdfsServer}/${imageModel.thirtiethInvoiceImage}" class="upload_img img_box" img-type="thirtiethInvoiceImage" img-text="thirtiethInvoiceImage">
+							<#else>
+								<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="thirtiethInvoiceImage" img-text="thirtiethInvoiceImage">
+							</#if>
+								<input type="hidden" id="thirtiethInvoiceImage" name="thirtiethInvoiceImage" value="${imageModel.thirtiethInvoiceImage}">
+							</div>
+					</div>
+				   </div>
+				   
+			          </form>
+		        	</div>
+	      		
+		      	<div class="modal-footer">
+		        	<button class="save-button" onclick="addInvoiceImage()">保存</button>
+		        	<button class="close-button invoice-opt-close" onclick="closeewew()" data-dismiss="modal">取消</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

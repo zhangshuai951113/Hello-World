@@ -1,0 +1,87 @@
+<!-- 结算信息应付调差 -->
+<div id="differenceModal">
+<div  class="modal" style = "display:block">
+    <div class="modal-dialog">
+    <div class="modal-content" style= "width: 800px;height: auto;position: absolute;right: 0;left: -9%;top: 150px;">
+      <div class="modal-header">
+        <div type="button" class="mode-close reciveInfo-close" data-dismiss="modal" aria-hidden="true"></div>
+		<h4 class="modal-title">调差设置</h4>
+	</div>
+	<div class="modal-body">
+	          <div class="group-box first">
+					<div class="input-lable">
+						<span>*</span>调差类型：
+						<input id="tcId" class="input"  type="hidden" value="${settlementInfo.id}" />
+					</div>
+					<div class="input-text" style ="width:242px;">
+						<select id="txreviseType"  class="input">
+							<option value="0">请选择</option>
+							<option value="1">金额调差</option>
+							<option value="2">金额+吨位调差</option>
+							<option value="3">吨位调差</option>
+						</select>
+					</div>
+				</div>
+				<div class="group-box second" hidden = "hidden" id = "tcshipperPriceDiv">
+					<div class="input-lable"><span>*</span> 运费：</div>
+					<div class="input-text  form-item"  style ="width:242px;">
+						<input id="tcshipperPrice"  class="input xz-digital"  type="text" value="${settlementInfo.shipperPrice}" />
+					</div>
+				</div>
+				<div class="group-box first" id = "txforwardingTonnageDiv" hidden = "hidden">
+					<div class="input-lable"><span>*</span> 发货吨位：</div>
+					<div class="input-text form-item" style ="width:242px;">
+						<input id="txforwardingTonnage" class="input xz-digital"  type="text" value="${settlementInfo.forwardingTonnage}"/>
+					</div>
+				</div>
+				<div class="group-box second" id = "txarriveTonnageDiv" hidden = "hidden">
+					<div class="input-lable"><span>*</span> 到货吨位：</div>
+					<div class="input-text form-item" style ="width:242px;">
+						<input id="txarriveTonnage" class="input xz-digital"  type="text" value="${settlementInfo.arriveTonnage}" />
+					</div>
+				</div>
+				<div class="group-box first" hidden = "hidden" id = "txpayablePriceDiv">
+					<div class="input-lable"><span>*</span> 应付运费：</div>
+					<div class="input-text form-item" style ="width:242px;">
+						<input id="txpayablePrice" class="input xz-digital"  type="text" value="${settlementInfo.payablePrice}" />
+					</div>
+				</div>
+				<div class="group-box second" hidden = "hidden" id = "txactualPaymentPriceDiv">
+					<div class="input-lable"><span>*</span> 实付金额：</div>
+					<div class="input-text form-item" style ="width:242px;">
+						<input id="txactualPaymentPrice" class="input xz-digital"  type="text" value="${settlementInfo.actualPaymentPrice}" />
+					</div>
+				</div>
+				<div class="group-box first" hidden = "hidden" id = "txtransportPriceIncomeTaxDiv">
+					<div class="input-lable"><span>*</span> 运费进项税：</div>
+					<div class="input-text form-item" style ="width:242px;">
+						<input id="txtransportPriceIncomeTax"  class="input xz-digital"  type="text" value="${settlementInfo.transportPriceIncomeTax}" />
+					</div>
+				</div>
+				<div class="group-box second" hidden = "hidden" id = "txincomeTaxDiv">
+					<div class="input-lable"><span>*</span> 进项税：</div>
+					<div class="input-text form-item" style ="width:242px;">
+						<input id="txincomeTax" class="input xz-digital"  type="text" value="${settlementInfo.incomeTax}" />
+					</div>
+				</div>
+				<div class="group-box first" hidden = "hidden" id = "txotherTaxPriceDiv">
+					<div class="input-lable"><span>*</span> 其他税费：</div>
+					<div class="input-text form-item" style ="width:242px;">
+						<input id="txotherTaxPrice" class="input xz-digital"  type="text" value="${settlementInfo.otherTaxPrice}" />
+					</div>
+				</div>
+				<div class="group-box second" hidden = "hidden" id = "txtransportPriceCostDiv">
+					<div class="input-lable"><span>*</span> 运费成本：</div>
+					<div class="input-text form-item" style ="width:242px;">
+						<input id="txtransportPriceCost" class="input xz-digital"  type="text" value="${settlementInfo.transportPriceCost}" />
+					</div>
+				</div>
+	</div>
+	<div class="modal-footer">
+		<button class="save-button" id="saveReciveInfo">确定</button>
+		<button class="close-button reciveInfo-close" data-dismiss="modal">取消</button>
+	</div>
+</div></div>
+</div>
+<div class="modal-backdrop fade in"></div>
+</div>

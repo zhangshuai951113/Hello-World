@@ -1,0 +1,36 @@
+
+  .panel-table {
+    overflow-x: scroll;
+    width: 100%;
+    overflow-y: hidden;
+    padding-bottom: 20px;
+  }
+  .table-bule .table-title th {
+    min-width: 120px;
+    max-width: 120px;
+  }
+  .table-bule .table-body td {
+    min-width: 120px;
+    max-width: 120px;
+  }
+
+.table-bule .table-title .check, .table-bule .table-body .check {
+  max-width: 40px;
+  min-width:40px;
+}
+
+.table-bule .table-title .op, .table-bule .table-body .op {
+  min-width: 239px;
+  max-width: 239px;
+}
+.panel-box {
+    position: relative;
+    height: 100%;
+    width:100%;
+}
+.modal-dialog{
+	width : 800px;
+}
+.modal-content .modal-title th{
+	width: 80px;
+}

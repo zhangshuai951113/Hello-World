@@ -1,0 +1,52 @@
+<!-- 模态框 物流公司选择-->
+<div id="shipper-data-info" >
+<div class="modal" id="shipperSelectModal" tabindex="-3" role="dialog" aria-hidden="true" style="display:block">
+  <div class="modal-dialog" style="width:96%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close shipper-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          物流公司选择
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-table row" style="overflow:hidden;">
+          <div class="iscroll-waybill">
+          <table class="table-bule table-ellipsis" style="margin-top:8px; min-width:2100px" id="tableDrag">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;"></th>
+                <th>承运方</th>
+              </tr>
+            </thead>
+            <tbody>
+	 			<#if contractInfoPager?exists && contractInfoPager.rows?exists>
+		 			<#list contractInfoPager.rows as contractInfo>
+			   			<tr class="table-body ">
+			     			<td style="width:40px;">
+			       				<label class="i-checks">
+		           					<input type="checkbox" class="sub_contract_info_check" data-id="${contractInfo.id}" data-shipper="${contractInfo.shipper}" data-name="${contractInfo.shipperName}"><i></i>
+		         				</label>
+			     			</td>
+					        <td>${(contractInfo.shipperName)!''}</td>
+			   			</tr>
+		 			</#list>
+	   			</#if>
+ 			</tbody>
+          </table>
+          </div>
+          <input id="contract" class="input" type="hidden" value="4"/>
+          <div class="panel-pagination">
+      		${contractInfoPager.pageHtml}
+     	  </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="reOrderSelectContract()">确认</button>
+        <button class="close-button shipper-opt-close" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+</div>

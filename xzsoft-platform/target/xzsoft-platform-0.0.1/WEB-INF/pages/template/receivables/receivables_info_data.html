@@ -1,0 +1,101 @@
+<div id="receivables-info-data">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width:40px;">
+					<input name="all-check" type="checkbox" class="all_receivables_check">
+				</th>
+				<th>收款单号</th>
+				<th>主机构ID</th>
+				<th>客户编号</th>
+				<th>收款类型（元）</th>
+				<th>收款分类</th>
+				<th>组织部门</th>
+				<th>到款日期</th>
+				<th>收款金额</th>
+				<th>收款状态</th>
+				<th>制单人</th>
+				<th>制单时间</th>
+				<th class="operation" style="width:200px">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if receivablesInfoPager?exists && receivablesInfoPager.rows?exists>
+				<#list receivablesInfoPager.rows as receivablesInfo>
+					<tr class="table-body ">
+						<td style="width:40px;">
+							<input type="checkbox" class="sub_receivables_check" data-id="${receivablesInfo.id}">
+						</td>
+						<td>${(receivablesInfo.id)!''}</td>
+						<td>${(receivablesInfo.orgName)!''}</td>
+						<td>${(receivablesInfo.customerName)!''}</td>
+						<td>
+							<#if receivablesInfo.receivableType?exists>
+								<#if receivablesInfo.receivableType==1>
+									现金
+								<#elseif receivablesInfo.receivableType==2>
+					        		商业承兑
+					        	<#elseif receivablesInfo.receivableType==3>
+					        		银行承兑
+								</#if>
+							<#else>
+								未知状态
+							</#if>
+						</td>
+						<td>
+						<#if receivablesInfo.receivableClassify?exists>
+								<#if receivablesInfo.receivableClassify==1>
+									预收款
+								<#elseif receivablesInfo.receivableClassify==2>
+					        		收款
+								</#if>
+							<#else>
+								未知状态
+							</#if>
+						</td>
+						<td>${(receivablesInfo.projectInfoName)!''}</td>
+						<td><#if receivablesInfo.arrivalPriceDate?exists >${(receivablesInfo.arrivalPriceDate)?string('yyyy-MM-dd')}</#if></td>
+						<td>${(receivablesInfo.receivablePrice)!''}</td>
+						<td>
+							<#if receivablesInfo.receivableStatus?exists>
+								<#if receivablesInfo.receivableStatus==1>
+									起草
+								<#elseif receivablesInfo.receivableStatus==2>
+									已确认
+								</#if>
+							<#else>
+								 未知状态
+							</#if>
+						</td>
+						<td>${(receivablesInfo.makeUserName)!''}</td>
+						<td>${(receivablesInfo.makeTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+						<td>
+							<div class="operation-td" receivables-info-id="${(receivablesInfo.id)}">
+								<#if receivablesInfo.receivableStatus?exists>
+									<!-- 平台超级管理员 5-->
+										<#if userRole==2 ||userRole==4>
+											<div class="modify-operation operation-m">
+												<div class="modify-icon"></div>
+												<div class="text">修改</div>
+											</div>
+											<div class="delete-operation operation-m">
+							               		<div class="delete-icon"></div>
+							               		<div class="text">删除</div>
+							             	</div>
+							             	<div class="confirm-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="confirm-icon"></div>
+							               		<div class="text">确认</div>
+							             	</div>
+										</#if>
+								</#if>
+							</div>
+						</td>
+					</tr>
+				</#list>
+			</#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">
+		${receivablesInfoPager.pageHtml}
+	</div>
+</div>

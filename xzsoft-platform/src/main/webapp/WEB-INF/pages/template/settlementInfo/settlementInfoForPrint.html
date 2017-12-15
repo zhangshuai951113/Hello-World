@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>运单信息</title> <#include "./common/common_header.html" />
+
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/search.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/table.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/modal.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/confirm.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/reset.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/settlementInfo/settlementPrint.css" />
+<style media="print">
+    @page {
+      size: auto;  /* auto is the initial value */
+      margin: -76px 0px 0 100px; /* this affects the margin in the printer settings */
+    } 
+</style>
+</head>
+<body class="app-body">
+
+	<#include "./common/common_top.html" />
+	<div class="main-body">
+		<!-- Main content -->
+		<#include "./common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main"> 
+		<div class="search-panel row">
+			<div class="search-from">
+				<form onsubmit="return false">
+					<div class="search-button-box">
+						<button class="operation-button" onclick="doPrint1()">
+							<div class="text">打印</div>
+						</button>
+						<button class="operation-button" onclick="window.history.back()">
+							<div class="text">返回</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="printBody1" class="print-body" >
+		<div style = "float:left;width:97%;">
+					<div class="t-head" style = "width: 98%;text-align: center;font-size:30px;">${settlementInfo.entrustName}结算单</div>
+			<input type = "hidden" value = "${settlementInfo.isProxyMode}" id = "isProxyMode">
+			<table class="t-form" style = "width: 98%;text-align: center;font-size:12px;border-collapse:separate; border-spacing:0px 10px;">
+				<tbody>
+					<tr>
+						<td colspan="3">发货单位：${settlementInfo.forwardingUnit}</td>
+						<td colspan="3">收货单位：${settlementInfo.consignee}</td>
+					</tr>
+					<tr>
+						<td colspan="3">客户名称：${settlementInfo.entrustName}</td>
+						<td colspan="3">外协单位：${settlementInfo.shipperName}</td>
+						<td colspan="3">运单号：${settlementInfo.waybillId}</td>
+					</tr>
+					<tr >
+						<td colspan="3">组织部门：${settlementInfo.projectName}</td>
+						<td colspan="3">制单日期：<#if settlementInfo.makeTime?exists>${(settlementInfo.makeTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td colspan="2">结算单号：${settlementInfo.settlementId}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table class="t-table" style = "width: 98%;text-align: center;font-size:14px; border-collapse:collapse;  border:1px solid ;">
+				<tbody>
+					
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">车牌号码</td>
+						<td style = "border:1px solid;">${settlementInfo.carCode}</td>
+						<td style = "border:1px solid;">发货日期</td>
+						<td colspan="2" style = "border:1px solid;"><#if settlementInfo.forwardingTime?exists>${(settlementInfo.forwardingTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td style = "border:1px solid;">回单日期</td>
+						<td colspan="2" style = "border:1px solid;"><#if settlementInfo.makeTime?exists>${(settlementInfo.makeTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">起点</td>
+						<td colspan="3" style = "border:1px solid;">${settlementInfo.forwardingUnit}</td>
+						<td style = "border:1px solid;">终点</td>
+						<td colspan="3" style = "border:1px solid;">${settlementInfo.consignee}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">货物名称</td>
+						<td style = "border:1px solid;">司机运单号</td>
+						<td style = "border:1px solid;">发货单号</td>
+						<td style = "border:1px solid;">到货单号</td>
+						<td style = "border:1px solid;">发货吨位</td>
+						<td style = "border:1px solid;">到货吨位</td>
+						<td style = "border:1px solid;">运输单价</td>
+						<td style = "border:1px solid;">运费</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">${settlementInfo.goodsName}</td>
+						<td style = "border:1px solid;">${settlementInfo.driverWaybillId}</td>
+						<td style = "border:1px solid;">${settlementInfo.forwardingId}</td>
+						<td style = "border:1px solid;">${settlementInfo.arriveId}</td>
+						<td style = "border:1px solid;">${settlementInfo.forwardingTonnage}</td>
+						<td style = "border:1px solid;">${settlementInfo.arriveTonnage}</td>
+						<td style = "border:1px solid;">${settlementInfo.currentTransportPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.shipperPrice}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">扣损吨位</td>
+						<td style = "border:1px solid;">扣损单价</td>
+						<td style = "border:1px solid;">扣损金额</td>
+						<td style = "border:1px solid;">其它扣款</td>
+						<td style = "border:1px solid;">应付运费</td>
+						<td style = "border:1px solid;">其它税费</td>
+						<td style = "border:1px solid;">运费成本</td>
+						<td style = "border:1px solid;">进项税</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">${settlementInfo.lossTonnage}</td>
+						<td style = "border:1px solid;">${settlementInfo.deductionUnitPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.deductionPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.otherPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.payablePrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.otherTaxPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.transportPriceCost}</td>
+						<td style = "border:1px solid;">${settlementInfo.incomeTax}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">工本费</td>
+						<td style = "border:1px solid;">实付金额</td>
+						<td style = "border:1px solid;">预付款</td>
+						<td style = "border:1px solid;">本次付款</td>
+						<td colspan="4" rowspan="2" class="textarea-td" style = "border:1px solid;"><span style = "text-align:left">备注：</span>${settlementInfo.remarks}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">${settlementInfo.costPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.actualPaymentPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.advancePrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.thisPayPrice}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td colspan="4" class="textarea-td" style = "border:1px solid;">大写金额：${settlementInfo.capitalAmount}</td>
+						<td colspan="4" class="textarea-td" style = "border:1px solid;">有价券金额：${settlementInfo.couponUseTotalPrice}</td>
+					</tr>
+				</tbody>
+
+			</table>
+			<table class="t-foot" style = "width: 98%;text-align: center;font-size:12px;">
+				<tbody>
+					<tr>
+						<td style = "padding-left: 10mm;">制单人：${settlementInfo.makeUserName}</td>
+						<td></td>
+						<td style = "padding-left: 0mm;">复核人：</td>
+						<td></td>
+						<td style = "padding-left: 0mm;">收款人：</td>
+						<td></td>
+						<td style = "padding-left: 0mm;">出纳：</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="4" class="textarea-td">打印时间：${.now?string("yyyy-MM-dd HH:mm:ss")} </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div style = "float:left;  writing-mode: tb-rl;font-size: 11px;width: 1.5%; margin-top: 18%;">
+					              第一联（白）存根第二联（黄）挂账第三联（粉）结算
+					              </div>
+					              </div>
+		<div id = "printBody2Div" hidden="hidden">
+		<div style = "float:left;width:97%;">
+		<div class="search-panel row">
+			<div class="search-from">
+				<form onsubmit="return false">
+					<div class="search-button-box">
+						<button class="operation-button" onclick="doPrint2()">
+							<div class="text">打印</div>
+						</button>
+						<button class="operation-button" onclick="window.history.back()">
+							<div class="text">返回</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+			<div id="printBody2" class="print-body">
+					<div class="t-head" style = "width: 98%;text-align: center;font-size:30px;">${settlementInfoProxy.entrustName}结算单</div>
+			<table class="t-form" style = "width: 98%;text-align: center;font-size:12px;">
+				<tbody>
+					<tr>
+						<td colspan="3">发货单位：${settlementInfo.forwardingUnit}</td>
+						<td colspan="3">收货单位：${settlementInfo.consignee}</td>
+					</tr>
+					<tr>
+						<td colspan="3">客户名称：${settlementInfoProxy.entrustName}</td>
+						<td colspan="3">结算单编号：${settlementInfo.settlementId}</td>
+					</tr>
+					<!-- <tr>
+						<td colspan="3">组织部门：${settlementInfo.projectName}</td>
+						<td colspan="3">制单日期：<#if settlementInfo.makeTime?exists>${(settlementInfo.makeTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td colspan="2">结算单号：${settlementInfo.id}</td>
+					</tr> -->
+				</tbody>
+			</table>
+
+			<table class="t-table" style = "width: 98%;text-align: center;font-size:14px;border-collapse:collapse;  border:1px solid ;">
+				<tbody>
+					
+					<tr  style = "border:1px solid;">
+						<td style = "border:1px solid;">车牌号码</td>
+						<td style = "border:1px solid;">${settlementInfo.carCode}</td>
+						<td style = "border:1px solid;">发货日期</td>
+						<td colspan="2" style = "border:1px solid;"><#if settlementInfo.forwardingTime?exists>${(settlementInfo.forwardingTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td style = "border:1px solid;">回单日期</td>
+						<td colspan="2" style = "border:1px solid;"><#if settlementInfo.makeTime?exists>${(settlementInfo.makeTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+					</tr>
+
+					<tr>
+						<td style = "border:1px solid;">起点</td>
+						<td colspan="3" style = "border:1px solid;">${settlementInfo.forwardingUnit}</td>
+						<td style = "border:1px solid;">终点</td>
+						<td colspan="3" style = "border:1px solid;">${settlementInfo.consignee}</td>
+					</tr>
+
+					<tr>
+						<td style = "border:1px solid;">货物名称</td>
+						<td style = "border:1px solid;">运单号</td>
+						<td style = "border:1px solid;">发货单号</td>
+						<td style = "border:1px solid;">到货单号</td>
+						<td style = "border:1px solid;">发货吨位</td>
+						<td style = "border:1px solid;">到货吨位</td>
+						<td style = "border:1px solid;">运输单价</td>
+						<td style = "border:1px solid;">运费</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">${settlementInfo.goodsName}</td>
+						<td style = "border:1px solid;">${settlementInfo.waybillId}</td>
+						<td style = "border:1px solid;">${settlementInfo.forwardingId}</td>
+						<td style = "border:1px solid;">${settlementInfo.arriveId}</td>
+						<td style = "border:1px solid;">${settlementInfo.forwardingTonnage}</td>
+						<td style = "border:1px solid;">${settlementInfo.arriveTonnage}</td>
+						<td style = "border:1px solid;">${settlementInfo.currentTransportPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.shipperPrice}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">扣损吨位</td>
+						<td style = "border:1px solid;">扣损单价</td>
+						<td style = "border:1px solid;">扣损金额</td>
+						<td style = "border:1px solid;">其它扣款</td>
+						<td style = "border:1px solid;">应付运费</td>
+						<td style = "border:1px solid;">其它税费</td>
+						<td style = "border:1px solid;">运费成本</td>
+						<td style = "border:1px solid;">进项税</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">${settlementInfo.lossTonnage}</td>
+						<td style = "border:1px solid;">${settlementInfo.deductionUnitPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.deductionPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.otherPrice}</td>
+						<td style = "border:1px solid;">${settlementInfoProxy.payablePrice}</td>
+						<td style = "border:1px solid;">${settlementInfoProxy.otherTaxPrice}</td>
+						<td style = "border:1px solid;">${settlementInfoProxy.transportPriceCost}</td>
+						<td style = "border:1px solid;">${settlementInfoProxy.incomeTax}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">工本费</td>
+						<td style = "border:1px solid;">实付金额</td>
+						<td style = "border:1px solid;">预付款</td>
+						<td style = "border:1px solid;">本次付款</td>
+						<td colspan="4" rowspan="2" class="textarea-td" style = "border:1px solid;">备注：${settlementInfo.remarks}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td style = "border:1px solid;">${settlementInfo.costPrice}</td>
+						<td style = "border:1px solid;">${settlementInfoProxy.actualPaymentPrice}</td>
+						<td style = "border:1px solid;">${settlementInfo.advancePrice}</td>
+						<td style = "border:1px solid;">${settlementInfoProxy.thisPayPrice}</td>
+					</tr>
+
+					<tr style = "border:1px solid;">
+						<td colspan="4" class="textarea-td" style = "border:1px solid;">大写金额：${settlementInfo.capitalAmount}</td>
+						<td colspan="4" class="textarea-td" style = "border:1px solid;">有价券金额：${settlementInfo.couponUseTotalPrice}</td>
+					</tr>
+
+				</tbody>
+
+			</table>
+			<table class="t-foot" style = "width: 98%;text-align: center;font-size:12px;">
+				<tbody>
+					<tr>
+						<td style = "padding-left: 10mm;">制单人：${settlementInfo.makeUserName}</td>
+						<td></td>
+						<td style = "padding-left: 0mm;">复核人：</td>
+						<td></td>
+						<td style = "padding-left: 0mm;">收款人：</td>
+						<td></td>
+						<td style = "padding-left: 0mm;">出纳：</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="4" class="textarea-td">打印时间：${.now?string("yyyy-MM-dd HH:mm:ss")} </td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		<div style = "float:left;  writing-mode: tb-rl;font-size: 11px;width: 1.5%; margin-top: 20%;">
+					              第一联（白）存根第二联（黄）挂账第三联（粉）结算
+					              </div>
+					              </div>
+		</div>
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "./common/common_footer.html" />
+
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/LodopFuncs.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/settlementInfo/settlementINfoForPrint.js"></script>
+
+</html>

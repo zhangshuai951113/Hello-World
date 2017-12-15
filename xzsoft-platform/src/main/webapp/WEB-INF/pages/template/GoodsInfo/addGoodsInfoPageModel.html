@@ -1,0 +1,51 @@
+<!-- 模态框 新增车辆类型 -->
+<div id="department-data-info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="cancel()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${goodsInfo}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="goodsInfo_form">
+						<div class="dep-from-box model-from">
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>货物名称：</div>
+								<div class="input-text  required">
+									<input id="goodsNames" name="GoodsInfo.goodsName" class="input"  placeholder="请输入货物名称" type="text"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">规格型号：</div>
+								<div class="input-text">
+									<input id="specModel" class="input" name="GoodsInfo.specModel"   placeholder="请输入规格型号" type="text"/>
+								</div>
+							</div>
+	            			<div class="group-box">
+	              				<div class="input-lable"><span>*</span>计量单位：</div>
+	              				<div class="input-text">
+	                				<select id="units" name="GoodsInfo.units" class="input">
+					                	<option value="" selected>请选择</option>
+										<#if goodsUnitsList?exists>
+											<#list goodsUnitsList as units>
+													<option value="${units.code}" >${units.desc}</option>
+											</#list>
+										</#if>
+	                				</select>
+	              				</div>
+	            			</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="saveGoodsInfos()">保存</button>
+					<button class="close-button" data-dismiss="modal" onclick="cancel()">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

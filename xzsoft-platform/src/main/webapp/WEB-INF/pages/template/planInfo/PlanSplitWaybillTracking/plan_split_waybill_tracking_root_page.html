@@ -1,0 +1,216 @@
+  <!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>${planSplitWaybillTracking}</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+		
+	<style>
+
+		.search-box .money-input {
+			width: 58px;
+		}
+		
+		.search-box .money-input {
+		    width: 188px;
+		}
+		.table-bule {
+		   margin-top:0px;
+		}
+		.JCLRgrip {
+		    top:0;
+		}
+		
+		.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+		    width: 100%;
+		    height: 13px;
+		}
+	</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		   
+		    <main class="main">
+		     <div class="search-panel row">
+				    <form onsubmit="return false" id="find_plan_info">
+						<div class="search-from">
+							<div class="search-row-box">
+								<div class="both-row row">
+							        <div class="search-box">
+							          <div class="input-lable">计划名称</div>
+							          <div class="input-text">
+							            <input name="planInfoPo.planName" id="planName" class="input" placeholder="请输入计划名称" type="text">
+							          </div>
+							        </div>
+						            <div class="search-box">
+							          <div class="input-lable">委托方</div>
+							          <div class="input-text">
+							            <input id="entrust" name="planInfoPo.entrustName" class="input" placeholder="请输入委托方" type="text">
+							          </div>
+							        </div>
+							        <div class="search-box">
+							          <div class="input-lable">承运方</div>
+							          <div class="input-text">
+							            <input id="shipper" name="planInfoPo.shipperName" class="input" placeholder="请输入承运方" type="text">
+							          </div>
+							        </div>
+							        <div class="search-box">
+							          <div class="input-lable">计划状态</div>
+							          <div class="input-text">
+							            <select id="planStatus" name="planInfoPo.planStatus" class="input">
+							              <option value="" selected>请选择</option>
+							              <option value="1">新建</option>
+							              <option value="2">审核中</option>
+							              <option value="3">审核通过</option>
+							              <option value="4">审核驳回</option>
+							              <option value="5">已派发</option>
+							              <option value="6">已撤回</option>
+							            </select>
+							          </div>
+							         </div>
+							        
+							         <div class="search-box">
+								          <div class="input-lable">协同状态</div>
+								          <div class="input-text">
+								            <select id="cooperateStatus" name="planInfoPo.planStatus" class="input">
+								              <option value="" selected>请选择</option>
+								              <option value="1">上下游协同</option>
+								              <option value="2">下游不协同</option>
+								              <option value="3">上游不协同</option>
+								            </select>
+								          </div>
+							          </div>
+							          <div class="search-box">
+											<div class="input-lable">计划创建日期</div>
+											<div class="input-text time-input">
+												<input id="planCreateTimeStart" class="input date-time"  type="text" />
+											</div>
+											<div class="input-line">—</div>
+											<div class="input-text time-input">
+												<input id="planCreateTimeEnd" class="input date-time" type="text" />
+											</div>
+										</div>
+									  <div class="search-box" style="width:320px"></div>
+						        </div>
+							</div>
+							<div class="search-button-box">
+								<button class="search-button" id="searchCustomer" onclick="planSplitWaybillTracKingList(1)">
+									<div class="search-icon"></div>
+									<div class="text">查询</div>
+								</button>
+								 <button class="search-button" onclick="planWaybillReset()">
+								      <div class="reset-icon"></div>
+								      <div class="text">重置</div>
+								  </button>
+							</div>
+						</div>
+					</form>
+				 </div>
+				<div class="panel" >
+			      <!-- 计划 -->
+				<div id="find_plan_waybill_info"></div>
+			      	<div class="iscroll">
+				        <table style="min-width:1960px" class="table-bule table-ellipsis" id="tableDrag">
+				          <thead>
+				             <tr class="table-title">
+				              <th>查看运单</th>
+				              <th>计划拆分状态</th>
+				              <th>计划类型</th>
+				              <th>计划派发日期</th>
+					          <th>计划名称</th>
+					          <th>委托方</th>
+					          <th>承运方</th>
+					          <th>货物</th>
+					          <th>线路</th>
+					          <th>运距(公里)</th>
+					          <th>计划总量</th>
+					          <th>发货单位</th>
+					          <th>到货单位</th>
+					          <th>起始日期</th>
+					          <th>结束日期</th>
+					          <th>创建人</th>
+					          <th>创建时间</th>
+					          <th>计划状态</th>
+					          <th>协同状态</th>
+					        </tr>
+				          </thead>
+				          <tbody id="planInfoTtableList">
+				          </tbody>
+				        </table>
+			      	</div>
+			      </div>
+			     <div class="panel-pagination">
+			      <div id="panelWay-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list plan_info_all_mation"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpWayPage(this)">确定</div>
+			  </div> 
+			  </div>
+				  <!-- 日志信息列表 -->
+			<div class="modal fade" id="planInfoLogModel" tabindex="-2" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+							<h4 class="modal-title">计划拆分运单查看</h4>
+						</div>
+						<div class="modal-body">
+							<div class="modal-table row">
+								<table width="100%" class="table-bule table-ellipsis">
+									<thead>
+										<tr class="table-title">
+											<th>运单编号</th>
+											<th>运单号</th>
+											<th>运单状态</th>
+										</tr>
+									</thead>
+									<tbody id="planInfoWaybillTBody">
+								</table>
+								<div class="panel-pagination">
+									<div class="panel-num">
+										搜索相关结果共<span id="planInfoWaybillNum">0</span>条
+									</div>
+									<div id="logPage" class="pagination-list plan-info-waybill"></div>
+									<div class="pagination-input">
+										到 <input type="text" />页
+									</div>
+									<div class="pagination-button" onclick="jumpPlanWaybillNum(this)">确定</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="close-button" data-dismiss="modal">关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	  	<!-- 计划跟踪查看表单 -->
+	  	<form id="plan_look_form" action="" method="post">
+	  		<input id="plan_info_id" type="hidden" name="planInfoId">
+	  	</form>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/planInfo/PlanSplitWaybillTracking/plan_split_waybill_tracking_main.js"></script>
+	
+</html>

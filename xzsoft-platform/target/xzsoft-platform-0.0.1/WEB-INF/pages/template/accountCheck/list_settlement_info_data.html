@@ -1,0 +1,152 @@
+<div id="settlement_info_list">
+	<div class="search-panel row">
+			<div class="search-from">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<!--  第一行 -->
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">结算单号</div>
+								<div class="input-text">
+									<input id="settlementId" class="input" placeholder="请输入结算单号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">运单号</div>
+								<div class="input-text">
+									<input id="waybillId" class="input" placeholder="请输入运单号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">承运方</div>
+								<div class="input-text">
+									<input id="shipperName" class="input" placeholder="请输入承运方" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">车牌号</div>
+								<div class="input-text">
+									<input id="carCode" class="input" placeholder="请输入车牌号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">货物名称</div>
+								<div class="input-text">
+									<input id="goodsName" class="input" placeholder="请输入货物名称" type="text" />
+								</div>
+							</div>
+							<!-- <div class="search-box">
+								<div class="input-lable">发货日期</div>
+								<div class="input-text">
+									<input id="forwardingTime" class="input date-time" placeholder="请输入发货日期" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">到货日期</div>
+								<div class="input-text">
+									<input id="arriveTime" class="input date-time" placeholder="请输入到货日期" type="text" />
+								</div>
+							</div> -->
+							<div class="search-box">
+								<div class="input-lable">发货单位</div>
+								<div class="input-text">
+									<input id="forwardingUnit" class="input" placeholder="请输入发货单位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">到货单位</div>
+								<div class="input-text">
+									<input id="consignee" class="input" placeholder="请输入到货单位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">委托方</div>
+								<div class="input-text">
+									<input id="entrustName" class="input" placeholder="请输入委托方" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">回单日期</div>
+								<div class="input-text time-input">
+									<input id="createTimeStart" class="input date-time" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input id="createTimeEnd" class="input date-time" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="searchSettlementInfo(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetButton()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	<div style="width:100%;overflow-x:auto;overflow-y:hidden;">
+		<table class="table-bule  table-ellipsis" style="min-width: 1672px" id="tablefdfdfDrag">
+			<thead>
+				<tr class="table-title">
+					<th style="width: 40px;"><label class="i-checks"> <input class="all_check" name="all" type="checkbox"><i></i></label></th>
+					<th>结算单号</th>
+					<th>运单号</th>
+					<th>车牌号码</th>
+					<th>委托方</th>
+					<th>承运方</th>
+					<th>货物</th>
+					<th>零散货物</th>
+					<th>线路起点</th>
+					<th>发货单位</th>
+					<th>到货单位</th>
+					<th>客户运费</th>
+					<th>应付运费</th>
+					<th>代开总额</th>
+					<th>发货吨位</th>
+					<th>到货吨位</th>
+					<th>损耗吨位</th>
+					<th>回单日期</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#if settlementInfoPager?exists && settlementInfoPager.rows?exists> <#list settlementInfoPager.rows as settlementInfo>
+				<tr class="table-body ">
+					<td style="width: 40px;"><label class="i-checks"> <input type="checkbox" class="sub_check" id="checkedSub" data-id="${settlementInfo.id}" 
+																		customer-price="${settlementInfo.customerPrice}" 
+																		payable-price="${settlementInfo.payablePrice}" 
+																		proxyInvoice-total="${settlementInfo.proxyInvoiceTotal}"
+																		forwarding-tonnage="${settlementInfo.forwardingTonnage}"
+																		arrive-tonnage="${settlementInfo.arriveTonnage}"
+																		loss-tonnage="${settlementInfo.lossTonnage}"
+																		><i></i></label></td>
+					<!-- <td>${(settlementInfo.id)!''}</td> -->
+					<td>${(settlementInfo.settlementId)!''}</td>
+					<td>${(settlementInfo.waybillId)!''}</td>
+					<td>${(settlementInfo.carCode)!''}</td>
+					<td>${(settlementInfo.entrustName)!''}</td>
+					<td>${(settlementInfo.shipperName)!''}</td>
+					<td>${(settlementInfo.goodsName)!''}</td>
+					<td>${(settlementInfo.scatteredGoods)!''}</td>
+					<td>${(settlementInfo.lineName)!''}</td>
+					<td>${(settlementInfo.forwardingUnit)!''}</td>
+					<td>${(settlementInfo.consignee)!''}</td>
+					<td>${(settlementInfo.customerPrice)!''}</td>
+					<td>${(settlementInfo.payablePrice)!''}</td>
+					<td>${(settlementInfo.proxyInvoiceTotal)!''}</td>
+					<td>${(settlementInfo.forwardingTonnage)!''}</td>
+					<td>${(settlementInfo.arriveTonnage)!''}</td>
+					<td>${(settlementInfo.lossTonnage)!''}</td>
+					<td>${(settlementInfo.makeTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+				</tr>
+				</#list> </#if>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-pagination">${settlementInfoPager.pageHtml}</div>
+</div>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>对账信息管理</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<main class="main" id="mainPage">
+		<div class="tab-box">
+		<a href="${basePath}/accountCheckInfo/showAccountCheckInfoPage"><div class="tab-text active">发起对账</div></a>
+		<a href="${basePath}/accountCheckInfo/showReceiveReconciliationInformation"><div class="tab-text">接收对账</div></a>
+		</div>
+		<div class="search-panel row">
+			<div class="search-from">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<!--  第一行 -->
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">对账单编号</div>
+								<div class="input-text">
+									<input id="accountCheckId" class="input" placeholder="请输入对账编号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">对账单状态</div>
+								<div class="input-text">
+									<select id="accountCheckStatus" class="input">
+										<option value="">请选择</option>
+										<option value="1">起草</option>
+										<option value="2">待审核</option>
+										<option value="3">审核通过</option>
+										<option value="4">驳回</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">制单日期</div>
+								<div class="input-text money-input">
+									<input id="makeTimeStart" class="input date-time" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text money-input">
+									<input id="makeTimeEnd" class="input date-time" placeholder="" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">确认账款</div>
+								<div class="input-text">
+									<input id="confirmPrice" class="input" placeholder="请输入确认账款" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">确认发货吨位</div>
+								<div class="input-text">
+									<input id="confirmForwardingTonnage" class="input" placeholder="请输入确认发货吨位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">确认到货吨位</div>
+								<div class="input-text">
+									<input id="confirmArriveTonnage" class="input" placeholder="请输入确认到货吨位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">确认损耗吨位</div>
+								<div class="input-text">
+									<input id="confirmLossTonnage" class="input" placeholder="请输入确认损耗吨位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">确认出车次数</div>
+								<div class="input-text">
+									<input id="confirmOutCar" class="input" placeholder="请输入确认出车次数" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">损耗差异</div>
+								<div class="input-text">
+									<input id="lossDifference" class="input" placeholder="请输入损耗差异" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">其他差异</div>
+								<div class="input-text">
+									<input id="otherDifference" class="input" placeholder="请输入其他差异" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">差异收入</div>
+								<div class="input-text">
+									<input id="differenceIncome" class="input" placeholder="请输入差异收入" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">确认人</div>
+								<div class="input-text">
+									<input id="confirmUser" class="input" placeholder="请输入确认人" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">确认时间</div>
+								<div class="input-text time-input">
+									<input id="confiirmTimeStart" class="input date-time" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input id="confiirmTimeEnd" class="input date-time" placeholder="" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="searchAccountCheckInfo(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="row">
+				<div class="operation-tab row">
+					<@shiro.hasPermission name="settle:reconciliation:create">
+					<button id="addBtn" class="operation-button operation-blue" onclick="addAccountCheckInfoPage()">
+						<div class="add-icon"></div>
+						<div class="operation-text">新增(结算单对账)</div>
+					</button>
+					</@shiro.hasPermission>
+					
+					<button id="addBtn" class="operation-button operation-blue" onclick="showWaybillAccountPage()">
+						<div class="add-icon"></div>
+						<div class="operation-text">新增(运单对账)</div>
+					</button>
+					
+					<@shiro.hasPermission name="settle:reconciliation:delete">
+					<button id="delBtn" class="operation-button operation-blue" onclick="operateAllCheckedAccountInfo(4)">
+						<div class="delete-icon"></div>
+						<div class="operation-text">删除</div>
+					</button>
+					</@shiro.hasPermission>
+					<@shiro.hasPermission name="settle:reconciliation:submit">
+					<button id="submitBtn" class="operation-button operation-blue" onclick="operateAllCheckedAccountInfo(2)">
+						<div class="submit-icon"></div>
+						<div class="operation-text">提交审核</div>
+					</button>
+					</@shiro.hasPermission>
+					<@shiro.hasPermission name="settle:reconciliation:review">
+					<button id="auditBtn" class="operation-button operation-blue" onclick="operateAllCheckedAccountInfo(3)">
+						<div class="audit-icon"></div>
+						<div class="operation-text">审核</div>
+					</button>
+					</@shiro.hasPermission>
+					<button id="exportBtn" class="operation-button operation-blue" onclick="exportAccount()">
+						<div class="export-icon"></div>
+						<div class="operation-text">导出</div>
+					</button>
+					<!-- 
+					<button id="printBtn" class="operation-button operation-blue" onclick="printAccount()">
+						<div class="print-icon"></div>
+						<div class="operation-text">浏览器打印</div>
+					</button>
+					-->
+					<button id="printBtn" class="operation-button operation-blue" onclick="accountPreview()">
+						<div class="print-icon"></div>
+						<div class="operation-text">预览</div>
+					</button>
+					<button id="printBtn" class="operation-button operation-blue" onclick="accountPrint()">
+						<div class="print-icon"></div>
+						<div class="operation-text">打印</div>
+					</button>
+					
+					 
+				</div>
+			</div>
+			<div id="search_account_check_info" class="panel-table" ></div>
+		</div>
+		<!-- 编辑页面 -->
+		<form id="edit_form" action="" method="post">
+			<input id="account_check_info_id" type="hidden" name ="accountCheckInfoId">
+		</form>
+		<!-- 编辑窗口-->
+		<div id="edit_modal" class="modal-open"></div>
+		
+		<!-- 对账明细信息列表（结算单） -->
+		<div class="modal fade" id="detailModal" tabindex="-2" role="dialog">
+			<div class="modal-dialog" style="width:1000px;"	>
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">对账明细管理</h4>
+					</div>
+					<div class="modal-body" >
+						
+						<div class="modal-table row ">
+							<div class="row">
+								<div class="operation-tab row" style="position:relative">
+									<!-- <button id="importBtn" class="operation-button operation-blue" >
+								          <div class="excel-import-icon"></div>
+								          <div class="operation-text">明细导入</div>
+									</button> -->
+									<button id="deleteBtn" class="operation-button operation-blue" onclick="deleteAllCheckedAccountDetailInfo()">
+										<div class="delete-icon"></div>
+										<div class="operation-text">删除</div>
+									</button>
+								</div>
+							</div>
+							<div style="width: 100%;overflow-x: auto;overflow-y: hidden;">
+								<table class="table-bule  table-ellipsis" style="width:1335px" id="accountDetailSettlementTable">
+									<thead>
+										<tr class="table-title">
+											<th style="width: 40px;"><label class="i-checks"> <input class="all_detail_check" name="all" type="checkbox"><i></i></label></th>
+											<th>结算单号</th>
+											<th>运单号</th>
+											<th>车牌号码</th>
+											<th style="width:120px">委托方</th>
+											<th style="width:120px">承运方</th>
+											<th>货物</th>
+											<th>零散货物</th>
+											<th>线路</th>
+											<th>发货单位</th>
+											<th>到货单位</th>
+											<th>客户运费</th>
+											<th>应付运费</th>
+											<th>代开总额</th>
+										</tr>
+									</thead>
+									<tbody id="detailTBody">
+								</table>
+							</div>
+							<div class="panel-pagination">
+								<div class="panel-num">搜索相关结果共<span id="detailNum">0</span>条</div>
+								<div id="detailPage" class="pagination-list detail-pagination-list"></div>
+								<div class="pagination-input">到 <input type="text" />页</div>
+								<div class="pagination-button" onclick="detailJumpPage(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="close-button" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 对账明细信息列表（运单） -->
+		<div class="modal fade" id="detailWaybillModal" tabindex="-3" role="dialog">
+			<div class="modal-dialog" style="width:1000px;"	>
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">对账明细管理</h4>
+					</div>
+					<div class="modal-body" >
+						<div class="modal-table row ">
+							<div class="row">
+								<div class="operation-tab row" style="position:relative">
+									<button id="deleteBtn" class="operation-button operation-blue" onclick="deleteDetailWaybill()">
+										<div class="delete-icon"></div>
+										<div class="operation-text">删除</div>
+									</button>
+								</div>
+							</div>
+							<div style="width: 100%;overflow-x: auto;overflow-y: hidden;">
+								<table class="table-bule  table-ellipsis" style="width:1335px" id="accountDetailWaybillTable">
+									<thead>
+										<tr class="table-title">
+											<th style="width: 50px;">
+												<label class="i-checks"> 
+													<input class="all_detail_wabyill_check" name="all" type="checkbox">
+												</label>
+											</th>
+											<th>运单号</th>
+											<th>车牌号码</th>
+											<th>委托方</th>
+											<th>货物</th>
+											<th>零散货物</th>
+											<th>线路</th>
+											<th>发货单位</th>
+											<th>到货单位</th>
+										</tr>
+									</thead>
+									<tbody id="detailWaybillTBody">
+								</table>
+							</div>
+							<div class="panel-pagination">
+								<div class="panel-num">搜索相关结果共<span id="detailWaybillNum">0</span>条</div>
+								<div id="detailWabyillPage" class="pagination-list detail-pagination-list"></div>
+								<div class="pagination-input">到<input type="text" />页</div>
+								<div class="pagination-button" onclick="">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="close-button" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<!-- 导出Excel -->
+	  	<form id="exportAccount" action="" method="post" enctype="multipart/form-data">
+	  		<input id="ids" name="ids" type="hidden">
+		</form>
+		
+		<!-- 打印 -->
+		<form id="printAccount" action="" method="post" enctype="multipart/form-data">
+	  		<input id="print-id" name="print-id" type="hidden">
+		</form>
+		
+		<!-- 打印页面 -->
+		<input type="hidden" size="9.45" value="2400" id="W1">
+		<input type="hidden" size="5.5" value="1400" id="H1">
+		<div id="printBody1" class="print-body" style = "font-family:'yahei';"></div>
+
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/LodopFuncs.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/accountCheck/accountCheckManage.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/accountCheck/accountCheckDetailInfoSearch.js"></script>
+</html>

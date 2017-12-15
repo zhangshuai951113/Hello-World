@@ -1,0 +1,91 @@
+<!-- 模态框 临时司机查询选择-->
+<div id="temp-driver-data-info" >
+<div class="modal" id="tempDriverSelectModal" tabindex="-5" role="dialog" aria-hidden="true" style="display:block">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close temp-driver-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title" style="text-align: left;">
+          选择临时司机
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row">
+                <div class="search-box">
+                  <div class="input-lable">司机名称</div>
+                  <div class="input-text">
+                    <input id="driverName" class="input" placeholder="请输入司机名称" type="text" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search-button-box">
+              <button class="search-button" onclick="searchTempDriver(1)">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div id="show_department_info"></div>
+        <div class="modal-table row" style="overflow:hidden;">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px" id="tableDrag">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;">
+                </th>
+<!--                 <th>车牌号</th> -->
+                <th>司机名称</th>
+                <th>司机类型</th>
+              </tr>
+            </thead>
+            <tbody>
+	 			<#if driverInfoPager?exists && driverInfoPager.rows?exists>
+		 			<#list driverInfoPager.rows as driverInfo>
+			   			<tr class="table-body ">
+			     			<td style="width:40px;">
+			       				<label class="i-checks">
+		           					<input type="radio" name="tempDriver" class="sub_temp_driver_info_check" data-id="${driverInfo.id}" data-temp-driver-name="${driverInfo.driverName}" data-driver-type="${driverInfo.driverType}" data-car-code="${driverInfo.carCode}"><i></i>
+		         				</label>
+			     			</td>
+<!-- 			     			<td>${(driverInfo.carCode)!''}</td> -->
+					        <td>${(driverInfo.driverName)!''}</td>
+					        <td>
+					        	<#if driverInfo.driverType?exists>
+					        		<#if driverInfo.driverType == 1>
+					        			内部司机
+					        		<#elseif driverInfo.driverType == 2>
+					        			临时司机
+					        		<#elseif driverInfo.driverType == 3>
+					        			外协司机
+					        		</#if>
+					        	</#if>
+					        </td>
+			   			</tr>
+		 			</#list>
+	   			</#if>
+ 			</tbody>
+          </table>
+        </div>
+          <input id="tempDriver" class="input" type="hidden" value="2"/>
+          <div class="panel-pagination">
+      		${driverInfoPager.pageHtml}
+     	  </div>
+      </div>
+      <div id="show_department_info"></div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectTempDriver()">保存</button>
+        <button class="close-button temp-driver-opt-close" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+</div>

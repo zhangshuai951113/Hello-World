@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>资源管理</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/shiro/bootstrap-table.css">
+<link rel="stylesheet" type="text/css" href="${basePath}/static/jqwidgets/styles/jqx.base.css">
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css">
+<style type="text/css">
+.operation-button .add-icon,
+.operation-button .delete-icon,
+.operation-button .modify-icon,
+.operation-button .authorization-icon{
+	margin-top: 7px;
+}
+.maincontent{
+	overflow-x: hidden;
+	margin-top: 5px;
+}
+.jqx-widget-header{
+	background: #9dc6dd;
+	color: #fff;
+}
+.operation-button{
+	margin-left: 6px;
+}
+.jqx-widget-header.jqx-widget-header-energyblue.jqx-grid-header.jqx-grid-header-energyblue{
+	height: 26px!important;
+	line-height: 26px!important;
+}
+</style>
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+  	<div class="main-body">
+   	<#include "../../common/common_menu.html" />
+    <!-- 内容 -->
+    <main class="main">
+	<div class="maincontent">
+		<div style="margin-top: 10px;height: 30px;">
+			<div>
+				<span>
+					<@shiro.hasPermission name="basicinfo:resourceresource:create">
+					<button class="operation-button operation-blue" onclick="showAddResource();">
+						<div class="add-icon"></div>
+						<div class="operation-text">新增</div>
+					</button>
+					</@shiro.hasPermission>
+				</span>
+				<span>
+					<@shiro.hasPermission name="basicinfo:resourceresource:update">
+					<button class="operation-button operation-blue" onclick="showEditResource();">
+				        <div class="modify-icon"></div>
+				        <div class="operation-text">编辑</div>
+		        	</button>
+					</@shiro.hasPermission>
+				</span>
+				<span>
+					<@shiro.hasPermission name="basicinfo:resourceresource:delete">
+					<button class="operation-button operation-blue" onclick="showDeleteResource();">
+				        <div class="delete-icon"></div>
+				        <div class="operation-text">删除</div>
+		        	</button>
+					</@shiro.hasPermission>
+				</span>
+			</div>
+		</div>
+		<div style="margin-top: 10px;margin-right: 9px;margin-left: 6px;">
+            <div id="treeGrid"></div>
+        </div>
+	</div>
+	</main>
+	</div>
+	<footer class="app-footer">
+	</footer>
+	
+	<div class="modal fade" id="addResourceModal" tabindex="0" role="dialog" aria-labelledby="myAddModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myAddModalLabel">添加</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="addResource_form" onsubmit="return false;">
+		          		<div class="form-group">
+	              			<label for="a_parentName" class="col-sm-2 control-label">上级名称<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="a_parentName" name="parentName" class="form-control" placeholder="上级名称" type="text" readonly="readonly"/>
+	              			</div>
+	              			<label for="a_name" class="col-sm-2 control-label">资源名称<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="a_name" name="name" class="form-control" placeholder="请输入资源名称" type="text"/>
+	              			</div>
+		          		</div>
+		          		<div class="form-group">
+		          			<label for="a_type" class="col-sm-2 control-label">资源类型<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<select class="form-control" id="a_type" name="type">
+                                	<option value="menu">菜单</option>
+                                	<option value="button">按钮</option>
+                                	<option value="view">查看</option>
+                            	</select>
+	              			</div>
+	              			<label for="a_permission" class="col-sm-2 control-label">权限标识<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="a_permission" name="permission" class="form-control" placeholder="请输入权限标识" type="text"/>
+	              			</div>
+		          		</div>
+		          		<div class="form-group">
+		          			<label for="a_className" class="col-sm-2 control-label">菜单图标</label>
+	              			<div class="col-sm-4">
+	                			<input id="a_className" name="className" class="form-control" placeholder="请输入菜单图标" type="text"/>
+	              			</div>
+		          			<div id="a_url_div">
+		              			<label for="a_url" class="col-sm-2 control-label">访问路径</label>
+		              			<div class="col-sm-4">
+		                			<input id="a_url" name="url" class="form-control" placeholder="请输入访问路径" type="text"/>
+		              			</div>
+	              			</div>
+		          		</div>
+		          		<div class="form-group" style="margin-left: 450px;">
+		                	<button class="btn btn-primary" onclick="createResource()">保存</button> 
+		                	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                    </div>
+	                    <input type="hidden" id="a_parentId" name = "parentId">
+		          	</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="editResourceModal" tabindex="0" role="dialog" aria-labelledby="myEditModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myEditModalLabel">编辑</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="editResource_form" onsubmit="return false;">
+		          		<div class="form-group">
+	              			<label for="e_parentName" class="col-sm-2 control-label">上级名称<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="e_parentName" name="parentName" class="form-control" placeholder="上级名称" type="text" readonly="readonly"/>
+	              			</div>
+	              			<label for="e_name" class="col-sm-2 control-label">资源名称<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="e_name" name="name" class="form-control" placeholder="请输入资源名称" type="text"/>
+	              			</div>
+		          		</div>
+		          		<div class="form-group">
+		          			<label for="e_type" class="col-sm-2 control-label">资源类型<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<select class="form-control" id="e_type" name="type">
+                                	<option value="menu">菜单</option>
+                                	<option value="button">按钮</option>
+                                	<option value="view">查看</option>
+                            	</select>
+	              			</div>
+	              			<label for="e_permission" class="col-sm-2 control-label">权限标识<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="e_permission" name="permission" class="form-control" placeholder="请输入权限标识" type="text"/>
+	              			</div>
+		          		</div>
+		          		<div class="form-group">
+		          			<label for="e_className" class="col-sm-2 control-label">菜单图标</label>
+	              			<div class="col-sm-4">
+	                			<input id="e_className" name="className" class="form-control" placeholder="请输入菜单图标" type="text"/>
+	              			</div>
+	              			<div id="e_url_div">
+		          				<label for="e_url" class="col-sm-2 control-label">访问路径</label>
+		              			<div class="col-sm-4">
+		                			<input id="e_url" name="url" class="form-control" placeholder="请输入访问路径" type="text"/>
+		              			</div>
+		          			</div>
+		          		</div>
+		          		<div class="form-group" style="margin-left: 450px;">
+		                	<button class="btn btn-primary" onclick="updateResource()">保存</button> 
+		                	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                    </div>
+	                    <input type="hidden" class="form-control" id="e_id" name="id"  >
+		          	</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/shiro/bootstrap-table.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/shiro/jQuery.bootstrap.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxcore.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxdata.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxbuttons.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxscrollbar.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxdatatable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxtreegrid.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/shiro/resource.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+</html>

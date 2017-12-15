@@ -1,0 +1,125 @@
+<!-- 新增/修改收费模板-->
+<div id="receivables-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="ReceivablesModalLabel" aria-hidden="true" style="display: block">
+	  	<div class="modal-dialog modal-dialog-both">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close receivables-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="ReceivablesModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+		        	<form id="receivables_info_form">
+		        		<input id="hidden_receivables_info_id" type="hidden" name="receivablesInfoPo.id" value="${receivablesInfoPo.id}">
+		          		<div class="from-both-box">
+		          		<div class="group-box">
+				              	<div class="input-lable"><span>*</span>收款分类：</div>
+				              	<div class="input-text">
+					                <select id="receivable_classify" name="receivablesInfoPo.receivableClassify" class="input" onchange="changeReceivableClassify();">
+					                  	<option value="1" <#if receivablesInfoPo?exists && receivablesInfoPo.receivableClassify==1>selected</#if>>预收款</option>
+					                  	<option value="2" <#if receivablesInfoPo?exists && receivablesInfoPo.receivableClassify==2>selected</#if>>收款</option>
+					                </select>
+				              	</div>
+			            	</div>
+		            		<div class="group-box" id="receivable_price_div">
+		              			<div class="input-lable">收款金额：</div>
+		              			<div class="input-text">
+		                			<input id="receivable_price" name="receivablesInfoPo.receivablePrice" class="input" placeholder="请输入收款金额" type="number" value="${receivablesInfoPo.receivablePrice}"/>
+		              			</div>
+		            		</div>
+		            		<div class="group-box">
+				              	<div class="input-lable">承兑汇票编号：</div>
+				              	<div class="input-text">
+				                	<input id="acceptance_draft_id" name="receivablesInfoPo.acceptanceDraftId" class="input" placeholder="请输入承兑汇票编号" type="text" value="${receivablesInfoPo.acceptanceDraftId}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">付款行名称：</div>
+				              	<div class="input-text">
+				                	<input id="payment_bank_name" name="receivablesInfoPo.paymentBankName" class="input" placeholder="请输入付款行名称" type="text" value="${receivablesInfoPo.paymentBankName}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">出票人全称：</div>
+				              	<div class="input-text">
+				                	<input id="drawer_full_name" name="receivablesInfoPo.drawerFullName" class="input" placeholder="请输入出票人全称" type="text" value="${receivablesInfoPo.drawerFullName}"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">出票人账号：</div>
+				              	<div class="input-text">
+				                	<input id="drawer_account" name="receivablesInfoPo.drawerAccount" class="input" placeholder="请输入出票人账号" type="text" value="${receivablesInfoPo.drawerAccount}"/>
+				              	</div>
+				            </div>
+		          		</div>
+		          		<div class="from-both-box">
+				            <div class="group-box">
+				              	<div class="input-lable">到款日期：</div>
+				              	<div class="input-text">
+				                	<input id="arrival_price_date" name="receivablesInfoPo.arrivalPriceDateStr" class="input date-time" placeholder="请输入到款日期" type="text" value="<#if receivablesInfoPo.arrivalPriceDate?exists>${(receivablesInfoPo.arrivalPriceDate)?string('yyyy-MM-dd')}</#if>"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">出票日期：</div>
+				              	<div class="input-text">
+				                	<input id="drawer_date" name="receivablesInfoPo.drawerDateStr" class="input date-time" placeholder="请输入出票日期" type="text" value="<#if receivablesInfoPo.drawerDate?exists >'${(receivablesInfoPo.drawerDate)?string('yyyy-MM-dd')}'</#if>"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable">汇票到期日：</div>
+				              	<div class="input-text">
+				                	<input id="draft_end_date" name="receivablesInfoPo.draftEndDateStr" class="input date-time" placeholder="请输入汇票到期日" type="text" value="<#if receivablesInfoPo.draftEndDate?exists >'${(receivablesInfoPo.draftEndDate)?string('yyyy-MM-dd')}'</#if>"/>				      
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>收款类型：</div>
+				              	<div class="input-text">
+					                <select id="receivable_type" name="receivablesInfoPo.receivableType" class="input">
+					                  	<option value="1" <#if receivablesInfoPo?exists && receivablesInfoPo.receivableType==1>selected</#if>>现金</option>
+					                  	<option value="2" <#if receivablesInfoPo?exists && receivablesInfoPo.receivableType==2>selected</#if>>商业承兑</option>
+					                  	<option value="3" <#if receivablesInfoPo?exists && receivablesInfoPo.receivableType==3>selected</#if>>银行承兑</option>
+					                </select>
+				              	</div>
+			            	</div>
+		          		</div>
+			          
+			          	<div class="from-both-box">
+			          		<div class="group-box">
+		              			<div class="input-lable">组织部门：</div>
+		              			<div class="input-text">
+		              			<input id="project_info_name" class="input" placeholder="请输入组织部门" type="text" value="${projectInfoName}" onclick="searchProject();"/>
+		                			<input id="project_info_id" name="receivablesInfoPo.projectInfoId" class="input" type="hidden" value="${receivablesInfoPo.projectInfoId}"/>
+		              			</div>
+		            		</div>
+		            		<div class="group-box">
+		              			<div class="input-lable">客户编号：</div>
+		              			<div class="input-text">
+		                		    <input id="customer_name"class="input" placeholder="请输入客户编号" type="text" value="${customerName}" onclick="searchCustomer();"/>
+		                			<input id="customer_id" name="receivablesInfoPo.customerId" class="input" type="hidden" value="${receivablesInfoPo.customerId}"/>
+		              			</div>
+		            		</div>
+			          	</div>
+			          	
+			          	<div class="from-both-box">
+			          		<div class="group-box">
+		              			<div class="input-lable">合同：</div>
+		      
+		              			<div class="input-text" style="position: relative;">
+			              			<input id="contract_info_name" class="input" placeholder="请选择合同" type="text" value="${contractInfoName}" onclick="showContractWin()" readonly="true"/>
+			         				<span class="input-icon-clean" onclick="cleanContract()"></span>
+		              			</div>
+		              			<input id="contract_info_id" name="receivablesInfoPo.contractInfoId" class="input" type="hidden" value="${receivablesInfoPo.contractInfoId}"/>
+		            		</div>
+			          	</div>
+			          	
+			          </form>
+		        	</div>
+	      		
+		      	<div class="modal-footer">
+		        	<button class="save-button" onclick="addOrUpdateReceivableInfo()">保存</button>
+		        	<button class="close-button receivables-opt-close" data-dismiss="modal">取消</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

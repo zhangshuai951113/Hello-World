@@ -1,0 +1,41 @@
+﻿<!-- 货物信息列表-->
+<div id="listInfo" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="goodsModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close goods-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="goodsModalLabel">货物信息</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table-bule" align="center">
+						<thead>
+							<tr class="table-title">
+								<th style="width: 20px;"><input class="all_goods_check" name="all" type="checkbox"></th>
+								<th>货物编号</th>
+								<th>货物名称</th>
+								<th>物资类别</th>
+							</tr>
+						</thead>
+						<tbody id="goodsTBody">
+						</tbody>
+					</table>
+					<!-- 分页 -->
+					<div class="panel-pagination">
+						<div id="panel-num-goods" class="panel-num">搜索相关结果共0条</div>
+						<div class="pagination-list-goods"></div>
+						<div class="pagination-input">
+							到 <input type="text" />页
+						</div>
+						<div class="pagination-button" onclick="goodsJumpPage(this)">确定</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="goodsSelect()">确认</button>
+					<button class="close-button goods-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

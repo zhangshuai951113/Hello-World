@@ -1,0 +1,138 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both">
+			
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closePButton()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					${updatePPlanInfoModel}
+				</h4>
+			</div>
+			<div class="modal-body" scroll="no" style="overflow-x:hidden;overflow-y:hidden">
+			<form id="sub_proprietaryPlan_info_form" onsubmit="return false">
+    			<div class="from-body" style="padding-right:120px">
+      				<div class="from-both-box">
+      				<input class="input" id="Pid" name="planInfoPo.id" type="hidden" />
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>计划名称：</div>
+		          			<div class="input-text">
+		            			<input class="input" id="PplanName" name="planInfoPo.planName"   placeholder="请输入计划名称" type="text" />
+		          			</div>
+	        			</div>
+	        			<div class="group-box">
+				          	<div class="input-lable"><span>*</span>计划总量：</div>
+				          	<div class="input-text">
+				            	<input class="input" id="planSum"   name="planInfoPo.planSum"  placeholder="请输入计划总量" type="text"/>
+				          	</div>
+				        </div>
+      				</div>
+      				
+      				<div class="from-both-box">
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>发货单位：</div>
+		          			<div class="input-text">
+		            			<input class="input" id="PforwardingUnit" name="planInfoPo.forwardingUnit"   placeholder="请输入发货单位" type="text" />
+		          			</div>
+	        			</div>
+	        			<div class="group-box">
+				          	<div class="input-lable"><span>*</span>到货单位：</div>
+				          	<div class="input-text">
+				            	<input class="input" id="Pconsignee"   name="planInfoPo.consignee"  placeholder="请输入到货单位" type="text"/>
+				          	</div>
+				        </div>
+      				</div>
+      				
+      				
+      				
+      				<div class="from-both-box">
+      					<div class="group-box">
+				          	<div class="input-lable"><span>*</span>起始日期</div>
+							<div class="input-text money-input">
+								<input id="PstartDate" class="input date-time" type="text" name="startDate" />
+							</div>
+				        </div>
+				        <div class="group-box">
+				          	<div class="input-lable"><span>*</span>结束日期</div>
+							<div class="input-text money-input">
+								<input id="PendDate" class="input date-time" type="text" name="endDate"/>
+							</div>
+				        </div>
+      				</div>
+      				<div class="from-both-box">
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>委托方：</div>
+		          			<div class="input-text">
+		            			<input class="input"  id="Entrust"  placeholder="请选择委托方信息" type="text" onfocus="addEntrustMationModel()"/>
+		          			</div>
+	        			</div>
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>货物：</div>
+		          			<div class="input-text">
+		            			<input class="input"  id="GoodsInfoName"  placeholder="请选择货物信息" type="text" onfocus="addGoodsMationModel()"/>
+		          			</div>
+	        			</div>
+      				</div>
+      				
+      				<div class="from-both-box">
+	        			<div class="group-box">
+		          			<div class="input-lable"><span>*</span>线路：</div>
+		          			<div class="input-text">
+		            			<input class="input" id="LineInfoName"  placeholder="请选择线路信息" type="text" onfocus="addLineMationModel()"/>
+		          			</div>
+	        			</div>
+	        			<div class="group-box">
+			          			<div class="input-lable"><span>*</span>运距(公里)：</div>
+			          			<div class="input-text">
+			            			<input class="input" readonly="readonly" id="distance" type="text" name="planInfoPo.distance"/>
+			          			</div>
+		        			</div>
+	        			<div class="group-box">
+		            			<input class="input" name="planInfoPo.entrust" id="Eentrust" type="hidden"/>
+		          			</div>
+	        			</div> 
+      				
+		            			<input class="input" name="planInfoPo.goodsInfoId" id="GoodsInfoId" type="hidden"/>
+		            			<input class="input" name="planInfoPo.lineInfoId" id="LineInfoId" type="hidden"/>
+	        			
+      				
+      				</div>
+			      	<!-- <div class="from-both-box">
+			        	<div class="group-img">
+			          		<div class="input-lable"><span>*</span>附件：</div>
+			          		<div class="input-img">
+			          				<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="plan_img" id="planImg">
+			          			<input id="plan_img" type="hidden" name="planInfoPo.planImg">
+			          		</div>
+			          		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。 </div>
+			        	</div>
+			      	</div> -->
+			      	<div class="from-both-box">
+			        	<div class="group-textarea">
+				          	<div class="input-lable">备注：</div>
+				          	<div class="input-textarea">
+				            	<textarea id="Premarks" name="planInfoPo.remarks"></textarea>
+				          	</div>
+			        	</div>
+			      	</div>
+			    	<div class="from-both-box">
+						<div class="button-center">
+			            	<button class="from-save-button" onclick="UpdateProprietaryPlanInfoBtn()">保存</button>
+			            	<button class="from-save-button"  onclick="closePButton()">返回</button>
+						</div>
+			    	</div>
+				</div>
+    		</form>
+		<div id="enterprise-tab" class="tab-content"></div>
+		<div id="find_entrust_info_model"></div>
+		<div id="find_goods_info_model"></div>
+		<div id="find_line_info_model"></div>
+			</div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

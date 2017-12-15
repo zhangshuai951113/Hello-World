@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>车辆类型</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/carType/carTypeManage.css" type="text/css" >
+<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main"> <!--车辆类型-->
+
+		<div class="search-panel row">
+			<form onsubmit="return false">
+				<div class="search-from">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">类型编号：</div>
+								<div class="input-text">
+									<input id="carTypeId" name="carTypeId" class="input"
+										placeholder="请输入车辆编号" type="text">
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">车辆类型：</div>
+								<div class="input-text">
+									<input id="carTypeName" name="carTypeName" class="input"
+										placeholder="请输入车辆类型" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button"
+							id="searchCarType">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						 <button class="search-button" id="Reset">
+						      <div class="reset-icon"></div>
+						      <div class="text">重置</div>
+						  </button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="panel">
+			<div class="operation-tab row">
+				<button class="operation-button operation-blue" id="addCarType" style="display:none">
+					<div class="add-icon"></div>
+					<div class="operation-text">新增</div>
+				</button>
+			</div>
+			<div id="show_department_info"></div>
+			<div class="panel-table">
+				<table class="table-bule">
+					<thead>
+						<tr class="table-title">
+							<th style="width: 200px">车辆类型编号</th>
+							<th style="width: 300px">车辆类型描述</th>
+							<th style="width: 300px">备注</th>
+							<th class="operation">操作</th>
+						</tr>
+					</thead>
+					<tbody id="tableList">
+					</tbody>
+				</table>
+			</div>
+			<!-- 分页 -->
+			<div class="panel-pagination">
+			      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list" id="car-type-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpCarTypePage(this)">确定</div>
+			  </div> 
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/carType/carTypeMain.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+</html>

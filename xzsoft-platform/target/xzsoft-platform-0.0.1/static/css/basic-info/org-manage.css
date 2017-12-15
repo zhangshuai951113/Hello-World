@@ -1,0 +1,79 @@
+th.operation{
+    width: 190px;
+    text-align: right;
+    padding-right: 20px;
+}
+.operation-td {
+  padding:10px 0;
+}
+.operation-m {
+    margin-right: 5px;
+    height: 16px;
+    display: inline-block;
+    cursor: pointer;
+}
+.operation-m .text{
+  float: left;
+  margin-left:5px;
+}
+
+.enabled-icon{
+  background: url('../../images/common/enabled-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+
+.enabled-operation .text{
+  color:#8fc31f;
+  cursor: pointer;
+}
+
+.modify-icon {
+    background: url('../../images/common/modify-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+
+.modify-operation .text{
+  color:#2b84ea;
+  cursor: pointer;
+}
+
+.disable-icon {
+  background: url('../../images/common/disable-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+
+.disable-operation .text{
+  color:#f63535;
+  cursor: pointer;
+}
+
+
+.logout-operation .text{
+  color: #666666;
+  cursor: pointer;
+}
+
+.logout-icon {
+    background: url('../../images/common/logout-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+
+.delete-icon {
+  background: url('../../images/common/delete-icon.png') no-repeat;
+  height: 16px;
+  width: 16px;
+  float: left;
+}
+
+.delete-operation .text{
+  color:#f63232;
+  cursor: pointer;
+}

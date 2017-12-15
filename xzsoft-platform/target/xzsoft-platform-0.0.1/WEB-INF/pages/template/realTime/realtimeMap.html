@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<#include "../../common/common_header.html" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/select-line.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/select-line.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>实时轨迹demo</title>
+    <style type="text/css">
+    html {
+        height: 100%
+    }
+    body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+    }
+    #container {
+        height: 100%
+    }
+    </style>
+</head>
+
+<body>
+<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+    <div id="container"></div>
+	<input id="waybillInfoId" class="input" type="hidden" value="${waybillInfoId}"/>
+	<input id="userInfoId" class="input" type="hidden" value="${userInfoId}"/>
+	<input id="firstLng" class="input" type="hidden"/>
+	<input id="firstLat" class="input" type="hidden"/>
+	<input id="lastLng" class="input" type="hidden"/>
+	<input id="lastLat" class="input" type="hidden"/>
+	<input id="createTime" class="input" type="hidden"/>
+</main>
+	</div>
+	<div id="container"></div>
+	<footer class="app-footer"> </footer>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=D2b4558ebed15e52558c6a766c35ee73"></script>
+    <script type="text/javascript" src="${basePath}/static/js/realTime/lushu.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/realTime/realtimeMap.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+</body>
+<#include "../../common/common_footer.html" />
+</html>

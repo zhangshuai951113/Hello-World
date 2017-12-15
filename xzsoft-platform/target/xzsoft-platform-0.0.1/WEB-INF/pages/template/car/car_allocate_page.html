@@ -1,0 +1,62 @@
+<!-- 模态框 车辆调配 -->
+<div id="car-allocate-page">
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close allocate-mode-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="myModalLabel">车辆调配</h4>
+				</div>
+				<div class="modal-body" style="width: 100%;">
+					<form id="car_allocate_form">
+						<div class="from-body" style="width: 100%;">
+							<div class="from-both-box">
+								<div class="lable-center">调配车辆车牌号：${carInfoPo.carCode}</div>
+								<input id="carInfoId" name ="carInfoPo.id" hidden="true" value="${carInfoPo.id}" />
+							</div>
+							<div class="from-both-box">
+								<div class="group-box">
+									<div class="input-lable">原司机：</div>
+									<div class="input-text">
+										<input id="origin_driver_id" class="input" hidden="true"  style="background:#eee" name="originDriver.id" placeholder="当前车辆无司机" type="text" value="${originDriverInfo.id}" />
+										<input id="originDriver" class="input" readOnly="readonly"  style="background:#eee" name="originDriver.driverName" placeholder="当前车辆无司机" type="text" value="${originDriverInfo.driverName}" />
+									</div>
+								</div>
+								<div class="group-box">
+									<div class="input-lable">
+										<span>*</span>调配司机：
+									</div>
+									<div class="input-text">
+										<select id="currentDriver" class="input" name="carInfoPo.currentDriver">
+											<option value="">请选择</option>
+											<#if driverInfoList?exists> <#list driverInfoList as driverInfo>
+											<option value="${driverInfo.id}">${driverInfo.driverName}</option>
+											</#list> </#if>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-textarea" >
+								<div class="input-lable"><span>*</span>备注：</div>
+								<div class="input-textarea" style="width: 79.25%;">
+									<textarea id="remarks" placeholder="车辆调配备注信息" type="text"></textarea>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<div class="from-both-box">
+						<div class="button-center">
+							<button class="from-save-button" onclick="commitAllocateInfo()">调配</button>
+							<button class="from-logout-button allocate-mode-close" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

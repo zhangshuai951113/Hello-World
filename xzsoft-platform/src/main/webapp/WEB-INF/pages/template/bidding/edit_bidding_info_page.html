@@ -1,0 +1,143 @@
+<div id="bidding-content" class="modal-content" style="width: 820px;">
+	<div class="modal-header">
+		<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+		<h4 class="modal-title">${operateTitle}</h4>
+	</div>
+	<div class="modal-body">
+		<form id="bidding_info_form">
+			<div class="from-both-box">
+				<div class="group-box">
+					<div class="input-lable">
+						<span>*</span>招标序号：
+					</div>
+					<div class="input-text form-item form-item" style="background: #DDD;">
+						<input id="bidding_code" name="biddingInfoPo.biddingCode" class="input" readonly="readonly" type="text" value="${biddingInfoPo.biddingCode}" style="background: #DDD;" />
+						<input id="hidde_bidding_info_id" name="biddingInfoPo.id" class="input" hidden="hidden" type="text" value="${biddingInfoPo.id}" />
+					</div>
+				</div>
+				<div class="group-box">
+					<div class="input-lable"><span>*</span> 招标编号：</div>
+					<div class="input-text form-item">
+						<input id="bidding_code_copy" name="biddingInfoPo.biddingCodeCopy" class="input xz-required" placeholder="请输入招标编号" type="text" value="${biddingInfoPo.biddingCodeCopy}" />
+					</div>
+				</div>
+				<div class="group-box">
+					<div class="input-lable"><span>*</span> 招标名称：</div>
+					<div class="input-text form-item">
+						<input id="bidding_name" name="biddingInfoPo.biddingName" class="input xz-required" placeholder="请输入招标名称" type="text" value="${biddingInfoPo.biddingName}" />
+					</div>
+				</div>
+				<div class="group-box">
+					<div class="input-lable">
+						<span>*</span>招标单位：
+					</div>
+					<div class="input-text form-item">
+						<select id="bidding_org" name="biddingInfoPo.biddingOrg" class="input xz-required" value="${biddingInfoPo.biddingOrg}">
+							<option value="">请选择</option>
+							<#if orgInfoList?exists> 
+								<#list orgInfoList as orgInfo>
+									<option value="${orgInfo.id}"<#if orgInfo.id== biddingInfoPo.biddingOrg>selected</#if>>${orgInfo.orgName}</option>
+								</#list> 
+							</#if>
+						</select>
+					</div>
+				</div>
+				<div class="group-box">
+					<div class="input-lable">
+						所属项目：
+					</div>
+					<div class="input-text form-item">
+						<input id="bidding_project_name" class="input" value="${biddingInfoPo.biddingProjectName}" onclick="projectsShow()" /> <input id="bidding_project" name="biddingInfoPo.biddingProject"
+							hidden="true" type="number" value="${biddingInfoPo.biddingProject}" />
+					</div>
+				</div>
+				<div class="group-box">
+					<div class="input-lable">
+						<span>*</span>税率：
+					</div>
+					<div class="input-text form-item">
+						<select id="tax_rate" name="biddingInfoPo.taxRate" class="input xz-required" value="${biddingInfoPo.taxRate}">
+							<option value="">请选择</option>
+							<option value=0.13 <#if biddingInfoPo.taxRate?exists && biddingInfoPo.taxRate==0.13>selected</#if>>13%
+							</option>
+							<option value=0.17 <#if biddingInfoPo.taxRate?exists && biddingInfoPo.taxRate==0.17>selected</#if>>17%
+							</option>
+							<option value=0.11 	<#if biddingInfoPo.taxRate?exists && biddingInfoPo.taxRate==0.11>selected</#if>>11%
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="group-box">
+					<div class="input-lable"><span>*</span> 付款方式：</div>
+					<div class="input-text form-item">
+						<input id="payment_method" name="biddingInfoPo.paymentMethod" class="input xz-required" placeholder="请输入付款方式" type="text" value="${biddingInfoPo.paymentMethod}" />
+					</div>
+				</div>
+				<!-- <div class="group-box">
+					<div class="input-lable">
+						<span>*</span>付款方式：
+					</div>
+					<div class="input-text form-item">
+						<select id="payment_method" name="biddingInfoPo.paymentMethod" class="input">
+							<option value="">请选择</option>
+							<option value=1 <#if biddingInfoPo.paymentMethod?exists && biddingInfoPo.paymentMethod==1>selected</#if>>100%货到付款
+							</option>
+							<option value=2 <#if biddingInfoPo.paymentMethod?exists && biddingInfoPo.paymentMethod==2>selected</#if>>预付款100%
+							</option>
+							<option value=3 <#if biddingInfoPo.paymentMethod?exists && biddingInfoPo.paymentMethod==3>selected</#if>>预付10%,货到验收合格后付款80%,质保金10%
+							</option>
+							<option value=4 <#if biddingInfoPo.paymentMethod?exists && biddingInfoPo.paymentMethod==4>selected</#if>>预付10%,货到验收合格后付款90%
+							</option>
+						</select>
+					</div>
+				</div> -->
+				<div class="group-box">
+					<div class="input-lable"><span>*</span>报价截止日期：</div>
+					<div class="input-text form-item">
+						<input class="input date-time" id="quotation_deadline" name="biddingInfoPo.quotationDeadlineStr" placeholder="请输入截止日期" type="text"
+							value="<#if biddingInfoPo.quotationDeadline?exists>${(biddingInfoPo.quotationDeadline)?string('yyyy-MM-dd HH:mm:ss')}</#if>" />
+					</div>
+				</div>
+				<div class="group-box">
+					<div class="input-lable"><span>*</span>保证金金额(元)：</div>
+					<div class="input-text form-item">
+						<input class="input" id="cautionMoney" name="biddingInfoPo.cautionMoney" placeholder="请输入保证金金额" type="text" value="${biddingInfoPo.cautionMoney}"/>
+					</div>
+				</div>
+			</div>
+			
+				
+			
+			<div class="from-both-box">
+				<div class="file-box row">
+					<div class="input-lable">上传招标附件：</div>
+					<div id="attachment_text" class="file-input">${biddingInfoPo.attachment}</div>
+					<div class="file-button-box">
+						<button class="file-buttton upload_img" img-type="attachment" img-text="attachment_text">
+							<div class="file-icon"></div>
+							<div class="file-text">上传</div>
+						</button>
+					</div>
+					<#if biddingInfoPo.attachment?exists && biddingInfoPo.attachment!=""> <a target="view_frame" class="file-buttton"
+						onclick="window.location.href='${fastdfsServer}/${biddingInfoPo.attachment}'">
+						<div class="file-text">查看附件</div>
+					</a> </#if>
+					<input id="attachment" type="hidden" name="biddingInfoPo.attachment" value="${biddingInfoPo.attachment}">
+				</div>
+			</div>
+			
+			<div class="from-both-box">
+				<div class="group-textarea">
+					<div class="input-lable">备注：</div>
+					<div class="textarea-text">
+						<textarea id="remartk" name="biddingInfoPo.remark" placeholder="请填写备注">${biddingInfoPo.remark}</textarea>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="save-button" onclick="saveBiddingInfo()">确定</button>
+		<button class="close-button" data-dismiss="modal">取消</button>
+	</div>
+</div>

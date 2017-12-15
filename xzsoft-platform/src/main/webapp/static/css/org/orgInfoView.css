@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+.from-body {
+    width: 842px;
+    border-left: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+}
+.from-both-box {
+    border-top: 1px solid #cccccc;
+}
+.from-both-box .group-box {
+    height: auto;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.from-both-box .group-box:first-child {
+   border-right: 1px solid #cccccc;
+}
+  .from-both-box .group-box{
+    height: auto;
+  }
+  .from-both-box .input-img{
+    width: 200px;
+  }
+  .from-both-box .input-lable {
+    width: 130px;
+  }
+  .from-both-box .group-text {
+    padding:10px 0;
+    width:100%;
+    line-height: 24px;
+    text-align: left;
+    color: #666666;;
+  }
+  .from-both-box .group-text .input-lable {
+    width: 60px;
+  }
+  
+  .from-textarea-box {
+  	    width: 600px;
+    margin: auto;
+    border: 0;
+  }
+  
+  .from-textarea-box .input-lable {
+      width: 74px;
+  }

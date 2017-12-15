@@ -1,0 +1,49 @@
+.rTable1{ 
+  margin-left:460px;
+   margin-top:250px;
+   background:#ffffff;
+   width:1000px;
+   height: 500px;
+}
+.rTable2_1{ 
+  margin-left:460px;
+   margin-top:0;
+   background:#ffffff;
+   width:1000px;
+}
+
+.rTable2{ 
+	margin-left:460px;
+   background:#ffffff;
+   width:1000px;
+   height: 500px;
+}
+
+.rTable table2 {
+            border-collapse : collapse; 
+			border : 2px solid #000;
+			word-wrap:break-word;
+			word-break: keep-all;
+			background:#fff;
+			width:95%;
+			margin-left:50px;
+			font-family:"宋体";
+		  }
+	.rTable table2 th {font-size:12pt;color:#111}
+	.rTable table2 thead th { background : #a6c5e2 ;height:20px;border : 1px solid #000}
+	.table2 td {border : 1px solid #000 ; height:30px ; font-size:10pt;text-align:center}
+	.table2 th {border : 1px solid #000 ; height:30px ; font-size:9pt;text-align:center}
+	.table2.tr  {border:1px solid #000;}
+	.rTable .jsdtb {border-collapse : collapse;border : 0px solid #000;}
+	.rTable .jsdtb th {font-family:"宋体";font-size:10pt;color:black;text-align:left}
+	.rTable .jsdtb td {border : 0px solid #000 ; height:25px ; font-size:14pt;text-align:left}
+	.rTable .jsdtb vl {border : 0px solid #000 ; height:25px ; font-size:12pt;text-align:left}
+	.rTable .jsdtb th {border : 0px solid #000 ; height:25px ; font-size:14pt;text-align:left}
+	.tbTitle{font-family:"宋体"; font-size:24px; text-align:center; height:40px; top:10px; }
+    .head{font-size:14px;text-align:left}
+    .paymentCn{text-align:left;font-size:16px;font-weight:900;}
+
+   .table1{margin-left:50px;font-family:"宋体"; font-size:12px; text-align:left; height:25px; top:5px;  border-collapse : collapse; word-wrap:break-word;}
+   	.table1 td {border : 0px solid  ; height:30px ; }
+	.table1 th {border : 0px solid  ; height:30px ;}
+   .table1 label { font:bold}

@@ -1,0 +1,85 @@
+<div id="proxy-info-data">
+	<table width="100%" class="table-bule table-ellipsis" style="margin-top: 0" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width: 40px;"><input name="all-check" type="checkbox" class="all_proxy_check"></th>
+				<!--  <th>代理人编号</th>-->
+				<th>代理人名称</th>
+				<th>证件类型</th>
+				<th>证件号</th>
+				<th>银行账号</th>
+				<th>开户行</th>
+				<th>代理状态</th>
+				<th>启用状态</th>
+				<th>附件</th>
+				<th>创建人</th>
+				<th>创建时间</th>
+				<th class="operation" style="width: 200px">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if proxyInfoPager?exists && proxyInfoPager.rows?exists> <#list proxyInfoPager.rows as proxyInfo>
+			<tr class="table-body ">
+				<td style="width: 40px;"><input type="checkbox" class="sub_proxy_check" data-id="${proxyInfo.id}"></td>
+				<!--<td>${(proxyInfo.id)!''}</td>-->
+				<td>${(proxyInfo.proxyName)!''}</td>
+				<td><#if proxyInfo.cardType?exists> <#if proxyInfo.cardType==1> 身份证<#elseif proxyInfo.cardType=2>统一信用代码证</#if></#if></td>
+				<td>${(proxyInfo.idCard)!''}</td>
+				<td>${(proxyInfo.bankAccount)!''}</td>
+				<td>${(proxyInfo.bankName)!''}</td>
+				<td><#if proxyInfo.proxyStatus?exists> <#if proxyInfo.proxyStatus==1> 起草 <#elseif proxyInfo.proxyStatus==2> 待审核 <#elseif proxyInfo.proxyStatus==3> 审核通过 <#elseif
+						proxyInfo.proxyStatus==4> 驳回 </#if> <#else> 未知状态 </#if></td>
+				<td><#if proxyInfo.isAvailable?exists> <#if proxyInfo.isAvailable==0> 停用 <#elseif proxyInfo.isAvailable==1> 启用 </#if> <#else> 未知状态 </#if></td>
+				<td><img style="width: 40px; height: 40px;" src="${fastdfsServer}/${(proxyInfo.proxyImg)!''}" title="点击查看图片" /></td>
+				<td>${(proxyInfo.createUserName)!''}</td>
+				<td>${(proxyInfo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+				<td>
+					<div class="operation-td" proxy-info-id="${proxyInfo.id}">
+						<#if proxyInfo.proxyStatus?exists> <#if proxyInfo.proxyStatus==1><!-- 起草状态的代理信息-->
+						<div class="modify-operation modify-button operation-m">
+							<div class="modify-icon"></div>
+							<div class="text">修改</div>
+						</div>
+						<div class="submit-operation submit-button operation-m">
+							<div class="submit-icon"></div>
+							<div class="text">提交审核</div>
+						</div>
+						<div class="delete-operation delete-button operation-m">
+							<div class="delete-icon"></div>
+							<div class="text">删除</div>
+						</div>
+						<#elseif proxyInfo.proxyStatus==2><!-- 待审核-->
+						<div class="audit-operation audit-button operation-m">
+							<div class="audit-icon"></div>
+							<div class="text">审核</div>
+						</div>
+						<#elseif proxyInfo.proxyStatus==3> <#if proxyInfo.isAvailable?exists> <#if proxyInfo.isAvailable==1>
+						<div class="disable-operation disable-button operation-m">
+							<div class="disable-icon"></div>
+							<div class="text">停用</div>
+						</div>
+						<#elseif proxyInfo.isAvailable==0>
+						<div class="enabled-operation enabled-button operation-m">
+							<div class="enabled-icon"></div>
+							<div class="text">启用</div>
+						</div></#if> </#if> <#elseif proxyInfo.proxyStatus==4>
+						<div class="modify-operation modify-button operation-m">
+							<div class="modify-icon"></div>
+							<div class="text">修改</div>
+						</div>
+						<div class="submit-operation submit-button operation-m">
+							<div class="submit-icon"></div>
+							<div class="text">提交审核</div>
+						</div>
+						<div class="delete-operation delete-button operation-m">
+							<div class="delete-icon"></div>
+							<div class="text">删除</div>
+						</div></#if> </#if>
+					</div>
+				</td>
+			</tr>
+			</#list> </#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">${proxyInfoPager.pageHtml}</div>
+</div>

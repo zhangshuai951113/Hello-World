@@ -1,0 +1,662 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- base href="http://localhost:8080/xzsoft-platform/" -->
+    
+    <title>ditu1</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<link rel="stylesheet" href="${basePath}/static/css/infoShow/reset.css" type="text/css">
+	<link rel="stylesheet" href="${basePath}/static/css/infoShow/main.css" type="text/css">
+	<link rel="stylesheet" href="${basePath}/static/css/infoShow/css1.css"  type="text/css" id="css"/>
+
+	<script type="text/javascript" src="${basePath}/static/js/infoShow/jquery-3.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/infoShow/countUp.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/infoShow/index.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/infoShow/main.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/infoShow/echarts-all.js"></script> 
+	
+</head>
+<body>
+	<!------------------------数据信息部分------------------------------>
+	<div class="data-info">
+		<div class="main">
+			<!-- <div id="amain" style="width:99%;height:80%;"></div> -->
+		<!-- 运单线路报表 -->
+			<div id="startEndMain" style="width: 99%; height: 80%; margin-top: 1%; -moz-user-select: none; background-color: rgba(0, 0, 0, 0); cursor: default;" _echarts_instance_="1509436182523"><div style="position: relative; overflow: hidden; width: 1188px; height: 1120px;"><div style="position: absolute; left: 0px; top: 0px; width: 1188px; height: 1120px; -moz-user-select: none;" data-zr-dom-id="bg" class="zr-element"></div><canvas style="position: absolute; left: 0px; top: 0px; width: 1188px; height: 1120px; -moz-user-select: none;" width="1188" height="1120" data-zr-dom-id="0" class="zr-element"></canvas><canvas style="position: absolute; left: 0px; top: 0px; width: 1188px; height: 1120px; -moz-user-select: none;" width="1188" height="1120" data-zr-dom-id="1" class="zr-element"></canvas><canvas style="position: absolute; left: 0px; top: 0px; width: 1188px; height: 1120px; -moz-user-select: none;" width="1188" height="1120" data-zr-dom-id="10" class="zr-element"></canvas><canvas style="position: absolute; left: 0px; top: 0px; width: 1188px; height: 1120px; -moz-user-select: none;" width="1188" height="1120" data-zr-dom-id="_zrender_hover_" class="zr-element"></canvas></div></div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+ 
+// 调用方法
+
+var mapw = ${wap};
+console.log(mapw); 
+ var obj = document.getElementById("css");
+if (mapw == '30') {
+   obj.setAttribute("href","${basePath}/static/css/infoShow/css2.css");
+   console.log("30% jiazai");
+}else{
+	obj.setAttribute("href","${basePath}/static/css/infoShow/css1.css");
+	 console.log("100% jiazai");
+}
+
+
+var style1 = document.createElement('style');
+            style1.innerHTML = 'body{zoom:30%}}';
+            document.head.appendChild(style1);
+
+changeStyle4();
+function changeStyle4() {
+   
+   var obj = document.getElementById("css");
+   if (mapw == 30) {
+	   obj.setAttribute("href","${basePath}/static/css/infoShow/css2.css");
+   }else{
+   		obj.setAttribute("href","${basePath}/static/css/infoShow/css1.css");
+   }
+ }	
+
+
+</script>
+	<script type="text/javascript">
+	var reportDataTemp = {
+			  "geoCoord" : null,
+			  "lineList" : null
+			}; //报表数据
+			var pointNameTemp; // 地点名称
+			var pointSimpleNameTemp; // 地点简称
+			var myChartTemp;
+			var seriesIndexTemp; // 点击点在哪个series中（1在进中，2在出中）
+			$(function(){
+				
+				var data = getData();
+				/**
+				 * pointList 所有地点
+				 * lineList 所有线路
+				 */
+				var pointList = data.pointList;
+				var lineList = data.lineList;
+
+				// 定义geoCoord - 所有涉及到的地点的经纬度
+				var geoCoords = {};
+				for (var i = 0; i < pointList.length; i++) {
+					var point = pointList[i].point;
+					var longitude = pointList[i].longitude;
+					var latitude = pointList[i].latitude;
+					geoCoords[point] = [longitude,latitude];
+				}
+				
+				// 获取全部路线
+				var newLineList = [];
+				for (var i = 0; i < lineList.length; i++) {
+					var start = lineList[i].start;
+					var end = lineList[i].end;
+					var total = lineList[i].total;
+					var line = [];
+					line.push({name:start});
+					line.push({name:end,value:total});
+					newLineList.push(line);
+				}
+				
+				reportDataTemp.geoCoord = geoCoords;
+				reportDataTemp.lineList = newLineList;
+				
+				showReportForm();
+			});
+
+			/**
+			 * 获取报表数据
+			 */
+			function getData(){
+				/* 
+				var data =	"{'pointList':[{'point':'内蒙古自治区/鄂尔多斯市/鄂托克旗','longitude':'107.75202','latitude':'39.286297'},{'point':'新疆维吾尔自治区/昌吉回族自治州/阜康市','longitude':'107.75202','latitude':'44.424104'},{'point':'北京市/北京市/北京市','longitude':'116.395645','latitude':'39.929986'},{'point':'山西省/运城市/运城市','longitude':'116.395645','latitude':'35.038859'},{'point':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市','longitude':'87.564988','latitude':'43.84038'},{'point':'新疆维吾尔自治区/昌吉回族自治州/阜康市','longitude':'87.564988','latitude':'44.424104'},{'point':'新疆维吾尔自治区/阿勒泰地区/富蕴县','longitude':'87.564988','latitude':'46.536157'},{'point':'新疆维吾尔自治区/阿勒泰地区/青河县','longitude':'87.564988','latitude':'46.268151'},{'point':'新疆维吾尔自治区/乌鲁木齐市/头屯河区','longitude':'87.425049','latitude':'43.925789'},{'point':'新疆维吾尔自治区/博尔塔拉蒙古自治州/博乐市','longitude':'87.425049','latitude':'44.844209'},{'point':'新疆维吾尔自治区/博尔塔拉蒙古自治州/精河县','longitude':'87.425049','latitude':'44.557568'},{'point':'新疆维吾尔自治区/博尔塔拉蒙古自治州/阿拉山口市','longitude':'87.425049','latitude':'45.172596'},{'point':'新疆维吾尔自治区/乌鲁木齐市/米东区','longitude':'87.691186','latitude':'44.070554'},{'point':'新疆维吾尔自治区/吐鲁番市/托克逊县','longitude':'87.691186','latitude':'42.127001'},{'point':'新疆维吾尔自治区/乌鲁木齐市/达坂城区','longitude':'87.895407','latitude':'42.840609'},{'point':'新疆维吾尔自治区/乌鲁木齐市/头屯河区','longitude':'87.895407','latitude':'43.925789'},{'point':'新疆维吾尔自治区/吐鲁番市/托克逊县','longitude':'87.895407','latitude':'42.127001'},{'point':'新疆维吾尔自治区/昌吉回族自治州/阜康市','longitude':'87.895407','latitude':'44.424104'},{'point':'新疆维吾尔自治区/乌鲁木齐市','longitude':'88.305949','latitude':'44.424104'},{'point':'新疆维吾尔自治区/自治区直辖县级行政区划/石河子市','longitude':'88.305949','latitude':'42.127001'},{'point':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁市','longitude':'81.289048','latitude':'44.020356'},{'point':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市','longitude':'81.289048','latitude':'43.84038'},{'point':'新疆维吾尔自治区/伊犁哈萨克自治州/奎屯市','longitude':'85.013934','latitude':'44.559557'},{'point':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市','longitude':'85.013934','latitude':'43.84038'},{'point':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁市','longitude':'85.013934','latitude':'44.020356'},{'point':'新疆维吾尔自治区/博尔塔拉蒙古自治州/博乐市','longitude':'85.013934','latitude':'44.844209'},{'point':'新疆维吾尔自治区/伊犁哈萨克自治州/新源县','longitude':'83.55815','latitude':'43.376951'},{'point':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁县','longitude':'83.55815','latitude':'44.008117'},{'point':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁市','longitude':'83.55815','latitude':'44.020356'},{'point':'新疆维吾尔自治区/吐鲁番市/吐鲁番市','longitude':'89.266025','latitude':'42.678925'},{'point':'新疆维吾尔自治区/乌鲁木齐市/达坂城区','longitude':'89.266025','latitude':'42.840609'},{'point':'新疆维吾尔自治区/吐鲁番市/托克逊县','longitude':'85.614899','latitude':'42.127001'},{'point':'新疆维吾尔自治区/乌鲁木齐市/头屯河区','longitude':'85.614899','latitude':'43.925789'},{'point':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县','longitude':'85.614899','latitude':'44.352914'},{'point':'新疆维吾尔自治区/昌吉回族自治州/昌吉市','longitude':'85.614899','latitude':'44.175083'},{'point':'新疆维吾尔自治区/自治区直辖县级行政区划/石河子市','longitude':'85.614899','latitude':'42.127001'},{'point':'新疆维吾尔自治区/阿克苏地区/阿瓦提县','longitude':'85.614899','latitude':'40.060788'},{'point':'新疆维吾尔自治区/吐鲁番市/鄯善县','longitude':'85.614899','latitude':'42.127001'},{'point':'新疆维吾尔自治区/昌吉回族自治州/阜康市','longitude':'85.614899','latitude':'44.424104'},{'point':'新疆维吾尔自治区/哈密市/哈密市','longitude':'93.529373','latitude':'42.344467'},{'point':'新疆维吾尔自治区/哈密市/巴里坤哈萨克自治县','longitude':'85.614899','latitude':'42.127001'},{'point':'新疆维吾尔自治区/塔城地区/沙湾县','longitude':'85.474874','latitude':'44.353745'},{'point':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县','longitude':'89.053073','latitude':'44.352914'},{'point':'新疆维吾尔自治区/塔城地区/沙湾县','longitude':'89.053073','latitude':'44.353745'},{'point':'新疆维吾尔自治区/昌吉回族自治州/奇台县','longitude':'89.053073','latitude':'44.527652'},{'point':'新疆维吾尔自治区/昌吉回族自治州/阜康市','longitude':'89.053073','latitude':'44.424104'},{'point':'新疆维吾尔自治区/昌吉回族自治州/奇台县','longitude':'90.110269','latitude':'44.527652'},{'point':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市','longitude':'90.110269','latitude':'43.84038'},{'point':'新疆维吾尔自治区/吐鲁番市/托克逊县','longitude':'90.110269','latitude':'42.127001'},{'point':'新疆维吾尔自治区/昌吉回族自治州/阜康市','longitude':'90.110269','latitude':'44.424104'},{'point':'新疆维吾尔自治区/昌吉回族自治州/昌吉市','longitude':'87.073618','latitude':'44.175083'},{'point':'新疆维吾尔自治区/吐鲁番市/托克逊县','longitude':'87.073618','latitude':'42.127001'},{'point':'新疆维吾尔自治区/塔城地区/沙湾县','longitude':'87.073618','latitude':'44.353745'},{'point':'新疆维吾尔自治区/昌吉回族自治州/阜康市','longitude':'88.305949','latitude':'44.424104'},{'point':'新疆维吾尔自治区/乌鲁木齐市/头屯河区','longitude':'88.305949','latitude':'43.925789'},{'point':'新疆维吾尔自治区/昌吉回族自治州/呼图壁县','longitude':'88.305949','latitude':'44.380956'},{'point':'新疆维吾尔自治区/自治区直辖县级行政区划/五家渠市','longitude':'87.565449','latitude':'44.368899'},{'point':'新疆维吾尔自治区/昌吉回族自治州/奇台县','longitude':'87.565449','latitude':'44.527652'},{'point':'新疆维吾尔自治区/塔城地区/沙湾县','longitude':'85.614899','latitude':'44.353745'},{'point':'新疆维吾尔自治区/昌吉回族自治州/奇台县','longitude':'85.614899','latitude':'44.527652'},{'point':'新疆维吾尔自治区/阿克苏地区/库车县','longitude':'83.459807','latitude':'41.781933'},{'point':'新疆维吾尔自治区/昌吉回族自治州/阜康市','longitude':'83.459807','latitude':'44.424104'},{'point':'新疆维吾尔自治区/阿克苏地区/拜城县','longitude':'81.901235','latitude':'42.045285'},{'point':'新疆维吾尔自治区/吐鲁番市/托克逊县','longitude':'81.901235','latitude':'42.127001'},{'point':'新疆维吾尔自治区/自治区直辖县级行政区划/石河子市','longitude':'81.901235','latitude':'42.127001'},{'point':'新疆维吾尔自治区/阿勒泰地区/哈巴河县','longitude':'86.409673','latitude':'48.316559'},{'point':'北京市/北京市','longitude':'86.409673','latitude':'39.929986'},{'point':'新疆维吾尔自治区/阿勒泰地区/富蕴县','longitude':'89.393484','latitude':'46.536157'},{'point':'新疆维吾尔自治区/乌鲁木齐市/头屯河区','longitude':'89.393484','latitude':'43.925789'},{'point':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县','longitude':'89.393484','latitude':'44.352914'},{'point':'新疆维吾尔自治区/阿勒泰地区/阿勒泰市','longitude':'87.926214','latitude':'47.890136'},{'point':'新疆维吾尔自治区/伊犁哈萨克自治州/奎屯市','longitude':'87.926214','latitude':'44.559557'},{'point':'江苏省/南京市/浦口区','longitude':'118.569125','latitude':'32.059062'},{'point':'山东省/潍坊市/临朐县','longitude':'118.569125','latitude':'36.365389'},{'point':'江苏省/盐城市/大丰区','longitude':'120.546274','latitude':'33.190868'},{'point':'山东省/潍坊市/临朐县','longitude':'120.546274','latitude':'36.365389'},{'point':'贵州省/贵阳市/贵阳市','longitude':'106.709177','latitude':'26.629907'},{'point':'广西壮族自治区/玉林市/玉林市','longitude':'106.709177','latitude':'22.643974'}],'lineList':[{'total':9,'start':'内蒙古自治区/鄂尔多斯市/鄂托克旗','end':'新疆维吾尔自治区/昌吉回族自治州/阜康市'},{'total':5,'start':'北京市/北京市/北京市','end':'山西省/运城市/运城市'},{'total':290,'start':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市','end':'新疆维吾尔自治区/昌吉回族自治州/阜康市'},{'total':15,'start':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市','end':'新疆维吾尔自治区/阿勒泰地区/富蕴县'},{'total':10,'start':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市','end':'新疆维吾尔自治区/阿勒泰地区/青河县'},{'total':10,'start':'新疆维吾尔自治区/乌鲁木齐市/头屯河区','end':'新疆维吾尔自治区/博尔塔拉蒙古自治州/博乐市'},{'total':11,'start':'新疆维吾尔自治区/乌鲁木齐市/头屯河区','end':'新疆维吾尔自治区/博尔塔拉蒙古自治州/精河县'},{'total':5,'start':'新疆维吾尔自治区/乌鲁木齐市/头屯河区','end':'新疆维吾尔自治区/博尔塔拉蒙古自治州/阿拉山口市'},{'total':15,'start':'新疆维吾尔自治区/乌鲁木齐市/米东区','end':'新疆维吾尔自治区/吐鲁番市/托克逊县'},{'total':10,'start':'新疆维吾尔自治区/乌鲁木齐市/达坂城区','end':'新疆维吾尔自治区/乌鲁木齐市/头屯河区'},{'total':10,'start':'新疆维吾尔自治区/乌鲁木齐市/达坂城区','end':'新疆维吾尔自治区/吐鲁番市/托克逊县'},{'total':5,'start':'新疆维吾尔自治区/乌鲁木齐市/达坂城区','end':'新疆维吾尔自治区/昌吉回族自治州/阜康市'},{'total':5,'start':'新疆维吾尔自治区/乌鲁木齐市','end':'新疆维吾尔自治区/自治区直辖县级行政区划/石河子市'},{'total':10,'start':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁市','end':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市'},{'total':19,'start':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁市','end':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁市'},{'total':10,'start':'新疆维吾尔自治区/伊犁哈萨克自治州/奎屯市','end':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市'},{'total':10,'start':'新疆维吾尔自治区/伊犁哈萨克自治州/奎屯市','end':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁市'},{'total':10,'start':'新疆维吾尔自治区/伊犁哈萨克自治州/奎屯市','end':'新疆维吾尔自治区/博尔塔拉蒙古自治州/博乐市'},{'total':5,'start':'新疆维吾尔自治区/伊犁哈萨克自治州/新源县','end':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁县'},{'total':34,'start':'新疆维吾尔自治区/伊犁哈萨克自治州/新源县','end':'新疆维吾尔自治区/伊犁哈萨克自治州/伊宁市'},{'total':5,'start':'新疆维吾尔自治区/吐鲁番市/吐鲁番市','end':'新疆维吾尔自治区/乌鲁木齐市/达坂城区'},{'total':15,'start':'新疆维吾尔自治区/吐鲁番市/托克逊县','end':'新疆维吾尔自治区/乌鲁木齐市/头屯河区'},{'total':10,'start':'新疆维吾尔自治区/吐鲁番市/托克逊县','end':'新疆维吾尔自治区/吐鲁番市/托克逊县'},{'total':9,'start':'新疆维吾尔自治区/吐鲁番市/托克逊县','end':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县'},{'total':5,'start':'新疆维吾尔自治区/吐鲁番市/托克逊县','end':'新疆维吾尔自治区/昌吉回族自治州/昌吉市'},{'total':5,'start':'新疆维吾尔自治区/吐鲁番市/托克逊县','end':'新疆维吾尔自治区/自治区直辖县级行政区划/石河子市'},{'total':4,'start':'新疆维吾尔自治区/吐鲁番市/托克逊县','end':'新疆维吾尔自治区/阿克苏地区/阿瓦提县'},{'total':4,'start':'新疆维吾尔自治区/吐鲁番市/鄯善县','end':'新疆维吾尔自治区/昌吉回族自治州/阜康市'},{'total':54,'start':'新疆维吾尔自治区/哈密市/哈密市','end':'新疆维吾尔自治区/哈密市/哈密市'},{'total':4,'start':'新疆维吾尔自治区/哈密市/巴里坤哈萨克自治县','end':'新疆维吾尔自治区/乌鲁木齐市/头屯河区'},{'total':5,'start':'新疆维吾尔自治区/哈密市/巴里坤哈萨克自治县','end':'新疆维吾尔自治区/哈密市/巴里坤哈萨克自治县'},{'total':5,'start':'新疆维吾尔自治区/塔城地区/沙湾县','end':'新疆维吾尔自治区/塔城地区/沙湾县'},{'total':5,'start':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县','end':'新疆维吾尔自治区/塔城地区/沙湾县'},{'total':14,'start':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县','end':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县'},{'total':5,'start':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县','end':'新疆维吾尔自治区/昌吉回族自治州/奇台县'},{'total':36,'start':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县','end':'新疆维吾尔自治区/昌吉回族自治州/阜康市'},{'total':5,'start':'新疆维吾尔自治区/昌吉回族自治州/奇台县','end':'新疆维吾尔自治区/乌鲁木齐市/乌鲁木齐市'},{'total':5,'start':'新疆维吾尔自治区/昌吉回族自治州/奇台县','end':'新疆维吾尔自治区/吐鲁番市/托克逊县'},{'total':10,'start':'新疆维吾尔自治区/昌吉回族自治州/奇台县','end':'新疆维吾尔自治区/昌吉回族自治州/奇台县'},{'total':20,'start':'新疆维吾尔自治区/昌吉回族自治州/奇台县','end':'新疆维吾尔自治区/昌吉回族自治州/阜康市'},{'total':8,'start':'新疆维吾尔自治区/昌吉回族自治州/昌吉市','end':'新疆维吾尔自治区/吐鲁番市/托克逊县'},{'total':5,'start':'新疆维吾尔自治区/昌吉回族自治州/昌吉市','end':'新疆维吾尔自治区/塔城地区/沙湾县'},{'total':6,'start':'新疆维吾尔自治区/昌吉回族自治州/阜康市','end':'新疆维吾尔自治区/乌鲁木齐市/头屯河区'},{'total':8,'start':'新疆维吾尔自治区/昌吉回族自治州/阜康市','end':'新疆维吾尔自治区/昌吉回族自治州/呼图壁县'},{'total':29,'start':'新疆维吾尔自治区/昌吉回族自治州/阜康市','end':'新疆维吾尔自治区/昌吉回族自治州/阜康市'},{'total':10,'start':'新疆维吾尔自治区/自治区直辖县级行政区划/五家渠市','end':'新疆维吾尔自治区/昌吉回族自治州/奇台县'},{'total':5,'start':'新疆维吾尔自治区/自治区直辖县级行政区划/石河子市','end':'新疆维吾尔自治区/塔城地区/沙湾县'},{'total':38,'start':'新疆维吾尔自治区/自治区直辖县级行政区划/石河子市','end':'新疆维吾尔自治区/昌吉回族自治州/奇台县'},{'total':22,'start':'新疆维吾尔自治区/阿克苏地区/库车县','end':'新疆维吾尔自治区/昌吉回族自治州/阜康市'},{'total':35,'start':'新疆维吾尔自治区/阿克苏地区/拜城县','end':'新疆维吾尔自治区/吐鲁番市/托克逊县'},{'total':46,'start':'新疆维吾尔自治区/阿克苏地区/拜城县','end':'新疆维吾尔自治区/自治区直辖县级行政区划/石河子市'},{'total':5,'start':'新疆维吾尔自治区/阿勒泰地区/哈巴河县','end':'北京市/北京市'},{'total':20,'start':'新疆维吾尔自治区/阿勒泰地区/富蕴县','end':'新疆维吾尔自治区/乌鲁木齐市/头屯河区'},{'total':11,'start':'新疆维吾尔自治区/阿勒泰地区/富蕴县','end':'新疆维吾尔自治区/昌吉回族自治州/吉木萨尔县'},{'total':10,'start':'新疆维吾尔自治区/阿勒泰地区/阿勒泰市','end':'新疆维吾尔自治区/伊犁哈萨克自治州/奎屯市'},{'total':4,'start':'江苏省/南京市/浦口区','end':'山东省/潍坊市/临朐县'},{'total':4,'start':'江苏省/盐城市/大丰区','end':'山东省/潍坊市/临朐县'},{'total':8,'start':'贵州省/贵阳市/贵阳市','end':'广西壮族自治区/玉林市/玉林市'}],'success':true}";
+				var json = eval('(' + data + ')'); 
+				return json; */
+				var data;
+				var requestPath = window.location.origin + "/xzsoft-platform/";
+				$.ajax({
+					url: "${basePath}/waybillInfo/getDataForStartEndMap",
+					async:false,
+					type: 'POST',
+					data: {},
+					dataType: 'json',
+					success: function(resp){
+						/**
+						 * resp 返回参数
+						 * success (true,false)
+						 * pointList 成功时，所有地点经纬度
+						 * lineList 成功时，线路
+						 * msg (失败时返回的数据)
+						 */ 
+						if (resp) {
+							if (resp.success) {
+								data = resp;
+							} else {
+								//alert(resp.msg);
+							}
+						}
+					},
+					error: function(){
+						//alert("服务请求失败");
+					}
+				});
+				return data;
+			}
+
+			/**
+			 * 显示报表数据
+			 */
+			function showReportForm() {
+
+				myChartTemp = echarts.init(document.getElementById('startEndMain'));
+
+				var option = getDefaultOption();
+				myChartTemp.setOption(option);
+
+				myChartTemp.on('click', function(params) {
+					// 当前地图属于第几个地图
+					seriesIndexTemp = params.seriesIndex;
+					// 地点全称
+					pointNameTemp = params.name;
+					// 地点简称
+					pointSimpleNameTemp = getPointSimpleName(pointNameTemp);
+					var newData = getInAndOutData(pointNameTemp);
+					var option = getOption(newData);
+					myChartTemp.clear();
+					myChartTemp.setOption(option);
+					//myChartTemp.refresh();
+				});
+			}
+
+			/**
+			 * [getInAndOutData description]
+			 * @param  {[type]} pointName [description]
+			 * @return {[type]}           [description]
+			 */
+			function getInAndOutData(pointName){
+			  var lineList = reportDataTemp.lineList;
+
+			  var inMarkLines = [];
+			  var inMarkPoints = [];
+			  var outMarkLines = [];
+			  var outMarkPoints = [];
+			  
+			  //var inMarkLinesCount = 0;
+			  lineList.forEach(function(ele,index){
+			      // 起点
+			      var startName = ele[0].name; 
+			      // 终点
+			      var endName = ele[1].name; 
+
+			      // outMarkLines outMarkPoints
+			      if (startName == pointName) {
+			          outMarkLines.push(
+			        		  [{name : startName},{name:endName,value:ele[1].value}]
+			          );
+			          outMarkPoints.push({
+			              name : endName
+			          });
+			      } 
+			      if (endName == pointName) {
+			          inMarkLines.push(
+			        		  [{name : startName,value:ele[1].value},{name:endName}]
+			          );
+			          inMarkPoints.push({
+			              name : startName
+			          });
+			      }
+			  });
+
+			  var data = {
+			      "inMarkLines" : inMarkLines,
+			      "inMarkPoints" : inMarkPoints,
+			      "outMarkLines" : outMarkLines,
+			      "outMarkPoints" : outMarkPoints
+			  };
+			  return data;
+			}
+
+
+			/**
+			 * [getDefaultOption description]
+			 * @return {[type]} [description]
+			 */
+			function getDefaultOption(){
+			  // 所有地点
+			  var geoCoord = reportDataTemp.geoCoord;
+
+			  // 所有地点
+			  var pointList = [];
+			  for (pro in geoCoord) {
+			    var pointName = pro;
+			    pointList.push({name:pointName});
+			  }
+			  //console.log(pointList);
+
+			  // 所有线路
+			  var lineList = reportDataTemp.lineList;
+			  var allLines1 = [];
+			  var minValue = 0; // 线路value最小值  dataRange
+			  var maxValue = 0; // 线路value最大值
+			  lineList.forEach(function(ele,index){
+				  var value = ele[1].value;
+				  if (value > maxValue) {
+					  maxValue = value;
+				  }
+				  var t = [{name:ele[0].name},{name:ele[1].name}];
+				  allLines1.push(t);
+			  });
+
+
+			  var option = {
+				  color: [
+				            'rgba(255, 255, 255, 0.8)',
+				            'rgba(14, 241, 242, 0.8)',
+				            'rgba(37, 140, 249, 0.8)'
+				    ],
+//				  color: ['gold','aqua','lime'],
+			      title : {
+			          text: '运单线路图',
+			          x:'center',
+			          textStyle : {
+			              color: '#fff'
+			          }
+			      },
+			      tooltip : {
+			          trigger: 'item',
+			          formatter:function (params, ticket, callback) {
+			        	  var simpleName = getPointSimpleName(params.name);
+			        	  return simpleName;
+			          }
+			      },
+			      legend: {
+			          orient: 'vertical',
+			          x:'left',
+			          data:['全部'],
+			          selectedMode : 'single',
+			          selected:{
+			        	  '全部' : true
+			          },
+			          textStyle : { color: '#fff' }
+			      },
+			      series : [
+			          // 全部
+			          {
+			              name: '全部',
+			              type: 'map',
+			              clickable:false,
+			              roam: true,
+			              hoverable: false,
+			              mapType: 'china',
+			              itemStyle:{
+			                  normal:{
+			                      borderColor:'rgba(100,149,237,1)',
+			                      borderWidth:1.5,
+			                      areaStyle:{
+			                          color: '#1b1b1b'
+			                      }
+			                  }
+			              },
+			              data:[],
+			              markLine : {
+			            	  clickable:false,
+			                  smooth:true,
+			                  symbol: ['none', 'circle'],  
+			                  symbolSize : 1,
+			                  effect : {
+			                      show: true,
+			                      scaleSize: 1,
+			                      period: 30,
+			                      color: '#fff',
+			                      shadowBlur: 10
+			                  },
+			                  itemStyle : {
+			                      normal: {
+			                          color:'#fff',
+			                          borderWidth:1,
+			                          borderColor:'rgba(30,144,255,0.5)'
+			                          
+			                      }
+			                  },
+			                  data : allLines1,
+			              },
+			              markPoint : {
+			                  symbol:'pin',
+			                  symbolSize : 3,
+			                  clickable:true,
+			                  itemStyle:{
+			                      normal:{
+			                    	  color:'#BFEFFF',
+			                          label:{
+			                        	  show:false
+			                          }
+			                      },
+			                      emphasis: {
+			                          label:{
+			                        	  show:true,
+			                        	  position:'top'
+			                          }
+			                      }
+			                  },
+			                  data : pointList
+			              },
+			              geoCoord: geoCoord
+			          }
+			      ]
+			    };
+			return option;
+			}
+
+
+			/**
+			 * [getOption description]
+			 * @param  {[type]} data [description]
+			 * @return {[type]}      [description]
+			 */
+			function getOption(data){
+			  // 所有地点
+			  var geoCoord = reportDataTemp.geoCoord;
+
+			  // 所有地点
+			  var pointList = [];
+			  for (pro in geoCoord) {
+			    var pointName = pro;
+			    pointList.push({name:pointName});
+			  }
+
+			  // 所有线路
+			  var lineList = reportDataTemp.lineList;
+			  
+			  var allLines1 = [];
+			  var minValue = 0;
+			  var maxValue = 0;
+			  lineList.forEach(function(ele,index){
+				  var value = ele[1].value;
+				  if (value > maxValue) {
+					  maxValue = value;
+				  }
+				  var t = [{name:ele[0].name},{name:ele[1].name}];
+				  allLines1.push(t);
+			  });
+			  // 图例
+			  var legend = ['全部',pointSimpleNameTemp+'(进)',pointSimpleNameTemp+'(出)'];
+
+			  
+			  
+			  var selected = {};
+			  if (seriesIndexTemp == 1) {
+				  selected[legend[0]] = false;
+				  selected[legend[1]] = false;
+				  selected[legend[2]] = true;
+			  } else if (seriesIndexTemp == 2) {
+				  selected[legend[0]] = false;
+				  selected[legend[1]] = true;
+				  selected[legend[2]] = false;
+			  } else {
+				  if (data.inMarkLines.length > 0) {
+					  selected[legend[0]] = false;
+					  selected[legend[1]] = true;
+					  selected[legend[2]] = false;
+				  } else if (data.outMarkLines.length > 0) {
+					  selected[legend[0]] = false;
+					  selected[legend[1]] = false;
+					  selected[legend[2]] = true;
+				  } else {
+					  selected[legend[0]] = false;
+					  selected[legend[1]] = false;
+					  selected[legend[2]] = false;
+				  }
+				  
+			  }
+			  
+			  
+			  var option = {
+				color: [
+			            'rgba(255, 255, 255, 0.8)',
+			            'rgba(14, 241, 242, 0.8)',
+			            'rgba(37, 140, 249, 0.8)'
+			    ],
+//			    color: ['gold','aqua','lime'],
+			    title : {
+			        text: '运单线路图',
+			        x:'center',
+			        textStyle : { color: '#fff' }
+			    },
+			    tooltip : {
+			        trigger: 'item',
+			        formatter:function (params, ticket, callback) {
+			      	  var simpleName = getPointSimpleName(params.name);
+			      	  return simpleName;
+			        }
+			    },
+			    legend: {
+			        orient: 'vertical',
+			        x:'left',
+			        data:legend,
+			        selectedMode:'single',
+			        selected : selected,
+			        textStyle : { color: '#fff' }
+			    },
+			    dataRange: {
+			    	show:true,
+			        min : minValue,
+			        max : maxValue,
+			        x: 'right',
+			        calculable : true,
+			        color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
+			        itemWidth: 10,
+			        textStyle:{ color:'#fff' },
+			        
+			    },
+			    series : [
+			          // 全部
+			          {
+			              name: legend[0],
+			              type: 'map',
+			              clickable:false,
+			              roam: true,
+			              hoverable: false,
+			              mapType: 'china',
+			              itemStyle:{
+			                  normal:{
+			                      borderColor:'rgba(100,149,237,1)',
+			                      borderWidth:1.5,
+			                      areaStyle:{
+			                          color: '#1b1b1b'
+			                      }
+			                  }
+			              },
+			              data:[],
+			              markLine : {
+			            	  clickable:false,
+			                  smooth:true,
+			                  symbol: ['none', 'circle'],  
+			                  symbolSize : 1,
+			                  effect : {
+			                      show: true,
+			                      scaleSize: 1,
+			                      period: 30,
+			                      color: '#fff',
+			                      shadowBlur: 10
+			                  },
+			                  itemStyle : {
+			                      normal: {
+			                          color:'#fff',
+			                          borderWidth:1,
+			                          borderColor:'rgba(30,144,255,0.5)'
+			                      }
+			                  },
+			                  data : allLines1,
+			              },
+			              markPoint : {
+			            	  clickable:true,
+			                  symbol:'pin',
+			                  symbolSize : 3,
+			                  itemStyle:{
+			                      normal:{
+			                    	  color:'#BFEFFF',
+			                          label:{show:false}
+			                      },
+			                      emphasis: {
+			                          label:{position:'top'}
+			                      }
+			                  },
+			                  data : pointList
+			              },
+			              geoCoord: geoCoord
+			          },
+			        // 进
+			        {
+			            name: legend[1],
+			            type: 'map',
+			            mapType: 'china',
+			            clickable:false,
+			            data:[],
+			            markLine : {
+			            	clickable:false,
+			                smooth:true,
+			                effect : {
+			                    show: true,
+			                    scaleSize: 1,
+			                    period: 30,
+			                    color: '#fff',
+			                    shadowBlur: 10
+			                },
+			                itemStyle : {
+			                    normal: {
+			                        borderWidth:1,
+			                        lineStyle: {
+			                            type: 'solid',
+			                            shadowBlur: 10
+			                        },
+						            label: {
+						              	show: true,
+						              	position:'start',
+						              	textStyle: {
+						              		align: 'center',
+						              		baseline: 'bottom'
+						              	}
+						            }
+			                    }
+			                },
+			                data : data.inMarkLines
+			            },
+			            markPoint : {
+			            	clickable:true,
+			                symbol:'emptyCircle',
+			                symbolSize : function (v){
+			                    return 10 + v/10
+			                },
+			                effect : {
+			                    show: true,
+			                    shadowBlur : 0
+			                },
+			                itemStyle:{
+			                    normal:{
+			                        label:{show:false}
+			                    },
+			                    emphasis: {
+			                        label:{position:'top'}
+			                    }
+			                },
+			                data : data.inMarkPoints
+			            }
+			        },
+			        // 出
+			        {
+			            name: legend[2],
+			            type: 'map',
+			            mapType: 'china',
+			            clickable:false,
+			            data:[],
+			            markLine : {
+			            	clickable:false,
+			                smooth:true,
+			                effect : {
+			                    show: true,
+			                    scaleSize: 1,
+			                    period: 30,
+			                    color: '#fff',
+			                    shadowBlur: 10
+			                },
+			                itemStyle : {
+			                    normal: {
+			                        borderWidth:1,
+			                        lineStyle: {
+			                            type: 'solid',
+			                            shadowBlur: 10
+			                        }
+			                    }
+			                },
+			                data : data.outMarkLines
+			            },
+			            markPoint : {
+			            	clickable:true,
+			                symbol:'emptyCircle',
+			                symbolSize : function (v){
+			                    return 10 + v/10
+			                },
+			                effect : {
+			                    show: true,
+			                    shadowBlur : 0
+			                },
+			                itemStyle:{
+			                    normal:{
+			                        label:{show:false}
+			                    },
+			                    emphasis: {
+			                        label:{position:'top'}
+			                    }
+			                },
+			                data : data.outMarkPoints
+			            }
+			        }
+			          
+			      ]
+			  };
+			  return option;
+			}
+			/**
+			 * 获得地点名称简称
+			 * @param pointName
+			 */
+			function getPointSimpleName(name){
+				var array = name.split('>');
+				var length = array.length;
+				if ( length == 1) {
+					var array1 = array[0].split('/');
+					length = array1.length;
+					return array1[length - 1];
+				} else if (length == 2) {
+					var array1 = array[0].split('/');
+					var array2 = array[1].split('/');
+					var length1 = array1.length;
+					var length2 = array2.length;
+					var name1 = array1[length1-1];
+					var name2 = array2[length2-1];
+					return name1 + " > " + name2
+				}
+				
+				return '';
+			}
+
+	</script>
+
+
+</body></html>

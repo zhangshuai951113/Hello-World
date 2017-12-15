@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>计划报表</title> 
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/search.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/table.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/modal.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/confirm.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/reset.css" />
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+ 
+		<div class="search-panel row">
+			<div class="search-from" id="mainDiv">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">日期</div>
+								<div class="input-text time-input">
+									<input id="startDate" class="input date-time" type="text" />
+								</div>
+								<div class="input-line">__</div>
+								<div class="input-text time-input">
+									<input id="endDate" class="input date-time" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="report()">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetEmpty()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div id="plan_info_report_view" style="width: 100%;height:100%; padding: 5%; float:left;"> </div>
+
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/echarts.min.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/reportForm/plan_info/plan_info_report.js"></script>
+
+</html>

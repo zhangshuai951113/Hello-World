@@ -1,0 +1,43 @@
+﻿<!-- 项目列表-->
+<div id="listInfo" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close commonTable-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="projectModalLabel">项目列表</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table-bule" align="center">
+						<thead>
+
+							<tr class="table-title">
+								<th style="width: 20px;"><input class="all_project_check" name="all" type="checkbox"></th>
+								<th>项目编号</th>
+								<th>项目名称</th>
+							</tr>
+						</thead>
+						<tbody id="projectTBody">
+						</tbody>
+					</table>
+					<div class="row">
+						<!-- 分页 -->
+						<div class="panel-pagination">
+							<div id="panel-num-project" class="panel-num">搜索相关结果共0条</div>
+							<div class="pagination-list"></div>
+							<div class="pagination-input">
+								到 <input type="text" />页
+							</div>
+							<div class="pagination-button" onclick="projectJumpPage(this)">确定</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="projectSelect()">确认</button>
+					<button class="close-button commonTable-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

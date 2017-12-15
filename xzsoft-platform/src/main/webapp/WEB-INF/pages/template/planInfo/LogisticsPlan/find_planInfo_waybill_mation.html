@@ -1,0 +1,119 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:100%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeCButton()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${waybillMation}
+					</h4>
+				</div>
+				<input type="hidden" id="planInfoId">
+				<div class="search-panel row">
+				    <form onsubmit="return false" id="find_plan_info">
+						<div class="search-from">
+							<div class="search-row-box">
+								<div class="both-row row">
+							        <div class="search-box">
+							          <div class="input-lable">运单编号</div>
+							          <div class="input-text">
+							            <input id="wayId" class="input" placeholder="请输入运单编号" type="text">
+							          </div>
+							        </div>
+							        <div class="search-box">
+							          <div class="input-lable">运单状态</div>
+							          <div class="input-text">
+							            <select id="wayStatus" class="input">
+							              <option value="" selected>请选择</option>
+							              <option value="1">新建</option>
+							              <option value="2">已派发</option>
+							              <option value="3">已撤回</option>
+							              <option value="4">已拒绝</option>
+							              <option value="5">已接单</option>
+							              <option value="6">已装货</option>
+							              <option value="7">在途</option>
+							              <option value="8">已卸货</option>
+							              <option value="9">已挂账</option>
+							              <option value="10">已发布</option>
+							              <option value="11">已回收报价</option>
+							            </select>
+							          </div>
+							         </div>
+							         <div class="search-box">
+											<div class="input-lable">计划拉运日期</div>
+											<div class="input-text time-input">
+												<input id="planTransportDateStart" class="input date-time"  type="text" />
+											</div>
+											<div class="input-line">—</div>
+											<div class="input-text time-input">
+												<input id="planTransportDateEnd" class="input date-time" type="text" />
+											</div>
+										</div>
+									  <div class="search-box" style="width:320px"></div>
+						        </div>
+							</div>
+							<div class="search-button-box">
+								<button class="search-button" id="searchCustomer" onclick="findPlanInfoWaybillList(1)">
+									<div class="search-icon"></div>
+									<div class="text">查询</div>
+								</button>
+								 <button class="search-button" onclick="findPlanWaybillReset()">
+								      <div class="reset-icon"></div>
+								      <div class="text">重置</div>
+								  </button>
+							</div>
+						</div>
+					</form>
+				 </div>
+					<!-- 表格 -->
+					<div class="panel" >
+					<div class="panel-table">
+						    <table class="table-bule">
+				      <thead>
+				        <tr class="table-title">
+			              <th>运单编号</th>
+				          <th>运单号</th>
+				          <th>计划拉运日期</th>
+				          <th>计划拉运量</th>
+				          <th>运单状态</th>
+				          <th>运单类型</th>
+						  <th>委托方</th>
+						  <th>承运方</th>
+						  <th>司机名称</th>
+						  <th>车牌号</th>
+						  <th>运价（元）</th>
+						  <th>货物</th>
+						  <th>线路</th>
+						  <th>发货单位</th>
+						  <th>到货单位</th>
+						  <th>派发日期</th>
+						  <th>接单日期</th>
+						  <th>运单分类</th>
+				        </tr>
+				      </thead>
+				      <tbody id="planInfoWaybillTBody">
+				       
+				      </tbody>
+				    </table>
+			 				<!-- 分页 -->
+			 				<div class="row">
+			 					<div class="panel-pagination">
+								      <div id="planInfoWaybill-num" class="panel-num">搜索相关结果共0条</div>
+								      <div class="pagination-list" id="planInfoWaybill-list"></div>
+								      <div class="pagination-input">到
+								        <input type="text" />页</div>
+								      <div class="pagination-button" onclick="jumpPlanWaybillPage(this)">确定</div>
+								</div> 
+			 				</div>
+						</div>
+					</div>
+					<div id="find_contract_info_model"></div>
+				</div>
+				
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<script type="text/javascript" src="${basePath}/static/js/planInfo/LogisticsPlan/planInfo_waybill.js"></script>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>毛利分析</title> <#include "../../common/common_header.html" />
+
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/tab.css"/>
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/search.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/table.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/modal.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/confirm.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/from-both.css" >
+
+<style type="text/css">
+th.no-sort,
+th.no-sort:hover {
+	cursor: not-allowed
+}
+
+th.sorted.ascending:after {
+	content: "  \2191"
+}
+
+th.sorted.descending:after {
+	content: " \2193"
+}
+</style>
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+		<div class="search-panel row">
+			<div class="search-from" id="mainDiv">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">运单号：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-waybillId"/>
+								</div>
+							</div>	
+							<div class="search-box">
+								<div class="input-lable">车牌号码：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-carCode"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">货物名称：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-goodsName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">客户名称：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-entrustName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">承运方：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-shipperName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">拉运起点：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-startPoint"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">拉运终点：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-endPoint"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">组织部门：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-orgName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">发货单号：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-forwardingId"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">到货单号：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-arrrveId"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">制单人：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-createUser"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">车属单位：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-carOrg"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">核算主体：</div>
+								<div class="input-text">
+									<input class="input" type="text" id="m-accountingEntity"/>
+								</div>
+							</div>
+							
+							<div class="search-box">
+								<div class="input-lable">制单日期：</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="m-createTime1"/>
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="m-createTime2"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">回单日期：</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="m-returnDocTime1"/>
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="m-returnDocTime2"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">发货日期:</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="m-fordwardingTime1"/>
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="m-fordwardingTime2"/>
+								</div>
+							</div>
+							
+							
+							<div class="search-box">
+								<div class="input-lable">审核状态：</div>
+								<div class="input-text">
+									<select class="input" id="m-settlementStatus">
+										<option value="">全部</option>
+										<option value="1">起草</option>
+										<option value="2">待审核</option>
+										<option value="3">审核通过</option>
+										<option value="4">驳回</option>
+									</select>
+								</div>
+							</div>	
+							<div class="search-box">
+								<div class="input-lable">挂账状态：</div>
+								<div class="input-text">
+									<select class="input" id="m-isWriteOff">
+										<option value="">全部</option>
+										<option value="0">否</option>
+										<option value="1">是</option>
+									</select>
+								</div>
+							</div>	
+							<div class="search-box">
+								<div class="input-lable">是否对账：</div>
+								<div class="input-text">
+									<select class="input" id="m-isAccount">
+										<option value="">全部</option>
+										<option value="0">否</option>
+										<option value="1">是</option>
+									</select>
+								</div>
+							</div>	
+							<div class="search-box">
+								<div class="input-lable">支付方式：</div>
+								<div class="input-text">
+									<select class="input" id="m-payType">
+										<option value="">全部</option>
+										<option value="1">有价卷</option>
+										<option value="2">报销</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">收入发票：</div>
+								<div class="input-text">
+									<select class="input" id="m-isInvoice">
+										<option value="">全部</option>
+										<option value="0">未开</option>
+										<option value="1">已开</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">是否补差：</div>
+								<div class="input-text">
+									<select class="input" id="m-isRevise">
+										<option value="">全部</option>
+										<option value="0">否</option>
+										<option value="1">是</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="query()">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetEmpty()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="row">
+				<div class="operation-tab row">		
+					<button class="operation-button operation-blue" onclick="exportData()">
+						<div class="split-icon"></div>
+						<div class="operation-text">导出</div>
+					</button>
+					<button class="operation-button operation-blue" onclick="sumSelectedData()">
+						<div class="split-icon"></div>
+						<div class="operation-text">统计</div>
+					</button>			
+				</div>
+			</div>
+			
+			<div class="panel-table" style="width:100%;height:100%;overflow-x:scroll; overflow-y:hidden;">
+				<table style="min-width: 1780px;" class="table-bule table-ellipsis" id="mainTable">
+					<thead>
+						<tr class="table-title">
+							<th style="width: 40px;" class="no-sort">
+								<label class="i-checks"> 
+									<input class="all-main-check" type="checkbox" >
+								</label>
+							</th>
+							<th class="no-sort">序号</th>
+							<th class="number">结算单号</th>
+							<th class="number">毛利率(%)</th>	
+							<th class="number">燃料费占比(%)</th>				
+							<th class="number">运单编号</th>
+							<th>货物</th>
+							<th>发货日期</th>
+							<th class="number">实际发货吨位</th>
+							<th class="number">实际到货吨位</th>
+							<th class="number">客户运价</th>
+							<th class="number">客户运费</th>
+							<th class="number">进项税</th>
+							<th class="number">实际收入</th>
+							<th class="number">销项税</th>
+							<th class="number">代扣税</th>
+							<th class="number">运费进项税</th>
+							<th class="number">有价卷进项税</th>
+							<!-- 
+							<th>燃油进项税</th>
+							<th>燃气进项税</th>
+							 -->
+							<th class="number">有价卷使用总额</th>
+							<!-- 
+							<th>燃料种类</th>
+							 -->
+							<th class="number">客户损耗扣款</th>
+							<th>客户名称</th>
+							<th>承运方</th>
+							<th>车牌号</th>
+							<th>起点</th>
+							<th>终点</th>
+							<th class="number">损耗吨位</th>
+							<th class="number">扣款吨位</th>
+							<th class="number">司机运价</th>
+							<th class="number">司机运费</th>
+							<th class="number">运费成本</th>
+							<th class="number">损耗扣款</th>
+							<th class="number">其它扣款</th>
+							<th class="number">应付运费</th>
+							<th>是否补差</th>
+							<th>是否对账</th>
+							<th>制单人</th>
+							<th>制单日期</th>
+							<th>回单日期</th>
+							<th>组织部门</th>
+							<th>核算主体</th>
+							<th>发货单位</th>
+							<th>收货单位</th>
+							<th>发货单号</th>
+							<th>到货单号</th>
+<!-- 							<th>成本发票号码</th>
+							<th>收入发票号码</th> -->
+							<th class="number">公路通行费</th>
+							<th class="number">高速公路通行费</th>
+							<th class="number">其他通行费</th>
+							<th class="number">公路进项税</th>
+							<th class="number">高速公路进项税</th>
+							<th>车属单位</th>
+						</tr>
+					</thead>
+					<tbody id="mainTableTbody">
+					</tbody>
+					<tfoot id="mainTableTfoot">
+					</tfoot>
+				</table>
+			</div>
+			<div class="panel-pagination">
+				<div class="panel-num">搜索相关结果共<span id="mainTableTotal">0</span>条</div>
+				<div id="mainPage" class="pagination-list"></div>
+				<div class="pagination-input">到<input type="text"/>页</div>
+				<div class="pagination-button" onclick="mainPageJump(this)">确定</div>
+			</div>
+		</div>
+		
+		
+		<!-- 导出数据表单 -->
+		<form id="exportData" action="" method="post" enctype="multipart/form-data">
+	  		<input id="ids" name="ids" type="hidden">
+		</form>
+		
+		</main>
+	</div>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/jquery.tablesort.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/reportForm/profitAnalysis/profit-analysis-page.js"></script>
+</html>

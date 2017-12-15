@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>企业临时司机</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/driver/driver.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/viewer.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main"> <!--临时司机-->
+			<div class="search-panel row">
+				<form onsubmit="return false">
+				  <div class="search-from" >
+				    <div class="search-row-box">
+				      <div class="both-row row">
+				        <div class="search-box">
+				          <div class="input-lable">司机姓名</div>
+				          <div class="input-text">
+				            <input name="driverName" id="driverName" class="input" placeholder="请输入司机姓名" type="text">
+				          </div>
+				        </div>
+				        <div class="search-box">
+				          <div class="input-lable">联系电话</div>
+				          <div class="input-text">
+				            <input id="mobilePhone" name="mobilePhone" class="input" placeholder="请输入联系电话" type="text">
+				          </div>
+				        </div>
+				          <div class="search-box">
+				          <div class="input-lable">司机状态</div>
+				          <div class="input-text">
+				            <select id="driverStatus" name="driverStatus" class="input">
+				              <option value="" selected>请选择</option>
+				              <option value="0">未分配</option>
+				              <option value="1">已分配</option>
+				            </select>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				    <div class="search-button-box">
+				    	<button class="search-button" onclick="list(1);">
+					      <div class="search-icon"></div>
+					      <div class="text">查询</div>
+					    </button>
+					    <button class="search-button" id="Reset">
+					      <div class="reset-icon"></div>
+					      <div class="text">重置</div>
+					    </button>
+				    </div>
+				  </div>
+				 </form>
+			</div>
+			
+			<!-- 表格 -->
+			<div class="panel">
+				<div class="operation-tab row">
+				<button class="operation-button operation-blue" id="addTDriver">
+					<div class="add-icon"></div>
+					<div class="operation-text">新增</div>
+				</button>
+			</div>
+			<div id="show_department_info"></div>
+				<div class="panel-table">
+				    <table class="table-bule">
+				      <thead>
+				        <tr class="table-title">
+				          <th>司机名称</th>
+				          <th>联系电话</th>
+				          <th>车牌号</th>
+				          <th>所属组织</th>
+				          <th>司机状态</th>
+				          <th>驾驶证号</th>
+				          <th>身份证(正面)</th>
+				          <th>身份证(反面)</th>
+				          <th>司机驾驶证照(正件)</th>
+				          <th>司机驾驶证照(副件)</th>
+				          <th class="operation">操作</th>
+				        </tr>
+				      </thead>
+				      <tbody id="driverTBody">
+				       
+				      </tbody>
+				    </table>
+	 				<!-- 分页 -->
+					<div class="panel-pagination">
+					      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+					      <div class="pagination-list"></div>
+					      <div class="pagination-input">到
+					        <input type="text" />页</div>
+					      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+					</div> 
+				</div>
+			</div>
+			<div id="show_department_info"></div>
+		</main>
+		</div>
+	<footer class="app-footer"> </footer>
+		<!-- 新增企业临时司机表单 -->
+	  	<form id="form_sub_org_opt" action="" method="post">
+	  	</form>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/driver/temporaryDriver.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+
+</html>

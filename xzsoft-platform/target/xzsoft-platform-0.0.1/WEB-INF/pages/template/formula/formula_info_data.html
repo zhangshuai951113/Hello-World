@@ -1,0 +1,118 @@
+<div id="formula_info">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+ 		<thead>
+   			<tr class="table-title">
+     			<th style="width:40px;">
+       				<label class="i-checks">
+         			 	<input name="all" type="checkbox"><i></i>
+       				</label>
+     			</th>
+     			<!-- <th>编号</th> -->
+		        <th>公式名称</th>
+		        <!-- <th>线路</th>
+		        <th>起点</th>
+		        <th>终点</th>
+		        <th>货物</th> -->
+		        <th>结算对象</th>
+		        <th>核算主体</th>
+		        <th>下级承运方</th>
+		        <th>开始日期</th>
+		        <th>结束日期</th>
+		        <th>创建人</th>
+		        <th>创建时间</th>
+		        <th class="operation"style="width:255px">操作</th>
+   			</tr>
+ 		</thead>
+ 		<tbody>
+ 				<#if SettlementEquationPoPager?exists && SettlementEquationPoPager.rows?exists>
+ 					<#list SettlementEquationPoPager.rows as settlementEquationPo>
+ 							<tr class="table-body ">
+		     			<td style="width:40px;">
+		       				<label class="i-checks">
+	           					<input type="checkbox"><i></i>
+	         				</label>
+		     			</td>
+		     		<!-- 	<td>${(settlementEquationPo.id)!''}</td> -->
+				        <td><a onclick="detailWinShow(${settlementEquationPo.id})">${(settlementEquationPo.settlementTitle)!''}</a></td>
+				        <td>
+				        	<#if settlementEquationPo.equationMark?exists>
+					        	<#if settlementEquationPo.equationMark==1>
+					        		司机
+					        	<#else>
+					        		企业
+					        	</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+				        </td>
+				        
+				       <!--  <td>${(settlementEquationPo.lineName)!''}</td>
+				        <td>${(settlementEquationPo.startPoint)!''}</td>
+				        <td>${(settlementEquationPo.endPoint)!''}</td>
+				        <td>${(settlementEquationPo.goodsName)!''}</td> -->
+				        <td>${(settlementEquationPo.accountingEntityName)!''}</td>
+				      <td>${(settlementEquationPo.customerName)!''}</td>
+				        <!-- <td>
+				        	<#if settlementEquationPo.isAvailable?exists>
+					        	<#if settlementEquationPo.isAvailable==1>
+					        		启用
+					        	<#else>
+					        		停用
+					        	</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+				        </td> -->
+				        <td>${(settlementEquationPo.startDate)?string('yyyy-MM-dd hh:mm:ss')}</td>
+				        <td>${(settlementEquationPo.endDate)?string('yyyy-MM-dd hh:mm:ss')}</td>
+				        <td>${(settlementEquationPo.createUserName)!''}</td>
+				        <td>${(settlementEquationPo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+				        
+		     			<td>
+		          			<div class="operation-td"  formula-info-id="${(settlementEquationPo.id)!'0'}">
+		          					<#if settlementEquationPo.isAvailable==1>
+			          						<div class="modify-operation operation-m">
+							               		<div class="modify-icon"></div>
+							               		<div class="text">修改</div>
+							             	</div>
+							             	<div class="delete-operation operation-m">
+							               		<div class="delete-icon"></div>
+							               		<div class="text">删除</div>
+							             	</div>
+					          				<div class="disable-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="disable-icon"></div>
+							               		<div class="text">停用</div>
+							             	</div>
+							             	<div class="logout-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="logout-icon"></div>
+							               		<div class="text">注销</div>
+							             	</div>
+			          					<#else>
+			          						<div class="modify-operation operation-m">
+							               		<div class="modify-icon"></div>
+							               		<div class="text">修改</div>
+							             	</div>
+							             	<div class="delete-operation operation-m">
+							               		<div class="delete-icon"></div>
+							               		<div class="text">删除</div>
+							             	</div>
+							             	<div class="enabled-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="enabled-icon"></div>
+							               		<div class="text">启用</div>
+							             	</div>
+							             	<div class="logout-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="logout-icon"></div>
+							               		<div class="text">注销</div>
+							             	</div>
+			          					</#if>
+		          			</div> 
+		     			</td>
+		   			</tr>
+ 					</#list>
+ 				</#if>
+ 		</tbody>
+	</table>
+   		<div class="panel-pagination">
+      	${SettlementEquationPoPager.pageHtml}
+   	</div>
+</div>

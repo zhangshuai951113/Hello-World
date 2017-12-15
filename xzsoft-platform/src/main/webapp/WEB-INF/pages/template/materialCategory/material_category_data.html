@@ -1,0 +1,57 @@
+<div id="material-category-data">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width:40px;">
+					<input name="all-check" type="checkbox" class="all_material_category_check">
+				</th>
+				<th>物资类别编号</th>
+				<th>主物资类别编号</th>
+				<th>父物资类别编号</th>
+				<th>物资类别</th>
+				<th>物资级别</th>
+				<th class="operation" style="width:260px">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if MaterialCategoryPager?exists && MaterialCategoryPager.rows?exists>
+				<#list MaterialCategoryPager.rows as materialCategory>
+					<tr class="table-body ">
+						<td style="width:40px;">
+							<input type="checkbox" class="sub_materialCategory_check" data-id="${materialCategory.id}" >
+						</td>
+						<td>${(materialCategory.id)!''}</td>
+						<td>${(materialCategory.rootMaterialCategoryId)!''}</td>
+						<td>${(materialCategory.parentMaterialCategoryId)!''}</td>
+						<td>${(materialCategory.materialType)!''}</td>
+						<td>${(materialCategory.materialLevel)!''}</td>
+						<td>
+							<div class="operation-td" data-id="${(materialCategory.id)}" data-parentid="${(materialCategory.parentMaterialCategoryId)}">
+								<#if materialCategory.id?exists>
+									<!-- 平台超级管理员 5-->
+										<#if userRole==5>
+										<div class="add-operation operation-m">
+												<div class="add-icon"></div>
+												<div class="text">新增</div>
+											</div>
+											<div class="modify-operation operation-m">
+												<div class="modify-icon"></div>
+												<div class="text">修改</div>
+											</div>
+											<div class="delete-operation operation-m">
+							               		<div class="delete-icon"></div>
+							               		<div class="text">删除</div>
+							             	</div>
+										</#if>
+								</#if>
+							</div>
+						</td>
+					</tr>
+				</#list>
+			</#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">
+		${MaterialCategoryPager.pageHtml}
+	</div>
+</div>

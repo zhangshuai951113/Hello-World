@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>有价券供应商</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/couponSupplier/couponSupplierOperation.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <div class="search-panel row">
+		    	<form onsubmit="return false">
+				  <div class="search-from">
+				    <div class="search-row-box">
+				      <div class="both-row row">
+				        <div class="search-box">
+				          <div class="input-lable">供应商名称</div>
+				          <div class="input-text">
+				            <input  class="input" id="supplierName" name="supplierName" placeholder="供应商名称" type="text" />
+				          </div>
+				        </div>
+				        <div class="search-box">
+				          <div class="input-lable">供应商状态</div>
+				          <div class="input-text">
+				            <select id="isAvailable" name="isAvailable" class="input">
+				              <option value="">请选择</option>
+				              <option value="1">已启用</option>
+				              <option value="0">已停用</option>
+				            </select>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				   	<div class="search-button-box">
+				   		<button class="search-button" id="searchCouponSupplierInfo">
+					      	<div class="search-icon"></div>
+					      	<div class="text">查询</div>
+					    </button>
+					    <button class="search-button" type="reset" >
+					      <div class="reset-icon"></div>
+					      <div class="text">重置</div>
+					  	</button>
+				   	</div>
+				  </div>
+			    </form>
+			</div>
+			<div class="panel">	
+					<div class="operation-tab row">
+						  <button class="operation-button operation-blue" onclick="addOrEditCouponSupplierInfoPage()">
+							<div class="add-icon"></div>
+							<div class="operation-text">新增</div>
+						  </button>
+					      <button class="operation-button operation-blue" onclick="deleteCheckdCouponSupplierInfo()">
+					        <div class="delete-icon"></div>
+					        <div class="operation-text">删除</div>
+					      </button>
+					      <!-- <button class="operation-button operation-blue" onclick="operateSubCheckedCouponSupplier(0)">
+					        <div class="enable-icon"></div>
+					        <div class="operation-text">启用</div>
+					      </button>
+					      <button class="operation-button operation-blue" onclick="operateSubCheckedCouponSupplier(1)">
+					        <div class="disable-icon"></div>
+					        <div class="operation-text">停用</div>
+					      </button> -->
+					</div>
+					
+					<!-- 有价券供应商展示 -->
+					<div id="show_coupon_supplier_info"></div>
+					<!-- 启用/停用模板 -->
+					<div class="modal fede" id="disableModal" tabindex="-3" role="dialog" aria-labelledby="myOptModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+									<h4 class="modal-title" id="myOptModalLabel">
+										有价券供应商停用
+									</h4>
+								</div>
+								<div class="modal-body">
+									<div class="model-from row">
+										<div class="group-box">
+											<div id="modal_opearate_title" class="input-lable">停用原因:</div>
+											<div class="textarea-text" style="width:294px">
+												<textarea id="modal_opearate_reason" class="input" placeholder="请输入停用原因"></textarea>
+											</div>
+											<input id="modal_coupon_supplier_id" type="hidden" operate-type=" ">
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="save-button" onclick="operateSubCouponSupplier()">确认</button>
+									<button class="close-button" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			    <div class="panel-table">
+			      <table class="table-bule  table-ellipsis" style="width:100%" id="tableDrag">
+			        <thead>
+			          <tr class="table-title">
+			            <th style="width:40px;">
+			              <label class="i-checks">
+			                <input name="all" type="checkbox" class="all_coupon_supplier_check"><i></i>
+			              </label>
+			            </th>
+			            <!--  <th>供应商编号</th>-->
+			            <th>供应商名称</th>
+			            <th>供货范围</th>
+			            <th>联系人</th>
+			            <th>移动电话</th>
+			            <th>固定电话</th>
+			            <th>传真</th>
+			            <th>创建人</th>
+			            <th>创建日期</th>
+			            <th>启用状态</th>
+			            <th style="width:180px;">操作</th>
+			          </tr>
+			        </thead>
+			        <tbody id="tableList">
+			        </tbody>
+			      </table>
+			    </div>
+			    <div class="panel-pagination">
+			      <div class="panel-num" id="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			    </div>
+			</div>
+		    <main class="main">
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	  	<form id="downExampleTemplate" action="" method="post" enctype="multipart/form-data">
+		</form>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/couponSupplier/rootCouponSupplierOperate.js"></script>
+</html>

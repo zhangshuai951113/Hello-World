@@ -1,0 +1,233 @@
+.from-body {
+    margin: auto;
+    width: 840px;
+    text-align: center;
+  }
+
+  .from-both-box {
+    width: 100%;
+  }
+
+  .from-both-box:after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+
+  .from-both-box .group-box {
+    margin-top: 10px;
+    height: 30px;
+    width: auto;
+    float: left;
+    
+  }
+
+  .from-both-box .group-img {
+    margin-top: 10px;
+  }
+
+  .from-both-box .input-lable {
+    float: left;
+    color: #333333;
+    font-size: 12px;
+    margin-right: 10px;
+    width: 190px;
+    line-height: 26px;
+    text-align: right;
+    
+  }
+
+  .from-both-box .input-text {
+    width: 220px;
+    border: 1px solid #cccccc;
+    height: 28px;
+    line-height: 28px;
+    float: left;
+  }
+  .from-both-box .input{
+    border: 0;
+    outline:none;
+    height: 22px;
+    line-height: 22px;
+    width:100%;
+    text-indent: 5px;
+    font-size: 12px;
+  }
+  .err {
+    position: absolute;
+      right: -210px;
+      font-size: 12px;
+      color: #FC0200;
+      width: 200px;
+      text-align: left;
+      top: 0;
+      height: 24px;
+      line-height: 24px;
+  }
+  .from-both-box div span {
+      color: #FC0200;
+      margin-right:4px;
+  }
+  .from-both-box .group-box .radio-box {
+    margin-right: 10px;
+  }
+
+  .from-both-box .group-box .radio-icon {
+    background: #F8F8F8;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #CCCCCC;
+    border-radius: 50%;
+    margin-top: 4px;
+    padding: 3px;
+  }
+
+  .from-both-box .group-box input+ div.radio-icon .radio-point {
+    display: none;
+  }
+
+  .from-both-box .group-box .radio-text {
+    margin-left: 6px;
+    font-size: 12px;
+    color: #666666;
+    margin-top: 2px;
+  }
+
+  .from-both-box .group-box input:checked+ div.radio-icon .radio-point {
+    width: 6px;
+    height: 6px;
+    background: #666666;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .from-both-box .input-img {
+    height: 136px;
+    width: 220px;
+    float: left;
+    margin-right: 20px;
+    position: relative;
+    border: 1px solid #ccc;
+  }
+  
+  .from-both-box .input-img img {
+    width:100%;
+    height:100%;
+  }
+  .from-both-box .input-img .input {
+    position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+  }
+  .from-both-box .input-notice {
+      float: left;
+      color: #666666;
+      font-size: 12px;
+      margin-right: 10px;
+      width: 150px;
+      text-align: left;
+      line-height: 14px;
+      letter-spacing: 6px;
+      vertical-align: super;
+  }
+
+  .from-both-box .input-textarea {
+    width: 460px;
+    height: 100px;
+    border: 1px solid #cccccc;
+    float: left;
+  }
+
+  .from-both-box .group-textarea {
+    margin-top: 20px;
+  }
+
+  .from-both-box .button-box {
+    margin-top: 20px;
+  }
+
+  .from-both-box textarea {
+   width: 100%;
+    height: 100%;
+    border: 0;
+    resize: none;
+    outline: none;
+    padding: 4px;
+  }
+
+
+  .from-both-box .img-button{
+    margin-top: 53px;
+    font-size: 12px;
+    padding: 3px;
+    background: #f7f7f7;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+  }
+
+  .from-both-box .img-button:hover{
+    margin-top: 53px;
+    background: #2b84ea;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 3px;
+  }
+
+
+  .from-both-box .button {
+      background: #517fcd;
+      color: #fff;
+      border: 0;
+      font-size: 12px;
+      border-radius: 3px;
+      padding: 6px 24px;
+  }
+
+  .from-both-box .button[disabled] {
+    box-shadow: none;
+      opacity: .65;
+      cursor: not-allowed;
+      filter: alpha(opacity=65);
+  }
+
+  .button-center {
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .from-save-button {
+    background: #517fcd;
+    color: #fff;
+    border: 0;
+    font-size: 12px;
+    border-radius: 3px;
+    padding: 6px 24px;
+    margin:0 5px;
+}
+
+.from-logout-button {
+    color: #fff;
+    background: #ea342b;
+    border: none;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 3px;
+    margin:0 5px;
+}
+
+.readonly  {
+ background: #eee;
+}
+
+.from-both-box .group-box .text-content, .from-both-box .group-textarea .text-content{
+  float:left;
+  text-align: left;
+  color: #666666;
+  line-height: 24px;
+  width: 218px;
+}
+

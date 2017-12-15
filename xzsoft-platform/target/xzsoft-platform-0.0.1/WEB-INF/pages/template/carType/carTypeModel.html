@@ -1,0 +1,44 @@
+<!-- 模态框 新增车辆类型 -->
+<div id="department-data-info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="x_close()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						新增车辆类型
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="department_form">
+						<div class="dep-from-box model-from">
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>车辆类型编号：</div>
+								<div class="input-text">
+									<input id="carTypeIds" class="input"  name="carTypeId" placeholder="请输入车辆类型编号" type="text"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>车辆类型描述：</div>
+								<div class="input-text">
+									<input id="carTypeNames" class="input" name="carTypeName"  placeholder="请输入车辆类型描述" type="text"/>
+								</div>
+							</div>
+							<div class="group-box" style="height:100px;">
+								<div class="input-lable">备注：</div>
+								<div class="textarea-text">
+									<textarea class="input" placeholder="请输入车辆备注信息" name="remarks" id="remark"></textarea>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="close-button" onclick="preservation()">保存</button>
+					<button class="close-button" data-dismiss="modal" onclick="cancel()">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

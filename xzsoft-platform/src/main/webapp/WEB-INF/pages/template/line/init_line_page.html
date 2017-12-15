@@ -1,0 +1,120 @@
+<!-- 新增/修改线路模板-->
+<div id="line-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="lineModalLabel" aria-hidden="true" style="display: block">
+	  	<div class="modal-dialog modal-dialog-both">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close line-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="lineModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+		        	<form id="line_info_form">
+		        		<input id="hidden_line_info_id" type="hidden" name="lineInfoPo.id" value="${lineInfoPo.id}">
+		        		<input type="hidden" id="startCityName" name="lineInfoPo.startPointsName">
+		        		<input type="hidden" id="endCityName" name="lineInfoPo.endPointsName">
+		        		<input type="hidden" id="locationLongitudeStart" name="lineInfoPo.locationLongitudeStart" value="${lineInfoPo.locationLongitudeStart}">
+		        		<input type="hidden" id="locationLatitudeStart" name="lineInfoPo.locationLatitudeStart" value="${lineInfoPo.locationLatitudeStart}">
+		        		<input type="hidden" id="locationLongitudeEnd" name="lineInfoPo.locationLongitudeEnd" value="${lineInfoPo.locationLongitudeEnd}">
+		        		<input type="hidden" id="locationLatitudeEnd" name="lineInfoPo.locationLatitudeEnd" value="${lineInfoPo.locationLatitudeEnd}">
+		          		<div class="from-both-box">
+		            		<div class="group-box">
+		              			<div class="input-lable"><span>*</span>线路名称：</div>
+		              			<div class="input-text">
+		                			<input id="line_name" name="lineInfoPo.lineName" class="input" placeholder="请输入线路名称" type="text" value="${lineInfoPo.lineName}"/>
+		              			</div>
+		            		</div>
+		            		<div class="group-box">
+				              	<div class="input-lable"><span>*</span>在途天数：</div>
+				              	<div class="input-text">
+				                	<input id="days" name="lineInfoPo.days" class="input" placeholder="请输入在途天数" type="text" value="${lineInfoPo.days}"/>
+				              	</div>
+				            </div>
+		          		</div>
+		          		<div class="from-both-box">
+		          			<div class="group-box">
+		              			<div class="input-lable"><span>*</span>起点：</div>
+		              			<div class="address-input">
+					                 <div id="startLine" class="select-address" onclick="addLineData(this)">${lineInfoPo.startPoints}</div>
+					                 <div class="address-box">
+					                  <div class="tab-box row">
+					                      <div onclick="getProvince()" class="tab-list active">省（州）</div>
+					                      <div onclick="getCity()" class="tab-list">市</div>
+					                      <div onclick="getArea()" class="tab-list">县（区）</div>
+					                  </div>
+					                  <div class="address-content row">
+					                  </div>
+					                </div>
+					                <input id="start_points" name="lineInfoPo.startPoints" class="input"  type="hidden"/>
+					            </div>
+		              			<!--  <div class="input-text">
+		                			<input id="start_points" name="lineInfoPo.startPoints" class="input" placeholder="请输入起点" type="text" value="${lineInfoPo.startPoints}" onkeyup="searchLocation()"/>
+		              			</div>-->
+		            		</div>
+		          		</div>
+			          	<div class="from-both-box">
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>终点：</div>
+				              	<div class="address-input">
+					                 <div id="endLine" class="select-address" onclick="addLineData(this)">${lineInfoPo.endPoints}</div>
+					                 <div class="address-box">
+					                  <div class="tab-box row">
+					                      <div onclick="getProvince()" class="tab-list active">省（州）</div>
+					                      <div onclick="getCity()" class="tab-list">市</div>
+					                      <div onclick="getArea()" class="tab-list">县（区）</div>
+					                  </div>
+					                  <div class="address-content row">
+					                  </div>
+					                </div>
+					                <input id="end_points" name="lineInfoPo.endPoints" class="input" type="hidden"/>
+					            </div>
+				              	<!--  <div class="input-text">
+				                	<input id="end_points" name="lineInfoPo.endPoints" class="input" placeholder="请输入终点" type="text" value="${lineInfoPo.endPoints}"/>
+				              	</div>-->
+				            </div>
+				            
+		          		</div>
+			          
+			          	<div class="from-both-box">
+			          		<#if operateType?exists && operateType==2>
+			            	<#else>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>运距：</div>
+				              	<div class="input-text">
+				                	<input id="distance" name="lineInfoPo.distance" class="input" placeholder="请输入运距（公里）" type="text" value="${lineInfoPo.distance}"/>
+				              	</div>
+				            </div>
+				            </#if>
+				            
+				            <div class="group-box">
+				              	<div class="input-lable">路况：</div>
+				              	<div class="input-text">
+					                <select id="road_situation" name="lineInfoPo.roadSituation" class="input">
+					                  	<option value="2" <#if lineInfoPo?exists && lineInfoPo.roadSituation==2>selected</#if>>较好</option>
+					                  	<option value="1" <#if lineInfoPo?exists && lineInfoPo.roadSituation==1>selected</#if>>非常好</option>
+					                  	<option value="3" <#if lineInfoPo?exists && lineInfoPo.roadSituation==3>selected</#if>>一般</option>
+					                  	<option value="4" <#if lineInfoPo?exists && lineInfoPo.roadSituation==4>selected</#if>>不良</option>
+					                  	<option value="5" <#if lineInfoPo?exists && lineInfoPo.roadSituation==5>selected</#if>>很差</option>
+					                </select>
+				              	</div>
+			            	</div>
+			          	</div>
+		          		
+		          		<div class="from-both-box">
+		            		<div class="group-textarea">
+		              			<div class="input-lable">备注：</div>
+		              			<div class="textarea-text">
+		                			<textarea id="remark" name="lineInfoPo.remark" placeholder="请填写备注">${lineInfoPo.remark}</textarea>
+		              			</div>
+		            		</div>
+		          		</div>
+		        	</div>
+	      		</form>
+		      	<div class="modal-footer">
+		        	<button class="save-button" onclick="addOrUpdateLineInfo()">保存</button>
+		        	<button class="close-button line-opt-close" data-dismiss="modal">取消</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

@@ -1,0 +1,101 @@
+
+	<!-- 模态框 结算单影像-->
+	<div id="photo-data-info">
+		<div class="modal" id="settlementphoto_view" tabindex="-3"
+			role="dialog" aria-hidden="true" style="display:block">
+			<div class="modal-dialog" style="width:100%;height:100%">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">结算单拍照</h4>
+					</div>
+					<div class="modal-body">
+						<!-- content -->
+
+						<div class="main">
+							<div class="global-width">
+								<div class="nav1" id="nav">
+									<div class="t"></div>
+									<dl class="open">
+										<dt
+											onclick="this.parentNode.className=this.parentNode.className=='open'?'':'open';">影像管理</dt>
+										<dd>
+											<a href="javascript:go(1)" target="_self">结算单拍照</a>
+										</dd>
+
+									</dl>
+								</div>
+
+								<div class="action">
+									<div class="pages" id="pages1">
+										<div>
+											<object classid="clsid:090457CB-DF21-41EB-84BB-39AAFC9E271A"
+												id="ScanCtrl" codebase="*.cab#version=1,0,0,1" width="660"
+												height="400"></object>
+										</div>
+
+										<form>
+											<table width="90%" border="0" cellspacing="0" cellpadding="0"
+												class="addform-item">
+												<tbody>
+													<tr>
+														<td><input class="submit_01" type="button"
+															value="开始预览" onclick="start_preview()" /> <input
+															class="submit_01" type="button" value="停止预览"
+															onclick="stop_preview()" /> <!-- <input class="submit_01"
+															type="button" value="拍照" onclick="TakePic()" /> --> <input
+															class="submit_01" type="button" value="拍照"
+															onclick="ajaxSubmit2()" /> <input class="submit_01"
+															type="button" value="放大" onclick="ZoomIn()" /> <input
+															class="submit_01" type="button" value="缩小"
+															onclick="ZoomOut()" /> <input class="submit_01"
+															type="button" value="返回" onclick="returnReOrder()" /></td>
+													</tr>
+													<tr>
+														<td>分辨率：<select name="selRes" class="addform-item"
+															id="selRes" style="width: 90px"
+															onchange="changeresolution()">
+														</select> 扫描尺寸：<select id="selScanSize" style="width: 90px"
+															name="selScanSize" onchange="changescansize()"></select>
+															旋转角度：&nbsp;&nbsp;<select id="selRotate"
+															style="width: 90px" name="selRotate"
+															onchange="changerotate()"></select> <input
+															id="rotatecrop" type="checkbox" value=""
+															onclick="RotateCrop(this)" />纠偏裁边
+														</td>
+													</tr>
+													<tr>
+														<td>颜&nbsp;&nbsp;色：<select id="selColor"
+															style="width: 90px" name="selColor"
+															onchange="changecolor()"></select> 设备列表：<select
+															id="selDev" style="width: 90px" name="selDev"
+															onchange="changedev()"></td>
+													</tr>
+												</tbody>
+											</table>
+										</form>
+										
+										<div  id="disPhoto" class="from-both-box">
+											<!-- <OBJECT ID="EThumbnails"
+												CLASSID="CLSID:E8B3DD46-A440-4C3C-AB0A-DC689EEBDA84"
+												width="660" height="150"></OBJECT> -->
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectPhhot()">保存</button>
+						<button class="close-button settlementphoto-opt-close"
+							data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+

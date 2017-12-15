@@ -1,0 +1,68 @@
+<div id="bidding-info-data">
+	<table class="table-bule  table-ellipsis" style="width:100%" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width:40px;">
+					<input name="all-check" type="checkbox" class="all_check">
+				</th>
+				<th>招标序号</th>
+				<th>招标编号</th>
+				<th>招标名称</th>
+				<th>招标单位</th>
+				<th>报价截止日期</th>
+				<th>付款方式</th>
+				<th>创建人</th>
+				<th>创建时间</th>
+				<th>货物</th>
+				<th>线路</th>
+				<th>发货单位</th>
+				<th>到货单位</th>
+				<th>中标单位</th>
+				<th>总量</th>
+				<th>运距</th>
+				<th>运价</th>
+				<th>损耗比例</th>
+				<th>损耗金额</th>
+				<th>报价总额</th>
+				<th>中标金额</th>
+				<th>状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if biddingInfoPager?exists && biddingInfoPager.rows?exists>
+				<#list biddingInfoPager.rows as biddingInfoPo>
+					<tr class="table-body ">
+						<td style="width:40px;">
+							<input type="checkbox" class="sub_check" data-id="${biddingInfoPo.id}" data-status ="${biddingInfoPo.couponStatus}">
+						</td>
+						<td>${(biddingInfoPo.biddingCode)!''}</td>
+						<td>${(biddingInfoPo.biddingCodeCopy)!''}</td>
+						<td>${(biddingInfoPo.biddingName)!''}</td>
+						<td>${(biddingInfoPo.biddingOrgName)!''}</td>
+						<td><#if biddingInfoPo.quotationDeadline?exists >${(biddingInfoPo.quotationDeadline)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<!-- <td><#if biddingInfoPo.paymentMethod?exists> <#if biddingInfoPo.paymentMethod==1> 100%货到付款 <#elseif biddingInfoPo.paymentMethod==2> 预付款100%  <#elseif biddingInfoPo.paymentMethod==3> 预付10%,货到验收合格后付款80%,质保金10% <#elseif biddingInfoPo.paymentMethod==4> 预付10%,货到验收合格后付款90% </#if> </#if></td> -->
+						<td>${(biddingInfoPo.paymentMethod)!''}</td>
+						<td>${(biddingInfoPo.createUserName)!''}</td>
+						<td><#if biddingInfoPo.createTime?exists >${(biddingInfoPo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.goodsName)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.lineName)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.forwardingUnit)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.consignee)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.bidderName)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.quantity)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.distance)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.transportPrice)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.lossRatio)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.lossMoney)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.offerPrice)!''}</td>
+						<td>${(biddingInfoPo.biddingDetailInfoPo.offerPrice)!''}</td>
+						<td><#if biddingInfoPo.biddingDetailInfoPo.isConfirm?exists> <#if biddingInfoPo.biddingDetailInfoPo.isConfirm==0> 已拒绝 <#elseif biddingInfoPo.biddingDetailInfoPo.isConfirm==1> 已确认  <#else> 待确认</#if> </#if></td>
+					</tr>
+				</#list>
+			</#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">
+		${biddingInfoPager.pageHtml}
+	</div>
+</div>

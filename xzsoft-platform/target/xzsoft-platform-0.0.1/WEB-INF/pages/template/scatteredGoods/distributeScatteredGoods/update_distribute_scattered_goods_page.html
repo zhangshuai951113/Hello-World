@@ -1,0 +1,211 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeButton()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${updateDistributeScatteredGoods}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="sub_scattered_goods_form" onsubmit="return false">
+	      				<div class="from-both-box" style="height:350px">
+		        			<div class="group-box">
+			          			<div class="input-lable"><span>*</span>零散货物：</div>
+			          			<div class="input-text">
+			            			<input class="input" id="SscatteredGoods" name="waybillInfoPo.scatteredGoods"   placeholder="请输入零散货物" type="text" />
+			          			</div>
+		        			</div>
+		        			 <div class="group-box">
+				              	<div class="input-lable"><span>*</span>线路起点：</div>
+				              	<div class="address-input">
+				              		<input id="LineInfoId"  name="waybillInfoPo.lineInfoId" class="input" type="hidden" value="${lineInfoPo.endPoints}"/>
+					                <div class="select-address" id="addLineData"></div>
+					            </div>
+				              	<!--  <div class="input-text">
+				                	<input id="end_points" name="lineInfoPo.endPoints" class="input" placeholder="请输入终点" type="text" value="${lineInfoPo.endPoints}"/>
+				              	</div>-->
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>线路终点：</div>
+				              	<div class="address-input">
+				              		<input id="endPoints"  name="waybillInfoPo.endPoints" class="input" type="hidden" value="${lineInfoPo.endPoints}"/>
+					                <div class="select-address" id="endLineData"></div>
+					            </div>
+				              	<!--  <div class="input-text">
+				                	<input id="end_points" name="lineInfoPo.endPoints" class="input" placeholder="请输入终点" type="text" value="${lineInfoPo.endPoints}"/>
+				              	</div>-->
+				            </div>
+				            <div class="group-box">
+						          <div class="input-lable"><span>*</span>发布方式</div>
+						          <div class="input-text">
+						            <select id="releaseMode" name="waybillInfoPo.releaseMode" class="input" onchange="changeReleaseMode()">
+						              <option value="" selected>请选择</option>
+						              <option value="1" >发布平台</option>
+						              <option value="2" >匹配车源</option>
+						              <option value="3" >派发合作伙伴</option>
+						              <option value="4" >派发内部司机</option>
+						            </select>
+						          </div>
+					         </div>
+		        			<div class="group-box">
+					          	<div class="input-lable"><span>*</span>运距(公里)：</div>
+					          	<div class="input-text">
+					            	<input class="input" id="distance"   name="waybillInfoPo.distance"  placeholder="请输入运距" type="text"/>
+					          	</div>
+					        </div>
+		        			<div class="group-box">
+			          			<div class="input-lable"><span>*</span>计划拉运量：</div>
+			          			<div class="input-text">
+			            			<input class="input" id="planTransportAmount" name="waybillInfoPo.planTransportAmount"   placeholder="请输入计划拉运量" type="text" />
+			          			</div>
+		        			</div>
+		        			<div class="group-box">
+					          	<div class="input-lable"><span>*</span>当前运价：</div>
+					          	<div class="input-text">
+					            	<input class="input" id="currentTransportPrice"   name="waybillInfoPo.currentTransportPrice"  placeholder="请输入当前运价" type="text"/>
+					          	</div>
+					        </div>
+		        			<div class="group-box">
+			          			<div class="input-lable"><span>*</span>合理损耗比例(%)：</div>
+			          			<div class="input-text">
+			            			<input class="input" id="reasonableLossRatio" name="waybillInfoPo.reasonableLossRatio"   placeholder="请输入合理损耗比例(%)" type="text" />
+			          			</div>
+		        			</div>
+		        			<div class="group-box">
+					          	<div class="input-lable"><span>*</span>合理损耗吨位(吨)：</div>
+					          	<div class="input-text">
+					            	<input class="input" id="reasonableLossTonnage"   name="waybillInfoPo.reasonableLossTonnage"  placeholder="请输入合理损耗吨位(吨)" type="text"/>
+					          	</div>
+					        </div>
+		        			<div class="group-box">
+			          			<div class="input-lable"><span>*</span>损耗扣款价格(元)：</div>
+			          			<div class="input-text">
+			            			<input class="input" id="lossDeductionPrice" name="waybillInfoPo.lossDeductionPrice"   placeholder="请输入损耗扣款价格(元)" type="text" />
+			          			</div>
+		        			</div>
+		        			<div class="group-box">
+			          			<div class="input-lable"><span>*</span>发货单位：</div>
+			          			<div class="input-text">
+			            			<input class="input" id="SforwardingUnit" name="waybillInfoPo.forwardingUnit"   placeholder="请输入发货单位" type="text" />
+			          			</div>
+		        			</div>
+		        			<div class="group-box">
+					          	<div class="input-lable"><span>*</span>到货单位：</div>
+					          	<div class="input-text">
+					            	<input class="input" id="Sconsignee"   name="waybillInfoPo.consignee"  placeholder="请输入到货单位" type="text"/>
+					          	</div>
+					        </div>
+					        
+					        <div id="cautionMoneyDiv" class="group-box">
+			          			<div class="input-lable"><span>*</span>保证金金额(元)：</div>
+			          			<div class="input-text">
+			            			<input class="input" id="cautionMoney" name="waybillInfoPo.cautionMoney"   placeholder="请输入保证金金额(元)"/>
+			          			</div>
+		        			</div>
+		        			<div id="advanceChargeDiv" class="group-box">
+					          	<div class="input-lable"><span>*</span>预付款金额(元)：</div>
+					          	<div class="input-text">
+					            	<input class="input" id="advanceCharge"   name="waybillInfoPo.advanceCharge"  placeholder="请输入预付款金额(元)"/>
+					          	</div>
+					        </div>
+					        <div id="offerEndDate" class="group-box">
+			          			<div class="input-lable"><span>*</span>报价截止日期：</div>
+			          			<div class="input-text money-input">
+									<input id="SofferEndDate" class="input date-time" type="text" name="offerEndDate" placeholder="请输入报价截止日期"/>
+								</div>
+		        			</div>
+	      					<div class="group-box">
+					          	<div class="input-lable"><span>*</span>计划拉运日期:</div>
+								<div class="input-text money-input">
+									<input id="planTransportDate" class="input date-time" type="text" name="planTransportDate" placeholder="请选择计划拉运日期"/>
+								</div>
+					        </div>
+					        <div class="group-box">
+					          <div class="input-lable"><span>*</span>计量单位</div>
+					          <div class="input-text">
+					            <select id="units" name="waybillInfoPo.units" class="input">
+					              <option value="" selected>请选择</option>
+					              <#if goodsUnitsList?exists>
+					              	<#list goodsUnitsList as goodsUnits>
+					              		<option value="${goodsUnits.code}">${goodsUnits.desc}</option>
+					              	</#list>
+					              </#if>
+					            </select>
+					          </div>
+					        </div>
+	      					<div class="group-box">
+					          <div class="input-lable"><span>*</span>计算方式</div>
+					          <div class="input-text">
+						            <select id="computeMode" name="waybillInfoPo.computeMode" class="input">
+					              <option value="" selected>请选择</option>
+					              <option value="1" >发货吨位</option>
+					              <option value="2" >到货吨位</option>
+					              <option value="3" >最小吨位</option>
+					            </select>
+					          </div>
+					        </div>
+					        <div class="group-box">
+					          <div class="input-lable"><span>*</span>定损方式</div>
+					          <div class="input-text">
+						            <select id="deductionMode" name="waybillInfoPo.deductionMode" class="input">
+					              <option value="" selected>请选择</option>
+					              <option value="1" >比例</option>
+					              <option value="2" >吨位</option>
+					            </select>
+					          </div>
+					        </div>
+	      					
+						     <div class="group-box">
+						          <div class="input-lable"><span>*</span>是否倒扣</div>
+						          <div class="input-text">
+						            <select id="isInvert" name="waybillInfoPo.isInvert" class="input">
+						              <option value="" selected>请选择</option>
+						              <option value="0" >否</option>
+						              <option value="1" >是</option>
+						            </select>
+						          </div>
+						      </div>
+			        		  <div class="group-box" id="checkedEntrustBox">
+			          			<div class="input-lable"><span>*</span>委托方：</div>
+			          			<div class="input-text">
+			            			<input class="input"  id="Entrust"  placeholder="请选择委托方信息" type="text" onfocus="addEntrustMationModel()"/>
+			          			</div>
+		        			</div>
+		        			<div class="group-box" id="shipperName">
+			          			<div class="input-lable"><span>*</span>承运方：</div>
+			          			<div class="input-text">
+			            			<input class="input"  id="CshipperName"  placeholder="请选择承运方信息" type="text" onclick="addShipperModel(this)"/>
+			          			</div>
+		        			</div>
+		        			
+		        			
+		        			
+		        			<input class="input" name="waybillInfoPo.lineInfoId" id="LineInfoId" type="hidden"/>
+		        			<input id="sIds" type="hidden" name="waybillInfoPo.id">
+	      		            <input id="rootIds" type="hidden" name="waybillInfoPo.rootWaybillInfoId">
+	      		            <input class="input" name="waybillInfoPo.shipperOrgRoot" id="shipperOrgRoot" type="hidden"/><!-- 承运方主机构 -->
+		        			<input class="input" name="waybillInfoPo.entrust" id="Eentrust" type="hidden"/><!-- 委托方 -->
+		        			<input class="input" name="shipper" id="Cshipper" type="hidden"/><!-- 承运方 -->
+		        			<input class="input" name="userInfoId" id="userInfoId" type="hidden"/><!-- 司机编号 -->
+		        			<input class="input" name="carCode" id="carCode" type="hidden"/><!-- 车牌号 -->
+		        			<input class="input" name="role" id="role" type="hidden"/><!-- 角色信息 -->
+	      				</div>
+		    		</form>
+					<div id="enterprise-tab" class="tab-content"></div>
+					<div id="find_entrust_info_model"></div>
+					<div id="find_car_source_model"></div>
+					<div id="find_partner_info_temp_model"></div>
+					<div id="find_internal_driver_model"></div>
+				</div>
+				<div class="modal-footer">
+			       <button class="from-save-button" onclick="updateDistributeScatteredGoodsBtn()">保存</button>
+				   <button class="from-save-button"  onclick="closeButton()">返回</button>
+			    </div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

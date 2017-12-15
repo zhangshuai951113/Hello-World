@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>权限分配</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<script src="http://www.jq22.com/jquery/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/codeManager/codeManager.js"></script> 
+
+
+<style type="text/css">
+.operation-button .add-icon,
+.operation-button .delete-icon,
+.operation-button .modify-icon,
+.operation-button .authorization-icon{
+	margin-top: 7px;
+}
+.maincontent{
+	overflow-x: hidden;
+}
+.fixed-table-container{
+	width: 500px;
+}
+.jqx-widget-header{
+	background: #9dc6dd;
+	color: #fff;
+}
+.fixed-table-container thead th .th-inner, .fixed-table-container tbody td .th-inner{
+	padding: 4px;
+}
+table thead th{
+	background: #9dc6dd;
+	color: #fff;
+}
+.fixed-table-toolbar:after{
+	content: '';
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+.pull-right.search{
+	float: left !important;
+    margin-left: 44px;
+}
+.operation-button{
+	margin-left: 0;
+	margin-right: 10px;
+}
+    .table-bule .table-title th{
+        border-top: 1px solid #3c8dbc;
+        border-bottom: 1px solid #3c8dbc;
+        border-left: 1px solid #3c8dbc;
+        border-right:0;
+    }
+    .table-bule .table-title tr{
+        border-top: 1px solid #3c8dbc;
+        border-bottom: 1px solid #3c8dbc;
+        border-left: 1px solid #3c8dbc;
+        border-right:0;
+    }
+    .table-bule .table-body td{
+       border:1px solid #ccc;
+       border-top:0;
+       border-right:0;
+    }
+    .Popup{
+      width:100%;
+      height: 100%;
+      position: absolute;
+      top: 0%;
+      background:rgba(0,0,0,0.4); 
+      display: none;
+    }
+    .modify{
+      width:100%;
+      height: 100%;
+      position: absolute;
+      top: 0%;
+      background:rgba(0,0,0,0.4); 
+      display: none;
+    }
+    .popup_box,.modify_box{
+      width:500px;
+      height:240px;
+      position: absolute;
+      top: 50%;
+      left:50%;
+      margin: -120px 0 0 -250px;
+      background:#fff;
+    }
+    .popup_box_header,.modify_box_header{
+      width:100%;
+      height: 32px;
+      float: left;
+      background: #2B84EA;
+    }
+    .left,.modify_left{
+      margin-left: 10px;
+      float: left;
+      line-height: 32px;
+      font-size: 12px;
+      color:#fff;
+    }
+    .right,.modify_right{
+      background: url(images/common/mode-close.png) no-repeat center;
+      height:32px;
+      width: 32px;
+      float: right;
+      top: 0;
+      cursor: pointer;
+    }
+    .group-box,.modify_group-box{
+      width: 465px;
+      float:left;
+      height: 26px;
+      margin-top: 15px;
+      margin-left: 50px;
+    }
+    .input-lable{
+      float: left;
+      color: #333333;
+      font-size: 12px;
+      margin-right: 10px;
+      width: 150px;
+      text-align: right;
+      line-height: 26px;
+    }
+    .popup_box input{
+       border: 0;
+      outline: none;
+      height: 100%;
+      width: 100%;
+      text-indent: 5px;
+      font-size: 12px;  
+      height: 24px;
+    }
+    .modify_group-box input{
+       border: 0;
+      outline: none;
+      height: 100%;
+      width: 100%;
+      text-indent: 5px;
+      font-size: 12px;  
+      height: 24px;
+    }
+    .popup_box span{
+      color: #FC0200;
+      margin-right: 4px;
+    }
+    .input-text{
+      width: 218px;
+      border: 1px solid #cccccc;
+      height: inherit;
+      float: left;
+      position: relative
+    }
+    .group-first{
+      width:200px;
+      height: 30px;
+      float: right;
+      margin-top: 30px;
+      margin-right: 30px;
+    }
+    .btn-bc,.modify_btn-bc{
+      background: #2b84ea;
+      color: #ffffff;
+      border: none;
+      font-size: 12px;
+      padding: 5px 11px;
+      margin-left: 5px;
+      margin-right: 5px;
+      float: right;
+    }
+    .btn-qx,.modify_btn-qx{
+      background: #f8f8f8;
+      color: #666666;
+      border: 1px solid #cccccc;
+      font-size: 12px;
+      padding: 5px 11px;
+      margin-left: 5px;
+      margin-right: 5px;
+      float: right;
+    }
+    .rights{
+      width:68%;
+      float: right;
+    }
+    .left{
+      width: 30%;
+      float: left;
+    }
+    .pagination-input input{
+      height: 16px;
+    }
+    .modify_right{
+    	color:#fff;
+    	TEXT-ALIGN: CENTER;
+	    LINE-HEIGHT: 32PX;
+	    FONT-SIZE: 16PX;
+    }
+    .modify_left{
+    	color:#fff;
+    	TEXT-ALIGN: CENTER;
+	    LINE-HEIGHT: 32PX;
+	    FONT-SIZE: 16PX;
+    }
+</style>
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+  	<div class="main-body">
+   	<#include "../../common/common_menu.html" />
+    <!-- 内容 -->
+ 		<div class="search-panel row">
+  <div class="search-from" style="width: 982px;">
+    <div class="search-row-box">
+      <div class="both-row row">
+        <div class="search-box">
+          <div class="input-lable">项目名称</div>
+          <div class="input-text">
+            <input class="input" placeholder="请输入项目名称" id="itemName"  type="text" />
+          </div>
+        </div>
+        <div class="search-box">
+          <div class="input-lable">项目编码</div>
+          <div class="input-text">
+            <input class="input" placeholder="请输入项目编码" id="localName" type="text" />
+          </div>
+        </div>
+      </div>
+    </div>
+              <button class="search-button" style="margin: 10px 15px;margin-left:320px;" onclick="searchManagerList()">
+                <div class="search-icon"></div>
+                <div class="text" >查询</div>
+              </button>
+              <button class="search-button" type="reset" id="Reset">
+                <div class="reset-icon"></div>
+                <div class="text" onclick="reset()">重置</div>
+              </button>
+  </div>
+</div>
+<div class="panel"> 
+ <div class="left">
+     <div class="panel-table" style="padding:30px;margin-top: 27px;">
+      <table class="table-bule" style="border-spacing: 0px;">
+        <thead>
+          <tr class="table-title">
+            <th style="width:20px;">
+              <label class="i-checks">
+              </label>
+            </th>
+            <th style="border-right:1px solid #3c8dbc;">项目类别</th>
+          </tr>
+        </thead>
+        <tbody id="subjectList">
+         
+        </tbody>
+      </table>
+    </div>
+ </div>
+
+ <div class="rights">
+    <div class="operation-tab row" style="margin-top:25px;padding-right: 33px;">
+      <button class="operation-button operation-blue" onclick="addManager()">
+        <div  class="add-icon"></div>
+        <div  class="operation-text" >新增</div>
+      </button>
+      <button class="operation-button operation-blue" onclick="">
+        <div  class="delete-icon"></div>
+        <div  class="operation-text" onclick="deleteManager()">删除</div>
+      </button>
+    </div>
+    <div class="panel-table" style="padding:30px">
+      <table class="table-bule" style="border-spacing: 0px;">
+        <thead>
+          <tr class="table-title">
+            <th style="width:20px;">
+              <label class="i-checks">
+                <input name="all" id="all-checkbox" type="checkbox"><i></i>
+              </label>
+            </th>
+            <th>项目类别</th>
+            <th>项目名称</th>
+            <th>物流平台名称</th>
+            <th>项目编码</th>
+            <th style="min-width: 170px;border-right:1px solid #3c8dbc">操作</th>
+          </tr>
+        </thead>
+        <tbody id="codeManagerList">
+         
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-pagination" style="margin-top: 0">
+      <div class="panel-num" id="panel-num-manager"></div>
+      <div class="pagination-list-manager" ></div>
+      <div class="pagination-input">到
+        <input type="text" />页</div>
+      <div class="pagination-button" onclick="carJumpPage(this)">确定</div>
+    </div>
+  </div>
+</div>
+<!-- 弹窗框 -->
+  <div class="Popup" id="add_modify">
+      <div class="popup_box">
+          <div class="popup_box_header">
+              <div class="left">
+                  新增
+              </div>
+              <div class="right modify_left" onclick="cancel()">X</div>
+          </div>
+          <div class="group-box">
+              <div class="input-lable"><span>*</span>项目名称</div>
+              <div class="input-text">
+                <input id="itemNameAdd" class="input" placeholder="项目名称" type="text" value="" >
+                <input name="partner_info_partner_code"  type="hidden" value="">
+                <div class="select-list">
+                  <ul id="searchList"></ul>
+                </div>
+              </div>
+          </div>
+          <div class="group-box">
+              <div class="input-lable"><span>*</span>物流平台名称</div>
+              <div class="input-text">
+                <input id="localNameAdd" class="input" placeholder="物流平台名称" type="text" value="" >
+                <input name="partner_info_partner_code"  type="hidden" value="">
+                <div class="select-list">
+                  <ul id="searchList"></ul>
+                </div>
+              </div>
+          </div>
+          <div class="group-box">
+              <div class="input-lable"><span>*</span>项目编号</div>
+              <div class="input-text">
+                <input id="itemCodeAdd" class="input" placeholder="项目编号" type="text" value="" >
+                <input name="partner_info_partner_code"  type="hidden" value="">
+                <div class="select-list">
+                  <ul id="searchList"></ul>
+                </div>
+              </div>
+          </div>
+          
+           <div class="group-first">
+              <button class="btn-qx"   onclick="cancel()">取消</button>
+               <button class="btn-bc"  onclick="save()">保存</button>
+          </div>
+      </div>
+  </div>
+<!-- 弹出框结束 -->
+<!-- 修改弹窗框 -->
+  <div class="modify" id="update_modify">
+      <div class="modify_box">
+          <div class="modify_box_header">
+              <div class="modify_left">
+                	  修改
+              </div>
+              <div class="modify_right" onclick="cancel()">X</div>
+          </div>
+          <div class="modify_group-box">
+              <div class="input-lable"><span>*</span>项目名称</div>
+              <div class="input-text">
+                <input id="itemNameUpdate" class="input" placeholder="项目名称" type="text" value="" >
+                <input name="partner_info_partner_code"  type="hidden" value="">
+                <div class="select-list">
+                  <ul id="searchList"></ul>
+                </div>
+              </div>
+          </div>
+          <div class="modify_group-box">
+              <div class="input-lable"><span>*</span>物流平台名称</div>
+              <div class="input-text">
+                <input  id="localNameUpdate" class="input" placeholder="物流平台名称" type="text" value="" >
+                <input name="partner_info_partner_code" type="hidden" value="">
+                <div class="select-list">
+                  <ul id="searchList"></ul>
+                </div>
+              </div>
+          </div>
+          <div class="modify_group-box">
+              <div class="input-lable"><span>*</span>项目编号</div>
+              <div class="input-text">
+                <input id="itemCodeUpdate"  class="input" placeholder="项目编号" type="text" value="" >
+                <input name="partner_info_partner_code" type="hidden" value="">
+                <div class="select-list">
+                  <ul id="searchList"></ul>
+                </div>
+              </div>
+          </div>
+          
+           <div class="group-first">
+              <button class="modify_btn-qx" onclick="cancel()">取消</button>
+              <button class="modify_btn-bc" onclick="update()">保存</button>
+          </div>
+      </div>
+  </div>
+	</div>
+	
+</body>
+	<#include "../../common/common_footer.html" />
+	 <script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script> 
+<script>
+//修改传入ID
+  var updateTemp
+  var searchManagerTemp;
+  var currenTemp=1;
+  var rows=10
+  var managerCount=0
+  var pagination;
+ /**
+ * 页面跳转
+ */
+ $(function(){
+	 ManagerCount();
+	 pagination = $(".pagination-list-manager").operationList({
+		    "current":currenTemp,    //当前目标
+		    "maxSize":1,  //前后最大列表
+		    "itemPage":10,  //每页显示多少条
+		    "totalItems":managerCount,  //总条数
+		    "chagePage":function(current){
+		    	currenTemp=current
+		    	searchManagerList()
+		      //调用ajax请求拿最新数据
+		    }
+		  														 });
+	  searchManagerList()
+	  subjectList();
+	 		  })
+  function reset(){
+	 $("#itemName").val("")
+	  $("#localName").val("")
+ 				   }
+  function jumpPage(e) {
+    var value = $(e).prev().find('input').val();
+    pagination.setCurrentPage(value);
+  }
+
+//关闭事件
+  function saveProject() {
+    $("#addProjectModal").modal("hide");
+  }
+  $("#all-checkbox").click(function(){   
+	    if(this.checked){   
+	        $("td :checkbox").prop("checked", true);  
+	    }else{   
+		$("td :checkbox").prop("checked", false);
+	    }   
+		});
+  
+</script>
+</html>

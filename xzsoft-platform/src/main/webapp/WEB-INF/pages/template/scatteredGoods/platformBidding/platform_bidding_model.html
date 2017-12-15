@@ -1,0 +1,61 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:96%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closePBButton()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${checkPlatformBidding}
+					</h4>
+				</div>
+				<!-- 隐藏零散货物ID -->
+				<input id="PBid" type="hidden">
+				<div class="modal-body">
+					<!-- 表格 -->
+					<div id="show_goods_info"></div>
+					<div class="modal-table">
+					    <table class="table-bule">
+					      <thead>
+					        <tr class="table-title">
+					         <th  class="check" style="width:40px"></th>
+				              <!-- <th>报价编号</th>
+				              <th>主机构名称</th> -->
+				              <th>报价方</th>
+				              <th>报价(元)</th>
+					          <th>报价方用户角色</th>
+					          <th>报价位置</th>
+				              <th>信用等级</th>
+					          <th>附件</th>
+					          <th>报价时间</th>
+					      </thead>
+					      <tbody id="platformBiddingTBody">
+					       
+					      </tbody>
+					    </table>
+		 				<!-- 分页 -->
+		 				<div class="row">
+		 					<div class="panel-pagination">
+							      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+							      <div class="pagination-list"></div>
+							      <div class="pagination-input">到
+							        <input type="text" />页</div>
+							      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+							</div> 
+		 				</div>
+					</div>
+					<div id="find_contract_info_model"></div>
+				</div>
+				<div class="modal-footer">
+			        <button class="save-button" onclick="submitPBMation()">保存</button>
+			        <button class="close-button"  onclick="closePBButton()">取消</button>
+			    </div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+	<form id="form_offer" action="" method="post" target="_blank">
+	  		<input id="hidden_offer_id" type="hidden" name="offerId">
+	</form>
+	<script type="text/javascript" src="${basePath}/static/js/scatteredGoods/platformBidding/findPlatformBiddingModel.js"></script>

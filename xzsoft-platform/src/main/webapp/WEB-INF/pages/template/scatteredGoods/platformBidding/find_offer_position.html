@@ -1,0 +1,31 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+		#allmap{height:500px;width:100%;}
+		#r-result{width:100%; font-size:14px;}
+		
+		.BMap_cpyCtrl
+	{
+		display:none; 
+	}
+	.anchorBL{
+		display:none; 
+	} 
+		
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=Xc8lza7ERNETTqFleI25d7nAlv1y85tn"></script>
+	<title>报价方定位</title>
+</head>
+<body>
+	<div id="allmap"></div>
+	<div id="r-result">
+		<input id="longitude" value="${locationLongitude}" type="hidden" />
+		<input id="latitude" value="${locationLatitude}"  type="hidden"/>
+	</div>
+</body>
+<script type="text/javascript" src="${basePath}/static/js/common/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/scatteredGoods/platformBidding/findOfferPosition.js"></script>
+ </html>

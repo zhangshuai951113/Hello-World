@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>车源信息管理</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href=" ${basePath}/static/css/common/select-line.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--车源信息管理模板-->
+				<div class="car-source-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+							<div class="search-from" >
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">车牌号码</div>
+											<div class="input-text">
+												<input id="s_car_code" class="input" placeholder="请输入车牌号码" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">发布方</div>
+											<div class="input-text">
+												<input id="s_release_person" class="input" placeholder="请输入发布方" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">车辆类型</div>
+											<div class="input-text">
+											<select id="s_car_type" class="input">
+												<option value="">请选择</option>
+												<#if carTypeList?exists> <#list carTypeList as carTypeInfo>
+												<option value="${carTypeInfo.id}">${carTypeInfo.carTypeName}</option>
+												</#list> </#if>
+											</select>
+											</div>
+										</div>
+										<div class="search-box">
+								            <div class="input-lable">发布日期</div>
+								            <div class="input-text time-input">
+								              <input class="input date-time" id="release_time_start" name="releaseTimeStart" placeholder="" type="text" />
+								            </div>
+								              <div class="input-line">—</div>
+								            <div class="input-text time-input">
+								              <input class="input date-time" id="release_time_end" name="releaseTimeEnd" placeholder="" type="text" />
+								            </div>
+								          </div>
+										
+										<div class="search-box">
+											<div class="input-lable">车源状态</div>
+											<div class="input-text">
+												<select id="car_source_status" class="input">
+													<option value="">请选择</option>
+													<option value="1">已发布</option>
+													<option value="2">已撤回</option>
+												</select>
+											</div>
+										</div>
+										<div class="search-box" style="width:320px"></div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchCarSourceInfo(1)">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">	
+						<div class="row">
+							<div class="operation-tab row">
+					      		<button class="operation-button operation-blue" onclick="addOrEditCarSourceInfoPage()">
+						          <div class="add-icon"></div>
+						          <div class="operation-text">新增</div>
+						        </button>
+						        <button class="operation-button operation-blue" onclick="operateCheckedCarSource(1)">
+									<div class="release-icon"></div>
+									<div class="operation-text">发布</div>
+								</button>
+						        <button class="operation-button operation-blue" onclick="operateCheckedCarSource(2)">
+									<div class="withdraw-icon"></div>
+									<div class="operation-text">撤回</div>
+								</button>
+						        <button class="operation-button operation-blue" onclick="deleteCheckedCarSource()">
+						          <div class="delete-icon"></div>
+						          <div class="operation-text">删除</div>
+						        </button>
+							</div>
+						</div>
+						
+						<div id="search-car-source-info" class="panel-table">
+						</div>
+					</div>
+					
+					<!-- 新增/编辑车源信息管理 -->
+					<div id="show_car_source_info"></div>
+					
+					<!-- 新增/编辑车辆信息管理 -->
+					<div id="show_car_info"></div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/carSource/carSourceManage.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/carSource/carSearch.js"></script>
+</html>

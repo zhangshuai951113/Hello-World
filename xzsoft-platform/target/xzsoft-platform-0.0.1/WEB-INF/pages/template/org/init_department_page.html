@@ -1,0 +1,68 @@
+<!-- 模态框 新增/编辑部门 -->
+<div id="department-data-info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close department-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${operateTitle}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="department_form">
+					<input type="hidden" name="orgInfoPo.id" value="${orgDetailInfo.orgInfoId}">
+					<div class="dep-from-box model-from">
+						<div class="group-box row">
+						<div class="input-lable"><span>*</span>部门名称：</div>
+						<div class="input-text">
+							<input id="department_org_name" class="input"  name="orgDetailInfoPo.orgName" placeholder="请输入部门名称" type="text" value="${orgDetailInfo.orgName}"/>
+						</div>
+						</div>
+						<div class="group-box row">
+							<div class="input-lable"><span>*</span>所属组织：</div>
+							<div class="input-text">
+								<select id="department_parent_org_info_id" class="input" name="orgInfoPo.parentOrgInfoId">
+									<option value="">请选择</option>
+									<#if parentOrgInfoList?exists>
+										<#list parentOrgInfoList as parentOrg>
+											<#if parentOrg.id==orgDetailInfo.parentOrgInfoId>
+												<option value="${parentOrg.id}" selected>${parentOrg.orgName}</option>
+											<#else>
+												<option value="${parentOrg.id}">${parentOrg.orgName}</option>
+											</#if>
+										</#list>
+									</#if>
+								</select>
+							</div>
+						</div>
+						<div class="group-box row">
+							<div class="input-lable">联系人：</div>
+							<div class="input-text">
+								<input id="department_contact_name" class="input" name="orgDetailInfoPo.contactName"  placeholder="请输入联系人" type="text" value="${orgDetailInfo.contactName}"/>
+							</div>
+						</div>
+						<div class="group-box row">
+							<div class="input-lable">移动电话：</div>
+							<div class="input-text">
+								<input id="department_mobile_phone" class="input" name="orgDetailInfoPo.mobilePhone"  placeholder="请输入移动电话" type="text" value="${orgDetailInfo.mobilePhone}"/>
+							</div>
+						</div>
+						<div class="group-box row">
+							<div class="input-lable">固定电话：</div>
+							<div class="input-text">
+								<input id="department_telephone" class="input" name="orgDetailInfoPo.telephone"  placeholder="请输入固定电话" type="text" value="${orgDetailInfo.telephone}"/>
+							</div>
+						</div>  
+					</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="close-button" onclick="saveDepartmentOpt()">保存</button>
+					<button class="close-button department-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

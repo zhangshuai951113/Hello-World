@@ -1,0 +1,69 @@
+<div id="out_car_info">
+	<table class="table-bule">
+		<thead>
+        	<tr class="table-title">
+	            <th>车牌号码</th>
+	            <th>号牌类型</th>
+	            <th>车辆类型</th>
+	            <th>车辆品牌</th>
+	            <th>核定载重量</th>
+	            <th>司机姓名</th>
+	            <th>司机电话</th>
+	            <th>燃料种类</th>
+	            <th>车辆营运状态</th>
+          	</tr>
+        </thead>
+        <tbody>
+        	<#if carInfoPager?exists && carInfoPager.rows?exists>
+        		<#list carInfoPager.rows as carInfo>
+		          	<tr class="table-body ">
+			            <td>${(carInfo.carCode)!''}</td>
+			            <td>
+			            	<#if carInfo.carCodeType?exists>
+			            		<#if carInfo.carCodeType==1>
+			            		大型汽车
+			            		<#elseif carInfo.carCodeType==2>
+			            		小型汽车
+			            		<#else>
+			            		其他
+			            		</#if>
+			            	</#if>
+			            </td>
+			            <td>${(carInfo.carTypeName)!''}</td>
+			            <td>${(carInfo.brandName)!''}</td>
+			            <td>${(carInfo.checkLoad)!''}</td>
+			            <td>${(carInfo.driverName)!''}</td>
+			            <td>${(carInfo.mobilePhone)!''}</td>
+			            <td>
+			            	<#if carInfo.fuelType?exists>
+			            		<#if carInfo.fuelType==1>
+			            		汽油
+			            		<#elseif carInfo.fuelType==2>
+			            		柴油
+			            		<#elseif carInfo.fuelType==3>
+			            		天燃气
+			            		<#elseif carInfo.fuelType==4>
+			            		液化气
+			            		</#if>
+			            	</#if>
+			            </td>
+			            <td>
+			            	<#if carInfo.operationStatus?exists>
+			            		<#if carInfo.operationStatus==1>
+			            		空车可用
+			            		<#elseif carInfo.operationStatus==2>
+			            		满载在途
+			            		<#else>
+			            		停运
+			            		</#if>
+			            	</#if>
+			            </td>
+		       		</tr>
+        		</#list>
+        	</#if>
+    	</tbody>
+	</table>
+	<div class="panel-pagination">
+      	${carInfoPager.pageHtml}
+   	</div>
+</div>

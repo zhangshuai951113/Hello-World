@@ -1,0 +1,93 @@
+<div id="partner_info">
+	<table  width="100%"  class="table-bule table-ellipsis" id="tableDrag">
+		<thead>
+        	<tr class="table-title">
+	            <th style="width:40px;">
+	              	<label class="i-checks">
+	                	<input name="all" type="checkbox"><i></i>
+	              	</label>
+	            </th>
+	            <th>合作伙伴</th>
+	            <th>合作伙伴角色</th>
+	            <th>业务类型</th>
+	            <th>启用状态</th>
+	            <!-- <th>备注</th> -->
+	            <th style="min-width: 170px;">操作</th>
+          	</tr>
+        </thead>
+        <tbody>
+        	<#if partnerInfoPager?exists && partnerInfoPager.rows?exists>
+        		<#list partnerInfoPager.rows as partnerInfo>
+		          	<tr class="table-body ">
+			            <td>
+			              	<label class="i-checks">
+			                	<input name="check-box" type="checkbox"><i></i>
+			              	</label>
+			            </td>
+			            <td>${(partnerInfo.partnerName)!''}</td>
+			            <td>
+			            	<#if partnerInfo.partnerRole?exists>
+			            		<#if partnerInfo.partnerRole==1>
+			            			企业货主
+			            		<#elseif partnerInfo.partnerRole==2>
+			            			物流公司
+			            		<#elseif partnerInfo.partnerRole==3>
+			            			个体货主
+			            		<#elseif partnerInfo.partnerRole==4>
+			            			司机
+			            		<#else>		
+			            			未知角色
+			            		</#if>
+			            	</#if>
+			            </td>
+			            <td>
+			            	<#if partnerInfo.businessType?exists>
+			            		<#if partnerInfo.businessType==1>
+			            			运输
+			            		<#elseif partnerInfo.businessType==2>
+			            			采购
+			            		<#elseif partnerInfo.businessType==3>
+			            			结算
+			            		<#else>		
+			            			其他
+			            		</#if>
+			            	</#if>
+			            </td>
+			            <td>
+			            	<#if partnerInfo.isAvailable?exists>
+			            		<#if partnerInfo.isAvailable==0>
+			            			已停用
+			            		<#elseif partnerInfo.isAvailable==1>
+			            			已启用
+			            		<#else>		
+			            			未知状态
+			            		</#if>
+			            	</#if>
+			           	</td>
+			            <!-- <td>${(partnerInfo.remarks)!''}</th> -->
+			            <td>
+			              	<div class="operation-td" data-id="${partnerInfo.id}">
+			              		<#if partnerInfo.isAvailable?exists>
+				            		<#if partnerInfo.isAvailable==0>
+					            		<div class="enabled-operation enable-partner operation-m">
+								          <div class="enabled-icon"></div>
+								          <div class="text">启用</div>
+								        </div>
+				            		<#elseif partnerInfo.isAvailable==1>
+								        <div class="disable-operation disable-partner operation-m">
+								          <div class="disable-icon"></div>
+								          <div class="text">停用</div>
+								        </div>
+				            		</#if>
+			            		</#if>
+			              	</div>
+			            </td>
+		       		</tr>
+        		</#list>
+        	</#if>
+    	</tbody>
+	</table>
+	<div class="panel-pagination">
+      	${partnerInfoPager.pageHtml}
+   	</div>
+</div>

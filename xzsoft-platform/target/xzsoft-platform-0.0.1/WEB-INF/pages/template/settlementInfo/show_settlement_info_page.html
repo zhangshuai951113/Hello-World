@@ -1,0 +1,234 @@
+<div id="settlement-data-info" >
+<div class="modal" tabindex="-2" role="dialog" aria-labelledby="contractModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+        <div type="button" class="mode-close settlement-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="contractModalLabel">结算审核</h4>
+				</div>
+				<div class="modal-body">
+					<form id="contract_info_form">
+						<input id="hidden_contract_id" type="hidden" name="contractInfo.id" value="${contractInfo.id}">
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									发货单位：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${settlementInfo.forwardingUnit}" readonly="readonly" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									收货单位：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.consignee}" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+
+							<div class="group-box">
+								<div class="input-lable">
+									发货吨位：
+								</div>
+								<div class="input-text">
+									<input   class="input"  readonly="readonly" type="text" value="${settlementInfo.forwardingTonnage}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									到货吨位：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.arriveTonnage}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									发货日期：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${(settlementInfo.forwardingTime)?string('yyyy-MM-dd HH:mm:ss')}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									到货日期：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${(settlementInfo.arriveTime)?string('yyyy-MM-dd HH:mm:ss')}" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									车牌号：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${settlementInfo.carCode}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									核算主体:
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.accountingEntityName}" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									货物：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.goodsName}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									发货单号：
+								</div>
+								<div class="input-text">
+									<input class="input" readonly="readonly"  type="text" value="${settlementInfo.forwardingId}" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">到货单号：</div>
+								<div class="input-text">
+									<input class="input" readonly="readonly"  type="text" value="${settlementInfo.arriveId}" /> 
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									运输单价：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.currentTransportPrice}" />
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">扣损金额：</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${settlementInfo.deductionPrice}" /> 
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									其他扣款：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.otherTaxPrice}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">应付运费：</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${settlementInfo.payablePrice}" /> 
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									其他税费：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.otherTaxPrice}" />
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">运费成本：</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${settlementInfo.transportPriceCost}" /> 
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									进项税：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.incomeTax}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">工本费：</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${settlementInfo.costPrice}" /> 
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									公路通行费：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.highwayToll}" />
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">高速公路通行费：</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${settlementInfo.superHighwayToll}" /> 
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									其他通行费：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.otherToll}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">公路进项税：</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly"  type="text" value="${settlementInfo.highwayInputTax}" /> 
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									高速公路进项税：
+								</div>
+								<div class="input-text">
+									<input  class="input" readonly="readonly" type="text" value="${settlementInfo.superHighwayInputTax}" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="from-both-box">
+							<div class="group-textarea">
+								<div class="input-lable">备注：</div>
+								<div class="textarea-text">
+									<textarea id="remartks" name="contractInfo.remarks" readonly="readonly" >${settlementInfo.remarks}</textarea>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="auditSettlementInfo(${settlementInfo.id},0,'不通过')">不通过</button>
+					<button class="save-button" onclick="auditSettlementInfo(${settlementInfo.id},1,'通过')">审核通过</button>
+					<button class="close-button settlement-opt-close" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

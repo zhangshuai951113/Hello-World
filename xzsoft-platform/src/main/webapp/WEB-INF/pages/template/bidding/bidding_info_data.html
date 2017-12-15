@@ -1,0 +1,81 @@
+<div id="bidding-info-data">
+	<table class="table-bule  table-ellipsis" style="width:100%" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width:40px;">
+					<input name="all-check" type="checkbox" class="all_check">
+				</th>
+				<th>招标序号</th>
+				<th>招标编号</th>
+				<th>招标名称</th>
+				<th>招标单位</th>
+				<th>所属项目</th>
+				<th>报价截止日期</th>
+				<th>付款方式</th>
+				<th>状态</th>
+				<th>报价家数</th>
+				<th>备注</th>
+				<th>创建人</th>
+				<th>创建时间</th>
+				<th class="operation" style="width:14.2%">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if biddingInfoPager?exists && biddingInfoPager.rows?exists>
+				<#list biddingInfoPager.rows as biddingInfoPo>
+					<tr class="table-body ">
+						<td style="width:40px;">
+							<input type="checkbox" class="sub_check" data-id="${biddingInfoPo.id}" data-status ="${biddingInfoPo.couponStatus}">
+						</td>
+						<td>${(biddingInfoPo.biddingCode)!''}</td>
+						<td>${(biddingInfoPo.biddingCodeCopy)!''}</td>
+						<td>${(biddingInfoPo.biddingName)!''}</td>
+						<td>${(biddingInfoPo.biddingOrgName)!''}</td>
+						<td>${(biddingInfoPo.biddingProjectName)!''}</td>
+						<td><#if biddingInfoPo.quotationDeadline?exists >${(biddingInfoPo.quotationDeadline)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<!-- <td><#if biddingInfoPo.paymentMethod?exists> <#if biddingInfoPo.paymentMethod==1> 100%货到付款 <#elseif biddingInfoPo.paymentMethod==2> 预付款100%  <#elseif biddingInfoPo.paymentMethod==3> 预付10%,货到验收合格后付款80%,质保金10% <#elseif biddingInfoPo.paymentMethod==4> 预付10%,货到验收合格后付款90% </#if> </#if></td> -->
+						<td>${(biddingInfoPo.paymentMethod)!''}</td>
+						<td><#if biddingInfoPo.biddingStatus?exists> <#if biddingInfoPo.biddingStatus==1> 起草 <#elseif biddingInfoPo.biddingStatus==2> 待审核  <#elseif biddingInfoPo.biddingStatus==3> 审批驳回 
+								<#elseif biddingInfoPo.biddingStatus==4> 已发布<#elseif biddingInfoPo.biddingStatus==5> 已回收报价<#elseif biddingInfoPo.biddingStatus==6> 二次挂网
+								<#elseif biddingInfoPo.biddingStatus==7> 确认中标供应商审核中<#elseif biddingInfoPo.biddingStatus==8> 确认中标供应商审核通过
+								<#elseif biddingInfoPo.biddingStatus==9> 待中标方确认<#elseif biddingInfoPo.biddingStatus==10> 已拒标<#elseif biddingInfoPo.biddingStatus==11> 已接标	</#if> </#if></td>
+						<td>${(biddingInfoPo.quotationNum)!''}</td>
+						<td>${(biddingInfoPo.remark)!''}</td>
+						<td>${(biddingInfoPo.createUserName)!''}</td>
+						<td><#if biddingInfoPo.createTime?exists >${(biddingInfoPo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td >
+							<div class="operation-td" bidding-info-id="${biddingInfoPo.id}">
+								<#if biddingInfoPo.biddingStatus?exists>
+									<#if biddingInfoPo.biddingStatus = 1 || biddingInfoPo.biddingStatus = 3>
+										<div class="modify-operation operation-m">
+											<div class="modify-icon"></div>
+											<div class="text">修改</div>
+										</div>
+										<div class="delete-operation operation-m">
+											<div class="delete-icon"></div>
+											<div class="text">删除</div>
+										</div>
+										<#elseif biddingInfoPo.biddingStatus = 5>
+										<#if biddingInfoPo.quotationNum <3 >
+										<div class="on-line-operation operation-m">
+											<div class="on-line-icon"></div>
+											<div class="text">重新挂网</div>
+										</div>
+										</#if>
+									</#if>
+								</#if>
+								<div class="detail-operation operation-m">
+									<div class="detail-icon"></div>
+									<div class="text">招标明细</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</#list>
+			</#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">
+		${biddingInfoPager.pageHtml}
+	</div>
+</div>

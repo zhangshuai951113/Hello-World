@@ -1,0 +1,80 @@
+<!-- 代理信息模板-->
+<div id="proxy-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="proxyInfoModalLabel" aria-hidden="true" style="display: block">
+	  	<div class="modal-dialog modal-dialog-both">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close proxy-info-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="proxyInfoModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+		        	<form id="proxy_info_form">
+		        		<input id="hidden_proxy_info_id" type="hidden" name="proxyInfoPo.id" value="${proxyInfoPo.id}">
+		          		<div class="from-both-box">
+		            		<div class="group-box">
+		              			<div class="input-lable"><span>*</span>代理人名称：</div>
+		              			<div class="input-text">
+		                			<input id="proxy_name" name="proxyInfoPo.proxyName" class="input" placeholder="请输入代理人名称" type="text" value="${proxyInfoPo.proxyName}"/>
+		              			</div>
+		            		</div>
+		            		<div class="group-box">
+				              	<div class="input-lable">证件类型：</div>
+				              	<div class="input-text">
+					                <select id="card_type" name="proxyInfoPo.cardType" class="input">
+					                  	<option value="">请选择</option>
+					                  	<option value="1" <#if proxyInfoPo.cardType?exists && proxyInfoPo.cardType==1>selected</#if>>身份证</option>
+					                  	<option value="2" <#if proxyInfoPo.cardType?exists && proxyInfoPo.cardType==2>selected</#if>>企业统一信用代码证</option>
+					                </select>
+				              	</div>
+			            	</div>
+		          		</div>
+			          	<div class="from-both-box">
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>证件号：</div>
+				              	<div class="input-text">
+				                	<input id="id_card" name="proxyInfoPo.idCard" class="input" placeholder="请输入登录账号" type="text" value="${proxyInfoPo.idCard}"/>
+				              	</div>
+				            </div>
+				            
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>开户行：</div>
+				              	<div class="input-text">
+				                	<input id="bank_name" name="proxyInfoPo.bankName" class="input" placeholder="请输入开户行" type="text" value="${proxyInfoPo.bankName}"/>
+				              	</div>
+				            </div>
+				           
+		          		</div>
+			          	
+			          	<div class="from-both-box">
+				            <div class="group-box">
+				              	<div class="input-lable">银行账号：</div>
+				              	<div class="input-text">
+				                	<input id="bank_account" name="proxyInfoPo.bankAccount" class="input" placeholder="请输入银行账号" type="text" value="${proxyInfoPo.bankAccount}"/>
+				              	</div>
+				            </div>
+			          	</div>
+		          		<div class="from-both-box">
+			            	<div class="group-img">
+			              		<div class="input-lable">附件：</div>
+				              	<div class="input-img">
+				              		<#if proxyInfoPo.proxyImg?exists && proxyInfoPo.proxyImg!="">
+				              			<img src="${fastdfsServer}/${proxyInfoPo.proxyImg}" class="upload_img img_box" img-type="proxy_img">
+				              		<#else>
+				                		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="proxy_img">
+				              		</#if>
+				                	<input id="proxy_img" type="hidden" name="proxyInfoPo.proxyImg" value="${proxyInfoPo.proxyImg}">
+				              	</div>
+			              		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。</div>
+			            	</div>
+		          		</div>
+		        	</div>
+	      		</form>
+		      	<div class="modal-footer">
+		        	<button class="save-button" onclick="addOrUpdateProxyInfo()">保存</button>
+		        	<button class="close-button proxy-info-opt-close" data-dismiss="modal">取消</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>${operaTitle}</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/reset.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+		<div class="panel">
+			<div class="panel-head">${operaTitle}</div>
+			<div class="panel-body">
+			<div class="from-both-box">
+					<div class="button-box">
+						<button class="button"  onclick="window.history.back()">返回</button>
+					</div>
+				</div>
+				<form id="car_info_form" name="myForm" onsubmit="return false">
+					<div class="from-body">
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>车牌号码：
+								</div>
+								<div class="input-text">
+									<input class="input" id="carCode" name="carInfoPo.carCode" required  placeholder="请输入车牌号码" type="text" value="${carInfoPo.carCode}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									号牌类型：
+								</div>
+								<div class="input-text">
+									<select id="CarCodeType"  class="input"  name="carInfoPo.carCodeType" onchange="">
+										<option value="1"<#if carInfoPo.carCodeType?exists && carInfoPo.carCodeType==1>selected</#if>>大型汽车
+										</option>
+										<option value="2"<#if carInfoPo.carCodeType?exists && carInfoPo.carCodeType==2>selected</#if>>小型汽车
+										</option>
+										<option value="3"<#if carInfoPo.carCodeType?exists && carInfoPo.carCodeType==3>selected</#if>>其他
+										</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="group-box">
+								<div class="input-lable">
+									营运证号：
+								</div>
+								<div class="input-text">
+									<input class="input" id="operationCertCode" required name="carInfoPo.operationCertCode" placeholder="请输入营运证号" type="text" value="${carInfoPo.operationCertCode}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									行驶证：
+								</div>
+								<div class="input-text">
+									<input class="input" id="drivingLicense" required name="carInfoPo.drivingLicense"  placeholder="请输入行驶证" type="text" value="${carInfoPo.drivingLicense}" />
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable">营运证到期日期：</div>
+								<div class="input-text">
+									<input  class="input date-time" id="operationEndTime" name="carInfoPo.operationEndTimeStr"  placeholder="请输入营运证到期日期" type="text" value="<#if carInfoPo.operationEndTime?exists>${(carInfoPo.operationEndTime)?string('yyyy-MM-dd hh:mm:ss')}</#if>"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">商业险到期日期：</div>
+								<div class="input-text">
+									<input  class="input date-time" id="businessInsuranceEndTime" name="carInfoPo.businessInsuranceEndTimeStr" placeholder="请输入商业险到期日期" type="text" value="<#if carInfoPo.businessInsuranceEndTime?exists>${(carInfoPo.businessInsuranceEndTime)?string('yyyy-MM-dd hh:mm:ss')}</#if>"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">交强险到期日期：</div>
+								<div class="input-text">
+									<input  class="input date-time" id="trafficInsuranceEndTime" name="carInfoPo.trafficInsuranceEndTimeStr"   placeholder="请输入交强险到期日期" type="text" value="<#if carInfoPo.trafficInsuranceEndTime?exists>${(carInfoPo.trafficInsuranceEndTime)?string('yyyy-MM-dd hh:mm:ss')}</#if>"/>
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable">
+									使用机构：
+								</div>
+								<div class="input-text">
+									<select class="input" id="orgInfoId" name="carInfoPo.orgInfoId">
+										<option value="">请选择</option>
+										<#if orgInfoList?exists> 
+											<#list orgInfoList as orgInfo> 
+												<#if orgInfo.id==carInfoPo.orgInfoId>
+													<option value="${orgInfo.id}" selected>${orgInfo.orgName}</option>
+												<#else>
+													<option value="${orgInfo.id}">${orgInfo.orgName}</option>
+												</#if> 
+											</#list>
+										</#if>
+									</select>
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable">
+									车属单位：
+								</div>
+								<div class="input-text">
+									<select class="input" id="carUnit" name="carInfoPo.carUnit">
+										<option value="">请选择</option>
+										<#if orgInfoLists?exists> 
+											<#list orgInfoLists as orgInfo> 
+												<#if orgInfo.id==carInfoPo.carUnit>
+													<option value="${orgInfo.id}" selected>${orgInfo.orgName}</option>
+												<#else>
+													<option value="${orgInfo.id}">${orgInfo.orgName}</option>
+												</#if> 
+											</#list>
+										</#if>
+									</select>
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable">
+									车辆类型：
+								</div>
+								<div class="input-text">
+									<select class="input" id="carType" name="carInfoPo.carType">
+										<option value="">请选择</option>
+										<#if carTypeList?exists> <#list carTypeList as carTypeInfo> <#if carTypeInfo.id==carInfoPo.carType>
+										<option value="${carTypeInfo.id}" selected>${carTypeInfo.carTypeName}</option>
+										<#else>
+										<option value="${carTypeInfo.id}">${carTypeInfo.carTypeName}</option></#if> </#list> </#if>
+									</select>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">车辆型号：</div>
+								<div class="input-text">
+									<input class="input" id="carModel" name="carInfoPo.carModel" placeholder="请输入车辆型号" type="text" value="${carInfoPo.carModel}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">外廓尺寸 (长*宽*高)：</div>
+								<div class="input-text">
+									<input class="input" id="gabarite" name="carInfoPo.gabarite"  placeholder="请输入外廓尺寸 (长*宽*高)" type="number" value="${carInfoPo.gabarite}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">核定载重量：</div>
+								<div class="input-text">
+									<input class="input" id="checkLoad" name="carInfoPo.checkLoad"  placeholder="请输入核定载重量" type="number" value="${carInfoPo.checkLoad}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">登记机关：</div>
+								<div class="input-text">
+									<input class="input" id="registerOrg" name="carInfoPo.registerOrg"  placeholder="请输入登记机关" type="text" value="${carInfoPo.registerOrg}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">登记日期：</div>
+								<div class="input-text">
+									<input class="input date-time" id="registerTime" name="carInfoPo.registerTimeStr" placeholder="请输入登记日期" type="text" value="<#if carInfoPo.registerTime?exists>${(carInfoPo.registerTime)?string('yyyy-MM-dd hh:mm:ss')}</#if>"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">发证机关：</div>
+								<div class="input-text">
+									<input class="input" id="sendCertOrg" name="carInfoPo.sendCertOrg"  placeholder="请输入发证机关" type="text" value="${carInfoPo.sendCertOrg}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">发证日期：</div>
+								<div class="input-text">
+									<input  class="input date-time" id="sendCertTime" name="carInfoPo.sendCertTimeStr"   placeholder="请输入发证日期" type="text" value="<#if carInfoPo.sendCertTime?exists>${(carInfoPo.sendCertTime)?string('yyyy-MM-dd hh:mm:ss')}</#if>"/>
+								</div>
+							</div>
+			
+							<div class="group-box">
+								<div class="input-lable">车辆出厂日期：</div>
+								<div class="input-text">
+									<input  class="input date-time" id="carMadeTime" name="carInfoPo.carMadeTimeStr" placeholder="请输入车辆出厂日期" type="text" value="<#if carInfoPo.carMadeTime?exists>${(carInfoPo.carMadeTime)?string('yyyy-MM-dd hh:mm:ss')}</#if>"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">机动车登记证书编号：</div>
+								<div class="input-text">
+									<input class="input" id="carRegisterCode" name="carInfoPo.carRegisterCode"  placeholder="请输入机动车登记证书编号" type="text" value="${carInfoPo.carRegisterCode}" />
+								</div>
+							</div>
+						
+							<div class="group-box">
+								<div class="input-lable">机动车所有人：</div>
+								<div class="input-text">
+									<input class="input" id="carPartPerson" name="carInfoPo.carPartPerson"  placeholder="机动车所有人" type="text" value="${carInfoPo.carPartPerson}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">车辆获得方式：</div>
+								<div class="input-text">
+									<input class="input" id="acquireWay" name="carInfoPo.acquireWay"  placeholder="车辆获得方式" type="text" value="${carInfoPo.acquireWay}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">购买金额：</div>
+								<div class="input-text">
+									<input class="input" id="amount" name="carInfoPo.amount"  placeholder="请输入购买金额" type="number" value="${carInfoPo.amount}" />
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable">车辆品牌：</div>
+								<div class="input-text">
+									<input class="input" id="brandName" name="carInfoPo.brandName"  placeholder="请输入车辆品牌" type="text" value="${carInfoPo.brandName}" />
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable">车身颜色：</div>
+								<div class="input-text form-item">
+									<input class="input zh" id="color" name="carInfoPo.color"  placeholder="请输入车身颜色" type="text" value="${carInfoPo.color}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">是否进口：</div>
+								<div class="input-text">
+									<select  class="input" id="isImport" name="carInfoPo.isImport" onchange="changeIsImport()">
+										<option value="1"<#if carInfoPo.isImport?exists && carInfoPo.isImport==1>selected</#if>>是
+										</option>
+										<option value="0"<#if carInfoPo.isImport?exists && carInfoPo.isImport==0>selected</#if>>否
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">发动机号：</div>
+								<div class="input-text">
+									<input class="input" id="engineNum" name="carInfoPo.engineNum"  placeholder="请输入发动机号" type="text" value="${carInfoPo.engineNum}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">车架号：</div>
+								<div class="input-text">
+									<input class="input" id="chassisNum" name="carInfoPo.chassisNum" placeholder="请输入车架号" type="text" value="${carInfoPo.chassisNum}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">发动机型号：</div>
+								<div class="input-text">
+									<input class="input" id="engineType" name="carInfoPo.engineType"  placeholder="请输入发动机型号" type="text" value="${carInfoPo.engineType}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">燃料种类：</div>
+								<div class="input-text">
+									<select class="input" id="fuelType" name="carInfoPo.fuelType" onchange="" placeholder="请输入燃料种类" value="${carInfoPo.fuelType}">
+										<option value="1"<#if carInfoPo.car_code_type?exists && carInfoPo.fuel_type==1>selected</#if>>汽油
+										</option>
+										<option value="2"<#if carInfoPo.car_code_type?exists && carInfoPo.fuel_type==2>selected</#if>>柴油
+										</option>
+										<option value="3"<#if carInfoPo.car_code_type?exists && carInfoPo.fuel_type==3>selected</#if>>天燃气
+										</option>
+										<option value="4"<#if carInfoPo.car_code_type?exists && carInfoPo.fuel_type==4>selected</#if>>液化气
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">排量：</div>
+								<div class="input-text">
+									<input class="input" id="displacement" name="carInfoPo.displacement" placeholder="请输入排量" type="number" value="${carInfoPo.displacement}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">功率：</div>
+								<div class="input-text">
+									<input class="input" id="power" name="carInfoPo.power" placeholder="请输入功率" type="number" value="${carInfoPo.power}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">制造厂名称：</div>
+								<div class="input-text">
+									<input class="input" id="manufactoryName" name="carInfoPo.manufactoryName"   placeholder="请输入制造厂名称" type="text" value="${carInfoPo.manufactoryName}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">转向形式：</div>
+								<div class="input-text">
+									<input class="input" id="steeringType" name="carInfoPo.steeringType"  placeholder="请输入转向形式" type="text" value="${carInfoPo.steeringType}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">轮距（前）：</div>
+								<div class="input-text">
+									<input class="input" id="wheelBaseBefore" name="carInfoPo.wheelBaseBefore" placeholder="请输入轮距（前）" type="number" value="${carInfoPo.wheelBaseBefore}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">轮距（后）：</div>
+								<div class="input-text">
+									<input class="input" id="wheelBaseAfter" name="carInfoPo.wheelBaseAfter" placeholder="请输入轮距（后）" type="number" value="${carInfoPo.wheelBaseAfter}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">轮胎数：</div>
+								<div class="input-text">
+									<input class="input" id="wheelNum" name="carInfoPo.wheelNum" placeholder="请输入轮胎数" type="number" value="${carInfoPo.wheelNum}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">轮胎规格：</div>
+								<div class="input-text">
+									<input class="input" id="wheelNorms" name="carInfoPo.wheelNorms"  placeholder="请输入轮胎规格" type="text" value="${carInfoPo.wheelNorms}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">钢板弹簧片数（前）：</div>
+								<div class="input-text">
+									<input class="input" id="sheetNumBefore" name="carInfoPo.sheetNumBefore"   placeholder="请输入钢板弹簧片数（前）" type="number" value="${carInfoPo.sheetNumBefore}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">钢板弹簧片数（后）：</div>
+								<div class="input-text">
+									<input class="input" id="sheetNumAfter" name="carInfoPo.sheetNumAfter"  placeholder="请输入钢板弹簧片数（后）" type="number" value="${carInfoPo.sheetNumAfter}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">轴距：</div>
+								<div class="input-text">
+									<input class="input" id="axleDistance" name="carInfoPo.axleDistance"  placeholder="请输入轴距" type="number" value="${carInfoPo.axleDistance}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">轴数：</div>
+								<div class="input-text">
+									<input class="input" id="axleNum" name="carInfoPo.axleNum"  placeholder="请输入轴数" type="number" value="${carInfoPo.axleNum}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">准牵引总质量：</div>
+								<div class="input-text">
+									<input class="input" id="tractionMass" name="carInfoPo.tractionMass" placeholder="请输入准牵引总质量" type="number" value="${carInfoPo.tractionMass}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">货箱内部尺寸 (长*宽*高)：</div>
+								<div class="input-text">
+									<input class="input" id="containerSize" name="carInfoPo.containerSize"  placeholder="请输入货箱内部尺寸 (长*宽*高)" type="text" value="${carInfoPo.containerSize}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">整备质量：</div>
+								<div class="input-text">
+									<input class="input" id="curbWeight" name="carInfoPo.curbWeight"  placeholder="请输入整备质量" type="number" value="${carInfoPo.curbWeight}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">使用性质：</div>
+								<div class="input-text">
+									<input class="input" id="useNature" name="carInfoPo.useNature"   placeholder="请输入使用性质" type="text" value="${carInfoPo.useNature}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">核定油耗：</div>
+								<div class="input-text">
+									<input class="input" id="checkFuel" name="carInfoPo.checkFuel"  placeholder="请输入核定油耗" type="number" value="${carInfoPo.checkFuel}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">核定载客人数：</div>
+								<div class="input-text">
+									<input class="input" id="checkNum" name="carInfoPo.checkNum"  placeholder="请输入核定载客人数" type="number" value="${carInfoPo.checkNum}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">驾驶室载客人数：</div>
+								<div class="input-text">
+									<input class="input" id="cabPassengers" name="carInfoPo.cabPassengers"  placeholder="请输入驾驶室载客人数" type="number" value="${carInfoPo.cabPassengers}" />
+								</div>
+							</div>
+						</div>
+
+						<div id="operation_cert_img_div" class="from-both-box">
+							<div class="group-img">
+								<div class="input-lable">
+									营运证附件：
+								</div>
+								<div class="input-img">
+									<#if carInfoPo.operationCertImg?exists> <img src="${fastdfsServer}/${carInfoPo.operationCertImg}" class="upload_img img_box" img-type="operation_cert_img" /> <#else> <img
+										src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="operation_cert_img"></#if>
+									<input id="operation_cert_img" type="hidden" name="carInfoPo.operationCertImg" value="${carInfoPo.operationCertImg}">
+								</div>
+								<div class="input-notice">
+									*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。 <br />图片大小不超过3M。
+								</div>
+							</div>
+						</div>
+						<div id="driver_license_img_div" class="from-both-box">
+							<div class="group-img">
+								<div class="input-lable">
+									车辆行驶证附件(正本)：
+								</div>
+								<div class="input-img">
+									<#if carInfoPo.driverLicenseImg?exists> <img src="${fastdfsServer}/${carInfoPo.driverLicenseImg}" class="upload_img img_box" img-type="driver_license_img"> <#else> <img
+										src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="driver_license_img"></#if>
+									<input id="driver_license_img" type="hidden" name="carInfoPo.driverLicenseImg" value="${carInfoPo.driverLicenseImg}">
+								</div>
+								<div class="input-notice">
+									*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。 <br />图片大小不超过3M。
+								</div>
+							</div>
+						</div>
+						<div id="driver_license_img_copy_div" class="from-both-box">
+							<div class="group-img">
+								<div class="input-lable">
+									车辆行驶证附件(副本)：
+								</div>
+								<div class="input-img">
+									<#if carInfoPo.driverLicenseImgCopy?exists> <img src="${fastdfsServer}/${carInfoPo.driverLicenseImgCopy}" class="upload_img img_box" img-type="driver_license_img_copy"> <#else>
+									<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="driver_license_img_copy"></#if>
+									<input id="driver_license_img_copy" type="hidden" name="carInfoPo.driverLicenseImgCopy" value="${carInfoPo.driverLicenseImgCopy}">
+								</div>
+								<div class="input-notice">
+									*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。 <br />图片大小不超过3M。
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-textarea">
+								<div class="input-lable">备注：</div>
+								<div class="input-textarea">
+									<textarea id="remarks" name="carInfoPo.remarks">${carInfoPo.remarks}</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="button-box">
+								<input id="isCheck" type="checkbox" checked><i></i> 我同意电子协议
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="button-box row">
+								<button class="button" ng-disabled="myForm.$invalid" onclick="saveOwnCarInfo()">保存</button>
+							</div>
+						</div>
+					</div>
+					<div class="group-box" style="display: none;">
+						<div class="input-lable">车辆id</div>
+						<div class="input-text">
+							<input class="input" id="id" name="carInfoPo.id" required  placeholder="车辆表id" type="text" value="${carInfoPo.id}" />
+						</div>
+						<div class="input-lable">车辆状态</div>
+						<div class="input-text">
+							<input class="input" id="carStatus" required   type="number" value="${carInfoPo.carStatus}" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/car/ownCarManage.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+</html>

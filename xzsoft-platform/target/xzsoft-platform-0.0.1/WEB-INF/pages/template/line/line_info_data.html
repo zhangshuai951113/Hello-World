@@ -1,0 +1,95 @@
+<div id="line-info-data">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width:40px;">
+					<input name="all-check" type="checkbox" class="all_line_check">
+				</th>
+				<th>线路名称</th>
+				<th>起点</th>
+				<th>终点</th>
+				<th>运距（公里）</th>
+				<th>在途天数</th>
+				<th>路况</th>
+				<th>线路状态</th>
+				<th>创建人</th>
+				<th>创建时间</th>
+				<th class="operation" style="width:260px">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if lineInfoPager?exists && lineInfoPager.rows?exists>
+				<#list lineInfoPager.rows as lineInfo>
+					<tr class="table-body ">
+						<td style="width:40px;">
+							<input type="checkbox" class="sub_line_check" data-id="${lineInfo.id}">
+						</td>
+						<td>${(lineInfo.lineName)!''}</td>
+						<td>${(lineInfo.startPoints)!''}</td>
+						<td>${(lineInfo.endPoints)!''}</td>
+						<td>${(lineInfo.distance)!''}</td>
+						<td>${(lineInfo.days)!''}</td>
+						<td>
+							<#if lineInfo.roadSituation?exists>
+								<#if lineInfo.roadSituation==1>
+									非常好
+								<#elseif lineInfo.roadSituation==2>
+					        		较好
+					        	<#elseif lineInfo.roadSituation==3>
+					        		一般
+					        	<#elseif lineInfo.roadSituation==4>
+					        		不良
+					        	<#elseif lineInfo.roadSituation==5>
+					        		很差
+								</#if>
+							<#else>
+								未知状态
+							</#if>
+						</td>
+						<td>
+							<#if lineInfo.lineStatus?exists>
+								<#if lineInfo.lineStatus==0>
+									启用
+								<#elseif lineInfo.lineStatus==1>
+									停用
+								</#if>
+							<#else>
+								 很好
+							</#if>
+						</td>
+						<td>${(lineInfo.createUserName)!''}</td>
+						<td>${(lineInfo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+						<td>
+							<div class="operation-td" line-info-id="${(lineInfo.id)}">
+								<#if lineInfo.lineStatus?exists>
+									<!-- 平台超级管理员 5-->
+										<#if userRole==5>
+											<div class="modify-operation operation-m">
+												<div class="modify-icon"></div>
+												<div class="text">修改</div>
+											</div>
+											<div class="delete-operation operation-m">
+							               		<div class="delete-icon"></div>
+							               		<div class="text">删除</div>
+							             	</div>
+							             	<div class="enabled-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="enabled-icon"></div>
+							               		<div class="text">启用</div>
+							             	</div>
+											<div class="disable-operation operation-m">
+												<div class="disable-icon"></div>
+												<div class="text">停用</div>
+											</div>
+										</#if>
+								</#if>
+							</div>
+						</td>
+					</tr>
+				</#list>
+			</#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">
+		${lineInfoPager.pageHtml}
+	</div>
+</div>

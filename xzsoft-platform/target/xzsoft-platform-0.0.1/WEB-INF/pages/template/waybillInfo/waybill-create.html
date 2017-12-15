@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>运单生成</title> <#include "../../common/common_header.html" />
+<!--运单生成模板-->
+
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/tab.css"/>
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/search.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/table.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/modal.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/confirm.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/from-both.css" >
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/waybillInfo/waybill-create.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/reset.css" />
+
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+		<div class="search-panel row">
+			<div class="search-from" id="mainDiv">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">计划名称</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入计划名称" type="text" id="planInfoName" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">货物</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入货物" type="text" id="goodsInfoName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">委托方</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入委托方" type="text" id="entrustName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">承运方</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入承运方" type="text" id="shipperName"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">发货单位</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入发货单位" type="text" id="forwardingUnit"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">到货单位</div>
+								<div class="input-text">
+									<input class="input" placeholder="请输入到货单位" type="text" id="consignee"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">线路</div>
+								<div class="search-select-list" id="selectLine" onclick="lineSelect()"></div>
+								<input class="input" type="hidden" id="lineInfoId"/>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">起始日期</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="startDate1"/>
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="startDate2"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">结束日期</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="endDate1"/>
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input class="input date-time" type="text" id="endDate2"/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">计划类型</div>
+								<div class="input-text">
+									<select class="input" id="planType">
+										<option value="">请选择</option>
+										<option value="1">自营计划</option>
+										<option value="2">物流计划</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">协同状态</div>
+								<div class="input-text">
+									<select class="input" id="cooperateStatus">
+										<option value="">请选择</option>
+										<option value="1">上下游协同</option>
+										<option value="2">下游不协同</option>
+										<option value="3">上游不协同</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="loadPlanInfoList()">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetEmpty()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="row">
+				<div class="operation-tab row">
+					<@shiro.hasPermission name="waybill:generate:splitPlan">
+					<button class="operation-button operation-blue" onclick="showSplitPlanModal()">
+						<div class="split-icon"></div>
+						<div class="operation-text">拆分计划</div>
+					</button>
+					</@shiro.hasPermission>
+					<!-- 
+					<@shiro.hasPermission name="waybill:generate:waybillGenerate">
+					<button class="operation-button operation-blue" onclick="showWaybillCreateTransportDayPlanListModel()">
+						<div class="waybill-icon"></div>
+						<div class="operation-text">运单生成</div>
+					</button>
+					</@shiro.hasPermission>
+					 -->
+				</div>
+			</div>
+			<div class="panel-table">
+				<table style="min-width: 1780px" class="table-bule table-ellipsis" id="tableDrag">
+					<thead>
+						<tr class="table-title">
+							<th style="width: 40px;"></th>
+							<th style="width: 60px;">计划编号</th>
+							<th style="width: 100px;">计划名称</th>
+							<th style="width: 150px;">委托方</th>
+							<th style="width: 150px;">承运方</th>
+							<th style="width: 100px;">货物</th>
+							<th style="width: 100px;">线路</th>
+							<th style="width: 100px;">发货单位</th>
+							<th style="width: 100px;">到货单位</th>
+							<th style="width: 80px;">计划总量</th>
+							<th style="width: 80px;">已拆分运量</th>
+							<th style="width: 80px;">未拆分运量</th>
+							<th style="width: 80px;">起始日期</th>
+							<th style="width: 80px;">结束日期</th>
+							<th style="width: 80px;">计划类型</th>
+							<th style="width: 80px;">计划状态</th>
+							<th style="width: 80px;">协同状态</th>
+						</tr>
+					</thead>
+					<tbody id="tbody-planInfoList"></tbody>
+				</table>
+			</div>
+			<div class="panel-pagination">
+				<div class="panel-num">搜索相关结果共<span id="planInfoTotal">0</span>条</div>
+				<div id="planInfoPageToolBar" class="pagination-list"></div>
+				<div class="pagination-input">到<input type="text"/>页</div>
+				<div class="pagination-button" onclick="planInfoListJump(this)">确定</div>
+			</div>
+		</div>
+
+		
+		<!--模态框 计划拆分-日计划列表  -->
+		<div class="modal fade" id="transportDayPlanListModel" tabindex="-1" role="dialog">
+			<div class="modal-dialog" style="width: 80%;height: 60%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">计划拆分</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<input id="plan_id"  type="hidden" />
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">计划名称</div>
+											<div class="input-text">
+												<input id="plan_planName" class="input" type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">委托方</div>
+											<div class="input-text">
+												<input id="plan_entrustName" class="input" type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">承运方</div>
+											<div class="input-text">
+												<input id="plan_shipperName" class="input" type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">货物</div>
+											<div class="input-text">
+												<input id="plan_goodsName" class="input" type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">线路</div>
+											<div class="input-text">
+												<input id="plan_lineName" class="input" type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">发货单位</div>
+											<div class="input-text">
+												<input id="plan_forwardingUnit" class="input" type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">到货单位</div>
+											<div class="input-text">
+												<input id="plan_consignee" class="input" type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">计划总量</div>
+											<div class="input-text">
+												<input id="plan_planSum" class="input" type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">已拆分运量</div>
+											<div class="input-text">
+												<input id="plan_splitSum" class="input"  type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">未拆分运量</div>
+											<div class="input-text">
+												<input id="plan_remainingSum" class="input"  type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">开始日期</div>
+											<div class="input-text">
+												<input id="plan_startDate" class="input"  type="text" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable" style="width:100px;">结束日期</div>
+											<div class="input-text">
+												<input id="plan_endDate" class="input"  type="text" readonly="readonly"/>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="row">
+							<div class="operation-tab row">
+								<@shiro.hasPermission name="waybill:splitPlan:addTransportDayPlan">
+								<button class="operation-button operation-blue" onclick="showTransportDayPlanAddOrEditModel('add')">
+									<div class="add-icon"></div>
+									<div class="operation-text">新增</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="waybill:splitPlan:editTransportDayPlan">
+								<button class="operation-button operation-blue" onclick="showTransportDayPlanAddOrEditModel('edit')">
+									<div class="modify-icon"></div>
+									<div class="operation-text">修改</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="waybill:splitPlan:delTransportDayPlan">
+								<button class="operation-button operation-blue" onclick="deleteTransportDayPlan()">
+									<div class="delete-icon"></div>
+									<div class="operation-text">删除</div>
+								</button>
+								</@shiro.hasPermission>
+								
+								<button class="operation-button operation-blue" onclick="showWaybillCreateModel()">
+									<div class="waybill-icon"></div>
+									<div class="operation-text">运单生成</div>
+								</button>
+								
+								<button class="operation-button operation-blue" onclick="showWaybillListModel()">
+									<div class="waybill-icon"></div>
+									<div class="operation-text">运单信息</div>
+								</button>
+								
+								
+							</div>
+						</div>
+							<div style="width:100%;overflow-x:auto;overflow-y:hidden; ">
+								<table width="100%" class="table-bule table-ellipsis" id="table-transportDayPlanList" style="">
+									<thead>
+										<tr class="table-title">
+											<th style="width: 50px;">
+												<input name="all-check" type="checkbox" class="all_transportDayPlan_check">
+											</th>
+											<th>日计划编号</th>
+											<th>日计划日期</th>
+											<th>日计划运量</th>
+											<th>已编制运量</th>
+											<th>未编制运量</th>
+											<th>运单数量</th>
+										</tr>
+									</thead>
+									<tbody id="tbody-transportDayPlanList"></tbody>
+								</table>
+							</div>
+							<div class="panel-pagination">
+								<div class="panel-num">搜索相关结果共<span id="transportDayPlanTotal">0</span>条</div>
+								<div id="transportDayPlanPageToolBar" class="pagination-list"></div>
+								<div class="pagination-input">到<input type="text"/>页</div>
+								<div class="pagination-button" onclick="transportDayPlanListJump(this)">确定</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 模态框  拆分计划 -日计划列表 - 新增日计划 -->
+ 		<div class="modal fade" id="transportDayPlanAddOrEditModel" tabindex="-2" role="dialog" onshow="resetDivInput('planModifyModal')">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 id="tranAddOrEditModelTitle" class="modal-title">日计划-新增或者修改</h4>
+					</div>
+					<div class="modal-body">
+						<div class="model-from">
+							<!-- 日计划id -->
+							<input class="input" type="hidden" id="transport_id"/>
+							<div class="group-box form-item " id="div_transport_startDate">
+								<div class="input-lable"><span>*</span>开始日期:</div>
+								<div class="input-text">
+									<input class="input date-time" type="text" id="transport_startDate"/>
+								</div>
+							</div>
+							<div class="group-box form-item " id="div_transport_endDate">
+								<div class="input-lable"><span>*</span>结束日期:</div>
+								<div class="input-text">
+									<input class="input date-time" type="text" id="transport_endDate"/>
+								</div>
+							</div>
+							<div class="group-box form-item " id="div_transport_planDate">
+								<div class="input-lable"><span>*</span>日期:</div>
+								<div class="input-text">
+									<input class="input date-time" type="text" id="transport_planDate"/>
+								</div>
+							</div>
+							<div class="group-box form-item ">
+								<div class="input-lable"><span>*</span>日计划运量:</div>
+								<div class="input-text">
+									<input class="input xz-number"  type="text" id="transport_transportAmount"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="transportDayPlanSave()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 
+		<div class="modal fade" id="splitPlanModal" tabindex="-1" role="dialog" onshow="resetDivInput('splitPlanModal')">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">运单拆分</h4>
+					</div>
+					<div class="modal-body">
+						<div class="model-from">
+							<div class="group-box form-item ">
+								<div class="input-lable">
+									<span>*</span>运输天数:
+								</div>
+								<div class="input-text">
+									<input class="input xz-number" placeholder="请输入运输天数" type="text" id="transport_days"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="splitPlanModalSave(this)" id="splitPlanModalSaveBtn">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+ 		-->
+ 		
+ 		
+ 		<!-- 运单生成-日计划列表模态框 -->
+		<!--  		
+ 		<div class="modal fade" id="waybillCreateTransportDayPlanListModel" tabindex="-3" role="dialog">
+			<div class="modal-dialog" style="width: 1000px">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">日计划信息</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="operation-tab row">
+								<button class="operation-button operation-blue" onclick="showWaybillCreateModel()">
+									<div class="waybill-icon"></div>
+									<div class="operation-text">运单生成</div>
+								</button>
+								<button class="operation-button operation-blue" onclick="showWaybillListModel()">
+									<div class="waybill-icon"></div>
+									<div class="operation-text">运单信息</div>
+								</button>
+							</div>
+						</div>
+						<div class="modal-table row">
+							<div class="driver-content"  style="display: block">
+								<table width="100%" class="table-bule table-ellipsis">
+									<thead>
+										<tr class="table-title">
+											<th style="width: 40px;">
+												<input name="all-check" type="checkbox" class="all_transportDayPlan2_check">
+											</th>
+											<th>日计划编号</th>
+											<th>日计划日期</th>
+											<th>日计划运量</th>
+											<th>已编制运量</th>
+											<th>未编制运量</th>
+											<th>客户运价</th>
+											<th>运单数量</th>
+										</tr>
+									</thead>
+									<tbody id="tbody-transportDayPlanList2"></tbody>
+								</table>
+								<div class="panel-pagination">
+									<div class="panel-num">搜索相关结果共<span id="transportDayPlanTotal2">0</span>条</div>
+									<div id="transportDayPlanPageToolBar2" class="pagination-list"></div>
+									<div class="pagination-input">到<input type="text"/>页</div>
+									<div class="pagination-button" onclick="transportDayPlanListJump2(this)">确定</div>
+								</div>
+							</div>
+						</div>
+	
+					</div>
+				</div>
+			</div>
+		</div>
+ 		 -->
+ 		<!--模态框 运单生成模块-->
+		<div class="modal fade" id="waybillCreateModal" tabindex="-4" role="dialog" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">运单生成</h4>
+					</div>
+					<div class="modal-body">
+						<div class="model-from">
+							<div class="group-box">
+								<div class="input-lable">生成方式:</div>
+								<div class="input-text">
+									<select class="input" id="waybillCreateModal_createType" onchange="waybillCreateModalshowF(this)">
+										<option value="1" selected="selected" >按运输车次</option>
+										<option value="2" >按单车最低运量</option>
+									</select>
+								</div>
+							</div>
+							<div class="group-box form-item " id="waybillCreateModal_YSCC">
+								<div class="input-lable">
+									<span>*</span>运输车次:
+								</div>
+								<div class="input-text">
+									<input class="input xz-number" placeholder="请输入运输车次" type="text" id="waybillCreateModal_transportNum"/>
+								</div>
+							</div>
+							<div class="group-box form-item " id="waybillCreateModal_DCZDYL" hidden="true">
+								<div class="input-lable">
+									<span>*</span>单车最低运量:
+								</div>
+								<div class="input-text">
+									<input class="input xz-number" placeholder="请输入单车最低运量" type="text" id="waybillCreateModal_minTransportNum"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="waybillCreateModalSave()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+ 		
+ 		<!--模态框 运单生成后运单列表模块-->
+		<div class="modal fade" id="waybillListModal" tabindex="-5" role="dialog" >
+			<div class="modal-dialog" style="width: 1200px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">运单列表</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="operation-tab row">
+								<@shiro.hasPermission name="waybill:waybillCreate:editWaybill">
+								<button class="operation-button operation-blue" onclick="showWaybillUpdateModal()">
+									<div class="modify-icon"></div>
+									<div class="operation-text">修改</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="waybill:waybillCreate:delWaybill">
+								<button class="operation-button operation-blue" onclick="waybillListModalDelete()">
+									<div class="delete-icon"></div>
+									<div class="operation-text">删除</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="waybill:waybillCreate:businessOwnerDistribute">
+								<button class="operation-button operation-blue" onclick="businessOwnerDistribute()">
+									<div class="distribution-icon"></div>
+									<div class="operation-text">企业货主派发</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="waybill:waybillCreate:distributeDriver">
+								<button class="operation-button operation-blue" onclick="distributeDriver()">
+									<div class="distribution-icon"></div>
+									<div class="operation-text">派发司机</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="waybill:waybillCreate:distributeLogistics">
+								<button class="operation-button operation-blue" onclick="distributeLogistics()">
+									<div class="distribution-icon"></div>
+									<div class="operation-text">派发物流公司</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="waybill:waybillCreate:proxyDistribute">
+								<button class="operation-button operation-blue" onclick="proxyDistribute()">
+									<div class="distribution-icon"></div>
+									<div class="operation-text">代理派发</div>
+								</button>
+								</@shiro.hasPermission>
+								<@shiro.hasPermission name="waybill:waybillCreate:distributePlatform">
+								<button class="operation-button operation-blue" onclick="showDistributePlatformModel()">
+									<div class="distribution-icon"></div>
+									<div class="operation-text">派发平台</div>
+								</button>
+								</@shiro.hasPermission>
+							</div>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th style="width: 40px;">
+											<input name="all-check" type="checkbox" class="all-waybill-check">
+										</th>
+										<th>运单号</th>
+										<th>计划拉运日期</th>
+										<th>计划拉运量</th>
+										<th>运单类型</th>
+										<th>运单状态</th>
+									</tr>
+								</thead>
+								<tbody id="waybillListModal_tbody">
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">搜索相关结果共<span id="waybillListNum">0</span>条</div>
+								<div id="waybillListPage" class="pagination-list"></div>
+								<div class="pagination-input">到<input type="text" />页</div>
+								<div class="pagination-button" onclick="waybillInfoListJump(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="close-button" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<!-- 修改运单信息模态框 -->
+		<div class="modal fade" id="waybillUpdateModal" tabindex="-6" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">运单-修改</h4>
+					</div>
+					<div class="modal-body">
+						<div class="model-from">
+							<div class="group-box form-item ">
+								<div class="input-lable"><span>*</span>计划拉运量:</div>
+								<div class="input-text">
+									<input class="input xz-number" placeholder="请输入计划拉运量" type="text" id="waybillUpdateModal_planTransportAmount"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="waybillUpdateModalSave()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--模态框 线路查询模块-->
+		<div class="modal fade" id="lineSelectModal" tabindex="-6" role="dialog" onshow="resetDivInput('lineSelectModal')">
+			<div class="modal-dialog" style="width: 96%">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">线路选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">线路起点</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入线路起点" type="text" id="lineSelectModal_startPoints"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">线路终点</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入线路终点" type="text" id="lineSelectModal_endPoints"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="getLineList()">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th style="width: 40px;"></th>
+										<th>线路名称</th>
+										<th>起点</th>
+										<th>终点</th>
+										<th>运距（公里）</th>
+										<th>在途天数</th>
+									</tr>
+								</thead>
+								<tbody id="lineSelectModal_tbody">
+									
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="lineNum">0</span>条
+								</div>
+								<div id="linePage" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="linePageSlect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectLine()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 运单派发模态框 -->
+		<!--模态框 物流公司查询模块-->
+		<div class="modal fade" id="logisticsListModal" tabindex="-7" role="dialog" onshow="resetDivInput('logisticsListModal')">
+			<div class="modal-dialog" style="width: 90%">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">物流公司选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false" id="driver-from">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable" style="width: 100px">承运方主机构</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入承运方主机构" type="text" id="logisticsListModal_shipperOrgRootName"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">承运方</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入承运方" type="text" id="logisticsListModal_shipperName"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="logisticsPageQuery()">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th style="width: 40px;"></th>
+										<th>承运方主机构</th>
+										<th>承运方</th>
+										<th>承运方项目</th>
+										<th>协同状态</th>
+									</tr>
+								</thead>
+								<tbody id="logisticsListModal_tbody">
+									
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="logisticsNum">0</span>条
+								</div>
+								<div id="logisticsPage" class="pagination-list"></div>
+								<div class="pagination-input"> 
+									到<input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="logisticsPageSelect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectLogistics()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--模态框 代理派发模块-->
+		<div class="modal fade" id="proxyDistributeModal" tabindex="-8" role="dialog" onshow="resetDivInput('proxyDistributeModal')">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">代理派发</h4>
+					</div>
+					<div class="modal-body">
+						<div class="model-from">
+							<div class="group-box">
+								<div class="input-lable">代理方：</div>
+								<div class="search-select-list" id="selectProxy" onclick="proxyList()"></div>
+								<input class="input" type="hidden" id="proxyDistributeModal_transportPriceId"/>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">司机编号：</div>
+								<div class="search-select-list" id="selectDriver" onclick="showDriverModelFormProxy()"></div>
+								<input class="input" type="hidden" id="proxyDistributeModal_driverInfoId"/>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="proxyDistributeModalSave()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--模态框 司机查询模块-->
+		<div class="modal fade" id="driverListModal" tabindex="-9" role="dialog" onshow="resetDivInput('driverListModal')">
+			<div class="modal-dialog" style="width: 800px">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">司机选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false" id="driver-from">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">司机姓名</div>
+											<div class="input-text">
+												<input id="driverListModalName" class="input" placeholder="请输入司机姓名" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">手机号码</div>
+											<div class="input-text">
+												<input id="driverListModalPhone" class="input" placeholder="请输入司机手机号码" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">车牌号</div>
+											<div class="input-text">
+												<input id="driverListModalCarCode" class="input" placeholder="请输入司机车牌号" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="getDriverForBtn()">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="tab-box">
+							<a><div data-target="#driver-inside" class="tab-text driver-tab active" id="driverDiv">内部司机</div></a>
+							<a><div data-target="#driver-outsource" class="tab-text driver-tab">外协司机</div></a>
+						</div>
+						<div class="modal-table row">
+							<div class="driver-content" id="driver-inside" style="display: block">
+								<table width="100%" class="table-bule table-ellipsis">
+									<thead>
+										<tr class="table-title">
+											<th style="width: 40px;"></th>
+											<th>司机名称</th>
+											<th>手机号码</th>
+											<th>车牌号</th>
+										</tr>
+									</thead>
+									<tbody id="driverListModal_tbody1">
+										
+									</tbody>
+								</table>
+								<div class="panel-pagination">
+									<div class="panel-num">
+										搜索相关结果共<span id="driverNum1">0</span>条
+									</div>
+									<div id="driverPage1" class="pagination-list"></div>
+									<div class="pagination-input"> 
+										到 <input type="text" />页
+									</div>
+									<div class="pagination-button" onclick="driverPageSlect(this)">确定</div>
+								</div>
+							</div>
+							<div class="driver-content" id="driver-outsource" style="display: none">
+								<table width="100%" class="table-bule table-ellipsis">
+									<thead>
+										<tr class="table-title">
+											<th style="width: 40px;"></th>
+											<th>司机名称</th>
+											<th>手机号码</th>
+											<th>车牌号</th>
+										</tr>
+									</thead>
+									<tbody id="driverListModal_tbody2">
+
+									</tbody>
+								</table>
+								<div class="panel-pagination">
+									<div class="panel-num">搜索相关结果共<span id="driverNum2">0</span>条</div>
+									<div id="driverPage2" class="pagination-list"></div>
+									<div class="pagination-input">到 <input type="text" />页</div>
+									<div class="pagination-button" onclick="driverPageSlect(this)">确定</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectDriver()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--模态框 代理方查询模块-->
+		<div class="modal fade" id="proxyListModal" tabindex="-10" role="dialog" onshow="resetDivInput('proxyListModal')">
+			<div class="modal-dialog" style="width: 90%">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal"
+							aria-hidden="true"></div>
+						<h4 class="modal-title">代理方选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false" id="driver-from">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">代理方</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入代理方" type="text" id="proxyListModal_proxyName"/>
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">代理运价</div>
+											<div class="input-text">
+												<input class="input" placeholder="请输入代理运价" type="text" id="proxyListModal_proxyPrice"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th style="width: 40px;"></th>
+										<th>委托方</th>
+										<th>代理方</th>
+										<th>货物</th>
+										<th>线路</th>
+										<th>发货单位</th>
+										<th>到货单位</th>
+										<th>计划拉运日</th>
+										<th>代理运价</th>
+									</tr>
+								</thead>
+								<tbody id="proxyListModal_tbody">
+									
+								</tbody>
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num"> 搜索相关结果共<span id="proxyNum">0</span>条 </div>
+								<div id="proxyPage" class="pagination-list"></div>
+								<div class="pagination-input"> 到<input type="text" />页 </div>
+								<div class="pagination-button" onclick="proxyPageSlect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="submitSelectProxy()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- 发布到平台模态框 -->
+		<div class="modal fade" id="distributePlatformModal" tabindex="-11" role="dialog" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 id="tranAddOrEditModelTitle" class="modal-title">发布平台</h4>
+					</div>
+					<div class="modal-body">
+						<div class="model-from">
+							<!-- 日计划id -->
+							<input class="input" type="hidden" id="transport_id"/>
+							<div class="group-box form-item ">
+								<div class="input-lable"><span>*</span>报价截止日期:</div>
+								<div class="input-text">
+									<input class="input date-time" type="text" id="distributePlatformModal_offerEndDate"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="distributePlatformModalSave()">保存</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+	<!-- 新增企业临时司机表单 -->
+	<form id="form_sub_org_opt" action="" method="post"></form>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/waybillInfo/waybill-common.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/waybillInfo/waybill-create.js"></script>
+
+</html>

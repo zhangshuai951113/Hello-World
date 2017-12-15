@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>机构注销审核</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/viewer.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">				
+				<!--组织管理模板-->
+				<div class="org-audit" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+						    <div class="search-from">
+						     	<div class="both-row row">
+						          		<div class="search-box">
+						            		<div class="input-lable">组织名称</div>
+						            		<div class="input-text">
+						              			<input id="orgName" class="input" placeholder="请输入组织名称" type="text" />
+						            		</div>
+						            		
+						          		</div>
+						          		
+						         </div>
+						         <div class="search-button-box">
+						         	<button class="search-button"  onclick="searchOrgCancelApplyPo(1)" style="margin-left: 4px; margin-top: -2px;">
+							        	<div class="search-icon"></div>
+							        	<div class="text">查询</div>
+							      	</button>
+							      	<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									  </button>
+						         </div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">
+				    	<div class="operation-tab row">
+					      	<button id="auditBtn" class="operation-button operation-blue" onclick="auditCheckedOrgCancelApply()">
+								<div class="audit-icon"></div>
+								<div class="operation-text">审核</div>
+							</button>
+				    	</div>
+				    	<div id="search_org_cancel_apply_info" class="panel-table">
+				    	</div>
+				  	</div>
+				</div>
+			</main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/org/orgCancelApplyAudit.js"></script>
+</html>

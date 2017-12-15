@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>首页</title>
+	
+	<link rel="stylesheet" href="${basePath}/static/css/common/reset.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/home/main.css" type="text/css" />
+</head>
+<body>
+	<!------------------------banner部分------------------------------>
+	<div class="banner">
+		<!--轮播图-->
+		<div class="slider">
+			<ul>
+				<li data-img="${basePath}/static/images/home/banner-01.jpg"></li>
+				<li data-img="${basePath}/static/images/home/banner-02.jpg"></li>
+				<li data-img="${basePath}/static/images/home/banner-03.jpg"></li>
+				<li data-img="${basePath}/static/images/home/banner-04.jpg"></li>
+				<li data-img="${basePath}/static/images/home/banner-05.jpg"></li>
+			</ul>
+		</div>
+		<div class="top">
+			<a href="${basePath}/home">
+				<img class="logo" src="${basePath}/static/images/home/logo.png" alt="">
+			</a>
+			<div class="nav">
+				<dl>
+					<dd>
+						<img src="${basePath}/static/images/home/index.png" alt="">
+					</dd>
+					<dt>首页</dt>
+				</dl>
+				<dl>
+					<dd>
+						<img src="${basePath}/static/images/home/app.png" alt="">
+					</dd>
+					<dt>应用服务</dt>
+				</dl>
+				<dl>
+					<dd>
+						<img src="${basePath}/static/images/home/register.png" alt="">
+					</dd>
+					<dt>注册流程</dt>
+				</dl>
+				<dl>
+					<dd>
+						<img src="${basePath}/static/images/home/download.png" alt="">
+					</dd>
+					<dt>下载中心</dt>
+				</dl>
+				<dl>
+					<dd>
+						<img src="${basePath}/static/images/home/contact.png" alt="">
+					</dd>
+					<dt>联系我们</dt>
+				</dl>
+			</div>
+			<#if !userInfo.id??>
+			<div class="user-center">
+				<a href="${basePath}/userInfo/login" class="login"><span>登录</span></a> |
+				<a href="${basePath}/user/register" class="reg"><span>注册</span></a>
+				<a href="javascript:;" class="uc"><span>个人中心</span></a>
+			</div>
+			</#if>
+			<#if userInfo.id??>
+			<div class="information-home">
+	        <span class="info-user-home" >
+	        	<a href="#">
+	            	<span class="info-user-icon"></span>
+	        		<span class="info-user-home">您好！${_scope_userName}</span>
+	        	</a>	
+	        	<a href = "${basePath}/messages/goMyMessages">
+	        	<i>消息</i>
+                <b>0</b>
+                </a>
+	        </span>
+	        <span class="info-setting-box">
+	          	<a href="${basePath}/logout">
+	            	<span class="info-logout-icon"></span>
+	        		<span style = "color:#fff">退出登录</span>
+	        	</a>
+	        </span>
+     	</div>
+     	</#if>
+		</div>
+		<div class="top-mask"></div>
+	</div>
+	<!------------------------banner部分------------------------------>
+	
+
+	<!------------------------平台优势部分------------------------------>
+	<div class="platform" id="platform">
+		<div class="main">
+			<h5><span>平台优势</span></h5>
+			<div class="platform-content">
+				<img src="${basePath}/static/images/home/pf-01.png" alt="">
+				<img src="${basePath}/static/images/home/pf-02.png" alt="">
+				<img src="${basePath}/static/images/home/pf-03.png" alt="">
+				<img src="${basePath}/static/images/home/pf-04.png" alt="">
+				<img src="${basePath}/static/images/home/pf-05.png" alt="">
+			</div>
+		</div>
+	</div>
+	<!------------------------平台优势部分------------------------------>
+
+
+	<!------------------------功能介绍部分------------------------------>
+	<div class="fun-desc">
+		<div class="main">
+			<h5><span>功能介绍</span></h5>
+			<div class="fd-list">
+				<ul>
+					<li><a href = "${basePath}/index">
+						<div class="bg"></div>
+						<div class="bg-hover"></div>
+						<div class="content">
+							<div class="img">
+								<img src="${basePath}/static/images/home/wlpt.png" alt="">
+							</div>
+							<div class="img-text">
+								<img src="${basePath}/static/images/home/wlpt-text.png" alt="">
+							</div>
+						</div></a>
+					</li>
+					<li><a href="${basePath}/waybillInfo/showWaybillQueryPage">
+						<div class="bg"></div>
+						<div class="bg-hover"></div>
+						<div class="content">
+							<div class="img">
+								<img src="${basePath}/static/images/home/ddcx.png" alt="">
+							</div>
+							<div class="img-text">
+								<img src="${basePath}/static/images/home/ddcx-text.png" alt="">
+							</div>
+						</div></a>
+					</li>
+					<li>
+						<div class="bg"></div>
+						<div class="bg-hover"></div>
+						<div class="content">
+							<div class="img">
+								<img src="${basePath}/static/images/home/bddw.png" alt="">
+							</div>
+							<div class="img-text">
+								<img src="${basePath}/static/images/home/bddw-text.png" alt="">
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!------------------------功能介绍部分------------------------------>
+
+
+	<!------------------------平台公告部分------------------------------>
+	<div class="platform-msg">
+		<div class="main">
+			<h5><span>平台公告</span></h5>
+			<div class="msg-list__wrapper">
+				<div class="msg-left">
+					<div class="msg-list">
+						<div class="msg-header">
+							<span class="title"><i>货源信息发布</i></span>
+							<span class="more">更多</span>
+						</div>
+						<div class="news-list">
+							<p>
+								<span>线路</span>
+								<span>委托方</span>
+								<span>零散货物</span>
+								<span>当前运价</span>
+							</p>
+							<ul id="releaseWaybill">
+							<#if waybillList?exists>
+		    				<#list waybillList as waybill>
+								<li>
+									<a href="javascript:;">
+										<span>${waybill.lineInfoName}</span>
+										<span>${waybill.entrustName}</span>
+										<span>${waybill.scatteredGoods}</span>
+										<span>${waybill.currentTransportPrice}</span>
+									</a>
+								</li>
+							</#list>
+		    				</#if>
+							</ul>
+						</div>
+					</div>
+					<div class="msg-list">
+						<div class="msg-header">
+							<span class="title"><i>车源信息发布</i></span>
+							<span class="more">更多</span>
+						</div>
+						<div class="news-list">
+							<p>
+								<span>发布方</span>
+								<span>发布日期</span>
+								<span>发布内容</span>
+							</p>
+							<ul id="releaseCar">
+							<#if carList?exists>
+		    				<#list carList as car>
+								<li>
+									<a href="javascript:;">
+										<span>${car.releaseName}</span>
+										<span><#if car.releaseTime?exists>${(car.releaseTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></span>
+										<span>${car.releaseContent}</span>
+									</a>
+								</li>
+							</#list>
+		    				</#if>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="msg-list msg-notice__info">
+					<div class="msg-header">
+						<span class="title"><i>公司公告信息</i></span>
+						<span class="more">更多</span>
+					</div>
+					<div class="notice-list">
+						<h3><a href="javascript:;">我国智慧物流发展驶入快车道</a></h3>
+						<ul>
+							<li>
+								<a href="javascript:;">自治区商务厅朱副厅长一行 来我公司调研指导</a>
+							</li>
+							<li>
+								<a href="javascript:;">公司联合举行 疆煤入渝入滇签约仪式</a>
+							</li>
+							<li>
+								<a href="javascript:;">天顺股份与天业股份组织召开技术分享 交流会</a>
+							</li>
+							<li>
+								<a href="javascript:;">慰问公安干警 真情温暖警心</a>
+							</li>
+							<li>
+								<a href="javascript:;">天顺股份成功入选“全国商贸物流标准化 专项行动第三批重点推进企业”</a>
+							</li>
+							<li>
+								<a href="javascript:;">消防知识常抓不懈，安全演习警钟长鸣</a>
+							</li>
+							<li>
+								<a href="javascript:;">新疆天顺供应链股份有限公司公司联合多家公司举行 疆煤入渝入滇签约仪式</a>
+							</li>
+							<li>
+								<a href="javascript:;">天顺投资集团与浦发银行乌鲁木齐分行签署战略合作协议</a>
+							</li>
+							<li>
+								<a href="javascript:;">天顺股份圆满完成第二届工会委员会换届选举工作</a>
+							</li>
+							<li>
+								<a href="javascript:;">天顺股份入选自治区道路货运无车承运人试点企业</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!------------------------平台公告部分------------------------------>
+
+
+	<!------------------------数据信息部分------------------------------>
+	<div class="data-info">
+		<div class="main">
+			<h5><span style = "color: #fff;">数据信息</span></h5>
+			<div class="di-info">
+				<ul>
+					<li>
+						<div class="di-top">
+							<span style="color: #ffffff;">车源信息</span>	
+						</div>
+						<p style="color: #ffffff;"><span id="findCarSourceCount"></span>条</p>
+					  <span id="carSourceCount" style="display:none"></span> 
+					</li>
+					<li>
+						<div class="di-top">
+							<span style="color: #ffffff;">货源信息</span>	
+						</div>
+						<p style="color: #ffffff;"><span id="findWaybillCount"></span>条</p>
+						<span id="waybillCount" style="display:none"></span>
+					</li>
+					<li>
+						<div class="di-top">
+							<span style="color: #ffffff;">路线信息</span>	
+						</div>
+						<p style="color: #ffffff;"><span id="findLineCount"></span>条</p>
+						<span id="lineCount" style="display:none">0</span>
+					</li>
+				</ul>
+			</div>
+			<!-- <div class="chart">
+				<img src="${basePath}/static/images/home/chart.jpg" alt="">
+			</div> -->
+			<div id="amain" style="width:1200px;height:500px;margin-top:3%"></div>
+			
+			
+			<!-- 运单线路报表 -->
+			<div id="startEndMain" style="width:1200px;height:500px;margin-top:10%"></div>
+ 			
+		</div>
+	</div>
+	<!------------------------数据信息部分------------------------------>
+
+
+	<!------------------------footer部分------------------------------>
+	<div class="footer">
+	<!-- 	<div class="footer-nav">
+			<div class="footer-content">
+				<div class="data-list">
+					<h5>车辆定制</h5>
+					<ul>
+						<li>
+							<a href="javascript:;">我有特殊需求？</a>
+						</li>
+						<li>
+							<a href="javascript:;">让我们帮您定制！</a>
+						</li>
+					</ul>
+				</div>	
+				<div class="data-list">
+					<h5>车源数据</h5>
+					<ul>
+						<li>
+							<a href="javascript:;">我有数据？</a>
+						</li>
+						<li>
+							<a href="javascript:;">让我们帮您获取收益！ </a>
+						</li>
+					</ul>
+				</div>	
+				<div class="data-list">
+					<h5>货源数据</h5>
+					<ul>
+						<li>
+							<a href="javascript:;">我需要数据？</a>
+						</li>
+						<li>
+							<a href="javascript:;">让我们帮您获取海量DATA！</a>
+						</li>
+					</ul>
+				</div>	
+			</div>
+		</div> -->
+		<div class="copyright">
+			<div class="cr-nav">
+				<ul>
+					<li>
+						<a href="javascript:;">互动交流</a><span>|</span>
+					</li>
+					<li>
+						<a href="javascript:;">关于我们</a><span>|</span>
+					</li>
+					<li>
+						<a href="javascript:;">网站地图</a><span>|</span>
+					</li>
+					<li>
+						<a href="javascript:;">使用条款</a><span>|</span>
+					</li>
+					<li>
+						<a href="javascript:;">友情链接</a>
+					</li>
+				</ul>
+			</div>
+			<p>copyright 新疆天顺股份有限公司</p>
+		</div>
+	</div>
+	<!------------------------footer部分------------------------------>
+
+	<script type="text/javascript" src="${basePath}/static/js/common/jquery-3.1.1.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/countUp.min.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/index/index.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/home/main.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/reportForm/userDistributionStatistics/echarts-all.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/reportForm/userDistributionStatistics/statistics_user_distribution_range.js"></script>
+	<!-- 运单线路 -->
+	<script type="text/javascript" src="${basePath}/static/js/reportForm/waybill/start_end_map.js"></script>
+	<!-- <script type="text/javascript" src="${basePath}/static/js/reportForm/waybill/start_end_map_test.js"></script> -->
+	
+</body>
+</html>

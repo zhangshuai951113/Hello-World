@@ -1,0 +1,104 @@
+<!-- 模态框 有价卷查询选择-->
+<div id="coupon-data-info" >
+<div class="modal" id="couponSelectModal" tabindex="-1" role="dialog" aria-hidden="true" style="display:block">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close coupon-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          有价卷信息
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-button-box">
+            <div class="both-row row">
+                <div class="search-box">
+                  <div class="input-lable">有价券卡号</div>
+                  <div class="input-text">
+                    <input id="cardCode" class="input" placeholder="请输入有价券卡号" type="text" />
+                  </div>
+                </div>
+                <div class="search-box">
+					<div class="input-lable">有价券类型</div>
+						 <div class="input-text">
+							  <select id="couponType" class="input">
+							  	  <option value="">请选择</option>
+							  	  <#if couponTypeInfoList?exists>
+							  	  	<#list couponTypeInfoList as couponType>
+							  	  		<option value="${couponType.id}">${couponType.couponType}</option>
+							  	  	</#list>
+							  	  </#if>
+							  </select>
+						 </div>
+				</div>
+              </div>
+              <button class="search-button" onclick="searchCouponInfo(1)">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-table row" style="overflow:hidden;">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px" id="tableDrag">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;"></th>
+<!--                 <th>有价券编号</th> -->
+                <th>有价券类型</th>
+                <th>有价券卡号</th>
+                <th>有价券名称</th>
+                <th>使用金额(可编辑)</th>
+                <th>余额</th>
+                <th>领用金额</th>
+                <th>进项税税率</th>
+              </tr>
+            </thead>
+            <tbody>
+	 			<#if couponInfoPager?exists && couponInfoPager.rows?exists>
+		 			<#list couponInfoPager.rows as couponInfo>
+			   			<tr class="table-body ">
+			     			<td style="width:40px;">
+			       				<label class="i-checks">
+		           					<input type="checkbox" class="sub_coupon_info_check" data-id="${couponInfo.id}"
+		           					data-couponInfoId="${couponInfo.couponInfoId}" data-couponTypeInfoId="${couponInfo.couponTypeInfoId}"
+		           				    data-coupon-name="${couponInfo.couponName}" data-coupon-balance="${couponInfo.balance}"
+		           				    data-coupon-taxRate="${couponInfo.taxRate}" data-coupon-cardCode="${couponInfo.cardCode}"><i></i>
+		         				</label>
+			     			</td>
+<!-- 			     			 <td>${(couponInfo.id)!''}</td> -->
+					        <td>${(couponInfo.couponType)!''}</td>
+					        <td>${(couponInfo.cardCode)!''}</td>
+					        <td>${(couponInfo.couponName)!''}</td>
+					        <td><input id="usePrice" style="border: none;color: #e41717;height: 25px;text-align: center;" 
+					        value="0" oninput="onInput(this)" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')"></input></td>
+					        <td>${(couponInfo.balance)!''}</td>
+					        <td>${(couponInfo.money)!''}</td>
+					        <td>${(couponInfo.taxRate)!''}</td>
+					        <td hidden="hidden">${(couponInfo.balance)!''}</td>
+			   			</tr>
+		 			</#list>
+	   			</#if>
+ 			</tbody>
+          </table>
+        </div>
+          <input id="coupon" class="input" type="hidden" value="3"/>
+          <div class="panel-pagination">
+      		${couponInfoPager.pageHtml}
+     	  </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectCoupon()">保存</button>
+        <button class="close-button coupon-opt-close" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+</div>

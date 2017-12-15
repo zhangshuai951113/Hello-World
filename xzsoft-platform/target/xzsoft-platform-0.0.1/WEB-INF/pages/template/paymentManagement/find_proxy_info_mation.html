@@ -1,0 +1,102 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:1110px;">
+			
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closePIutton()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					${findProxyInfo}
+				</h4>
+			</div>
+			<div class="modal-body">
+			<div class="search-panel row">
+			<form onsubmit="return false">
+				<div class="search-from" >
+					<div class="search-row-box" >
+						<div class="both-row row">
+							<div class="search-box">
+							<div class="input-lable">代理人</div>
+								<div class="input-text">
+									<input id="proxyName" class="input" placeholder="请输入代理人" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">证件号</div>
+								<div class="input-text">
+									<input id="idCard" class="input" placeholder="请输入证件号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">银行账号</div>
+								<div class="input-text">
+									<input id="bankCount" class="input" placeholder="请输入银行账号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">开户行</div>
+								<div class="input-text">
+									<input id="bankName" class="input" placeholder="请输入开户行" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="PIList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetProxyInfo()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+			<!-- 表格 -->
+			<div class="panel">
+			<div id="show_goods_info"></div>
+				<div class="panel-table">
+				    <table class="table-bule">
+				      <thead>
+				        <tr class="table-title">
+				        <th  class="check">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="all_proxy_info_check"> 
+			                </label>
+			              </th>
+			              <th>代理人</th>
+				          <th>证件号</th>
+				          <th>银行账号</th>
+				          <th>开户行</th>
+				        </tr>
+				      </thead>
+				      <tbody id="proxyInfoTBody">
+				       
+				      </tbody>
+				    </table>
+	 				<!-- 分页 -->
+					 <div class="panel-pagination">
+					      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+					      <div class="pagination-list"></div>
+					      <div class="pagination-input">到
+					        <input type="text" />页</div>
+					      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+					  </div>  
+				</div>
+			</div>
+			</div>
+			<div class="modal-footer">
+		        <button class="save-button" onclick="submitPIMation()">保存</button>
+		        <button class="close-button"  onclick="closePIutton()">取消</button>
+		    </div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<script type="text/javascript" src="${basePath}/static/js/paymentManagement/find_proxy_info_page.js"></script>

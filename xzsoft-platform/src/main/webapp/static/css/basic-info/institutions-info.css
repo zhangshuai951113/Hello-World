@@ -1,0 +1,13 @@
+.img_box{
+	height:134px;
+	width:218px;
+}
+
+.select-input {
+    height: inherit;
+    float: left;
+    position: relative;
+        width: 30px;
+    border: none
+    
+}

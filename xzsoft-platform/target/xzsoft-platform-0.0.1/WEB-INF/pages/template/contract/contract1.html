@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>合同信息查看</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/org/rootOrgStyle.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/contract/contract-manage.css" type="text/css">
+<style type="text/css">
+.search-box .input-lable {
+	width: 120px;
+}
+
+.search-box .input-text {
+	width: 182px;
+}
+.both-row .group-textarea {
+    width: 50%;
+    float: left;
+    display: inline-block;
+}
+
+</style>
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main" id="mainPage">
+		<div class="panel" style="padding: 6px">
+			<div class="row" style="margin-bottom: 8px; margin-left: -9px;">
+				<button id="backBtn" class="operation-button operation-blue" onclick="history.go(-1)">
+					<div class="operation-text" style="line-height: 18px; height: 23px">返回合同主页</div>
+				</button>
+			</div>
+		</div>
+		<div class="search-panel row">
+			<div class="search-from">
+				<form id="contract_info_form" onsubmit="return false">
+					<input id="contractInfoId" class="input" type="hidden" value="${contractInfo.id}" />
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>合同编号：
+								</div>
+								<div class="input-text">
+									<input id="contract_code" name="contractInfo.contractCode" class="input" readonly="readonly" placeholder="请输入合同编号" type="text" value="${contractInfo.contractCode}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span> 合同名称：
+								</div>
+								<div class="input-text">
+									<input id="contract_name" name="contractInfo.contractName" class="input" readonly="readonly" placeholder="请输入合同名称" type="text" value="${contractInfo.contractName}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>委托方：
+								</div>
+								<div class="input-text">
+									<input id="entrust_name" name="contractInfo.entrustName" class="input" readonly="readonly" placeholder="请输入委托方" type="text" value="${contractInfo.entrustName}" readonly="readonly" /> <input
+										id="entrust" name="contractInfo.entrust" class="input" type="hidden" type="text" value="${contractInfo.entrust}" readonly="readonly" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>承运方：
+								</div>
+								<div class="input-text">
+									<input id="shipper_name" name="contractInfo.shipperName" class="input" readonly="readonly" placeholder="请输入承运方" type="text" value="${contractInfo.shipperName}" readonly="readonly" /> <input
+										id="shipper" name="contractInfo.shipper" class="input" type="hidden" type="text" value="${contractInfo.shipper}" readonly="readonly" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>委托方主机构：
+								</div>
+								<div class="input-text">
+									<input id="entrust_org_root" name="contractInfo.entrustOrgRootName" class="input" readonly="readonly" type="text" value="${contractInfo.entrustOrgRootName}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>承运方主机构：
+								</div>
+								<div class="input-text">
+									<input id="shipper_org_root" name="contractInfo.shipperOrgRootName" class="input" readonly="readonly" type="text" value="${contractInfo.shipperOrgRootName}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>授权代表人甲方：
+								</div>
+								<div class="input-text">
+									<input id="entrust_authorize_person" name="contractInfo.entrustAuthorizePerson" class="input" readonly="readonly" placeholder="请输入授权代表人（甲方）" type="text"
+										value="${contractInfo.entrustAuthorizePerson}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>授权代表人乙方：
+								</div>
+								<div class="input-text">
+									<input id="shipper_authorize_person" name="contractInfo.shipperAuthorizePerson" class="input" readonly="readonly" placeholder="请输入授权代表人（甲方）" type="text"
+										value="${contractInfo.shipperAuthorizePerson}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">币种</div>
+								<div class="input-text">
+									<select id="currency" name="contractInfo.currency" disabled="disabled"  class="input" value="${contractInfo.currency}">
+										<option value="">请选择</option>
+										<option value=1 <#if contractInfo.currency?exists && contractInfo.currency==1>selected</#if>>人民币
+										</option>
+										<option value=2 <#if contractInfo.currency?exists && contractInfo.currency==2>selected</#if>>美元
+										</option>
+										<option value=3 <#if contractInfo.currency?exists && contractInfo.currency==3>selected</#if>>欧元
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">合同类型：</div>
+								<div class="input-text">
+									<select id="contract_type" name="contractInfo.contractType" disabled="disabled" class="input">
+										<option value="">请选择</option>
+										<option value=1 <#if contractInfo.contractType?exists && contractInfo.contractType==1>selected</#if>>运输合同
+										</option>
+										<option value=2 <#if contractInfo.contractType?exists && contractInfo.contractType==2>selected</#if>>框架协议合同
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">支付方式：</div>
+								<div class="input-text">
+									<select id="payment_mode" name="contractInfo.paymentMode" disabled="disabled" class="input">
+										<option value="">请选择</option>
+										<option value=1 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==1>selected</#if>>现金
+										</option>
+										<option value=2 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==2>selected</#if>>电汇
+										</option>
+										<option value=3 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==3>selected</#if>>承兑
+										</option>
+										<option value=4 <#if contractInfo.paymentMode?exists && contractInfo.paymentMode==4>selected</#if>>汇票
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">运输方式：</div>
+								<div class="input-text">
+									<select id="transport_mode" name="contractInfo.transportMode" disabled="disabled" class="input">
+										<option value="">请选择</option>
+										<option value=1 <#if contractInfo.transportMode?exists && contractInfo.transportMode==1>selected</#if>>铁路运输
+										</option>
+										<option value=2 <#if contractInfo.transportMode?exists && contractInfo.transportMode==2>selected</#if>>公路运输
+										</option>
+										<option value=3 <#if contractInfo.transportMode?exists && contractInfo.transportMode==3>selected</#if>>水上运输
+										</option>
+										<option value=4 <#if contractInfo.transportMode?exists && contractInfo.transportMode==4>selected</#if>>航空运输
+										</option>
+										<option value=5 <#if contractInfo.transportMode?exists && contractInfo.transportMode==5>selected</#if>>管道运输
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>签订地点：
+								</div>
+								<div class="input-text">
+									<input id="sign_address" name="contractInfo.signAddress" class="input" readonly="readonly" placeholder="请输入签订地点" type="text" value="${contractInfo.signAddress}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>签订日期：
+								</div>
+								<div class="input-text">
+									<input id="sign_date" name="contractInfo.signDateStr" class="input" readonly="readonly" placeholder="请输入签订日期" type="date" value=
+									<#if contractInfo.signDate?exists>${(contractInfo.signDate)?string('yyyy-MM-dd')}</#if>
+									/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>生效日期：
+								</div>
+								<div class="input-text">
+									<input id="effective_date" name="contractInfo.effectiveDateStr" class="input" readonly="readonly" placeholder="请输入生效日期" type="date" value=
+									<#if contractInfo.effectiveDate?exists>${(contractInfo.effectiveDate)?string('yyyy-MM-dd')}</#if>
+									/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>截止日期：
+								</div>
+								<div class="input-text">
+									<input id="end_date" name="contractInfo.endDateStr" class="input" readonly="readonly" placeholder="请输入截止日期" type="date" value=
+									<#if contractInfo.endDate?exists>${(contractInfo.endDate)?string('yyyy-MM-dd')}</#if>
+									/>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">委托方项目：</div>
+								<div class="input-text">
+									<input id="entrust_project" class="input" readonly="readonly" type="text" value="${contractInfo.entrustProjectName}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>项目所属组织/部门：
+								</div>
+								<div class="input-text">
+									<input id="entrust_project_org_name" class="input" readonly="readonly" type="text" value="${contractInfo.entrustProjectOrgName}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">承运方项目：</div>
+								<div class="input-text">
+									<input id="shipper_project" class="input" readonly="readonly" type="text" value="${contractInfo.shipperProjectName}" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">
+									<span>*</span>项目所属组织/部门：
+								</div>
+								<div class="input-text">
+									<input id="shipper_project_org_name" class="input" readonly="readonly" type="text" value="${contractInfo.shipperProjectOrgName}" />
+								</div>
+							</div>
+						</div>
+						<div class="both-row" style="width:100%">
+						<div class="search-box">
+								<div class="input-lable">合同条款：</div>
+								<div class="group-textarea" >
+									<div class="textarea-text">
+										<textarea id="contract_clause" name="contractInfo.contractClause" readonly="readonly" placeholder="合同条款">${contractInfo.contractClause} </textarea>
+									</div>
+								</div>
+							</div>
+							<div class="search-box">
+									<div class="input-lable">备注：</div>
+									<div class="group-textarea" >
+									<div class="textarea-text">
+										<textarea id="remartks" name="contractInfo.remarks" readonly="readonly" placeholder="备注">${contractInfo.remarks}</textarea>
+									</div>
+								</div>
+								</div>
+						</div>
+						<div class="both-row row">
+							<div class="file-box row" style="width: 120px;">
+								<div class="input-lable">合同附件：</div>
+								<div id="contract_text" class="file-input">${contractInfo.contractImg}</div>
+								<#if contractInfo.contractImg?exists && contractInfo.contractImg!=""> <a style="margin-left: 10px" target="view_frame" class="file-buttton"
+									href="${fastdfsServer}/${contractInfo.contractImg}">
+									<div class="file-text" >查看附件</div>
+								</a> </#if>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="panel">
+			<div id="search_contract_detail_info" class="panel-table"></div>
+		</div>
+		<!--合同明细编辑模板-->
+		<div id="contract_detail_info_view" style="display: block" class="modal-open"></div>
+
+		<!-- 线路选择列表 -->
+		<div class="modal fade" id="lineSelectModal" tabindex="-2" role="dialog">
+			<div class="modal-dialog modal-dialog-both">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">线路选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">线路名称</div>
+											<div class="input-text">
+												<input class="input" id="lineNameQuery" placeholder="请输入线路名称" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">线路起点</div>
+											<div class="input-text">
+												<input class="input" id="startPointQuery" placeholder="请输入线路起点" type="text" />
+											</div>
+										</div>
+										<div class="search-box">
+											<div class="input-lable">线路终点</div>
+											<div class="input-text">
+												<input class="input" id="endPointQuery" placeholder="请输入线路终点" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="lineList(1)">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th style="width: 40px;"><input class="all_line_check" name="all" type="checkbox"></th>
+										<th>线路编号</th>
+										<th>线路名称</th>
+										<th>线路起点</th>
+										<th>线路终点</th>
+										<th>运距</th>
+									</tr>
+								</thead>
+								<tbody id="lineTBody">
+								</tbody>
+							</table>
+							<!-- 分页 -->
+							<div class="panel-pagination">
+								<div id="panel-num-line" class="panel-num">搜索相关结果共0条</div>
+								<div id="pagination-list-line" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="lineJumpPage(this)">确定</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button class="save-button" onclick="lineSelect()">确认</button>
+							<button class="close-button" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/contract/contractContent.js"></script>
+</html>

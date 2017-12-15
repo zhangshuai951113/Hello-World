@@ -1,0 +1,53 @@
+<div id="out_driver_info">
+	<table class="table-bule">
+		<thead>
+        	<tr class="table-title">
+	            <th>司机名称</th>
+	            <th>联系电话</th>
+	            <th>车牌号</th>
+	            <th>身份证号</th>
+	            <th>身份证(正面)</th>
+	            <th>身份证(反面)</th>
+	            <th>驾驶证号</th>
+	            <th>驾驶证(正面)</th>
+	            <th>驾驶证(反面)</th>
+          	</tr>
+        </thead>
+        <tbody>
+        	<#if driverInfoPager?exists && driverInfoPager.rows?exists>
+        		<#list driverInfoPager.rows as driverInfo>
+		          	<tr class="table-body ">
+			            <td>${(driverInfo.driverName)!''}</td>
+			            <td>${(driverInfo.mobilePhone)!''}</td>
+			            <td>${(driverInfo.carCode)!''}</td>
+			            <td>${(driverInfo.idCard)!''}</td>
+			            <td>
+			            	<#if driverInfo.idCardImg?exists && driverInfo.idCardImg!=''>
+			            		<img src="${fastdfsServer}/${driverInfo.idCardImg}" style="width:140px;height:80px">
+			            	</#if>
+			            </td>
+			            <td>
+			            	<#if driverInfo.idCardImgCopy?exists && driverInfo.idCardImgCopy!=''>
+			            		<img src="${fastdfsServer}/${driverInfo.idCardImgCopy}" style="width:140px;height:80px">
+			            	</#if>
+			            </td>
+			            <td>${(driverInfo.drivingLicense)!''}</td>
+			            <td>
+			            	<#if driverInfo.driverLicenseImg?exists && driverInfo.driverLicenseImg!=''>
+			            		<img src="${fastdfsServer}/${driverInfo.driverLicenseImg}" style="width:140px;height:80px">
+			            	</#if>
+			            </td>
+			            <td>
+			            	<#if driverInfo.driverLicenseImgCopy?exists && driverInfo.driverLicenseImgCopy!=''>
+			            		<img src="${fastdfsServer}/${driverInfo.driverLicenseImgCopy}" style="width:140px;height:80px">
+			            	</#if>
+			            </td>
+		       		</tr>
+        		</#list>
+        	</#if>
+    	</tbody>
+	</table>
+	<div class="panel-pagination">
+      	${driverInfoPager.pageHtml}
+   	</div>
+</div>

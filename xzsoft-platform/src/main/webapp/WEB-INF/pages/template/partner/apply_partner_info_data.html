@@ -1,0 +1,114 @@
+<div id="apply_partner_info">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+		<thead>
+        	<tr class="table-title">
+	            <th style="width:40px;">
+	              	<label class="i-checks">
+	                	<input name="all" type="checkbox"><i></i>
+	              	</label>
+	            </th>
+	            <th>发起方</th>
+	            <th>发起方角色</th>
+	            <th>合作伙伴</th>
+	            <th>合作伙伴角色</th>
+	            <th>业务类型</th>
+	            <th>伙伴状态</th>
+	            <th>备注</th>
+	            <th style="min-width: 170px;">操作</th>
+          	</tr>
+        </thead>
+        <tbody>
+        	<#if partnerInfoTempPager?exists && partnerInfoTempPager.rows?exists>
+        		<#list partnerInfoTempPager.rows as partnerInfoTemp>
+		          	<tr class="table-body ">
+			            <td>
+			              	<label class="i-checks">
+			                	<input name="check-box" type="checkbox"><i></i>
+			              	</label>
+			            </td>
+			            <td>${(partnerInfoTemp.originName)!''}</td>
+			            <td>
+			            	<#if partnerInfoTemp.originRole?exists>
+			            		<#if partnerInfoTemp.originRole==1>
+			            			企业货主
+			            		<#elseif partnerInfoTemp.originRole==2>
+			            			物流公司
+			            		<#elseif partnerInfoTemp.originRole==3>
+			            			个体货主
+			            		<#elseif partnerInfoTemp.originRole==4>
+			            			司机
+			            		<#else>		
+			            			未知角色
+			            		</#if>
+			            	</#if>
+			            </td>
+			            <td>${(partnerInfoTemp.partnerName)!''}</td>
+			            <td>
+			            	<#if partnerInfoTemp.partnerRole?exists>
+			            		<#if partnerInfoTemp.partnerRole==1>
+			            			企业货主
+			            		<#elseif partnerInfoTemp.partnerRole==2>
+			            			物流公司
+			            		<#elseif partnerInfoTemp.partnerRole==3>
+			            			个体货主
+			            		<#elseif partnerInfoTemp.partnerRole==4>
+			            			司机
+			            		<#else>		
+			            			未知角色
+			            		</#if>
+			            	</#if>
+			            </td>
+			            <td>
+			            	<#if partnerInfoTemp.businessType?exists>
+			            		<#if partnerInfoTemp.businessType==1>
+			            			运输
+			            		<#elseif partnerInfoTemp.businessType==2>
+			            			采购
+			            		<#elseif partnerInfoTemp.businessType==3>
+			            			结算
+			            		<#else>		
+			            			其他
+			            		</#if>
+			            	</#if>
+			            </td>
+			            <td>
+			            	<#if partnerInfoTemp.relationStatus?exists>
+			            		<#if partnerInfoTemp.relationStatus==1>
+			            			待确认
+			            		<#elseif partnerInfoTemp.relationStatus==2>
+			            			已拒绝
+			            		<#elseif partnerInfoTemp.relationStatus==3>
+			            			已确认
+			            		<#else>		
+			            			未知状态
+			            		</#if>
+			            	</#if>
+			           	</td>
+			            <td>${(partnerInfoTemp.remarks)!''}</th>
+			            <td>
+			              	<div class="operation-td" data-id="${partnerInfoTemp.id}">
+			              		<#if partnerInfoTemp.relationStatus?exists>
+				            		<#if partnerInfoTemp.relationStatus==1 && teamCode == partnerInfoTemp.partnerTeamCode>
+				            			<div class="audit-operation operation-m agree-partner">
+					                  		<div class="text">同意</div>
+					                	</div>
+					                	<div class="audit-operation operation-m refuse-partner">
+					                  		<div class="text">拒绝</div>
+					                	</div>
+				            		<#elseif partnerInfoTemp.relationStatus==2 && teamCode == partnerInfoTemp.originTeamCode>
+				            			<div class="audit-operation operation-m reapply-partner">
+			                  				<div class="text">再次申请</div>
+			                			</div>
+				            		</#if>
+			            		</#if>
+			              	</div>
+			            </td>
+		       		</tr>
+        		</#list>
+        	</#if>
+    	</tbody>
+	</table>
+	<div class="panel-pagination">
+      	${partnerInfoTempPager.pageHtml}
+   	</div>
+</div>

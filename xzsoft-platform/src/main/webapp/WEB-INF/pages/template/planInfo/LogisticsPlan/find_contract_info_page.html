@@ -1,0 +1,153 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:96%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeCButton()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${goodsInfoMation}
+					</h4>
+				</div>
+				<div class="modal-body">
+				<div class="search-panel row">
+				    <form id="selectContractForm" onsubmit="return false">
+					  <div class="search-from" >
+					    <div class="search-row-box">
+					      <div class="both-row row">
+					        <div class="search-box">
+					          <div class="input-lable">合同编号</div>
+					          <div class="input-text">
+					            <input name="contractCode" id="contractCode" class="input" placeholder="请输入合同编号" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">合同名称</div>
+					          <div class="input-text">
+					            <input id="contractName" name="contractName" class="input" placeholder="请输入合同名称" type="text">
+					          </div>
+					        </div>
+					          <div class="search-box">
+					          <div class="input-lable">委托方</div>
+					          <div class="input-text">
+					            <input id="Centrust" name="entrust" class="input" placeholder="请输入委托方(甲方)" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">承运方</div>
+					          <div class="input-text">
+					            <input id="Cshipper" name="shipper" class="input" placeholder="请输入承运方(乙方)" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">发货单位</div>
+					          <div class="input-text">
+					            <input id="CforwardingUnit" name="forwardingUnit" class="input" placeholder="请输入发货单位" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">到货单位</div>
+					          <div class="input-text">
+					            <input id="Cconsignee" name="consignee" class="input" placeholder="请输入到货单位" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">货物</div>
+					          <div class="input-text">
+					            <input id="goodsName" name="goodsName" class="input" placeholder="请输入货物" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+								<div class="input-lable">起始日期</div>
+								<div class="input-text">
+									<input id="CstartDate" name="startDate" class="input date-time-c" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">结束日期</div>
+								<div class="input-text">
+									<input id="CendDate" name="endDate" class="input date-time-c" type="text" />
+								</div>
+							</div>
+								<!-- <div class="search-box">
+				          <div class="input-lable">协同状态</div>
+				          <div class="input-text">
+				            <select id="cooperateStatus" name="cooperateStatus" class="input">
+				              <option value="">请选择</option>
+				              <option value="1">协同</option>
+				              <option value="2">半协同</option>
+				            </select>
+				          </div>
+				        </div> -->
+						</div>
+				      </div>
+				    </div>
+				    <div class="search-button-box">
+				    	<button class="search-button" onclick="Clist(1)">
+					      <div class="search-icon"></div>
+					      <div class="text">查询</div>
+					    </button>
+					    <button class="search-button" type="reset" id="CReset">
+					      <div class="reset-icon"></div>
+					      <div class="text">重置</div>
+					    </button>
+				    </div>
+				  </div>
+				 </form>
+				 </div>
+					<!-- 表格 -->
+					<div class="panel-table">
+						    <table class="table-bule">
+				      <thead>
+				        <tr class="table-title">
+				        <th  class="check">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="all_contract_check"> 
+			                </label>
+			              </th>
+			              <th>合同编号</th>
+				          <th>合同名称</th>
+				          <th>委托方项目</th>
+				          <th>承运方项目</th>
+				          <th>委托方</th>
+				          <th>承运方</th>
+				          <th>货物</th>
+				          <th>线路</th>
+				          <th>运距(公里)</th>
+				          <th>发货单位</th>
+				          <th>到货单位</th>
+				          <th>协同状态</th>
+				          <th>货物状态</th>
+				          <th>生效日期</th>
+				          <th>截止日期</th>
+				        </tr>
+				      </thead>
+				      <tbody id="driverTBody">
+				       
+				      </tbody>
+				    </table>
+			 				<!-- 分页 -->
+			 				<div class="row">
+			 					<div class="panel-pagination">
+								      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+								      <div class="pagination-list" id="dfdfd"></div>
+								      <div class="pagination-input">到
+								        <input type="text" />页</div>
+								      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+								</div> 
+			 				</div>
+							<div class="modal-footer">
+								<button class="close-button" onclick="submitCMation()">确定</button>
+								<button class="close-button " onclick="closeCButton()">取消</button>
+							</div>
+						</div>
+
+					<div id="find_contract_info_model"></div>
+				</div>
+				
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+	<script type="text/javascript" src="${basePath}/static/js/planInfo/LogisticsPlan/contractInfo.js"></script>

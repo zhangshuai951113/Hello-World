@@ -1,0 +1,83 @@
+<!-- 模态框 组织机构和部门查询选择-->
+<div id="org-data-info">
+	<div class="modal" id="orgInfoSelectModal" tabindex="-2" role="dialog" aria-hidden="true" style="display: block">
+		<div class="modal-dialog" style="width: 96%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close org-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title">选择组织</h4>
+				</div>
+				<div class="modal-body">
+					<div class="search-from">
+						<form onsubmit="return false">
+							<div class="search-row-box">
+								<div class="both-row row">
+									<div class="search-box">
+										<div class="input-lable">组织名称</div>
+										<div class="input-text">
+											<input id="orgInfoName" class="input" placeholder="请输入组织名称" type="text" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="search-button-box">
+								<button class="search-button" onclick="showOrgInfoPage(1)">
+									<div class="search-icon"></div>
+									<div class="text">查询</div>
+								</button>
+								<button class="search-button" type="reset">
+									<div class="reset-icon"></div>
+									<div class="text">重置</div>
+								</button>
+							</div>
+
+						</form>
+					</div>
+					<div id="show_department_info"></div>
+					<div class="modal-table row" style="overflow: hidden;">
+						<table width="100%" class="table-bule table-ellipsis" style="margin-top: 8px" id="orgInfoTable">
+							<thead>
+								<tr class="table-title">
+									<th style="width: 40px;"></th>
+									<th>组织名称</th>
+									<th>上级组织</th>
+								</tr>
+							</thead>
+							<tbody>
+								<#if orgInfoPager?exists && orgInfoPager.rows?exists> 
+									<#list orgInfoPager.rows as orgInfo>
+										<tr class="table-body ">
+											<td style="width: 40px;"><label class="i-checks">
+													<input type="radio" name="sub_org_info"
+													class="sub_org_info_check" 
+													data-id="${orgInfo.id}"
+													data-name="${orgInfo.orgName}"
+													data-parent-id="${orgInfo.parentOrgInfoId}"
+													data-parent-name="${orgInfo.parentOrgName}"><i></i>
+											</label></td>
+											<td>${(orgInfo.orgName)!''}</td>
+											<td>${(orgInfo.parentOrgName)!''}</td>
+										</tr>
+									</#list> 
+								</#if>
+							</tbody>
+						</table>
+					</div>
+					<input id="orgInfo" class="input" type="hidden" value="5" />
+					<!-- <div class="panel-pagination">${orgInfoPager.pageHtml}</div> -->
+					<div class="panel-pagination">
+						<div class="panel-num">搜索相关结果共<span id="orgInfoNum">orgInfoPager.total</span>条</div>
+						<div id="orgInfoPage" class="pagination-list"></div>
+						<div class="pagination-input">到 <input type="text" />页</div>
+						<div class="pagination-button" onclick="orgInfoPageJump(this)">确定</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="submitSelectOrgInfo()">保存</button>
+					<button class="close-button org-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

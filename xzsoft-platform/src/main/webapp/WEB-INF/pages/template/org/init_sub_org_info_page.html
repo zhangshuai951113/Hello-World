@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>子机构信息</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<div class="panel">
+					<div class="panel-head">子机构信息</div>
+				  		<div class="panel-body">
+				  			<form id="sub_org_info_form" name="myForm" >
+				  				<input type="hidden" name="orgDetailInfoPo.orgInfoId" value="${orgDetailInfo.orgInfoId}">
+				    			<div class="from-body">
+				      				<div class="from-both-box">
+					        			<div class="group-box">
+						          			<div class="input-lable"><span>*</span>组织机构名称：</div>
+						          			<div class="input-text">
+						            			<input class="input" id="orgName" name="orgDetailInfoPo.orgName" required placeholder="请输入组织名称" type="text" value="${orgDetailInfo.orgName}"/>
+						          			</div>
+					        			</div>
+					        			<div class="group-box">
+								          	<div class="input-lable"><span>*</span>营业执照号：</div>
+								          	<div class="input-text">
+								            	<input class="input" id="licenseNum" required name="orgDetailInfoPo.licenseNum"  placeholder="请输入营业执照号" type="text" value="${orgDetailInfo.licenseNum}"/>
+								          	</div>
+								        </div>
+				      				</div>
+							      	<div class="from-both-box">
+							        	<div class="group-box">
+							          		<div class="input-lable">通讯地址：</div>
+							          		<div class="input-text">
+							            		<input class="input" id="contactAddress" required name="orgDetailInfoPo.contactAddress" placeholder="请输入通讯地址" type="text" value="${orgDetailInfo.contactAddress}"/>
+							          		</div>
+							        	</div>
+							        	<div class="group-box">
+							          		<div class="input-lable"><span>*</span>注册地址：</div>
+							          		<div class="input-text">
+							            		<input class="input" id="registerAddress" required name="orgDetailInfoPo.registerAddress" placeholder="请输入注册地址" type="text" value="${orgDetailInfo.registerAddress}"/>
+							          		</div>
+							        	</div>
+							      	</div>
+				      				<div class="from-both-box">
+							        	<div class="group-box">
+							          		<div class="input-lable">联系人姓名：</div>
+							          		<div class="input-text">
+							            		<input class="input" id="contactName" required  name="orgDetailInfoPo.contactName"  placeholder="请输入联系人姓名"  type="text" value="${orgDetailInfo.contactName}"/>
+							          		</div>
+							        	</div>
+					        			<div class="group-box">
+								          	<div class="input-lable">移动电话：</div>
+								          	<div class="input-text" >
+								            	<input class="input" id="mobilePhone" required name="orgDetailInfoPo.mobilePhone"  placeholder="请输入移动电话" type="text"  value="${orgDetailInfo.mobilePhone}"/>
+								          	</div>
+					        			</div>
+				      				</div>
+							      	<div class="from-both-box">
+								        <div class="group-box">
+								          	<div class="input-lable"><span>*</span>法定代表人：</div>
+								          	<div class="input-text">
+								            	<!-- <input class="input" id="legalPersonName" required name="orgDetailInfoPo.legalPersonName"  placeholder="请输入法定代表人" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" type="text" value="${orgDetailInfo.legalPersonName}"/> -->
+								          		<input class="input" id="legalPersonName" required name="orgDetailInfoPo.legalPersonName"  placeholder="请输入法定代表人" type="text" value="${orgDetailInfo.legalPersonName}"/>
+								          	</div>
+								        </div>
+								        <div class="group-box">
+								          	<div class="input-lable">固定电话：</div>
+								          	<div class="input-text">
+								            	<input class="input" id="telephone" required required name="orgDetailInfoPo.telephone"   placeholder="请输入固定电话" type="text" value="${orgDetailInfo.telephone}"/>
+								          	</div>
+								        </div>
+							      	</div>
+				      				<div class="from-both-box">
+								        <div class="group-box">
+								          	<div class="input-lable">法人身份证号：</div>
+								          	<div class="input-text">
+								            	<input class="input" id="idCard" required name="orgDetailInfoPo.idCard"  placeholder="请输入法人身份证号" type="text" value="${orgDetailInfo.idCard}"/>
+								          	</div>
+								        </div>
+								        <div class="group-box">
+								          	<div class="input-lable"><span>*</span>统一社会信用代码： </div>
+								          	<div class="input-text">
+								            	<input class="input" id="creditCode" required name="orgDetailInfoPo.creditCode"   placeholder="请输入统一社会信用代码"  type="text" value="${orgDetailInfo.creditCode}"/>
+								          	</div>
+								        </div>
+				      				</div>
+							      	<div id="is_combine_div" class="from-both-box">
+								        <div class="group-box">
+					          				<div class="input-lable"><span>*</span>组织机构代码证：</div>
+					          				<div class="input-text">
+					            				<input class="input" id="orgNum" required  name="orgDetailInfoPo.orgNum"  placeholder="组织机构代码证" type="text" value="${orgDetailInfo.orgNum}"/>
+					          				</div>
+					        			</div>
+								        <div class="group-box">
+								          	<div class="input-lable"><span>*</span>税务登记号： </div>
+								          	<div class="input-text">
+								            	<input class="input" id="taxNum" required name="orgDetailInfoPo.taxNum"  placeholder="请输入税务登记号" type="text" value="${orgDetailInfo.taxNum}"/>
+								          	</div>
+								        </div>
+							      	</div>
+							      	<div class="from-both-box">
+							        	<div class="group-box">
+								          	<div class="input-lable">邮编：</div>
+								          	<div class="input-text">
+								            	<input class="input" id="postcode" required  name="orgDetailInfoPo.postcode"  placeholder="请输入邮编" type="text" value="${orgDetailInfo.postcode}" />
+								          	</div>
+								        </div>
+								        <div class="group-box">
+								          	<div class="input-lable">传真：</div>
+								          	<div class="input-text">
+								            	<input class="input" id="fax" required name="orgDetailInfoPo.fax" placeholder="请输入传真" type="text" value="${orgDetailInfo.fax}"/>
+								          	</div>
+								        </div>
+							      	</div>
+							      	<div class="from-both-box">
+							        	<div class="group-box">
+								          	<div class="input-lable">电子邮箱：</div>
+									    	<div class="input-text">
+									            <input class="input" id="email" required  name="orgDetailInfoPo.email" placeholder="请输入电子邮箱" type="email" value="${orgDetailInfo.email}"/>
+									    	</div>
+							        	</div>
+							        	<div class="group-box">
+							          		<div class="input-lable"><span>*</span>开户行： </div>
+							          		<div class="input-text">
+							            		<!-- <input class="input" id="bankName" required name="orgDetailInfoPo.bankName"  placeholder="请输入开户行" type="text" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" value="${orgDetailInfo.bankName}"/> -->
+							            		<input class="input" id="bankName" required name="orgDetailInfoPo.bankName"  placeholder="请输入开户行" type="text"  value="${orgDetailInfo.bankName}"/>
+							          		</div>
+							        	</div>
+							      	</div>
+							      	<div class="from-both-box">
+							        	<div class="group-box">
+							          		<div class="input-lable"><span>*</span>开户名：</div>
+							          		<div class="input-text">
+							            		<input class="input" id="accountName" required name="orgDetailInfoPo.accountName" placeholder="请输入开户名" type="text" value="${orgDetailInfo.accountName}"/>
+							          		</div>
+							        	</div>
+							        	<div class="group-box">
+							          		<div class="input-lable"><span>*</span>银行账号：</div>
+							          		<div class="input-text">
+							            		<input class="input" id="bankAccount" required name="orgDetailInfoPo.bankAccount" placeholder="请输入银行账号" type="text" value="${orgDetailInfo.bankAccount}"/>
+							          		</div>
+							        	</div>
+							      	</div>
+							      	<div class="from-both-box">
+								        <div class="group-box">
+								          	<div class="input-lable"><span>*</span>道路运输许可证号：</div>
+								          	<div class="input-text">
+								            	<input class="input" id="roadTransportPermitNum" required name="orgDetailInfoPo.roadTransportPermitNum" placeholder="请输入道路运输许可证号" type="text" value="${orgDetailInfo.roadTransportPermitNum}" />
+								          	</div>
+								        </div>
+								        <div class="group-box">
+								          	<div class="input-lable"><span>*</span>是否三证合一：</div>
+								          	<div class="input-text">
+									          	<select id="is_combine" class="input" name="orgDetailInfoPo.isCombine" onchange="changeIsCombine()">
+									          		<option value="1" <#if orgDetailInfo.isCombine?exists && orgDetailInfo.isCombine==1>selected</#if>>是</option>
+									          		<option value="0" <#if orgDetailInfo.isCombine?exists && orgDetailInfo.isCombine==0>selected</#if>>否</option>
+									          	</select>
+								          	</div>
+								        </div>
+							      	</div>
+							      	<div id="license img_div" class="from-both-box">
+							        	<div class="group-img">
+								          	<div class="input-lable"><span>*</span>营业执照附件：</div>
+								          	<div class="input-img">
+								          		<#if orgDetailInfo.licenseImg?exists>
+								          			<img src="${fastdfsServer}/${orgDetailInfo.licenseImg}" class="upload_img img_box" img-type="license_img">
+								          		<#else>
+								          			<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="license_img">
+								          		</#if>
+								          		<input id="license_img" type="hidden" name="orgDetailInfoPo.licenseImg" value="${orgDetailInfo.licenseImg}">
+								          	</div>
+								          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。 <br/>图片大小不超过3M。 </div>
+							        	</div>
+							      	</div>
+							      	<div id="org_img_div" class="from-both-box">
+								        <div class="group-img">
+								          	<div class="input-lable"><span>*</span>组织机构代码证附件：</div>
+								          	<div class="input-img">
+								          		<#if orgDetailInfo.orgImg?exists>
+								          			<img src="${fastdfsServer}/${orgDetailInfo.orgImg}" class="upload_img img_box" img-type="org_img">
+								          		<#else>
+									          		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="org_img">
+								          		</#if>
+								          		<input id="org_img" type="hidden" name="orgDetailInfoPo.orgImg" value="${orgDetailInfo.orgImg}">
+								          	</div>
+								          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+								        </div>
+							      	</div>
+							      	<div id="tax_img_div" class="from-both-box">
+								        <div class="group-img">
+								          	<div class="input-lable"><span>*</span>税务登记证附件：</div>
+								          	<div class="input-img">
+								          		<#if orgDetailInfo.taxImg?exists>
+								          			<img src="${fastdfsServer}/${orgDetailInfo.taxImg}" class="upload_img img_box" img-type="tax_img">
+								          		<#else>
+								          			<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="tax_img">
+								          		</#if>
+								          		<input id="tax_img" type="hidden" name="orgDetailInfoPo.taxImg" value="${orgDetailInfo.taxImg}">
+								          	</div>
+								          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+								        </div>
+							      	</div>
+							      	<div class="from-both-box">
+							        	<div class="group-img">
+							          		<div class="input-lable"><span>*</span>统一社会信用代码证附件：</div>
+							          		<div class="input-img">
+							          			<#if orgDetailInfo.licenseImg?exists>
+								          			<img src="${fastdfsServer}/${orgDetailInfo.creditImg}" class="upload_img img_box" img-type="credit_img">
+								          		<#else>
+							          				<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="credit_img">
+								          		</#if>
+							          			<input id="credit_img" type="hidden" name="orgDetailInfoPo.creditImg" value="${orgDetailInfo.creditImg}">
+							          		</div>
+							          		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。 </div>
+							        	</div>
+							      	</div>
+							      	<div class="from-both-box">
+							        	<div class="group-textarea">
+								          	<div class="input-lable">备注：</div>
+								          	<div class="input-textarea">
+								            	<textarea id="remarks" name="orgDetailInfoPo.remarks">${orgDetailInfo.remarks}</textarea>
+								          	</div>
+							        	</div>
+							      	</div>
+							    	<div class="from-both-box">
+										<div class="button-center">
+							            	<button class="from-save-button" onclick="commitSubOrgInfo()">保存</button>
+							            	<button class="from-save-button"  onclick="gotoOrgManage()">返回</button>
+										</div>
+							    	</div>
+								</div>
+				    		</form>
+				    	</div>
+					</div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/org/subOrgOperate.js"></script>
+</html>

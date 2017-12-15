@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>授权明细</title> 
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css" />
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+			<div class="tab-box">	
+			  <a href="showDataAuthPage"><div class="tab-text ">数据授权</div></a>
+			  <a href="showDataAuthDetailPage"><div class="tab-text active">授权明细</div></a>
+			</div>
+		<div class="search-panel row">
+			<div class="search-from">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">授权用户</div>
+								<div class="input-text">
+									<input id="authUser" class="input" placeholder="请输入授权用户" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="searchUserDataAuthList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" id="search-button" type="reset">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="row">
+				<div class="operation-tab row">
+					<button style="width:82px" class="operation-button operation-blue" onclick="cancelAuthAll()">
+						<div class="cancel-auth-icon"></div>
+						<div class="text" style="color: #ffffff;padding-top:5px;">取消授权</div>
+					</button>
+				</div>
+			</div>
+			<div id="search_user_data_auth" class="panel-table">
+				
+			</div>
+			 <!-- 分页 -->
+			<!--<div class="panel-pagination">
+			      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list plan_info_all_mation"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			  </div>  -->
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+
+	<!-- 子机构操作表单 -->
+	<form id="form_sub_org_opt" action="" method="post">
+		<input id="hidden_sub_operate_type" type="hidden" name="operateType">
+		<input id="hidden_sub_org_info_id" type="hidden" name="orgInfoId">
+	</form>
+</body>
+<#include "../../common/common_footer.html" />
+
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/userDataAuth/userDataAuth.js"></script>
+
+<script>
+	//取消授权单个
+	function cancelAuth(e) {
+		var id = $(e).attr("data-id");
+		console.log(id);
+	}
+
+	//取消多个授权用户
+	function cancelAuthAll() {
+		var list = findAllCheck();
+		if (list.length == 0) {
+			$.alert("请选择数据");
+		}
+		//alert(list);
+	}
+	
+	function cancelAuthUserDataAuth(ids){
+		var params = {"ids":ids};
+		$.ajax({
+			url : basePath + "/dataAuth/cancelAuthDataAuth",
+			asyn : false,
+			type : "POST",
+			data : params,
+			dataType : "json" ,
+			success : function(dataStr) {
+				if (dataStr) {
+					if (dataStr.success) {
+						commonUtil.showPopup("提示", "取消授权成功");
+						searchUserDataAuthList(1);
+					} else {
+						commonUtil.showPopup("提示", dataStr.msg);
+						return;
+					}
+				} else {
+					commonUtil.showPopup("提示", "保存部门信息服务异常忙，请稍后重试");
+					return;
+				}
+			}
+		});
+	}
+	/**
+	 * 查找选择
+	 */
+	function findAllCheck() {
+		var checkList = new Array();
+		$('.sub-auth-check').each(function() {
+			if ($(this).is(":checked")) {
+				checkList.push($(this).attr("data-id"));
+			}
+		});
+		return checkList;
+	}
+	
+	//重置按钮
+	$("#search-button").click(function(){
+		setTimeout(function(){
+			searchUserDataAuthList(1);
+		});
+	});
+	
+</script>
+</html>

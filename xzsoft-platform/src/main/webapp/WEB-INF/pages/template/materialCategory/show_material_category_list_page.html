@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>物资类别</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/line/line-manage.css" type="text/css" />
+
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--物资类别模板-->
+				<div class="line-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+							<div class="search-from">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">物资类别</div>
+											<div class="input-text">
+												<input id="s_material_type" class="input" placeholder="请输入物资类别" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchMaterialCategory(1)">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">	
+						<div class="operation-tab row">
+				      		<button class="operation-button operation-blue" onclick="addOrEditMaterialCategoryPage()">
+					          <div class="add-icon"></div>
+					          <div class="operation-text">新增</div>
+					        </button>
+					        <button class="operation-button operation-blue" onclick="deleteCheckedMaterialCategory()">
+					          <div class="delete-icon"></div>
+					          <div class="operation-text">删除</div>
+					        </button>
+							<button class="operation-button operation-blue" onclick="maintenanceOfGoods()">
+								<div class="op-icon"></div>
+								<div class="operation-text">维护货物类别</div>
+							</button>
+						</div>
+						<div id="search-material-category" class="panel-table">
+						</div>
+					</div>
+					
+					<!-- 新增/编辑物资类别管理 -->
+					<div id="show_material_category"></div>
+					
+					<!-- 维护货物信息 -->
+					<div id="show_maintenance_of_goods"></div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/materialCategory/materialCategoryManage.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/materialCategory/goodsSearch.js"></script>
+</html>

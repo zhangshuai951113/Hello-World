@@ -1,0 +1,47 @@
+<!-- 有价券类型新增、修改模态框 -->
+<div id="coupon-type-data-info">
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="couponTypeModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close coupon-type-info-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="driverModalLabel">${operateTitle}</h4>
+				</div>
+				<div class="modal-body">
+					<form id="coupon_type_info_form">
+						<input id="hidden_coupon_type_id" type="hidden" name="couponTypeInfo.id" value="${couponTypeInfo.id}">
+						<div class="model-from">
+								<div class="group-box">
+									<div class="input-lable">
+										<span>*</span>有价券类型：
+									</div>
+									<div class="input-text">
+										<input id="coupon_type" name="couponTypeInfo.couponType" class="input" placeholder="请输入有价券类型" type="text" value="${couponTypeInfo.couponType}" />
+									</div>
+								</div>
+								<div class="group-box">
+									<div class="input-lable">
+										<span>*</span>进项税税率(%)：
+									</div>
+									<div class="input-text">
+										<input id="tax_rate" name="couponTypeInfo.taxRate" class="input" placeholder="请输入进项税税率(0~100的整数)" type="number" min=0 max=100 step =0.01 value="${couponTypeInfo.taxRate}" />
+									</div>
+								</div>
+								<div class="group-box" style="height:100px">
+									<div class="input-lable">备注：</div>
+									<div class="textarea-text">
+										<textarea id="remark" name="couponTypeInfo.remark" placeholder="请输入备注" type="text" value="">${couponTypeInfo.remark}</textarea>
+									</div>
+								</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onClick="saveCouponTypeInfo()">保存</button>
+					<button class="close-button coupon-type-info-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

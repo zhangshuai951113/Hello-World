@@ -1,0 +1,54 @@
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:96%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeWWButton()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${findScatteredCargoTrackingPage}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<!-- 表格 -->
+					<input id="FSCTId" type="hidden">
+					<div id="show_goods_info"></div>
+					<div class="modal-table">
+					    <table class="table-bule">
+					      <thead>
+					        <tr class="table-title">
+				              <th>委托方</th>
+					          <th>承运方</th>
+					          <th>司机编号</th>
+					          <th>零散货物</th>
+					          <th>线路</th>
+					          <th>车牌号</th>
+					          <th>当前运价</th>
+					          <th>运单状态</th>
+					        </tr>
+					      </thead>
+					      <tbody id="findScatteredCargoTrackingTBody">
+					       
+					      </tbody>
+					    </table>
+		 				<!-- 分页 -->
+		 				<div class="row">
+							<div class="panel-pagination">
+							      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+							      <div class="pagination-list"></div>
+							      <div class="pagination-input">到
+							        <input type="text" />页</div>
+							      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+							</div> 
+						</div>
+					</div>
+					<div id="find_contract_info_model"></div>
+				</div>
+				<div class="modal-footer">
+			        <button class="close-button"  onclick="closeWWButton()">关闭</button>
+			    </div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<script type="text/javascript" src="${basePath}/static/js/scatteredGoods/scatteredCargoTracking/findScatteredCargoTracking.js"></script>

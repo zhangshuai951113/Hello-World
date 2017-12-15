@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>运单信息</title> <#include "./common/common_header.html" />
+
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/table.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/account/account-print.css" />
+<style media="print">
+    @page {
+      size: auto;  /* auto is the initial value */
+      margin: 0 36px 0 36px; /* this affects the margin in the printer settings */
+    } 
+</style>
+</head>
+<body class="app-body">
+
+	<#include "./common/common_top.html" />
+	<div class="main-body">
+		<!-- Main content -->
+		<#include "./common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main"> 
+		<div class="search-panel row">
+			<div class="search-from">
+				<form onsubmit="return false">
+					<div class="search-button-box">
+						<button class="operation-button" onclick="doPrint()">
+							<div class="text">打印</div>
+						</button>
+						<button class="operation-button" onclick="window.history.back()">
+							<div class="text">返回</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--startprint-->
+		<div id="print-body" class="print-body" >
+			<div class="t-head" style = "width: 100%;text-align: center;font-size:36px;">收入调差单</div>
+			<table class="t-form" style = "width: 100%;text-align: left;margin-left:10px;font-size:16px;">
+				<tbody>
+					<tr>
+						<td colspan="3" style="width:30%;">客户名称：${accountInfo.customerName}</td>
+						<td colspan="3" style="width:30%;">组织部门：${accountInfo.orgInfoName}</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="width:30%;">货物名称：${accountInfo.goodsName}</td>
+						<td colspan="3" style="width:30%;">对账单编号：${accountInfo.accountCheckId}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table class="t-table" style = "width: 100%;text-align: center;font-size:18px; border-collapse:collapse;  border:2px solid ;">
+				<tbody>
+					
+					<tr style = "border:2px solid;">
+						<td style = "border:2px solid;width:16%;">确认金额</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.confirmPrice}</td>
+						<td style = "border:2px solid;width:16%;">确认发货吨位</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.confirmForwardingTonnage}</td>
+						<td style = "border:2px solid;width:16%;">确认到货吨位</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.confirmArriveTonnage}</td>
+					</tr>
+
+					<tr style = "border:2px solid;">
+						<td style = "border:2px solid;width:16%;">应收金额</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.receiveableTotal}</td>
+						<td style = "border:2px solid;width:16%;">系统发货吨位</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.forwardingTonnage}</td>
+						<td style = "border:2px solid;width:16%;">系统到货吨位</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.arriveTonnage}</td>
+					</tr>
+
+					<tr style = "border:2px solid;">
+						<td style = "border:2px solid;width:16%;">单据总数</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.documentsTotal}</td>
+						<td style = "border:2px solid;width:16%;">出车数</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.outCar}</td>
+						<td style = "border:2px solid;width:16%;">确认车数</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.confirmOutCar}</td>
+					</tr>
+
+					<tr style = "border:2px solid;">
+						<td style = "border:2px solid;width:16%;">其它差异</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.otherDifference}</td>
+						<td style = "border:2px solid;width:16%;">客户扣损</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.lossDifference}</td>
+						<td style = "border:2px solid;width:32%;" colspan="2"></td>
+					</tr>
+
+					<tr style = "border:2px solid;">
+						<td style = "border:2px solid;width:16%;">调差金额</td>
+						<td style = "border:2px solid;width:16%;">${accountInfo.differenceIncome}</td>
+						<td style = "border:2px solid;width:16%;">大写</td>
+						<td style = "border:2px solid;width:48%;" colspan="3">${accountInfo.bigWrite}</td>
+					</tr>
+
+					<tr style = "border:2px solid;">
+						<td style = "border:2px solid;width:16%;">备注</td>
+						<td style = "border:2px solid;width:80%;" colspan="5">${accountInfo.remarks}</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<table class="t-foot" style = "width: 100%;text-align: center;font-size:16px;page-break-after:always">
+				<tbody>
+					<tr>
+						<td>制单人：${accountInfo.createUserName}</td>
+						<td></td>
+						<td>复核人：</td>
+						<td></td>
+						<td>收款人：</td>
+						<td></td>
+						<td>打印时间：${.now?string("yyyy-MM-dd HH:mm:ss")}</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--endprint-->
+		
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "./common/common_footer.html" />
+
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/accountCheck/account-print.js"></script>
+
+</html>

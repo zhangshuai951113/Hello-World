@@ -1,0 +1,60 @@
+﻿<!-- 车辆信息列表-->
+<div id="listInfo" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="carSourceModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close car-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="carSourceModalLabel">车辆列表</h4>
+				</div>
+				<div class="modal-body">
+				<div class="search-from" style="width: 450px;">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">车牌号码</div>
+								<div class="input-text">
+									<input id="ci_car_code" class="input" placeholder="请输入车牌号码" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="carList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+					</div>
+				</div>
+					<table class="table-bule" align="center">
+						<thead>
+							<tr class="table-title">
+								<th style="width: 20px;"><input class="all_car_check" name="all" type="checkbox"></th>
+								<th>车牌号码</th>
+								<th>车辆类型</th>
+								<th>外廓尺寸(米)</th>
+								<th>载重量(吨)</th>
+							</tr>
+						</thead>
+						<tbody id="carTBody">
+						</tbody>
+					</table>
+					<!-- 分页 -->
+					<div class="panel-pagination">
+						<div id="panel-num-car" class="panel-num">搜索相关结果共0条</div>
+						<div class="pagination-list-entrust"></div>
+						<div class="pagination-input">
+							到 <input type="text" />页
+						</div>
+						<div class="pagination-button" onclick="carJumpPage(this)">确定</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="carSelect()">确认</button>
+					<button class="close-button car-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

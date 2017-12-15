@@ -1,0 +1,109 @@
+<div id="bidding-detail-content" class="modal-content" style="width: 820px;">
+	<div class="modal-header">
+		<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+		<h4 class="modal-title">${operateTitle}</h4>
+	</div>
+	<div class="modal-body">
+		<form id="bidding_detail_info_form">
+						<input id="hidden_bidding_detail_id" type="hidden" name="biddingDetailInfoPo.id" value="${biddingDetailInfoPo.id}"> 
+						<input id="hidden_bidding_info_id" type="hidden" name="biddingDetailInfoPo.biddingInfoId" value="${biddingDetailInfoPo.biddingInfoId}">
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>货物名称：
+								</div>
+								<div class="input-text">
+									<input id="goods_name" name="biddingDetailInfoPo.goodsName" class="input" placeholder="请选择货物" type="text" value="${biddingDetailInfoPo.goodsName}" /> <input id="goods_info_id"
+										name="biddingDetailInfoPo.goodsInfoId" class="input" type="hidden" type="text" value="${biddingDetailInfoPo.goodsInfoId}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>计量单位：
+								</div>
+								<div class="input-text">
+									<input id="units" name="biddingDetailInfoPo.units" class="input" type="text" value="${biddingDetailInfoPo.units}" readonly="readonly"/> 
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>发货单位：
+								</div>
+								<div class="input-text">
+									<input id="forwarding_unit" name="biddingDetailInfoPo.forwardingUnit" class="input" placeholder="请输入发货单位" type="text" value="${biddingDetailInfoPo.forwardingUnit}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>收货单位：
+								</div>
+								<div class="input-text">
+									<input id="consignee" name="biddingDetailInfoPo.consignee" class="input" placeholder="请输入收货单位" type="text" value="${biddingDetailInfoPo.consignee}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>线路：
+								</div>
+								<div class="input-text">
+									<input id="line_name" name="biddingDetailInfoPo.lineName" class="select-lists input" placeholder="请输入线路" type="text" value="${biddingDetailInfoPo.lineName}" readonly="readonly" /> 
+									<input id="line_info_id" name="biddingDetailInfoPo.lineInfoId" class="input" hidden="true" type="text" value="${biddingDetailInfoPo.lineInfoId}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>运距：
+								</div>
+								<div class="input-text">
+									<input id="distance" name="biddingDetailInfoPo.distance" class="input" placeholder="请输入运距" type="number" value="${biddingDetailInfoPo.distance}" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>起始日期：
+								</div>
+								<div class="input-text">
+									<input id="start_date" name="biddingDetailInfoPo.startDateStr" class="input date-time" value="${biddingDetailInfoPo.startDateStr}" placeholder="请输入起始日期"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>截止日期：
+								</div>
+								<div class="input-text">
+									<input id="end_date" name="biddingDetailInfoPo.endDateStr" class="input date-time" value="${biddingDetailInfoPo.endDateStr}"  placeholder="请输入截止日期"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span> 总量：
+								</div>
+								<div class="input-text">
+									<input id="quantity" name="biddingDetailInfoPo.quantity" class="input" placeholder="请输入数量" type="number" value="${biddingDetailInfoPo.quantity}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-textarea">
+								<div class="input-lable">备注：</div>
+								<div class="textarea-text" style="width: 586px;">
+									<textarea id="remark" name="biddingDetailInfoPo.remark" placeholder="请填写备注">${biddingDetailInfoPo.remark}</textarea>
+								</div>
+							</div>
+						</div>
+					</form>
+	</div>
+	<div class="modal-footer">
+		<button class="save-button" onclick="saveBiddingDetailInfo()">确定</button>
+		<button class="close-button" data-dismiss="modal">取消</button>
+	</div>
+</div>

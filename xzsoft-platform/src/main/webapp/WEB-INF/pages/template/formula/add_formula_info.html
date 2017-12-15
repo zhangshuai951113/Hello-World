@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>新增公式</title>
+  <#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css"/>
+		<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css"/>
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css"/>
+		<link rel="stylesheet" href="${basePath}/static/css/transport/transport.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css"/>
+		<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+        <link rel="stylesheet" href="${basePath}/static/css/common/reset.css" type="text/css" />
+        <link rel="stylesheet" href="${basePath}/static/css/common/newgs.css" type="text/css" /> 
+        
+</head>
+<body class="app-body">
+<#include "../../common/common_top.html" />
+<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+	<div class="header-box">
+		<div class="header-samll-box">
+			<div class="header-samll-box-up">
+				<div class="up-left">
+					设置公式 
+						&nbsp;&nbsp;&nbsp;
+					<span>
+							<input type="radio" name="equationMark" checked="checked" value="1"> 司机
+					 	    <input type="radio" name="equationMark" value="2"> 企业
+					</span> 
+				</div>
+				<div class="up-right">
+					  <!-- <div class="operation-tab row"> -->
+					     	<button class="search-button" type="reset" style="border-radius:0px;" onclick="resetfunc()">
+								<div class="reset-icon"></div>
+								<div class="text">清空</div>
+						    </button>
+					  		<button class="search-button" type="reset" style="border-radius:0px;" onclick="backListPage();">
+								<div class="reset-icon"></div>
+								<div class="text">返回</div>
+						  	</button>
+					     	 <button class="operation-button operation-blue" onclick="saveFormuaInfo('add');">
+								<div class="enable-icon"></div>
+								<div class="operation-text">保存</div>
+						  	</button>
+						  	<button id="operation" class="operation-button operation-blue" style="margin-left: 5px">
+						        <div class="delete-icon"></div>
+						        <div class="operation-text">退格</div>
+					      	</button>
+					     	<button id="operation-huan" class="operation-button operation-blue" style="margin-left: 5px">
+						        <div class="delete-icon"></div>
+						        <div class="operation-text">换行</div>
+					      </button>
+				     <!--  </div> -->
+				</div>
+			</div>
+			
+			<div class="header-samll-box-down">
+				<span name="tab" id="result14" class="span_b">运费=</span>
+		   		<span name="tab" id="radius15" style="cursor:pointer" class="span_b" onclick="check_span(this);">吨位</span>
+				<span name="tab" id="radius" class="span_b">*</span>
+				<span name="tab" id="radius16" style="cursor:pointer" class="span_b" onclick="check_span(this);">运价</span>
+				<br><p class='huanhang'></p><p></p>
+				<span name="tab" id="result17" class="span_b">应付运费=</span>
+				<span name="tab" id="radius18" style="cursor:pointer" class="span_b" onclick="check_span(this);">运费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius19" style="cursor:pointer" class="span_b" onclick="check_span(this);">扣损金额</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius20" style="cursor:pointer" class="span_b" onclick="check_span(this);">其他扣款</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius21" style="cursor:pointer" class="span_b" onclick="check_span(this);">燃料费</span>
+				<br><p class="huanhang"></p><p></p>
+				<span name="tab" id="result22" class="span_b">实付金额=</span>
+				<span name="tab" id="radius23" style="cursor:pointer" class="span_b" onclick="check_span(this);">应付运费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius24" style="cursor:pointer" class="span_b" onclick="check_span(this);">工本费</span>
+				<br><p class="huanhang"></p><p></p>
+				<span name="tab" id="result25" class="span_b">本次付款=</span>
+				<span name="tab" id="radius26" style="cursor:pointer" class="span_b" onclick="check_span(this);">实付金额</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius27" style="cursor:pointer" class="span_b" onclick="check_span(this);">预付款</span>
+				<br><p class="huanhang"></p><p></p>
+				<span name="tab" id="result28" class="span_b">公路进项税=</span>
+				<span name="tab" id="radius29" style="cursor:pointer" class="span_b" onclick="check_span(this);">公路通行费</span>
+				<span name="tab" id="radius" class="span_b">/</span>
+				<span name="tab" id="radius" class="span_b">(</span>
+				<span name="tab" id="radius_isnum30" class="span_b" style="cursor:pointer" onclick="check_span(this);">1</span>
+				<span name="tab" id="radius" class="span_b">+</span>
+				<span name="tab" id="radius_isnum31" class="span_b" style="cursor:pointer" onclick="check_span(this);">0.05</span>
+				<span name="tab" id="radius" class="span_b">)</span>
+				<span name="tab" id="radius" class="span_b">*</span>
+				<span name="tab" id="radius_isnum32" class="span_b" style="cursor:pointer" onclick="check_span(this);">0.05</span>
+				<br><p class="huanhang"></p><p></p>
+				<span name="tab" id="result33" class="span_b">高速公路进项税=</span>
+				<span name="tab" id="radius34" style="cursor:pointer" class="span_b" onclick="check_span(this);">高速公路通行费</span>
+				<span name="tab" id="radius" class="span_b">/</span>
+				<span name="tab" id="radius" class="span_b">(</span>
+				<span name="tab" id="radius_isnum35" class="span_b" style="cursor:pointer" onclick="check_span(this);">1</span>
+				<span name="tab" id="radius" class="span_b">+</span>
+				<span name="tab" id="radius_isnum36" class="span_b" style="cursor:pointer" onclick="check_span(this);">0.03</span>
+				<span name="tab" id="radius" class="span_b">)</span>
+				<span name="tab" id="radius" class="span_b">*</span>
+				<span name="tab" id="radius_isnum37" class="span_b" style="cursor:pointer" onclick="check_span(this);">0.03</span>
+				<br><p class="huanhang"></p><p></p>
+				<span name="tab" id="result38" class="span_b">运费进项税=</span>
+				<span name="tab" id="radius" class="span_b">(</span>
+				<span name="tab" id="radius39" style="cursor:pointer" class="span_b" onclick="check_span(this);">应付运费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius40" style="cursor:pointer" class="span_b" onclick="check_span(this);">其他通行费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius41" style="cursor:pointer" class="span_b" onclick="check_span(this);">公路通行费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius42" style="cursor:pointer" class="span_b" onclick="check_span(this);">高速公路通行费</span>
+				<span name="tab" id="radius" class="span_b">)</span>
+				<span name="tab" id="radius" class="span_b">/</span>
+				<span name="tab" id="radius" class="span_b">(</span>
+				<span name="tab" id="radius_isnum43" class="span_b" style="cursor:pointer" onclick="check_span(this);">1</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius_isnum44" class="span_b" style="cursor:pointer" onclick="check_span(this);">0.0186</span>
+				<span name="tab" id="radius" class="span_b">)</span>
+				<span name="tab" id="radius" class="span_b">*</span>
+				<span name="tab" id="radius_isnum45" class="span_b" style="cursor:pointer" onclick="check_span(this);">0.03</span>
+				<br><p class="huanhang"></p><p></p>
+				<span name="tab" id="result46" class="span_b">进项税=</span>
+				<span name="tab" id="radius47" style="cursor:pointer" class="span_b" onclick="check_span(this);">运费进项税</span>
+				<span name="tab" id="radius" class="span_b">+</span>
+				<span name="tab" id="radius48" style="cursor:pointer" class="span_b" onclick="check_span(this);">有价券进项税</span>
+				<span name="tab" id="radius" class="span_b">+</span>
+				<span name="tab" id="radius49" style="cursor:pointer" class="span_b" onclick="check_span(this);">公路进项税</span>
+				<span name="tab" id="radius" class="span_b">+</span>
+				<span name="tab" id="radius50" style="cursor:pointer" class="span_b" onclick="check_span(this);">高速公路进项税</span>
+				<br><p class="huanhang"></p><p></p>
+				<span name="tab" id="result51" class="span_b">其他税费=</span>
+				<span name="tab" id="radius" class="span_b">(</span>
+				<span name="tab" id="radius52" style="cursor:pointer" class="span_b" onclick="check_span(this);">应付运费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius53" style="cursor:pointer" class="span_b" onclick="check_span(this);">其他通行费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius54" style="cursor:pointer" class="span_b" onclick="check_span(this);">公路通行费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius55" style="cursor:pointer" class="span_b" onclick="check_span(this);">高速公路通行费</span>
+				<span name="tab" id="radius" class="span_b">)</span>
+				<span name="tab" id="radius" class="span_b">/</span>
+				<span name="tab" id="radius" class="span_b">(</span>
+				<span name="tab" id="radius_isnum56" class="span_b" style="cursor:pointer" onclick="check_span(this);">1</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius_isnum57" class="span_b" style="cursor:pointer" onclick="check_span(this);">0.0186</span>
+				<span name="tab" id="radius" class="span_b">)</span>
+				<span name="tab" id="radius" class="span_b">*</span>
+				<span name="tab" id="radius_isnum58" class="span_b" style="cursor:pointer" onclick="check_span(this);">0.0186</span>
+				<br><p class="huanhang"></p><p></p>
+				<span name="tab" id="result59" class="span_b">运费成本=</span>
+				<span name="tab" id="radius60" style="cursor:pointer" class="span_b" onclick="check_span(this);">应付运费</span>
+				<span name="tab" id="radius" class="span_b">+</span>
+				<span name="tab" id="radius61" style="cursor:pointer" class="span_b" onclick="check_span(this);">燃料费</span>
+				<span name="tab" id="radius" class="span_b">-</span>
+				<span name="tab" id="radius62" style="cursor:pointer" class="span_b" onclick="check_span(this);">有价券进项税</span>
+				<span name="tab" id="radius" class="span_b">+</span>
+				<span name="tab" id="radius63" style="cursor:pointer" class="span_b" onclick="check_span(this);">其他税费</span>
+			</div>
+		</div>
+	</div>
+	<div class="body-box">
+		<div class="body-box-header">
+			<div class="body-box-search">
+				<div class="text-left">
+				</div>
+				<div class="box-right">
+						   <div class="hszt"> 核算主体 ：<input type="text" id="addAccountingName"   placeholder="核算主体" onclick="accountingSelect(1)">
+			               <input id="addaccountingId" type="hidden"></div>
+			               <div class="qyrq"><p>启用日期 ：</p>
+			               <input  id="startDate" class="input date-time"  placeholder="启用日期" type="text" />
+			               </div>
+			               <div class="jdrq"><p>结束日期 ：</p>
+			               <input  id="endDate"   class="input date-time"  placeholder="结束日期" type="text" />
+			               </div>
+			               <div id ="customer_div" style="display: none;" class = "cydw">
+			             	<p>承运人 ：</p>
+							<input type="text"  id = "addCustomerName" placeholder="承运人" onclick="customerSelect(1)">
+							<input type="hidden"  id = "addcustomerId">
+							</div>
+				</div>
+			</div>
+		<div class="body-box-footer">
+			<div class="box-noe">
+				<table class="table-thead" width="100%">
+			        <colgroup>
+			            <col width="50px">
+			            <col width="133px">
+			            <col width="17px">
+			        </colgroup>
+			        <thead>
+			        <tr>
+			            <th>序号</th>
+			            <th>结果项</th>
+			            <th style="border-left:none;border-right:1px solid #3c8dbc"></th>
+			        </tr>
+			        </thead>
+   			  </table>
+   			  <div class="comTbody">
+       			 <table class="table-tbody">
+		            <colgroup>
+		               	<col width="50px">
+			            <col width="133px">
+		            </colgroup>
+		            <tbody>
+		            <#if settlementDictsList_type1?exists>
+						<#list settlementDictsList_type1 as settlementDict>
+							<tr>
+								<td>${settlementDict.id}</td>
+								<td>${settlementDict.settlementItem}</td>
+							</tr>
+						</#list>
+					</#if>
+		            </tbody>
+       			</table>
+    		</div>
+			</div>
+			<div class="box-two">
+				<table class="table-thead-two">
+			        <colgroup>
+			            <col width="50px">
+			            <col width="133px">
+			            <col width="17px">
+			        </colgroup>
+			        <thead>
+			        <tr>
+			            <th>序号</th>
+			            <th>计算项</th>
+			            <th style="border-left:none;border-right:1px solid #3c8dbc"></th>
+			        </tr>
+			        </thead>
+   			  </table>
+   			  <div class="comTbody-two">
+       			 <table class="table-tbody-two" style="border-top:0px">
+		            <colgroup>
+		                 <col width="50px">
+			             <col width="133px">
+		            </colgroup>
+		            <tbody>
+		             	<#if settlementDictsList_type0?exists>
+							<#list settlementDictsList_type0 as settlementDict>
+								<tr>
+									<td>${settlementDict.id}</td>
+									<td>${settlementDict.settlementItem}</td>
+								</tr>
+							</#list>
+						</#if>
+		            </tbody>
+       			</table>
+    		</div>
+			</div>
+			<div class="box-three">
+				<table class="tables">
+					<tr>
+						<th>运算符</th>
+						<th>数字</th>
+						<th>函数</th>
+					</tr>
+					<tr>
+						<td>%</td>
+						<td>1</td>
+						<td>四舍五入(取整)</td>
+					</tr>
+					<tr>
+						<td>+</td>
+						<td>2</td>
+						<td>向上取整</td>
+					</tr>
+					<tr>
+						<td>-</td>
+						<td>3</td>
+						<td>向下取整</td>
+					</tr>
+					<tr>
+						<td>*</td>
+						<td>4</td>
+						<td>绝对值</td>
+					</tr>
+					<tr>
+						<td>/</td>
+						<td>5</td>
+						<td>保留2位小数</td>
+					</tr>
+					<tr>
+						<td>(</td>
+						<td>6</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>)</td>
+						<td>7</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>.</td>
+						<td>8</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>9</td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		</div>
+	  </div>
+	 </main>
+			<!-- 核算主体 -->
+			<div class="modal fade" id="accountingSelectModal" tabindex="-1" role="dialog">
+			 <div class="modal-dialog" style="width:96%">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+			        <h4 class="modal-title" >
+			          核算主体选择
+			        </h4>
+			      </div>
+			      <div class="modal-body">
+			        <div class="search-from" >
+			          <form onsubmit="return false">
+			            <div class="search-row-box">
+			              <div class="both-row row">
+			                <div class="search-box">
+			                  <div class="input-lable">核算主体名称</div>
+			                  <div class="input-text">
+			                    <input  class="input" placeholder="请输入核算主体名称" type="text" id = "mhaccountingname"/>
+			                  </div>
+			                </div>
+			              </div>
+			            </div>
+			            <div class="search-button-box">
+			              <button class="search-button" id = "searchAccountingByName">
+			                <div class="search-icon"></div>
+			                <div class="text" >查询</div>
+			              </button>
+			              <button class="search-button"  type="reset" >
+			                <div class="reset-icon"></div>
+			                <div class="text">重置</div>
+			              </button>
+			            </div>
+			          </form>
+			        </div>
+			        <div class="modal-table row">
+			          <table  width="100%"  style="margin-top:8px" class="table-bule table-ellipsis" >
+			            <thead>
+			              <tr class="table-title">
+			                <th style="width:40px;">
+			                </th>
+			                <th>核算主体编号</th>
+			                <th>核算主体名称</th>
+			                <th>核算主体状态</th>
+			                <th>是否启用</th>
+			              </tr>
+			            </thead>
+			            <tbody id = "showAccountingTbody">
+			            
+			            </tbody>
+			          </table>
+			          <div class="panel-pagination" >
+			            <div class="panel-num">搜索相关结果共<span id="accountingNum">0</span>条</div>
+			            <div id="accountingPage" class="pagination-list"></div>
+			            <div class="pagination-input">到
+			              <input type="text" />页</div>
+			            <div class="pagination-button" onclick="accountingPageSlect(this)">确定</div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button class="save-button" onclick="saveAccountingbutton()">保存</button>
+			        <button class="close-button" data-dismiss="modal">取消</button>
+			      </div>
+			    </div> 
+			  </div>
+			</div>
+			
+			<!-- 承运人 -->
+  <div class="modal fade" id="customerSelectModal" tabindex="-1" role="dialog">
+			 <div class="modal-dialog" style="width:96%">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+			        <h4 class="modal-title" >
+			         承运人选择
+			        </h4>
+			      </div>
+			      <div class="modal-body">
+			        <div class="search-from" >
+			          <form onsubmit="return false">
+			            <div class="search-row-box">
+			              <div class="both-row row">
+			                <div class="search-box">
+			                  <div class="input-lable">承运人名称</div>
+			                  <div class="input-text">
+			                    <input  class="input" placeholder="请输入承运人名称" type="text" id = "mhcustomername"/>
+			                  </div>
+			                </div>
+			              </div>
+			            </div>
+			            <div class="search-button-box">
+			              <button class="search-button">
+			                <div class="search-icon"></div>
+			                <div class="text" id = "searchCustomerByName">查询</div>
+			              </button>
+			              <button class="search-button"  type="reset" >
+			                <div class="reset-icon"></div>
+			                <div class="text">重置</div>
+			              </button>
+			            </div>
+			          </form>
+			        </div>
+			        <div class="modal-table row">
+			          <table  width="100%"  style="margin-top:8px" class="table-bule table-ellipsis" >
+			            <thead>
+			              <tr class="table-title">
+			                <th style="width:40px;">
+			                </th>
+			                  <th>组织机构名称</th>
+					 	      <th>联系人姓名</th>
+					          <th>移动电话</th>
+					          <th>固定电话</th>
+					          <th>客户角色</th>
+					          <th>创建人</th>
+					          <th>创建时间</th>
+			              </tr>
+			            </thead>
+			            <tbody id = "showCustomerTbody">
+			            
+			            </tbody>
+			          </table>
+			          <div class="panel-pagination" >
+			            <div class="panel-num">搜索相关结果共<span id="customerNum">0</span>条</div>
+			            <div id="customerPage" class="pagination-list"></div>
+			            <div class="pagination-input">到
+			              <input type="text" />页</div>
+			            <div class="pagination-button" onclick="customerPageSlect(this)">确定</div>
+			          </div>
+			        </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button class="save-button" onclick="saveCustomerbutton()">保存</button>
+			        <button class="close-button" data-dismiss="modal">取消</button>
+			      </div>
+			    </div> 
+			  </div>
+			</div>
+ <footer class="app-footer">
+</footer> 
+</div>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script> 
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/formula/addFormulaInfo.js"></script>
+</html>

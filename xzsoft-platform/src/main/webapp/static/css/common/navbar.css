@@ -1,0 +1,542 @@
+.app-body {
+  height: 100%;
+  width: 100%;
+  padding-top: 99px;
+  position: absolute;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.nav-bar {
+  position: absolute;
+  height: 99px;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 1000;
+  padding: 0 20px;
+  border-bottom: 3px solid #2b84ea;
+}
+
+.info-user-box {
+  margin-right: 0;
+}
+
+.info-logout-icon {
+  background: url(../../images/common/info-logout-icon.png);
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.logo-text {
+  float: left;
+  font-size: 18px;
+  color: #333333;
+  margin-top: 49px;
+  margin-left: 10px;
+  font-weight: bolder;
+}
+
+.main-body {
+  position: relative;
+  height: 100%;
+  padding-left: 220px;
+}
+
+.sidebar {
+  width: 220px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  border-right: 1px solid #cccccc;
+}
+.sidebar-nav {
+  height: 100%;
+}
+
+
+.main {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-item {
+  line-height: 48px;
+  list-style: none;
+}
+.nav-item a {
+  color: #666666;
+}
+.nav-text {
+  float: left;
+  margin-left: 10px;
+  height: 44px;
+}
+
+.nav-item::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.nav-link {
+  height: 44px;
+  display: block;
+}
+
+/*------һ���˵���߾�-------*/
+ul.nav li a {
+  padding-left: 20px;
+}
+/*-----�����˵���߾�-------*/
+ul.nav li ul.nav li a {
+  padding-left: 46px;
+}
+/*-----�����˵���߾�-------*/
+ul.nav li ul.nav li ul.nav li a {
+  padding-left: 56px;
+}
+/*------һ���˵������-------*/
+ul.nav li ul {
+  background-color: #f9f9f9;
+  border-left: 3px solid #2b84ea;
+}
+
+/*------һ���˵������-------*/
+ul.nav li ul {
+  background-color:none;
+  border-left: 3px solid #2b84ea;
+}
+ul.nav li {
+  border-bottom: 1px solid #cccccc;
+}
+/*------�����˵������-------*/
+ul.nav ul.nav li {
+  border: none;
+}
+
+/*------�����˵������-------*/
+ul.nav ul.nav  ul.nav {
+  border: none;
+}
+
+/*------�����˵�����-------*/
+ul.nav ul.nav {
+  display: none;
+  clear: both;
+}
+
+
+/*------�����˵���ʾ-------*/
+ul.nav li.open ul.nav {
+  display: block;
+}
+
+/*------�����˵�����-------*/
+ul.nav ul.nav ul.nav{
+  display: none;
+  clear: both;
+}
+
+/*------�����˵���ʾ-------*/
+ul.nav li.open ul.nav li.open ul.nav {
+  display: block;
+}
+
+/*------һ���˻�ȡ����-------*/
+.nav > li:hover > a,
+.nav > li:focus > a,
+.nav > li.active > a,
+.nav > li.open:hover > a,
+.nav > li.open:focus > a,
+.nav > li.open > a {
+  color: #ffffff;
+  background-color: #2b84ea;
+}
+
+
+/*------������(���Ӳ˵�)��ȡ����-------*/
+ul.nav li li:hover a,
+ul.nav li li:focus a,
+ul.nav li.open li.open a {
+  background-color: #efefef;
+  color: #333333;
+  border-left: 3px solid #000;
+  margin-left: -3px;
+}
+
+/*------�����ˣ�û���Ӳ˵�����ȡ����-------*/
+ul.nav li li:hover a,
+ul.nav li li:focus a,
+ul.nav li.open li.active a {
+  background-color: #efefef;
+  color: #333333;
+  border-left: 3px solid #000;
+  margin-left: -3px;
+}
+
+
+
+/*------�򿪶���������δ��ȡ����-------*/
+ul.nav li.open ul.nav li.open li a {
+ background-color: #f9f9f9;
+ color: #999999;
+ font-size:12px;
+ border-left: 3px solid #2b84ea;
+  margin-left: -3px;
+}
+/*------�����˻�ȡ����-------*/
+ul.nav li.open ul.nav li.open li.active a {
+   color: #333333;
+   border-left: 3px solid #fff;
+  margin-left: -3px;
+}
+
+.arrrow {
+  background-image: url('../../images/nav/arrow-down.png');
+  background-repeat: no-repeat;
+  width: 12px;
+  height: 7px;
+  float: right;
+  margin: 18px 20px;
+}
+
+nav li.open .arrrow,nav li.active .arrrow  {
+  background-image: url('../../images/nav/arrow-up.png');
+}
+
+
+.icon-platform {
+  background-image: url('../../images/nav/platform-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-platform,
+.nav > li:focus > a .icon-platform,
+.nav > li.open > a .icon-platform,
+.nav > li.active > a .icon-platform {
+  background-image: url('../../images/nav/platform-active.png');
+}
+
+.icon-basic-info {
+  background-image: url('../../images/nav/basic-info-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-basic-info,
+.nav > li:focus > a .icon-basic-info,
+.nav > li.open > a .icon-basic-info ,
+.nav > li.active > a .icon-basic-info{
+  background-image: url('../../images/nav/basic-info-active.png');
+}
+
+.icon-coupons {
+  background-image: url('../../images/nav/coupons-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-coupons,
+.nav > li:focus > a .icon-coupons,
+.nav > li.open > a .icon-coupons ,
+.nav > li.active > a .icon-coupons {
+  background-image: url('../../images/nav/coupons-active.png');
+}
+
+
+.icon-partner {
+  background-image: url('../../images/nav/partner-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-partner,
+.nav > li:focus > a .icon-partner,
+.nav > li.open > a .icon-partner ,
+.nav > li.active > a .icon-partner {
+  background-image: url('../../images/nav/partner-active.png');
+}
+
+.icon-car {
+  background-image: url('../../images/nav/car-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-car,
+.nav > li:focus > a .icon-car,
+.nav > li.open > a .icon-car,
+.nav > li.active > a .icon-car {
+  background-image: url('../../images/nav/car-active.png');
+}
+
+.icon-driver {
+  background-image: url('../../images/nav/driver-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.icon-evaluate {
+  background-image: url('../../images/nav/creditEvaluation-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-driver,
+.nav > li:focus > a .icon-driver,
+.nav > li.open > a .icon-driver,
+.nav > li.active > a .icon-driver {
+  background-image: url('../../images/nav/driver-active.png');
+}
+
+.icon-contract {
+  background-image: url('../../images/nav/contract-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-contract,
+.nav > li:focus > a .icon-contract,
+.nav > li.open > a .icon-contract,
+.nav > li.active > a .icon-contract {
+  background-image: url('../../images/nav/contract-active.png');
+}
+
+.icon-transport {
+  background-image: url('../../images/nav/transport-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-transport,
+.nav > li:focus > a .icon-transport,
+.nav > li.open > a .icon-transport,
+.nav > li.active > a .icon-transport {
+  background-image: url('../../images/nav/transport-active.png');
+}
+
+.icon-plan {
+  background-image: url('../../images/nav/plan-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-plan,
+.nav > li:focus > a .icon-plan,
+.nav > li.open > a .icon-plan,
+.nav > li.active > a .icon-plan {
+  background-image: url('../../images/nav/plan-active.png');
+}
+
+.icon-waybill {
+  background-image: url('../../images/nav/waybill-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-waybill,
+.nav > li:focus > a .icon-waybill,
+.nav > li.open > a .icon-waybill,
+.nav > li.active > a .icon-waybill {
+  background-image: url('../../images/nav/waybill-active.png');
+}
+
+.icon-settlement {
+  background-image: url('../../images/nav/settlement-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-settlement,
+.nav > li:focus > a .icon-settlement,
+.nav > li.open > a .icon-settlement,
+.nav > li.active > a .icon-settlement {
+  background-image: url('../../images/nav/settlement-active.png');
+}
+
+
+.icon-money {
+  background-image: url('../../images/nav/money-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-money,
+.nav > li:focus > a .icon-money,
+.nav > li.open > a .icon-money,
+.nav > li.active > a .icon-money {
+  background-image: url('../../images/nav/money-active.png');
+}
+
+.icon-car-source {
+  background-image: url('../../images/nav/car-source-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-car-source,
+.nav > li:focus > a .icon-car-source,
+.nav > li.open > a .icon-car-source,
+.nav > li.active > a .icon-car-source  {
+  background-image: url('../../images/nav/car-source-active.png');
+}
+
+.icon-improve {
+  background-image: url('../../images/nav/improve-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-improve,
+.nav > li:focus > a .icon-improve,
+.nav > li.open > a .icon-improve,
+.nav > li.active > a .icon-improve{
+  background-image: url('../../images/nav/improve-active.png');
+}
+
+
+.icon-scattered {
+  background-image: url('../../images/nav/scattered-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-scattered,
+.nav > li:focus > a .icon-scattered,
+.nav > li.open > a .icon-scattered,
+.nav > li.active > a .icon-scattere {
+  background-image: url('../../images/nav/scattered-active.png');
+}
+
+.icon-goods {
+  background-image: url('../../images/nav/supply-goods-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-goods,
+.nav > li:focus > a .icon-goods,
+.nav > li.open > a .icon-goods,
+.nav > li.active > a .icon-goods {
+  background-image: url('../../images/nav/supply-goods-active.png');
+}
+
+.icon-bidding {
+  background-image: url('../../images/nav/bidding-normal.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-bidding,
+.nav > li:focus > a .icon-bidding,
+.nav > li.open > a .icon-bidding,
+.nav > li.active > a .icon-bidding {
+  background-image: url('../../images/nav/bidding-active.png');
+}
+
+.icon-reportform {
+  background-image: url('../../images/nav/reportform-g.png');
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-reportform,
+.nav > li:focus > a .icon-reportform,
+.nav > li.open > a .icon-reportform,
+.nav > li.active > a .icon-reportform {
+  background-image: url('../../images/nav/reportform-w.png');
+}
+
+
+
+
+
+
+
+
+
+
+
+.icon-money {
+  background-repeat: no-repeat;
+  margin-top: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+
+.nav > li:hover > a .icon-reportform,
+.nav > li:focus > a .icon-reportform,
+.nav > li.open > a .icon-reportform,
+.nav > li.active > a .icon-reportform {
+  background-image: url('../../images/nav/money.png');
+}

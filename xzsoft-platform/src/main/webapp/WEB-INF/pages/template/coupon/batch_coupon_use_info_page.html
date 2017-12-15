@@ -1,0 +1,85 @@
+<!-- 模态框 批量领用有价券 -->
+<div id="batch-coupon-use-data-info">
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close coupon-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="myModalLabel">批量领用有价券</h4>
+				</div>
+				<div class="modal-body">
+					<form id="coupon_use_form">
+								<!-- 组织信息展示 -->
+								<div id="show-org-data-info" class="modal-open"></div>
+								<div class="from-both-box">
+								<div class="group-box">
+									<div class="input-lable"><span>*</span>开始卡号：</div>
+									<div class="input-text">
+									<input id="cardCodeStart" class="input" type="text"/>
+									</div>
+								</div>
+								<div class="group-box">
+									<div class="input-lable"><span>*</span>结束卡号：</div>
+									<div class="input-text">
+									<input id="cardCodeEnd" class="input" type="text" onmouseout="searchCouponCard()"/>
+									</div>
+								</div>
+								<div class="group-box">
+									<div class="input-lable"><span>*</span>张数：</div>
+									<div class="input-text">
+									<input id="quantity" class="input" type="text" readonly="readonly" style="background:#eee"/>
+									</div>
+								</div>
+<!-- 								<div class="group-box row"> -->
+<!-- 									<div class="input-lable"><span>*</span>所属组织：</div> -->
+<!-- 									<div class="input-text"> -->
+<!-- 										<input id="orgInfoName" class="input" type="text" readonly="readonly" style="background:#eee" value="${orgInfoName}" /> -->
+<!-- 										<input id="orgInfoId" class="input" type="hidden" style="background:#eee" value="${orgInfoId}" /> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+								<div class="group-box">
+					              	<div class="input-lable"><span>*</span>组织名称：</div>
+					              	<div class="input-text">
+											<input id="orgName" class="input" type="text" onclick="showOrgInfoPage(1)" value="${couponInfoPo.orgInfoName}" readonly="readonly"/>
+											<input id="org_info_id" name="couponInfoPo.orgInfoId" class="input" type="hidden" value="${couponInfoPo.orgInfoId}"/>
+				              		</div>
+					            </div>
+					            <div class="group-box">
+					              	<div class="input-lable"><span>*</span>上级组织：</div>
+					              	<div class="input-text">
+											<input id="orgParentName" class="input" type="text" readonly="readonly" style="background:#eee" value="${couponInfoPo.parentOrgName}"/>
+											<input id="orgParentId" name="couponInfoPo.parentOrgInfoId" class="input" type="hidden" value="${couponInfoPo.parentOrgInfoId}"/>
+				              		</div>
+					            </div>
+								<div class="group-box" id="use_money_div">
+									<div class="input-lable">
+										<span>*</span>领用金额：
+									</div>
+									<div class="input-text">
+										<input id="useMoney" class="input" readonly="readonly" style="background:#eee"/>
+									</div>
+								</div>
+								<div class="group-box" id="card_code_reback_div">
+									<div class="input-lable"><span>*</span>领用人：</div>
+									<div class="input-text">
+										<input id="useUser" class="input" type="text" value="${useUser}"/>
+									</div>
+								</div>
+								<div class="group-box">
+						            <div class="input-lable"><span>*</span>领用时间：</div>
+								    <div class="input-text">
+								      <input id="useTime" class="input date-time-ss" type="text" readonly="readonly"/>
+								    </div>
+						        </div>
+							</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="close-button" onclick="batchCouponUseInfo()">保存</button>
+					<button class="close-button coupon-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

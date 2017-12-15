@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>内部车辆管理</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/car/ownCar.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+
+		<div class="search-panel row">
+			<div class="search-from" >
+				<form onsubmit="return false">
+					<div class="search-row-box" >
+						<!--  第一行 -->
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">车牌号码</div>
+								<div class="input-text">
+									<input id="carCode" class="input" placeholder="请输入车牌号码" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">车辆类型</div>
+								<div class="input-text">
+								<select id="carType" class="input">
+									<option value="">请选择</option>
+									<#if carTypeList?exists> <#list carTypeList as carTypeInfo>
+									<option value="${carTypeInfo.id}">${carTypeInfo.carTypeName}</option>
+									</#list> </#if>
+								</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">司机</div>
+								<div class="input-text">
+									<input id="driverName" class="input" placeholder="请输入司机名称" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">机动车所有人</div>
+								<div class="input-text">
+									<input id="carPartPerson" class="input" placeholder="请输入机动车所有人" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">车辆审核状态</div>
+								<div class="input-text">
+									<select id="carStatus" class="input">
+										<option value="">请选择</option>
+										<option value="1">待审核</option>
+										<option value="2">审核通过</option>
+										<option value="3">审核不通过</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">车辆营运状态</div>
+								<div class="input-text">
+									<select id="operationStatus" class="input">
+										<option value="">请选择</option>
+										<option value="1">空车可用</option>
+										<option value="2">满载在途</option>
+										<option value="3">停用</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">车辆调配状态</div>
+								<div class="input-text">
+									<select id="allocateStatus" class="input">
+										<option value="">请选择</option>
+										<option value="1">有司机</option>
+										<option value="2">无司机</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">营运证到期日期</div>
+								<div class="input-text money-input">
+									<input id="operationEndTimeStart" class="input date-time" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text money-input">
+									<input id="operationEndTimeEnd" class="input date-time" placeholder="" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">商业险到期日期</div>
+								<div class="input-text money-input">
+									<input id="businessInsuranceEndTimeStart" class="input date-time" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text money-input">
+									<input id="businessInsuranceEndTimeEnd" class="input date-time" placeholder="" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">交强险到期日期</div>
+								<div class="input-text money-input">
+									<input id="trafficInsuranceEndTimeStart" class="input date-time" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text money-input">
+									<input id="trafficInsuranceEndTimeEnd" class="input date-time" placeholder="" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="searchCarInfo(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetCar()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>	
+			</div>
+		</div>
+		<div class="panel">
+			<div class="operation-tab row">
+				<button id="auditBtn" class="operation-button operation-blue" onclick="downloalCarImg()" >
+					<div class="audit-icon"></div>
+					<div class="operation-text">车载影像下载</div>
+				</button>
+				<@shiro.hasPermission name="car:ownCar:create">
+				<button id="addBtn" class="operation-button operation-blue" onclick="addCarInfoPage()">
+					<div class="add-icon"></div>
+					<div class="operation-text">新增</div>
+				</button>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name="car:ownCar:delete">
+				<button id="delBtn" class="operation-button operation-blue" onclick="checkBeforeOperate(1)">
+					<div class="delete-icon"></div>
+					<div class="operation-text">删除</div>
+				</button>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name="car:ownCar:review">
+				<button id="auditBtn" class="operation-button operation-blue" onclick="checkBeforeOperate(2)">
+					<div class="audit-icon"></div>
+					<div class="operation-text">审核</div>
+				</button>
+				</@shiro.hasPermission>
+				
+			</div>
+			<div id="search_car_info" class="panel-table"></div>
+		</div>
+		<!-- 车辆修改表单 -->
+		<form id="edit_form" action="" method="post">
+			<input id="car_info_id" type="hidden" name="carInfoId">
+		</form>
+		<!-- 车辆调配框-->
+		<div id="car_allocate_info" class="modal-open"></div>
+		</main>
+		
+		<!-- 下载车辆信息模板 -->
+	  	<form id="downCarImg" action="" method="post" enctype="multipart/form-data" hidden="true">
+	  		<input id="path" name="path" type="text">
+	  		<input id="filename" name="filename" type="text">
+		</form>
+		
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/car/ownCarManage.js"></script>
+</html>

@@ -1,0 +1,129 @@
+<div id="invoice-info-data">
+	<div  style="width:100%;overflow-x:auto;overflow-y:hidden;">
+		<table  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag" >
+			<thead>
+				<tr class="table-title">
+					<th style="width:40px;">
+						<input name="all-check" type="checkbox" class="all_invoice_check">
+					</th>
+					<th>发票信息编号</th>
+					<th>主机构</th>
+					<th>发票号码</th>
+					<th>开票日期</th>
+					<th>发票代码</th>
+					<th>客户编号</th>
+					<th>组织部门</th>
+					<th>销售方</th>
+					<th>销售方纳税识别号</th>
+					<th>数量（重量）</th>
+					<th>运费小计</th>
+					<th>其他费用</th>
+					<th>合计金额</th>
+					<th>单据状态</th>
+					<th>发票分类</th>
+					<th>制单人</th>
+					<th>制单时间</th>
+					<th>备注</th>
+					<th class="operation" style="width:200px">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#if InvoiceInfoPager?exists && InvoiceInfoPager.rows?exists>
+					<#list InvoiceInfoPager.rows as invoiceInfo>
+						<tr class="table-body ">
+							<td style="width:40px;">
+								<input type="checkbox" class="sub_invoice_check" data-id="${invoiceInfo.id}" >
+							</td>
+							<td>${(invoiceInfo.id)!''}</td>
+							<td>${(invoiceInfo.orgName)!''}</td>
+							<td>${(invoiceInfo.invoiceId)!''}</td>
+							<td>${(invoiceInfo.billingDate)?string('yyyy-MM-dd hh:mm:ss')}</td>
+							<td>${(invoiceInfo.invoiceCode)!''}</td>
+							<td>${(invoiceInfo.customerName)!''}</td>
+							<td>${(invoiceInfo.projectName)!''}</td>
+							<td>${(invoiceInfo.sales)!''}</td>
+							<td>${(invoiceInfo.salesTaxDistinguishId)!''}</td>
+							<td>${(invoiceInfo.quantity)!''}</td>
+							<td>${(invoiceInfo.transportPriceSubtotal)!''}</td>
+							<td>${(invoiceInfo.otherPrice)!''}</td>
+							<td>${(invoiceInfo.totalPrice)!''}</td>
+							<td>
+							<#if invoiceInfo.invoiceStatus?exists>
+									<#if invoiceInfo.invoiceStatus==1>
+										起草
+									<#elseif invoiceInfo.invoiceStatus==2>
+						        		待审核
+						        	<#elseif invoiceInfo.invoiceStatus==3>
+						        		审核通过
+						        	<#elseif invoiceInfo.invoiceStatus==4>
+						        		驳回
+									</#if>
+								<#else>
+									未知状态
+								</#if>
+							</td>
+							<td>
+							<#if invoiceInfo.invoiceClassify?exists>
+									<#if invoiceInfo.invoiceClassify==1>
+										成本发票
+									<#elseif invoiceInfo.invoiceClassify==2>
+						        		收入发票
+									</#if>
+								<#else>
+									未知状态
+								</#if>
+							</td>
+							<td>${(invoiceInfo.makeUserName)!''}</td>
+							<td>${(invoiceInfo.makeTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+							<td>${(invoiceInfo.remarks)!''}</td>
+							<td>
+								<div class="operation-td" data-id="${(invoiceInfo.id)}" data-parentid="${(materialCategory.parentMaterialCategoryId)}"
+								date-invoiceStatus="${(invoiceInfo.invoiceStatus)}">
+									<#if invoiceInfo.id?exists>
+										<!-- 物流公司 2-->
+											<#if invoiceInfo.invoiceStatus==1>
+												<div class="modify-operation operation-m">
+													<div class="modify-icon"></div>
+													<div class="text">修改</div>
+												</div>
+												<div class="delete-operation operation-m">
+								               		<div class="delete-icon"></div>
+								               		<div class="text">删除</div>
+								             	</div>
+								             	<div class="submit-operation operation-m">
+										          <div class="submit-icon"></div>
+										          <div class="text">提交审核</div>
+										        </div>
+										        <#elseif invoiceInfo.invoiceStatus==2> <!-- 待审核 --> 
+								             	<div class="audit-operation operation-m">
+										          <div class="audit-icon"></div>
+										          <div class="text">审核</div>
+										        </div>
+										        <#elseif invoiceInfo.invoiceStatus==3><!-- 审核通过 -->
+												<#elseif invoiceInfo.invoiceStatus==4><!-- 驳回 -->
+												<div class="modify-operation operation-m">
+													<div class="modify-icon"></div>
+													<div class="text">修改</div>
+												</div>
+												<div class="delete-operation operation-m">
+								               		<div class="delete-icon"></div>
+								               		<div class="text">删除</div>
+								             	</div>
+								             	<div class="submit-operation operation-m">
+										          <div class="submit-icon"></div>
+										          <div class="text">提交审核</div>
+										        </div>
+											</#if>
+									</#if>
+								</div>
+							</td>
+						</tr>
+					</#list>
+				</#if>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-pagination">
+		${InvoiceInfoPager.pageHtml}
+	</div>
+</div>

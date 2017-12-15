@@ -1,0 +1,205 @@
+<!-- 模态框 新增/编辑有价券供应商 -->
+<style>
+
+</style>
+<div id="coupon-supplier-data-info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close coupon-supplier-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${operateTitle}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="coupon_supplier_form">
+						<input type="hidden" name="couponSupplierInfoPo.id" value="${couponSupplierInfoPo.id}">
+					 	<div class="from-both-box">
+			            <div class="group-box">
+			              <div class="input-lable"><span>*</span>供应商名称：</div>
+			              <div class="input-text form-item">
+			                <input id="c_supplierName" name="couponSupplierInfoPo.supplierName" class="input required" placeholder="请输入供应商名称" type="text" value="${couponSupplierInfoPo.supplierName}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">供货范围：</div>
+			              <div class="input-text">
+			                <input id="supplierScopeDesc" name="couponSupplierInfoPo.supplierScopeDesc" class="input" placeholder="请输入供货范围" type="text" value="${couponSupplierInfoPo.supplierScopeDesc}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">注册地址：</div>
+			              <div class="input-text">
+			                <input id="c_register_address" name="couponSupplierInfoPo.registerAddress" class="input" placeholder="请输入注册地址" type="text" value="${couponSupplierInfoPo.registerAddress}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">通讯地址：</div>
+			              <div class="input-text">
+			                <input id="c_contact_address" name="couponSupplierInfoPo.contactAddress" class="input" placeholder="请输入通讯地址" type="text" value="${couponSupplierInfoPo.contactAddress}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">邮编：</div>
+			              <div class="input-text form-item">
+			                <input id="c_postcode" name="couponSupplierInfoPo.postcode" class="input number" placeholder="请输入邮编" type="text" value="${couponSupplierInfoPo.postcode}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">法人姓名：</div>
+			              <div class="input-text">
+			                <input id="c_legal_person_name" name="couponSupplierInfoPo.legalPersonName" class="input" placeholder="请输入法人姓名" type="text" value="${couponSupplierInfoPo.legalPersonName}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable"><span>*</span>法人身份证号：</div>
+			              <div class="input-text">
+			                <input id="c_legal_person_card_code" name="couponSupplierInfoPo.legalPersonCardCode" class="input" placeholder="请输入法人身份证号" type="text" value="${couponSupplierInfoPo.legalPersonCardCode}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">联系人：</div>
+			              <div class="input-text">
+			                <input id="c_contact_name" name="couponSupplierInfoPo.contactName" class="input" placeholder="请输入联系人" type="text" value="${couponSupplierInfoPo.contactName}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable"><span>*</span>移动电话：</div>
+			              <div class="input-text form-item">
+			                <input id="c_mobile_phone" name="couponSupplierInfoPo.mobilePhone" class="input mobile" placeholder="请输入移动电话" type="text" value="${couponSupplierInfoPo.mobilePhone}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable"><span>*</span>固定电话：</div>
+			              <div class="input-text">
+			                <input id="c_telephone" name="couponSupplierInfoPo.telephone" class="input" placeholder="请输入固定电话" type="text" value="${couponSupplierInfoPo.telephone}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              		<div class="input-lable"><span>*</span>是否三证合一：</div>
+				              	<div class="input-text">
+				                	<select id="is_combine" name="couponSupplierInfoPo.isCombine" class="input" onchange="changeIsCombine()">
+				                		<option value="1"<#if couponSupplierInfoPo.isCombine?exists && couponSupplierInfoPo.isCombine==1>selected</#if>>是</option>
+										<option value="0"<#if couponSupplierInfoPo.isCombine?exists && couponSupplierInfoPo.isCombine==0>selected</#if>>否</option>
+				                	</select>
+				              	</div>
+			            	</div>
+			            <div class="group-box">
+			              <div class="input-lable">社会信用代码：</div>
+			              <div class="input-text">
+			                <input id="c_credit_code" name="couponSupplierInfoPo.creditCode" class="input" placeholder="请输入统一社会信用代码" type="text" value="${couponSupplierInfoPo.creditCode}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable"><span>*</span>营业执照号：</div>
+			              <div class="input-text">
+			                <input id="c_license_num" name="couponSupplierInfoPo.licenseNum" class="input" placeholder="请输入营业执照号" type="text" value="${couponSupplierInfoPo.licenseNum}"/>
+			              </div>
+			            </div>
+			            <div id="tax_num_div" class="group-box">
+			              <div class="input-lable">税务登记号：</div>
+			              <div class="input-text">
+			                <input id="c_tax_num" name="couponSupplierInfoPo.taxNum" class="input" placeholder="请输入税务登记号" type="text" value="${couponSupplierInfoPo.taxNum}"/>
+			              </div>
+			            </div>
+			            <div id="org_num_div" class="group-box">
+			              <div class="input-lable">组织机构代码证：</div>
+			              <div class="input-text">
+			                <input id="c_org_num" name="couponSupplierInfoPo.orgNum" class="input" placeholder="请输入组织机构代码证" type="text" value="${couponSupplierInfoPo.orgNum}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">传真：</div>
+			              <div class="input-text">
+			                <input id="c_fax" name="couponSupplierInfoPo.fax" class="input" placeholder="请输入传真" type="text" value="${couponSupplierInfoPo.fax}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">电子邮箱：</div>
+			              <div class="input-text">
+			                <input id="c_email" name="couponSupplierInfoPo.email" class="input" placeholder="请输入电子邮箱" type="text" value="${couponSupplierInfoPo.email}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">开户行：</div>
+			              <div class="input-text">
+			                <input id="c_bank_name" name="couponSupplierInfoPo.bankName" class="input" placeholder="请输入开户行" type="text" value="${couponSupplierInfoPo.bankName}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">开户名：</div>
+			              <div class="input-text">
+			                <input id="c_account_name" name="couponSupplierInfoPo.accountName" class="input" placeholder="请输入开户名" type="text" value="${couponSupplierInfoPo.accountName}"/>
+			              </div>
+			            </div>
+			            <div class="group-box">
+			              <div class="input-lable">银行账号：</div>
+			              <div class="input-text">
+			                <input id="c_bank_account" name="couponSupplierInfoPo.bankAccount" class="input" placeholder="请输入银行账号" type="text" value="${couponSupplierInfoPo.bankAccount}"/>
+			              </div>
+			            </div>
+			            
+			         </div>
+			         	<div class="from-both-box">
+		            		<div class="group-img">
+		              		<div class="input-lable"><span>*</span>营业执照附件：</div>
+			              	<div class="input-img">
+			              		<#if couponSupplierInfoPo.licenseImg?exists && couponSupplierInfoPo.licenseImg!="">
+			              			<img src="${fastdfsServer}/${couponSupplierInfoPo.licenseImg}" class="upload_img img_box" img-type="license_img">
+			              		<#else>
+			                		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="license_img">
+			              		</#if>
+			                	<input id="license_img" type="hidden" name="couponSupplierInfoPo.licenseImg" value="${couponSupplierInfoPo.licenseImg}">
+			              	</div>
+		              		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。</div>
+		            	</div>
+	          			</div>
+		          		<div id="tax_img_div" class="from-both-box">
+		            	<div class="group-img">
+		              		<div class="input-lable">税务登记证附件：</div>
+			              	<div class="input-img">
+			              		<#if couponSupplierInfoPo.taxImg?exists && couponSupplierInfoPo.taxImg!="">
+			              			<img src="${fastdfsServer}/${couponSupplierInfoPo.taxImg}" class="upload_img img_box" img-type="tax_img">
+			              		<#else>
+			                		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="tax_img">
+			              		</#if>
+			                	<input id="tax_img" type="hidden" name="couponSupplierInfoPo.taxImg" value="${couponSupplierInfoPo.taxImg}">
+			              	</div>
+		              		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。</div>
+		            	</div>
+	          		</div>
+		          		<div id="org_img_div" class="from-both-box">
+		            	<div class="group-img">
+		              		<div class="input-lable">组织机构代码证附件：</div>
+			              	<div class="input-img">
+			              		<#if couponSupplierInfoPo.orgImg?exists && couponSupplierInfoPo.orgImg!="">
+			              			<img src="${fastdfsServer}/${couponSupplierInfoPo.orgImg}" class="upload_img img_box" img-type="org_img">
+			              		<#else>
+			                		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="org_img">
+			              		</#if>
+			                	<input id="org_img" type="hidden" name="couponSupplierInfoPo.orgImg" value="${couponSupplierInfoPo.orgImg}">
+			              	</div>
+		              		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。</div>
+		            	</div>
+	          		</div>
+	          		<div class="from-both-box">
+		            		<div class="group-textarea">
+		              			<div class="input-lable">备注：</div>
+		              			<div class="textarea-text">
+		                			<textarea id="c_remarks" name="couponSupplierInfoPo.remarks" placeholder="请填写备注">${couponSupplierInfoPo.remarks}</textarea>
+		              			</div>
+		            		</div>
+		          		</div>
+			        </form> 
+			    </div>
+
+				<div class="modal-footer">
+					<button class="save-button" onclick="saveCouponSupplierInfo()">保存</button>
+					<button class="close-button coupon-supplier-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

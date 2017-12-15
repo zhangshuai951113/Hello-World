@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>返单结算</title> 
+<#include "../../common/common_header.html" />
+<!--返单结算-->
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/select-line.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css"/>
+<link rel="stylesheet" href="${basePath}/static/css/settlementInfo/settlement.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/settlementInfo/settlementPrint.css" />
+<link rel="stylesheet" href="${basePath}/static/css/settlementInfo/style.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/input-icon.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/settlementInfo/rTable.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/contract/contract-manage.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/viewer.css" type="text/css" />
+
+<object  id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+       <!-- <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed> -->
+       <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0" pluginspage="${basePath}/static/js/lodop/install_lodop32.exe"></embed>
+       
+</object>
+<!-- <embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0" pluginspage="${basePath}/static/js/lodop/install_lodop64.exe"></embed>
+ --><style>
+	.first{
+	 float:left;
+	}
+	.second{
+	float:left; 
+	}
+	.search-box .time-input {
+		    width: 98px;
+		}
+		 .from-both-box .view-img img {
+		    width:100%;
+		    height:100%;
+		  }
+		  .from-both-box .view-img .input {
+		    position: absolute;
+		      width: 100%;
+		      height: 100%;
+		      opacity: 0;
+		  }
+		.from-both-box .view-img {
+		    height: 80px;
+		    width: 90px;
+		    float: left;
+		    margin-right: 20px;
+		    position: relative;
+		    border: 1px solid #ccc;
+		}
+		.from-both-box .input-notice {
+		    float: left;
+		    color: #666666;
+		    font-size: 12px;
+		    margin-top: 10px;
+		    margin-left: 20%;
+		    width: 70%;
+		    text-align: left;
+		    line-height: 14px;
+		    letter-spacing: 6px;
+		    vertical-align: super;
+		}
+		.table-bule tr:hover td input, .table-bule tr:focus td input{
+	      background: #e7f5ff;
+	}
+</style>
+
+<style id="style1" type="text/css">
+
+</style>
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+<div class="search-panel row">
+  <div class="search-from">
+    <form onsubmit="return false">
+      <div class="search-row-box">
+        <div class="both-row row">
+          <div class="search-box">
+            <div class="input-lable">委托方</div>
+            <div class="input-text">
+              <input id="entrustName" class="input" placeholder="请输入委托方" type="text" />
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">车牌号码</div>
+            <div class="input-text">
+              <input id="carCode" class="input" placeholder="请输入车牌号码" type="text" />
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">发货单号</div>
+            <div class="input-text">
+              <input id="forwardingId" class="input" placeholder="请输入发货单号" type="text" />
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">到货单号</div>
+            <div class="input-text">
+              <input id="arriveId" class="input" placeholder="请输入到货单号" type="text" />
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">货物</div>
+            <div class="input-text"><input id="goodsName" class="input" placeholder="请输入货物" type="text"></div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">零散货物</div>
+            <div class="input-text">
+              <input id="scatteredGoods" class="input" placeholder="请输入零散货物" type="text" />
+            </div>
+          </div>
+          <div class="search-box" style="position:relative;">
+            <div class="input-lable">组织部门</div>
+            <input class="input-text" id="projectInfoName" onclick="searchReOrderProjectInfo(1)">
+            <span class="input-icon-clean" onclick="cleanOrgInfo()" style="top:6px;"></span>
+            <input id="projectInfoId" class="input" type="hidden">
+          </div>
+          <div class="search-box">
+            <div class="input-lable">发货日期</div>
+		    <div class="input-text time-input">
+		      <input class="input date-time" type="text" id="forwardingTimeStart" readonly="readonly"/>
+		    </div>
+		    <div class="input-line">—</div>
+		    <div class="input-text time-input">
+		      <input class="input date-time" type="text" id="forwardingTimeEnd" readonly="readonly"/>
+		    </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">到货日期</div>
+		    <div class="input-text time-input">
+		      <input class="input date-time" type="text" id="arriveTimeStart" readonly="readonly"/>
+		    </div>
+		    <div class="input-line">—</div>
+		    <div class="input-text time-input">
+		      <input class="input date-time" type="text" id="arriveTimeEnd" readonly="readonly"/>
+		    </div>
+          </div>
+<!--           <div class="search-box"> -->
+<!--             <div class="input-lable">核算主体</div> -->
+<!--             <div class="search-select-list" id="selectAccounting" onclick="accountingSelect()"></div> -->
+<!--             <input id="accountingEntity" class="input" type="hidden"> -->
+<!--           </div> -->
+          <div class="search-box">
+            <div class="input-lable">结算单状态</div>
+            <div class="input-text">
+              <select id="settlementStatus" class="input">
+                <option value="">请选择</option>
+<!--                 <option value="1">起草</option> -->
+                <option value="2">待复核</option>
+                <option value="3">审复通过</option>
+                <option value="4">驳回</option>
+                <option value="5">已付款</option>
+                <option value="6">部分付款</option>
+              </select>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">是否对账</div>
+            <div class="input-text">
+              <select id="isAccount" class="input">
+                <option value="">请选择</option>
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">是否开票</div>
+            <div class="input-text">
+              <select id="isInvoice" class="input">
+                <option value="">请选择</option>
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">运单号</div>
+            <div class="input-text">
+              <input id="rootWaybillId" class="input" placeholder="请输入运单号" type="text" />
+            </div>
+          </div>
+    	  <div class="search-box">
+	         	<div class="input-lable">回单日期</div>
+		         <div class="input-text time-input">
+		            <input class="input date-time" type="text" id="rMakeStartTime" readonly="readonly"/>
+		         </div>
+		         <div class="input-line">—</div>
+		         <div class="input-text time-input">
+		             <input class="input date-time" type="text" id="rMakeEndTime" readonly="readonly"/>
+		         </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">制单人</div>
+            <div class="input-text">
+              <input id="makeUser" class="input" placeholder="请输入制单人" type="text" />
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">备注</div>
+            <div class="input-text">
+              <input id="remarks" class="input" placeholder="请输入备注" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+       <!-- 组织部门信息展示 -->
+		<div id="show-settlement-project-data-info" class="modal-open"></div>
+		<div id="show-settlement-data-info" class="modal-open"></div>
+      <div class="search-button-box">
+        <button class="search-button" onclick="searchSettlementInfo(1)">
+          <div class="search-icon"></div>
+          <div class="text">查询</div>
+        </button>
+        <button class="search-button" type="reset" onclick="resetEmpty()">
+          <div class="reset-icon"></div>
+          <div class="text">重置</div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="panel">
+  <div class="row">
+    <div class="operation-tab row">
+      <@shiro.hasPermission name="settle:reOrder:create">
+	      <button class="operation-button operation-blue" onclick="addOrEditSettlementInfoPage(1)">
+	        <div class="add-icon"></div>
+	        <div class="operation-text">新增</div>
+	      </button>
+      </@shiro.hasPermission>
+      <@shiro.hasPermission name="settle:reOrder:update">
+	      <button class="operation-button operation-blue" onclick="addOrEditSettlementInfoPage(2)">
+	        <div class="modify-icon"></div>
+	        <div class="operation-text">修改</div>
+	      </button>
+      </@shiro.hasPermission>
+      <@shiro.hasPermission name="settle:reOrder:delete">
+	      <button class="operation-button operation-blue" onclick="deleteReOrderSettlementInfo()">
+	        <div class="delete-icon"></div>
+	        <div class="operation-text">删除</div>
+	      </button>
+      </@shiro.hasPermission>
+<!--       <@shiro.hasPermission name="settle:reOrder:submit"> -->
+<!-- 	      <button class="operation-button operation-blue" onclick="submitAudit()"> -->
+<!-- 	        <div class="submit-icon"></div> -->
+<!-- 	        <div class="operation-text">提交审核</div> -->
+<!-- 	      </button> -->
+<!--       </@shiro.hasPermission> -->
+      <@shiro.hasPermission name="settle:reOrder:review">
+	      <button class="operation-button operation-blue" onclick="audit_settlement_info()">
+	        <div class="audit-icon"></div>
+	        <div class="operation-text">复核</div>
+	      </button>
+      </@shiro.hasPermission>
+      <@shiro.hasPermission name="settle:reOrder:adjustPay">
+	      <button class="operation-button operation-blue" onclick="initDifference()">
+	        <div class="difference-icon"></div>
+	        <div class="operation-text">调差</div>
+	      </button>
+      </@shiro.hasPermission>
+      <@shiro.hasPermission name="settle:reOrder:debtsRed">
+	      <button class="operation-button operation-blue" onclick="writeOffSettlementInfo()">
+	        <div class="up-account-icon"></div>
+	        <div class="operation-text">挂账红冲</div>
+	      </button>
+      </@shiro.hasPermission>
+      <@shiro.hasPermission name="settle:reOrder:export">
+	      <button class="operation-button operation-blue" onclick="exportExcelSettlement()">
+	        <div class="export-icon"></div>
+	        <div class="operation-text">导出</div>
+	      </button>
+      </@shiro.hasPermission>
+      
+      <@shiro.hasPermission name="settle:debts:ReOrderEASexport">
+      <button class="operation-button operation-blue" onclick="EASexportExcelReOrderSettlement()">
+        <div class="export-icon"></div>
+        <div class="operation-text">EAS导出</div>
+      </button>
+      </@shiro.hasPermission>
+      
+      <@shiro.hasPermission name="settle:debts:ReOrderPrint">
+      <button class="operation-button operation-blue" onclick = "myReOrderPrint()">
+        <div class="print-icon"></div>
+        <div class="operation-text">直接打印</div>
+      </button>
+      </@shiro.hasPermission>
+      <@shiro.hasPermission name="settle:debts:ReOrderPrintView">
+      <button class="operation-button operation-blue" onclick = "myReOrderPreview()">
+        <div class="print-icon"></div>
+        <div class="operation-text">打印预览</div>
+      </button>
+      </@shiro.hasPermission>
+      <button class="operation-button operation-blue" onclick = "settlementphoto()">
+        <div class="yxpz-icon"></div>
+        <div class="operation-text">影像拍照</div>
+      </button>
+    </div>
+    <!-- 新增修改结算信息页面展示 -->
+	 <div id="show_settlementIn_addOrUpdate_info" class="modal-open"></div>
+	 <!-- 应付调差信息页面展示 -->
+	 <div id="show_settlement_info_difference" class="modal-open"></div>
+  </div>
+  <!-- 结算列表信息 -->
+  <div id="search_settlement_info" class="panel-table"></div>
+  
+  <input id="modal_org_info_id" type="hidden" operate-type="">
+</div>
+
+<!-- 模态框 核算主体选择-->
+<div class="modal fade" id="accountingSelectModal" tabindex="-2" role="dialog">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          核算主体选择
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row">
+                <div class="search-box">
+                  <div class="input-lable">委托方主机构</div>
+                  <div class="input-text">
+                    <input class="input" placeholder="请输入委托方主机构" type="text" />
+                  </div>
+                </div>
+                <div class="search-box">
+                  <div class="input-lable">核算主体</div>
+                  <div class="input-text">
+                    <input class="input" placeholder="请输入核算主体" type="text" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search-button-box">
+              <button class="search-button" onclick="searchSettlementInfo(1)">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-table row">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;"></th>
+                <th>结算公式编号</th>
+                <th>委托方主机构</th>
+                <th>结算公式</th>
+                <th>核算主体</th>
+                <th>综合税率</th>
+                <th>企业代扣税税率</th>
+                <th>司机运费进项税税率</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                      <input data-id="1" data-name="核算主体" class="accounting-check" type="checkbox">
+                    </label>
+                </td>
+                <td>结算公式编号</td>
+                <td>委托方主机构</td>
+                <td>结算公式</td>
+                <td>核算主体</td>
+                <td>综合税率</td>
+                <td>企业代扣税税率</td>
+                <td>司机运费进项税税率</td>
+              </tr>
+              <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                      <input data-id="2" data-name="核算主体" class="accounting-check" type="checkbox">
+                    </label>
+                </td>
+                <td>结算公式编号</td>
+                <td>委托方主机构</td>
+                <td>结算公式</td>
+                <td>核算主体</td>
+                <td>综合税率</td>
+                <td>企业代扣税税率</td>
+                <td>司机运费进项税税率</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="panel-pagination">
+            <div class="panel-num">搜索相关结果共<span id="accountingNum">0</span>条</div>
+            <div id="accountingPage" class="pagination-list"></div>
+            <div class="pagination-input">到
+              <input type="text" />页</div>
+            <div class="pagination-button" onclick="accountingSlect(this)">确定</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectAccounting()">保存</button>
+        <button class="close-button" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 查看附件弹框 -->
+<div class="modal fade" id="lookDocModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:100%">
+    <div class="modal-content" style="width:720px;height:500px;margin-left: 24%;">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          查看附件
+        </h4>
+           </div>
+     
+<!-- 		          		<div class="input-lable" style = "margin: 10px 0 10px 30px;"><font size = "+1">装货磅单照片：</div> -->
+<!-- 		          		<div class="from-both-box" id = "loadingDiv" style = "float:left;margin-left:30px"> -->
+<!-- 						</div>   -->
+					
+<!-- 							<div class="input-lable" style = "margin: 20px 0 10px 30px;float:left">在途磅单照片：</div> -->
+<!-- 						<div class="from-both-box" id = "onpassageDiv" style = "float:left;margin-left:30px;"> -->
+<!-- 						</div> -->
+						<div class="input-lable" style = "margin: 20px 0 10px 30px;">磅单照片：</div>
+		          		<div class="from-both-box" id="unloadingDiv" style = "float:left;margin-left:30px">
+		          		</div>
+		        	</div>
+    </div>
+  </div>
+<!-- 模态框 结算单影像-->
+			<div class="modal fade" id="settlementPhotoModal" tabindex="-4" role="dialog">
+			 <div class="modal-dialog" style="width:96%">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+			        <h4 class="modal-title" >
+			          结算单拍照
+			        </h4>
+			      </div>
+			      <div class="modal-body">
+			     		<!-- content -->
+			     		
+			     			<div class="main">
+		<div class="global-width">
+			<div class="nav1" id="nav">
+				<div class="t"></div>
+				<dl class="open">
+					<dt
+						onclick="this.parentNode.className=this.parentNode.className=='open'?'':'open';">影像管理</dt>
+					<dd>
+						<a href="javascript:go(1)" target="_self">结算单拍照</a>
+					</dd>
+					
+				</dl>
+			</div>
+			
+			<div class="action">
+				<div class="pages" id="pages1">
+					<div>
+						<object classid="clsid:090457CB-DF21-41EB-84BB-39AAFC9E271A"
+							id="ScanCtrl" codebase="*.cab#version=1,0,0,1" width="660"
+							height="400"></object>
+					</div>
+
+					<form>
+						<table width="90%" border="0" cellspacing="0" cellpadding="0"
+							class="addform-item">
+							<tbody>
+								<tr>
+									<td><input class="submit_01" type="button" value="开始预览"
+										onclick="start_preview()" /> <input class="submit_01"
+										type="button" value="停止预览" onclick="stop_preview()" /> 
+										<input class="submit_01" type="button" value="拍照" onclick="ajaxSubmit3()" />
+										<input class="submit_01"
+										type="button" value="放大" onclick="ZoomIn()" /> <input
+										class="submit_01" type="button" value="缩小" onclick="ZoomOut()" />
+<!-- 										<input class="submit_01" type="button" value="返回" onclick="returnReOrder()" /> -->
+									</td>
+								</tr>
+								<tr>
+									<td>分辨率：<select name="selRes" class="addform-item"
+										id="selRes" style="width: 90px" onchange="changeresolution()">
+									</select> 扫描尺寸：<select id="selScanSize" style="width: 90px"
+										name="selScanSize" onchange="changescansize()"></select>
+										旋转角度：&nbsp;&nbsp;<select id="selRotate" style="width: 90px"
+										name="selRotate" onchange="changerotate()"></select> <input
+										id="rotatecrop" type="checkbox" value=""
+										onclick="RotateCrop(this)" />纠偏裁边
+									</td>
+								</tr>
+								<tr>
+									<td>颜&nbsp;&nbsp;色：<select id="selColor"
+										style="width: 90px" name="selColor" onchange="changecolor()"></select>
+										设备列表：<select id="selDev" style="width: 90px" name="selDev"
+										onchange="changedev()">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+					<div  id="disPhoto" class="from-both-box">
+											<!-- <OBJECT ID="EThumbnails"
+												CLASSID="CLSID:E8B3DD46-A440-4C3C-AB0A-DC689EEBDA84"
+												width="660" height="150"></OBJECT> -->
+										</div>
+				</div>
+						<div class="pages" id ="pages3">
+					
+					
+				</div>
+		</div>
+	</div>
+	</div>
+			      <div class="modal-footer">
+			        <button class="save-button" onclick="submitSelectPhhot()">保存</button>
+			        <button class="close-button" data-dismiss="modal">取消</button>
+			      </div>
+			    </div> 
+			  </div>
+			</div>
+			<input id="reOrderSPhoto" class="input" type="hidden"/>
+			<input id="settlementInfoIdInput" class="input" type="hidden"/>
+</main>
+	</div>
+	<footer class="app-footer"> </footer>
+	<!-- 新增编辑结算 操作表单 -->
+	<form id="form_settlement_opt" action="" method="post">
+	  	<input id="hidden_operate_type" type="hidden" name="operateType">
+	  	<input id="hidden_settlement_info_id" type="hidden" name="settlementInfoId">
+	</form>
+	<!-- 打印页面 -->
+<input type="hidden" size="9.45" value="2400" id="W1">
+<input type="hidden" size="5.5" value="1400" id="H1">
+<input type="hidden"  id="getPrintStatus">
+<div id="printBody1" class="print-body" style = "font-family:'yahei';">
+</div>
+<div id="printBody2" class="print-body" style = "font-family:'yahei';">
+</div>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="${basePath}/static/js/common/LodopFuncs.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/settlementInfo/reOrderSettlementInfo.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/settlementInfo/settlementINfoForPrint.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/settlementInfo/settlementphoto.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/upload.js"></script>
+
+</html>

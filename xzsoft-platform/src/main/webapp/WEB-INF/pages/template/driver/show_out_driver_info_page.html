@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>合作伙伴司机</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+		    <!-- Main content -->
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<div class="search-panel row">
+  					<div class="search-from">
+    					<div class="search-row-box">
+      						<div class="both-row row">
+      							<div class="search-box">
+				            		<div class="input-lable">司机司机姓名</div>
+				            		<div class="input-text">
+				              			<input id="driver_name" class="input" placeholder="请输入司机名称" type="text" />
+				            		</div>
+					        	</div>  
+	        					<div class="search-box">
+		          					<div class="input-lable">联系电话</div>
+				            		<div class="input-text">
+				              			<input id="mobile_phone" class="input" placeholder="请输入联系电话" type="text" />
+				            		</div>
+	        					</div>
+      						</div>
+    					</div>
+    					<div class="search-button-box">
+					    	<button class="search-button" onclick="searchOutDriverInfo(1)">
+						      <div class="search-icon"></div>
+						      <div class="text">查询</div>
+						    </button>
+						    <button class="search-button" id="Reset">
+						      <div class="reset-icon"></div>
+						      <div class="text">重置</div>
+						    </button>
+					    </div>
+  					</div>
+				</div>
+				<div class="panel">	
+					<div id="search_out_driver_info" class="panel-table">
+					</div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/driver/outDriverInfoList.js"></script>
+</html>

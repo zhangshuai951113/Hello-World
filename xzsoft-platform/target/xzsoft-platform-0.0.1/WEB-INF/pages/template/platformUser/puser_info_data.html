@@ -1,0 +1,97 @@
+<div id="puser-info-data">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width:40px;">
+					<input name="all-check" type="checkbox" class="all_user_check">
+				</th>
+				<th>用户名</th>
+				<th>手机号</th>
+				<th>用户状态</th>
+				<th>启用状态</th>
+				<th>创建时间</th>
+				<th class="operation" style="width:260px">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if userInfoPager?exists && userInfoPager.rows?exists>
+				<#list userInfoPager.rows as userInfo>
+					<tr class="table-body ">
+						<td style="width:40px;">
+							<input type="checkbox" class="sub_user_check" data-id="${userInfo.id}">
+						</td>
+						<td>${(userInfo.userName)!''}</td>
+						<td>${(userInfo.mobilePhone)!''}</td>
+						<td>
+							<#if userInfo.userState?exists>
+								<#if userInfo.userState==0>
+									未注销
+								<#elseif userInfo.userState==1>
+									已注销
+								</#if>
+							<#else>
+								未知状态
+							</#if>
+						</td>
+						<td>
+							<#if userInfo.isAvailable?exists>
+								<#if userInfo.isAvailable==0>
+									停用
+								<#elseif userInfo.isAvailable==1>
+									启用
+								</#if>
+							<#else>
+								未知状态
+							</#if>
+						</td>
+						<td>${(userInfo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+						<td>
+							<div class="operation-td" user-info-id="${userInfo.id}">
+								<#if userInfo.userState?exists && userInfo.isAvailable?exists>
+									<!-- 未注销机构 -->
+									<#if userInfo.userState==0>
+										<#if userInfo.isAvailable==1>
+											<div class="modify-operation operation-m">
+												<div class="modify-icon"></div>
+												<div class="text">修改</div>
+											</div>
+											<div class="disable-operation operation-m">
+												<div class="disable-icon"></div>
+												<div class="text">停用</div>
+											</div>
+											<div class="logout-operation operation-m">
+												<div class="logout-icon"></div>
+												<div class="text">注销</div>
+											</div>
+											<div class="view-operation operation-m">
+												<div class="view-icon"></div>
+												<div class="text">密码重置</div>
+											</div>
+										<#else>
+											<div class="modify-operation operation-m">
+												<div class="modify-icon"></div>
+												<div class="text">修改</div>
+											</div>
+											<div class="enabled-operation operation-m">
+												<div class="enabled-icon"></div>
+												<div class="text">启用</div>
+											</div>
+											<div class="logout-operation operation-m">
+												<div class="logout-icon"></div>
+												<div class="text">注销</div>
+											</div>
+											<div class="view-operation operation-m">
+												<div class="view-icon"></div>
+												<div class="text">密码重置</div>
+											</div>
+										</#if>
+									</#if>
+								</#if>
+							</div>
+						</td>
+					</tr>
+				</#list>
+			</#if>
+		</tbody>
+	</table>
+</div>

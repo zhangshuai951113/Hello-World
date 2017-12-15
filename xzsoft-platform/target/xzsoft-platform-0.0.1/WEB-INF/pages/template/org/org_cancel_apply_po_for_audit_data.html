@@ -1,0 +1,67 @@
+<div id="org_cancel_apply">
+		<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style=" width: 40px;">
+					<label class="i-checks"> <input class="all_org_cancel_apply_check" name="all" type="checkbox"></label>
+				</th>
+				<th>组织名称</th>
+				<th>申请人</th>
+				<th>申请时间</th>
+				<th>申请机构</th>
+				<th>注销原因</th>
+				<th>附件</th>
+				<th>审核人</th>
+				<th>审核日期</th>
+				<th>审核意见</th>
+				<th>审核结果</th>
+				<th class="operation" style="width:120px">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if orgCancelApplyPoPager?exists && orgCancelApplyPoPager.rows?exists> <#list orgCancelApplyPoPager.rows as orgCancelApplyPo>
+			<tr class="table-body ">
+				<td style="width: 40px;">
+					<label class="i-checks"> <input class="sub_org_cancel_apply_check" type="checkbox" data-id="${orgCancelApplyPo.id}" data-org-info-id="${orgCancelApplyPo.orgInfoId}" data-audit-result="${orgCancelApplyPo.auditResult}"><i></i></label>
+				</td>
+				<td>${(orgCancelApplyPo.orgName)!''}</td>
+				<td>${(orgCancelApplyPo.applyUserName)!''}</td>
+				<td>${(orgCancelApplyPo.applyTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+				<td>${(orgCancelApplyPo.applyOrgInfoName)!''}</td>
+				<td>${(orgCancelApplyPo.cancelReason)!''}</td>
+				<td><img style="width: 60px;height: 60px;"  src ="${fastdfsServer}/${(orgCancelApplyPo.attachment)!''}" title="点击查看图片"/></td>				
+				<td>${(orgCancelApplyPo.auditPersonName)!''}</td>
+				<td><#if orgCancelApplyPo.auditTime?exists>${(orgCancelApplyPo.auditTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+				<td>${(orgCancelApplyPo.auditOpinion)!''}</td>
+				<td><#if orgCancelApplyPo.auditResult?exists> <#if orgCancelApplyPo.auditResult==1>待审核 <#elseif orgCancelApplyPo.auditResult==2>同意<#elseif
+						orgCancelApplyPo.auditResult==3>驳回</#if></#if></td>
+				<td>
+					<div class="operation-td" org-cancel-apply-po-id="${(orgCancelApplyPo.id)!'0'}" org-info-id="${(orgCancelApplyPo.orgInfoId)!'0'}">
+						<#if orgCancelApplyPo.auditResult==1>
+						<div class="audit-operation operation-m">
+							<div class="audit-icon"></div>
+							<div class="text">审核</div>
+						</div>
+						<div class="view-operation operation-m">
+							<div class="view-icon"></div>
+							<div class="text">查看</div>
+						</div>
+						<#else> <#if orgCancelApplyPo.auditResult==2> <!--审核通过的只允许查看 -->
+						<div class="disable-operation operation-m">
+							<div class="disable-icon"></div>
+							<div class="text">已通过</div>
+						</div>
+						<#else> <#if orgCancelApplyPo.auditResult==3>
+						<div class="disable-operation operation-m">
+							<div class="disable-icon"></div>
+							<div class="text">已驳回</div>
+						</div>
+						</#if></#if></#if>
+					</div>
+				</td>
+			</tr>
+			</#list> </#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">${orgCancelApplyPoPager.pageHtml}</div>
+</div>

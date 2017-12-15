@@ -1,0 +1,148 @@
+<div id="my-offer-info-data">
+	<div class="iscroll">
+		<table style="min-width:1680px" class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+			<thead>
+				<tr class="table-title">
+					<th style="width:40px;">
+						<input name="all-check" type="checkbox" class="all_waybill_source_check">
+					</th>
+					<th class="operation" style="width:160px">操作</th>
+					<th>报价编号</th>
+					<th>运单编号</th>
+					<th>报价</th>
+					<th>报价方</th>
+					<th>附件</th>
+					<th>报价时间</th>
+					<th>是否中标</th>
+					<th>委托方</th>
+					<th>当前运价（元）</th>
+					<th>货物</th>
+					<th>零散货物</th>
+					<th>线路</th>
+					<th>发货单位</th>
+					<th>到货单位</th>
+					<th>计划拉运日期</th>
+					<th>计划拉运量</th>
+					<th>计量单位</th>
+					<th>定损方式</th>
+					<th>合理损耗比例</th>
+					<th>合理损耗吨位（吨）</th>
+					<th>运单状态</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<#if MyOfferPager?exists && MyOfferPager?exists>
+					<#list MyOfferPager.rows as MyOffer>
+						<tr class="table-body ">
+							<td style="width:40px;">
+								<input type="checkbox" class="sub_waybill_source_check" data-id="${waybillSourceInfo.id}">
+							</td>
+							<td style="white-space: inherit;">
+								<div class="operation-td" waybill-source-info-id="${(MyOffer.id)}">
+									<#if waybillSourceInfo.id?exists>
+										<!-- 物流公司 2 司机 4-->
+											<#if userRole==2 || userRole==4>
+												<div class="modify-operation quote-operation operation-m">
+													<div class="quote-icon"></div>
+													<div class="text">参与报价</div>
+												</div>
+												<div class="release-operation operation-m">
+													<div class="release-icon"></div>
+													<div class="text">发布</div>
+												</div>
+												<div class="audit-operation operation-m" data-toggle="modal" data-target="#disableModal">
+								               		<div class="audit-icon"></div>
+								               		<div class="text">撤回</div>
+								             	</div>
+												<div class="delete-operation operation-m">
+								               		<div class="delete-icon"></div>
+								               		<div class="text">删除</div>
+								             	</div>
+											</#if>
+									</#if>
+								</div>
+							</td>
+							<td>${(MyOffer.id)!''}</td>
+							<td>${(MyOffer.waybillInfoId)!''}</td>
+							<td>${(MyOffer.offerPrice)!''}</td>
+							<td>${(MyOffer.offerPartyName)!''}</td>
+							<td>
+								<#if MyOffer.offerImg?exists && MyOffer.offerImg!="">
+									<a href="${fastdfsServer}/${MyOffer.offerImg}" target="view_window">查看附件</a>
+									
+								</#if>
+							 <!-- <img style="width: 40px;height: 40px;"  src ="${fastdfsServer}/${(MyOffer.offerImg)!''}" title="点击查看图片"/> -->
+							</td>
+							<td><#if MyOffer.offerTime?exists >${(MyOffer.offerTime)?string('yyyy-MM-dd')}</#if></td>
+							<td>
+							<#if MyOffer.isBid?exists>
+									<#if MyOffer.isBid==0>
+										否
+									<#elseif MyOffer.isBid==1>
+						        		是
+									</#if>
+								<#else>
+									未知状态
+								</#if>
+							</td>
+							<td>${(MyOffer.entrustName)!''}</td>
+							<td>${(MyOffer.currentTransportPrice)!''}</td>
+							<td>${(MyOffer.goodsName)!''}</td>
+							<td>${(MyOffer.scatteredGoods)!''}</td>
+							<td>${(MyOffer.lineInfoName)!''}</td>		
+							<td>${(MyOffer.forwardingUnit)!''}</td>
+							<td>${(MyOffer.consignee)!''}</td>
+							<td>${(MyOffer.planTransportDate)?string('yyyy-MM-dd hh:mm:ss')}</td>
+							<td>${(MyOffer.planTransportAmount)!''}</td>
+							<td>${(MyOffer.units)!''}</td>
+							<td><#if MyOffer.deductionMode?exists>
+									<#if MyOffer.deductionMode==1>
+										比例
+									<#elseif MyOffer.deductionMode==2>
+										吨位
+									</#if>
+								</#if></td>
+							<td>${(MyOffer.reasonableLossRatio)!''}</td>
+							<td>${(MyOffer.reasonableLossTonnage)!''}</td>
+							<td>
+							<#if MyOffer.waybillStatus?exists>
+									<#if MyOffer.waybillStatus==1>
+										新建
+									<#elseif MyOffer.waybillStatus==2>
+						        		已派发
+						        	<#elseif MyOffer.waybillStatus==3>
+						        		已撤回
+						        	<#elseif MyOffer.waybillStatus==4>
+						        		已拒绝
+						        	<#elseif MyOffer.waybillStatus==5>
+						        		已接单
+					        		<#elseif MyOffer.waybillStatus==6>
+					        			已装货
+					        		<#elseif MyOffer.waybillStatus==7>
+						        		在途
+						        	<#elseif MyOffer.waybillStatus==8>
+						        		已卸货
+						        	<#elseif MyOffer.waybillStatus==9>
+						        		已挂账
+						        	<#elseif MyOffer.waybillStatus==10>
+						        		已发布
+						        	<#elseif MyOffer.waybillStatus==11>
+						        		已回收报价
+									</#if>
+								<#else>
+									未知状态
+								</#if>
+							</td>
+							
+						</tr>
+					</#list>
+				</#if>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-pagination">
+		${MyOfferPager.pageHtml}
+	</div>
+	
+</div>

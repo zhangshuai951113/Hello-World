@@ -1,0 +1,232 @@
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.header-box{
+			width: 100%;
+			border:1px solid #ccc;
+			font-size:12px
+		}
+		.header-samll-box{
+			width:80%;
+			height: 190px;
+			margin: 35px auto;
+		}
+		.header-samll-box-up{
+			width: 100%;
+			height: 30px;
+			float: left;
+		}
+		.up-left{
+			line-height: 33px;
+			float: left;
+			color: #666;
+		}
+		.up-right{
+			width:500px;
+			height: 30px;
+			float: right;
+		}
+		.header-samll-box-down{
+			width: 100%;
+			height: 180px;
+			float: left;
+			border:1px solid #ccc;
+			margin-top: 10px;
+			padding-top: 5px;
+			overflow-y: scroll;
+		}
+		.body-box{
+			width: 100%;
+			height:400px;
+			float: left;
+		}
+		.body-box-header{
+			width: 80%;
+			height: 400px;
+			margin:auto;		
+		}
+		.body-box-search{
+			width:100%;
+			height: 20px;
+			float: left;
+			margin-top: 40px;
+		}
+		.text-left{
+			line-height: 24px;
+			font-size:12px;
+			color: #666;
+			float: left;
+		}
+		.box-right{
+			width: 100%;
+			height: 20px;
+			float: right;
+		}
+		.box-right input{
+			/* width: 150px; */
+			height: 25px;
+			text-align: center;
+    		font-size: 12px;
+    		outline:none;
+    		margin-right: 10px;
+    		border: 1px solid #ccc;
+		}
+		.body-box-footer{
+			width: 100%;
+			height: 300px;
+			float: left;
+			margin-top: 40px;
+		}
+		.box-noe{
+			width:24%;
+			height: 300px;
+			float: left;
+		}
+		.box-two{
+			width: 24%;
+			height: 300px;
+			float: left;
+			margin-left: 8%;
+			
+		}
+		.box-three{
+			width: 34%;
+			height: 300px;
+			float: right;
+		}
+		.comTbody,.comTbody-two{
+			width: 200px;
+			height: 280px;
+		}
+		.table-thead,.table-thead-two{
+		    width:100%;
+		    font-size: 12px;
+		    background-color: #FFF;
+		    border-collapse: collapse;
+		    border-spacing: 0px;
+		}
+		.table-thead tr th{
+		    text-align: center;
+		    border:1px solid #3c8dbc;
+		    background: #9dc6dd;
+		}
+		.table-thead-two tr th{
+		    text-align: center;
+		    border:1px solid #3c8dbc;
+		    background: #9dc6dd;
+		}
+		.table-thead tr th:last-child, .table-thead tr th:nth-last-child(2){
+		    border-right:0;
+		}
+		.table-thead-two tr th:last-child, .table-thead-two tr th:nth-last-child(2){
+		    border-right:0;
+		}
+		.table-thead tr, .table-tbody tr{
+		    height:35px;
+		}
+		.table-thead-two tr, .table-tbody-two tr{
+		    height:35px;
+		}
+		.comTbody tr:hover{
+			background:#e7f5ff;
+		}
+		.comTbody-two tr:hover{
+			background:#e7f5ff;
+		}
+		.comTbody,.comTbody-two{
+		    width:100%;
+		    display: inline-block;
+		    max-height:263px;
+		    overflow-y: scroll;
+		    border: 1px solid #CFCFCF;
+		    border-right:none;
+		}
+		.table-tbody,.table-tbody-two{
+		    width:100%;
+		    font-size: 12px;
+		    background-color: #FFF;
+		    border-left:0px solid #CFCFCF;
+		    border-collapse: collapse;
+		    border-spacing: 0px;
+		}
+		.table-tbody tr{
+		    border-bottom:1px solid #CFCFCF;
+		}
+		.table-tbody-two tr{
+		    border-bottom:1px solid #CFCFCF;
+		}
+		.table-tbody tr td{
+		    text-align: center;
+		    border-right:1px solid #CFCFCF;
+		}
+		.table-tbody-two tr td{
+		    text-align: center;
+		    border-right:1px solid #CFCFCF;
+		    height: 28px;
+		}
+		.tables{
+			border-collapse: collapse;
+			width: 300px;
+			height: 300px;
+			border: 1px solid #CFCFCF;
+		}
+		.tables th{
+			border: 1px solid #3c8dbc;
+			width:33%;
+			height: 35px;
+			background: #9dc6dd;
+			text-align:center;
+		}
+		.tables tr td{
+			border: 1px solid #CFCFCF;
+			width:33%;
+			height: 28px;
+			text-align:center;
+
+		}
+		table{
+			font-size: 12px;
+		}
+		.header-samll-box-down span.span_b{display:inline-block;float:none;font-size:12px;padding:2px 5px;margin:-2px 5px 5px;border:1px solid #E0E0E0; background-color:#F0F0F0;-moz-border-radius:5px;-khtml-border-radius:5px;-webkit-border-radius:5px;border-radius: 5px;color:#000;}
+		.header-samll-box-down a#deltab {
+		    cursor: pointer;
+		    display: inline-block;
+		    color: #808080;
+		    margin-left: 5px;
+		    font-weight: bold;
+		}
+		.brg{
+			content: '|';
+		}
+		.huanhang {
+    	background: url('../../images/common/huanhang.png') no-repeat;
+  		height: 20px;
+  		width: 20px;
+  		float: left;
+  		margin-top: 5px;
+}
+		.div_fl{
+			float: left;
+		}
+		.hszt{
+		 float:left; 
+		}
+		.qyrq{
+		  float:left;
+		}
+		.jdrq{
+		 float:left;
+		}
+		.box-right p{
+		float: left;
+		line-height: 24px;
+		}
+		.jsdx{
+		 float:left;
+		 
+		}
+		.cydw{
+		 float:left; 
+		}
+		

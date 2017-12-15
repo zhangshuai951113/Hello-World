@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>企业信用评价（待评价）</title> 
+	<#include "../../common/common_header.html" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+			<div class="tab-box">	
+			  <a href="enterprisePending"><div class="tab-text active">待评价</div></a>
+			  <a href="enterpriseAlready"><div class="tab-text ">已评价</div></a>
+			</div>
+		<div class="search-panel row">
+		<table  class="t-table" style = "width: 60%;text-align: center;font-size:16px;border-collapse:collapse;">
+		<tr>
+		<td><font size = "+1">${userName} &nbsp;&nbsp;&nbsp; 您好！</font></td>
+		<td>
+		<font size = "+1">综合得分：</font>
+		<font size = "+1" color = "#f00">${average}分</font>
+		<span>&nbsp;&nbsp;&nbsp;&nbsp;已有<font color = "#f00">${count}</font>次评价</span>
+		</td>
+		</tr>
+		</table>
+			<div class="search-from" style = "margin-top:20px">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+					            <div class="input-lable">单据创建日期</div>
+					            <div class="input-text time-input">
+					              <input class="input date-time" type="text" id = "timeStart" />
+					            </div>
+					            <div class="input-line">—</div>
+					            <div class="input-text time-input">
+					              <input class="input date-time" type="text" id = "timeEnd" />
+					            </div>
+					          </div>
+							<div class="search-box">
+								<div class="input-lable">单据号</div>
+								<div class="input-text">
+									<input id="billNo" class="input" placeholder="请输入单据号" type="text" />
+								</div>
+							</div>
+							   <div class="search-box">
+					            <div class="input-lable">单据类型</div>
+					            <div class="input-text">
+					              <select class="input" id = "billType">
+					                <option value="">请选择</option>
+					                <option value="1">计划</option>
+					                <option value="2">对账</option>
+					                <option value="3">付款</option>
+					              </select>
+					            </div>
+					          </div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="evaluationEnterpriseList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetSelectParams()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+			<div id="data_auth">
+	<table width="100%" class="table-bule table-ellipsis" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="display:none"></th>
+				<th>序号</th>
+				<th>单据号</th>
+				<th>单据类型</th>
+				<th>委托方</th>
+				<th>承运方</th>
+				<th>单据状态</th>
+				<th>单据创建日期</th>
+				
+				<th class="operation" style="width: 180px;">操作</th>
+			</tr>
+		</thead>
+		<tbody id="evaluationEnterpriseTBody">
+		
+		</tbody>
+	</table>
+	<div class="panel-pagination">
+	      <div id="evaluation-num" class="panel-num">搜索相关结果共0条</div>
+	      <div class="pagination-list" id="evaluation-list"></div>
+	      <div class="pagination-input">到
+	        <input type="text" />页</div>
+	      <div class="pagination-button" onclick="jumpEvaluationPage(this)">确定</div>
+	  </div> 
+	</div>
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+	<div id="show_evaluation_model_page"></div>
+	<!-- 子机构操作表单 -->
+	<form id="form_sub_org_opt" action="" method="post">
+		<input id="hidden_sub_operate_type" type="hidden" name="operateType">
+		<input id="hidden_sub_org_info_id" type="hidden" name="orgInfoId">
+	</form>
+</body>
+<#include "../../common/common_footer.html" />
+
+
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/userDataAuth/dataAuth.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/creditEvaluation/evaluation_enterprise.js"></script>
+
+</html>

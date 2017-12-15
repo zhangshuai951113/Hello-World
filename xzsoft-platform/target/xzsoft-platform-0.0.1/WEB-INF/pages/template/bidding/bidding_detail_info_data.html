@@ -1,0 +1,90 @@
+<div id="bidding-detail-info-data">
+	<div class="iscroll">   
+	<table class="table-bule table-ellipsis" style="min-width:2600px" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width:40px;">
+					<input name="all-check" type="checkbox" class="all_check">
+				</th>
+				<th class="operation" style="width:8%">操作</th>
+				<th>货物名称</th>
+				<th>计量单位</th>
+				<th>线路名称</th>
+				<th>运距</th>
+				<th>发货单位</th>
+				<th>收货单位</th>
+				<th>起始日期</th>
+				<th>截止日期</th>
+				<th>总量</th>
+				<th>备注</th>
+				<th>创建人</th>
+				<th>创建时间</th>
+				<th>运价</th>
+				<th>损耗比例</th>
+				<th>损耗金额</th>
+				<th>报价总额</th>
+				<th>报价说明</th>
+				<th>报价方角色</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if biddingDetailInfoPager?exists && biddingDetailInfoPager.rows?exists>
+				<#list biddingDetailInfoPager.rows as biddingDetailInfoPo>
+					<tr class="table-body ">
+						<td style="width:40px;">
+							<input type="checkbox" class="sub_check" data-id="${biddingDetailInfoPo.id}" data-status ="${biddingDetailInfoPo.couponStatus}">
+						</td>
+						<td>
+							<div class="operation-td" bidding-detail-info-id="${biddingDetailInfoPo.id}">
+								<#if biddingDetailInfoPo.biddingStatus?exists>
+									<#if biddingDetailInfoPo.biddingStatus ==1>
+										<div class="modify-operation operation-m">
+											<div class="modify-icon"></div>
+											<div class="text">修改</div>
+										</div>
+										<div class="delete-operation operation-m">
+											<div class="delete-icon"></div>
+											<div class="text">删除</div>
+										</div>
+									<#elseif biddingDetailInfoPo.biddingStatus ==5>
+										<div class="award-operation operation-m">
+											<div class="award-icon"></div>
+											<div class="text">选择中标方</div>
+										</div>
+									</#if>
+								</#if>
+							</div>
+						</td>
+						<td>${(biddingDetailInfoPo.goodsName)!''}</td>
+						<td>${(biddingDetailInfoPo.units)!''}</td>
+						<td>${(biddingDetailInfoPo.lineName)!''}</td>
+						<td>${(biddingDetailInfoPo.distance)!''}</td>
+						<td>${(biddingDetailInfoPo.forwardingUnit)!''}</td>
+						<td>${(biddingDetailInfoPo.consignee)!''}</td>
+						<td><#if biddingDetailInfoPo.startDate?exists >${(biddingDetailInfoPo.startDate)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td><#if biddingDetailInfoPo.endDate?exists >${(biddingDetailInfoPo.startDate)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td>${(biddingDetailInfoPo.quantity)!''}</td>
+						<td>${(biddingDetailInfoPo.remark)!''}</td>
+						<td>${(biddingDetailInfoPo.createUserName)!''}</td>
+						<td><#if biddingDetailInfoPo.createTime?exists >${(biddingDetailInfoPo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+						<td>${(biddingDetailInfoPo.transportPrice)!''}</td>
+						<td>${(biddingDetailInfoPo.lossRatio)!''}</td>
+						<td>${(biddingDetailInfoPo.lossMoney)!''}</td>
+						<td>${(biddingDetailInfoPo.offerPrice)!''}</td>
+						<td>${(biddingDetailInfoPo.quotationNote)!''}</td>
+						<td><#if biddingDetailInfoPo.bidderRole?exists >
+								<#if biddingDetailInfoPo.bidderRole ==1>企业货主 
+								<#elseif biddingDetailInfoPo.bidderRole ==2>物流公司
+								<#elseif biddingDetailInfoPo.bidderRole ==3>个体货主
+								<#elseif biddingDetailInfoPo.bidderRole ==4>司机
+								</#if>
+							</#if>
+						</td>
+					</tr>
+				</#list>
+			</#if>
+		</tbody>
+	</table>
+	</div>
+	<div class="panel-pagination">${biddingDetailInfoPager.pageHtml}</div>
+</div>

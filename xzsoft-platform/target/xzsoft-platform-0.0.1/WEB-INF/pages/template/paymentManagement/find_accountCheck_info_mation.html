@@ -1,0 +1,121 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:1110px;">
+			
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeAIutton()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					${findAccountInfo}
+				</h4>
+			</div>
+			<div class="modal-body">
+			<div class="search-panel row">
+			<form onsubmit="return false">
+				<div class="search-from" >
+					<div class="search-row-box" >
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">对账单号</div>
+								<div class="input-text">
+									<input id="accountCheckId" class="input" placeholder="请输入对账单号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">付款状态</div>
+								<div class="input-text">
+									<select id="accountCheckStatus" class="input">
+										<option value="">请选择</option>
+										<option value="1">起草</option>
+										<option value="2">待审核</option>
+										<option value="3">审核通过</option>
+										<option value="4">驳回</option>
+										<option value="5">待确认</option>
+										<option value="6">已确认</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">承运方</div>
+								<div class="input-text">
+									<input id="shipperName" class="input" placeholder="请输入承运方" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="findAccountCheckList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetAccInfo()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+			<!-- 表格 -->
+			<div class="panel">
+			<div id="show_goods_info"></div>
+				<div class="panel-table">
+				    <table class="table-bule">
+				      <thead>
+				        <tr class="table-title">
+				        <th  class="check">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="all_account_info_check"> 
+			                </label>
+			              </th>
+			          <th style="width:120px">对账单编号</th>
+		              <th style="width:140px">对账单状态</th>
+		              <th style="width:120px">承运方</th>
+			          <th style="width:160px">确认账款</th>
+			          <th style="width:160px">付款已开金额</th>
+			          <th style="width:160px">付款未开金额</th>
+			          <th style="width:120px">确认到货吨位</th>
+			          <th style="width:120px">确认损耗吨位</th>
+			          <th style="width:120px">确认出车次数</th>
+			          <th style="width:120px">确认发货吨位</th>
+			          <th style="width:120px">损耗差异</th>
+			          <th style="width:120px">其他差异</th>
+			          <th style="width:120px">收入税率</th>
+			          <th style="width:120px">差异收入</th>
+			          <th style="width:120px">应收总额（客户）</th>
+			          <th style="width:150px">应付总额（物流/司机）</th>
+			          <th style="width:120px">代开总额</th>
+			          <th style="width:120px">出车数</th>
+			          <th style="width:120px">单据总数</th>
+			          <th style="width:200px">制单人</th>
+			          <th style="width:120px">制单时间</th>
+				        </tr>
+				      </thead>
+				      <tbody id="AccountInfoTBody">
+				       
+				      </tbody>
+				    </table>
+				</div>
+				<!-- 分页 -->
+			 <div class="panel-pagination">
+			      <div id="account-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list" id="account-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpAccPage(this)">确定</div>
+			  </div>  
+			</div>
+			</div>
+			<div class="modal-footer">
+		        <button class="save-button" onclick="submitAIMation()">保存</button>
+		        <button class="close-button"  onclick="closeAIutton()">取消</button>
+		    </div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<script type="text/javascript" src="${basePath}/static/js/paymentManagement/find_accountChecked_info_page.js"></script>

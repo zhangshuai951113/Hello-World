@@ -1,0 +1,83 @@
+<!-- 内部司机模态框 -->
+<div id="driver-data-info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="driverModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close driver-info-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="driverModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+	      			<form id="driver_form">
+		      			<input id="hidden_user_driver_id" type="hidden" name="userInfo.id" value="${userDriver.id}">
+		      			<!-- 组织信息展示 -->
+						<div id="show-org-data-info" class="modal-open"></div>
+		        		<div id="driver-tab" class="tab-content">
+		          			<div class="model-from">
+			            		<div class="group-box">
+				              		<div class="input-lable"><span>*</span>登录账号：</div>
+				              		<div class="input-text">
+				                		<input id="driver_user_name" name="userInfo.userName" class="input" placeholder="请输入登录账号" type="text" value="${userDriver.userName}"/>
+				              		</div>
+			            		</div>
+			            		<#if operateType?exists && operateType==2>
+			            		
+			            		<#else>
+			            		<div class="group-box">
+				              		<div class="input-lable"><span>*</span>密码：</div>
+				              		<div class="input-text">
+				                		<input id="driver_password" name="userInfo.password" class="input" placeholder="请输入密码" type="password" />
+				              		</div>
+			            		</div>
+			            		</#if>
+			            		
+			            		<div class="group-box">
+			              			<div class="input-lable"><span>*</span>手机号码：</div>
+			              			<div class="input-text">
+			                			<input id="driver_mobile_phone" name="userInfo.mobilePhone" class="input" placeholder="请输入手机号码" type="text" value="${userDriver.mobilePhone}"/>
+			              			</div>
+			            		</div>
+					            <div class="group-box">
+					              	<div class="input-lable"><span>*</span>组织名称：</div>
+					              	<div class="input-text">
+											<input id="orgName" class="input" type="text" onclick="showOrgInfoPage(1)" value="${orgInfoPo.orgName}" readonly="readonly"/>
+											<input id="enterprise_user_org_info_id" name="userInfo.orgInfoId" class="input" type="hidden" value="${userDriver.orgInfoId}"/>
+				              		</div>
+					            </div>
+					            <div class="group-box">
+					              	<div class="input-lable"><span>*</span>上级组织：</div>
+					              	<div class="input-text">
+											<input id="orgParentName" class="input" type="text" readonly="readonly" value="${orgInfoPo.parentOrgName}"/>
+											<input id="orgParentId" name="userInfo.parentOrgInfoId" class="input" type="hidden" value="${userDriver.parentOrgInfoId}"/>
+				              		</div>
+					            </div>
+<!-- 			            		<div class="group-box"> -->
+<!-- 		              				<div class="input-lable"><span>*</span>所属组织：</div> -->
+<!-- 		              				<div class="input-text"> -->
+<!-- 		                				<select id="driver_parent_org_info_id" name="userInfo.orgInfoId" class="input"> -->
+<!-- 						                	<option value="">请选择</option> -->
+<!-- 											<#if orgInfoList?exists> -->
+<!-- 												<#list orgInfoList as orgInfo> -->
+<!-- 													<#if userDriver?exists && orgInfo.id==userDriver.orgInfoId> -->
+<!-- 														<option value="${orgInfo.id}" selected>${orgInfo.orgName}</option> -->
+<!-- 													<#else> -->
+<!-- 														<option value="${orgInfo.id}">${orgInfo.orgName}</option> -->
+<!-- 													</#if> -->
+<!-- 												</#list> -->
+<!-- 											</#if> -->
+<!-- 		                				</select> -->
+<!-- 		              				</div> -->
+<!-- 		            			</div> -->
+		          			</div>
+		        		</div>
+	        		</form>
+	      		</div>
+	      		<div class="modal-footer">
+	        		<button class="save-button" onClick="addOrUpdateDriver()">保存</button>
+	        		<button class="close-button driver-info-opt-close" data-dismiss="modal">取消</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

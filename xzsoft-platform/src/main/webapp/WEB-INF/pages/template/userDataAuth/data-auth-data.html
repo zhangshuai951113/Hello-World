@@ -1,0 +1,59 @@
+<div id="data_auth">
+	<table width="100%" class="table-bule table-ellipsis" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width: 40px;"><label class="i-checks"> <input class="all-auth-check" type="checkbox">
+				</label></th>
+				<th>权限名称</th>
+				<th>客户</th>
+				<th>货物</th>
+				<th>线路</th>
+				<!--  <th>授权用户</th>-->
+				<th>协同状态</th>
+				<th>创建人</th>
+				<th>创建时间</th>
+				<th class="operation" style="width: 450px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if dataAuthPager?exists && dataAuthPager.rows?exists> 
+			<#list dataAuthPager.rows as dataAuth>
+			<tr class="table-body ">
+				<td style="width: 40px;"><label class="i-checks"><input type="checkbox" class="data-auth-check" data-id="${dataAuth.id}" ><i></i></label></td>
+				<td>${(dataAuth.authName)!''}</td>
+				<td>${(dataAuth.customerName)!''}</td>
+				<td>${(dataAuth.goodsName)!''}</td>
+				<td>${(dataAuth.lineName)!''}</td>
+				<!--<td> </td>-->
+				<td><#if dataAuth.cooperateState?exists> 
+						<#if dataAuth.cooperateState==1> 协同 
+						<#else> 半协同 
+						</#if>
+					<#else> 
+					</#if>
+				</td>
+				<td>${(dataAuth.createUserName)!''}</td>
+				<td>${(dataAuth.createTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+				<td>
+					<div class="operation-td" data-auth-id="${dataAuth.id}">
+						<div class="authorization-operation operation-m" >
+							<div class="authorization-icon"></div>
+							<div class="text">授权</div>
+						</div>
+						<div class="modify-operation operation-m" >
+							<div class="modify-icon"></div>
+							<div class="text">修改</div>
+						</div>
+						<div class="delete-operation operation-m">
+							<div class="delete-icon"></div>
+							<div class="text">删除</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			</#list> 
+			</#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">${dataAuthPager.pageHtml}</div>
+</div>

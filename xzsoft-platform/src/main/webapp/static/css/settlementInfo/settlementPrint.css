@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+.print-body {
+	size : PZ;
+	width: 100%;
+	height:100%;
+	text-align: center; 
+}
+
+.t-head{
+	text-align: center;
+	font-size: large;
+}
+.t-form{
+	width: 280mm;
+	/* height: 30mm; */
+	margin-left : auto;
+	margin-right : auto;
+}
+
+.t-form td{
+	text-align: left;
+	padding-left: 3mm;
+}
+
+
+
+
+.t-foot {
+	width: 280mm;
+	height: 15mm;
+}
+.t-foot td{
+	text-align: left;
+	padding-left: 20mm;
+}
+
+.textarea-td {
+	text-align: left;
+	padding-left: 10mm;
+}

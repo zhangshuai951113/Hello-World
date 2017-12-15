@@ -1,0 +1,359 @@
+.modal-content {
+    border: 1px solid #2b84ea;
+}
+.modal-header {
+    background: #2b84ea;
+    height: 32px;
+    padding: 0;
+}
+.modal-title {
+    font-size: 12px;
+    line-height: 32px;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.mode-close {
+     background: url(../../images/common/mode-close.png) no-repeat center;
+    height: 32px;
+    width: 32px;
+    float: right;
+    top: 0;
+    cursor: pointer;
+    border: none;
+}
+
+.modal-footer {
+    padding: 20px;
+    text-align: right;
+    border-top: none;
+}
+
+.cancel-button {
+    color: #fff;
+    background: #ea342b;
+    border: none;
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.close-button {
+    background: #f8f8f8;
+    color: #666666;
+    border: 1px solid #cccccc;
+    font-size: 12px;
+    padding: 5px 11px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.model-from {
+    height: auto;
+    width: 454px;
+    margin:10px auto 0;
+  }
+.model-from .group-box {
+    height: 26px;
+    margin-top: 15px;
+}
+ .model-from .input-lable {
+    float: left;
+    color: #333333;
+    font-size: 12px;
+    margin-right: 10px;
+    width: 150px;
+    text-align: right;
+    line-height: 26px;
+}
+.model-from .input-text {
+    width: 218px;
+    border: 1px solid #cccccc;
+    height: inherit;
+    float: left;
+    position: relative;
+}
+.model-from .text {
+    width: 218px;
+    height: inherit;
+    float: left;
+    position: relative;
+}
+.model-from .input {
+    border: 0;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    text-indent: 5px;
+    font-size: 12px;
+  }
+
+  .model-from div span {
+    color: #FC0200;
+    margin-right: 4px;
+}
+
+.model-from .textarea-text {
+    width: 218px;
+    border: 1px solid #cccccc;
+    height: 100px;
+    float: left;
+    position: relative;
+}
+
+.model-from textarea {
+      width: 100%;
+    height: 100%;
+    border: 0;
+    resize: none;
+    text-indent: 5px;
+    outline: none;
+}
+
+.model-from  .text-content {
+    width: 218px;
+    height: inherit;
+    float: left;
+    position: relative;
+}
+
+.model-from .input-img {
+    width: 218px;
+    height: 134px;
+    float: left;
+    position: relative;
+    border: 1px solid #ccc;
+}
+
+.model-from .select-lists {
+    background-image: url('../../images/nav/arrow-down.png');
+    background-repeat: no-repeat;
+    background-position: 200px;
+    background-size: 10px;
+    width: 218px;
+    border: 1px solid #cccccc;
+    height: inherit;
+    float: left;
+    position: relative;
+    font-size: 12px;
+    padding: 2px 12px 2px 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.model-from .input-img  img{
+    
+  height: 100%;
+  width:100%;
+}
+
+.modal .modal-dialog-both {
+    width: 800px;
+    margin: 30px auto;
+}
+
+.modal .from-both-box {
+     width: 740px;
+     margin: auto;
+}
+.modal .from-both-box .group-box{
+    width: auto;
+}
+
+.modal .from-both-box .input-lable {
+     width:136px;
+}
+
+.modal .from-both-box .group-textarea {
+    height: auto;
+    width: 740px;
+    margin: 10px auto 0;
+}
+
+.modal .from-both-box .group-textarea .textarea-text {
+    width: 545px;
+    border: 1px solid #cccccc;
+    height: 100px;
+    float: left;
+    position: relative;
+    text-indent: 10;
+}
+.modal .save-button {
+    background: #2b84ea;
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    padding: 5px 11px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.modal-table .panel-pagination{
+    margin-bottom: 0px;
+}
+
+.modal .both-row, .modal .search-button-box {
+    text-align: center;
+}
+
+.modal .search-button-box {
+    margin-top:0;
+}
+
+.modal .select-list {
+    position: absolute;
+    top: 24px;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    margin: 0 -1px;
+    box-sizing: content-box;
+    max-height: 200px;
+    overflow: auto;
+    z-index: 999;
+    border-top: none;
+}
+
+.modal .select-list ul {
+    margin-left: 0;
+    list-style: none;
+    padding-left:0;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+.modal .select-list ul li {
+    padding-left: 7px;
+}
+.modal .select-list ul li:hover {
+    background: #ececec;
+  
+}
+
+.modal .file-box {
+    width: 400px;
+    margin: auto;
+}
+
+.modal .file-name {
+    float: left;
+}
+
+.modal .file-input {
+        height: 26px;
+    float: left;
+    width: 184px;
+    border: 1px solid #ccc;
+    background: #f4f4f4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 12px;
+    line-height: 24px;
+    color: #666;
+}
+
+.modal .file-button-box {
+    float: left;
+    position: relative;
+    margin-left: 10px;
+}
+
+.modal .file-disabled-box {
+    float: left;
+    position: relative;
+    margin-left: 10px;
+    display: none;
+}
+.modal .file-buttton {
+    background: #2b84ea;
+    color: #fff;
+    border: 0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 5px;
+}
+.modal .file-icon {
+    background-image: url('../../images/common/file-icon.png');
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 2px;
+}
+
+.modal .file-text {
+    float: left;
+    margin-left: 5px;
+    
+}
+
+.modal .file-table{
+    width: 568px;
+    margin: 10px auto 0;
+}
+
+.modal .file-thead {
+    background: #9dc6dc;
+    color: #fff;
+    border: 1px solid #3c8dbc;
+    padding: 0;
+    margin: 0;
+    height: 32px;
+    line-height: 30px;
+    overflow: hidden;
+}
+
+.modal .file-thead-title, .modal .file-tbody-title {
+    width: 395px;
+    padding-left: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    float: left;
+}
+
+.modal .file-thead-operation {
+    text-align: center;
+    border-left: 1px solid #3c8dbc;
+    width: 150px;
+    float: right;
+}
+
+.modal .file-tbody-tr {
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    height: 32px;
+    line-height: 31px;
+}
+
+.modal .file-tbody-operation {
+    float: right;
+    text-align: center;
+    line-height: 20px;
+    margin-top: 3px;
+    width: 112px;
+}
+
+.modal .file-tbody-operation .delete-icon ,.modal .file-tbody-operation .view-icon {
+ margin-top: 2px;
+}
+
+.modal .from-both-box .file-box {
+	margin-top: 10px;
+    width: auto;
+}
+
+.modal .from-both-box .file-input {
+    width: 220px;
+}
+
+.modal .panel-pagination {
+	margin-bottom:0;
+}
+.modal-body{
+	overflow: auto;
+}

@@ -1,0 +1,136 @@
+<div id="org_info">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+ 		<thead>
+   			<tr class="table-title">
+     			<th style="width:40px;">
+       				<label class="i-checks">
+         			 	<input name="all" type="checkbox"><i></i>
+       				</label>
+     			</th>
+		        <th>组织名称</th>
+		        <th>统一社会信用代码</th>
+		        <th>联系人</th>
+		        <th>移动电话</th>
+		        <th>所属机构</th>
+		        <th>启用状态</th>
+		        <th>审核状态</th>
+		        <th>创建人</th>
+		        <th>创建时间</th>
+		        <th class="operation"style="width:255px">操作</th>
+   			</tr>
+ 		</thead>
+ 		<tbody>
+ 			<#if orgInfoPager?exists && orgInfoPager.rows?exists>
+	 			<#list orgInfoPager.rows as orgInfo>
+		   			<tr class="table-body ">
+		     			<td style="width:40px;">
+		       				<label class="i-checks">
+	           					<input type="checkbox"><i></i>
+	         				</label>
+		     			</td>
+				        <td>${(orgInfo.orgName)!''}</td>
+				        <td>${(orgInfo.creditCode)!''}</td>
+				        <td>${(orgInfo.contactName)!''}</td>
+				        <td>${(orgInfo.mobilePhone)!''}</td>
+				        <td>${(orgInfo.parentOrgName)!''}</td>
+				        <td>
+				        	<#if orgInfo.isAvailable?exists>
+					        	<#if orgInfo.isAvailable==1>
+					        		启用
+					        	<#else>
+					        		停用
+					        	</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+				        </td>
+				        <td>
+							<#if orgInfo.orgStatus?exists>
+					        	<#if orgInfo.orgStatus==0>
+					        		初始化
+					        	<#elseif orgInfo.orgStatus==1>
+					        		待审核
+					        	<#elseif orgInfo.orgStatus==2>
+					        		审核不通过
+					        	<#elseif orgInfo.orgStatus==3>
+					        		审核通过
+					        	<#elseif orgInfo.orgStatus==4>
+					        		已注销
+					        	</#if>
+				        	<#else>
+				        		未知状态
+				        	</#if>
+						</td>
+				        <td>${(orgInfo.createUserName)!''}</td>
+				        <td>${(orgInfo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+		     			<td>
+		          			<div class="operation-td"  org-info-id="${(orgInfo.id)!'0'}">
+		          			<#if orgInfo.isAvailable?exists && orgInfo.orgStatus?exists>
+			          			<#if orgInfo.orgType==2>
+			          				<!--部门只有修改和删除-->
+			          				<div class="modify-operation operation-m">
+					               		<div class="modify-icon"></div>
+					               		<div class="text">修改</div>
+					             	</div>
+					             	<div class="delete-operation operation-m">
+					               		<div class="delete-icon"></div>
+					               		<div class="text">删除</div>
+					             	</div>
+			          			<#else>
+			          				<#if orgInfo.orgStatus==4>
+			          					<!-- 已注销机构 -->
+			          					<div class="delete-operation operation-m">
+						               		<div class="delete-icon"></div>
+						               		<div class="text">删除</div>
+						             	</div>
+			          				<#else>
+			          					<!-- 未注销机构 -->
+			          					<#if orgInfo.isAvailable==1>
+			          						<div class="modify-operation operation-m">
+							               		<div class="modify-icon"></div>
+							               		<div class="text">修改</div>
+							             	</div>
+							             	<div class="delete-operation operation-m">
+							               		<div class="delete-icon"></div>
+							               		<div class="text">删除</div>
+							             	</div>
+					          				<div class="disable-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="disable-icon"></div>
+							               		<div class="text">停用</div>
+							             	</div>
+							             	<div class="logout-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="logout-icon"></div>
+							               		<div class="text">注销</div>
+							             	</div>
+			          					<#else>
+			          						<div class="modify-operation operation-m">
+							               		<div class="modify-icon"></div>
+							               		<div class="text">修改</div>
+							             	</div>
+							             	<div class="delete-operation operation-m">
+							               		<div class="delete-icon"></div>
+							               		<div class="text">删除</div>
+							             	</div>
+							             	<div class="enabled-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="enabled-icon"></div>
+							               		<div class="text">启用</div>
+							             	</div>
+							             	<div class="logout-operation operation-m" data-toggle="modal" data-target="#disableModal">
+							               		<div class="logout-icon"></div>
+							               		<div class="text">注销</div>
+							             	</div>
+			          					</#if>
+			          				</#if>
+			          			</#if>
+			          		</#if>
+		          			</div>
+		     			</td>
+		   			</tr>
+	 			</#list>
+   			</#if>
+ 		</tbody>
+	</table>
+   	<div class="panel-pagination">
+      	${orgInfoPager.pageHtml}
+   	</div>
+</div>

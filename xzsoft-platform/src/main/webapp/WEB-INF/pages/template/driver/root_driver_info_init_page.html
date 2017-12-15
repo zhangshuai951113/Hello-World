@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>完善个人信息</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<div class="panel">
+					<div class="panel-head">完善个人信息</div>
+				  		<div class="panel-body">
+				  			<form id="root_driver_info_form" name="myForm" onsubmit="return false">
+				    			<div class="from-body">
+				      				<div class="from-both-box">
+					        			<div class="group-box">
+						          			<div class="input-lable"><span>*</span>司机姓名：</div>
+						          			<div class="input-text form-item">
+						            			<input class="input required" id="driverName" name="driverInfo.driverName" required ng-model="data.driver_name" placeholder="请输入司机姓名" type="text" value="${driverInfo.driverName}"/>
+						          			</div>
+					        			</div>
+					        			<div class="group-box">
+								          	<div class="input-lable"><span>*</span>司机电话：</div>
+								          	<div class="input-text form-item" >
+								            	<input class="input mobile" id="mobilePhone" required name="driverInfo.mobilePhone" ng-model="data.mobile_phone" placeholder="请输入司机电话" type="text"  value="${driverInfo.mobilePhone}"/>
+								          	</div>
+					        			</div>
+					        			
+								        <div class="group-box">
+							          		<div class="input-lable"><span>*</span>身份证号：</div>
+							          		<div class="input-text form-item">
+							            		<input class="input required" id="idCard" required name="driverInfo.idCard" ng-model="data.id_card" placeholder="请输入身份证号" type="text" value="${driverInfo.idCard}"/>
+							          		</div>
+							        	</div>
+							        	<div class="group-box">
+								          	<div class="input-lable">驾驶证编号：</div>
+								          	<div class="input-text">
+								            	<input class="input" id="drivingLicense" required  name="driverInfo.drivingLicense" ng-model="data.driving_license" placeholder="请输入驾驶证编号" type="text" value="${driverInfo.drivingLicense}" />
+								          	</div>
+								        </div>
+								        <div class="group-box">
+							          		<div class="input-lable"><span>*</span>开户行： </div>
+							          		<div class="input-text form-item">
+							            		<input class="input required" id="openingBank" name="driverInfo.openingBank" ng-model="data.opening_bank" placeholder="请输入开户行" type="text" value="${driverInfo.openingBank}"/>
+							          		</div>
+							        	</div>
+							        	<div class="group-box">
+							          		<div class="input-lable"><span>*</span>开户名：</div>
+							          		<div class="input-text form-item">
+							            		<input class="input required" id="accountName" required name="driverInfo.accountName" ng-model="data.account_name" placeholder="请输入开户名" type="text" value="${driverInfo.accountName}"/>
+							          		</div>
+							        	</div>
+							        	<div class="group-box">
+							          		<div class="input-lable"><span>*</span>银行账号：</div>
+							          		<div class="input-text form-item">
+							            		<input class="input required" id="bankAccount" name="driverInfo.bankAccount"  ng-model="data.bank_account" placeholder="请输入银行账号" type="text" value="${driverInfo.bankAccount}"/>
+							          		</div>
+							        	</div>
+								        
+				      				</div>
+							      	
+							      	<div id="id_card_img_div" class="from-both-box">
+								        <div class="group-img">
+								          	<div class="input-lable"><span>*</span>司机身份证附件(正面)：</div>
+								          	<div class="input-img">
+								          		<#if driverInfo.idCardImg?exists>
+								          			<img src="${fastdfsServer}/${driverInfo.idCardImg}" class="upload_img img_box" img-type="id_card_img">
+								          		<#else>
+									          		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="id_card_img">
+								          		</#if>
+								          		<input id="id_card_img" type="hidden" name="driverInfo.idCardImg" value="${driverInfo.idCardImg}">
+								          	</div>
+								          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+								        </div>
+							      	</div>
+							      	<div id="id_card_img_copy_div" class="from-both-box">
+								        <div class="group-img">
+								          	<div class="input-lable"><span>*</span>司机身份证附件(反面)：</div>
+								          	<div class="input-img">
+								          		<#if driverInfo.idCardImgCopy?exists>
+								          			<img src="${fastdfsServer}/${driverInfo.idCardImgCopy}" class="upload_img img_box" img-type="id_card_img_copy">
+								          		<#else>
+									          		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="id_card_img_copy">
+								          		</#if>
+								          		<input id="id_card_img_copy" type="hidden" name="driverInfo.idCardImgCopy" value="${driverInfo.idCardImgCopy}">
+								          	</div>
+								          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+								        </div>
+							      	</div>
+							      	<div id="driver_license_img_div" class="from-both-box">
+								        <div class="group-img">
+								          	<div class="input-lable"><span>*</span>司机驾驶证附件(正本)：</div>
+								          	<div class="input-img">
+								          		<#if driverInfo.driverLicenseImg?exists>
+								          			<img src="${fastdfsServer}/${driverInfo.driverLicenseImg}" class="upload_img img_box" img-type="driver_license_img">
+								          		<#else>
+									          		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="driver_license_img">
+								          		</#if>
+								          		<input id="driver_license_img" type="hidden" name="driverInfo.driverLicenseImg" value="${driverInfo.driverLicenseImg}">
+								          	</div>
+								          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+								        </div>
+							      	</div>
+							      	<div id="driver_license_img_copy_div" class="from-both-box">
+								        <div class="group-img">
+								          	<div class="input-lable"><span>*</span>司机驾驶证附件(副本)：</div>
+								          	<div class="input-img">
+								          		<#if driverInfo.driverLicenseImgCopy?exists>
+								          			<img src="${fastdfsServer}/${driverInfo.driverLicenseImgCopy}" class="upload_img img_box" img-type="driver_license_img_copy">
+								          		<#else>
+								          			<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="driver_license_img_copy">
+								          		</#if>
+								          		<input id="driver_license_img_copy" type="hidden" name="driverInfo.driverLicenseImgCopy" value="${driverInfo.driverLicenseImgCopy}">
+								          	</div>
+								          	<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。  <br/>图片大小不超过3M。 </div>
+								        </div>
+							      	</div>	
+							      	<div class="from-both-box">
+							        	<div class="group-textarea">
+								          	<div class="input-lable">备注：</div>
+								          	<div class="input-textarea">
+								            	<textarea id="remarks" name="driverInfo.remarks">${driverInfo.remarks}</textarea>
+								          	</div>
+							        	</div>
+							      	</div>
+									<div class="from-both-box">
+										<div class="button-box">
+											<input id="isCheck" type="checkbox" checked><i></i> 我同意电子协议
+											<!-- <div class="checkbox">
+							                	<label class="i-checks">
+							                    <input id="isCheck" type="checkbox" checked><i></i> 我同意电子协议
+							                </div> -->
+							            	<!-- <button class="button" ng-disabled="myForm.$invalid" onclick="commitRootCarInfo()">保存</button> -->
+										</div>
+							    	</div>
+							    	<div class="from-both-box">
+										<div class="button-box">
+							            	<button class="button"  onclick="commitRootCarInfo()">保存</button>
+										</div>
+							    	</div>
+								</div>
+				    		</form>
+				    	</div>
+					</div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/driver/rootDriverOperate.js"></script>
+</html>
+

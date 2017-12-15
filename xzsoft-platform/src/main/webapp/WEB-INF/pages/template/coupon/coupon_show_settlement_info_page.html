@@ -1,0 +1,44 @@
+<!-- 模态框 有价券结算单查询-->
+<div id="settlement-data-info" >
+<div class="modal" id="settlementSelectModal" tabindex="-3" role="dialog" aria-hidden="true" style="display:block">
+  <div class="modal-dialog" style="width:50%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close settlement-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          结算单查看
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row" style="text-align: left;">
+                <div class="search-box">
+                  <div class="input-lable">结算单号</div>
+                  <div class="input-text">
+                    <input id="settlementId" class="input" placeholder="请输入结算单号" type="text" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input id="couponInfoId" class="input" type="hidden" value="${couponInfoId}"/>
+            <div class="search-button-box">
+              <button class="search-button" onclick="searchCouponSettlementInfoPage(1)">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div id="search_settlement_info" class="panel-table"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+</div>

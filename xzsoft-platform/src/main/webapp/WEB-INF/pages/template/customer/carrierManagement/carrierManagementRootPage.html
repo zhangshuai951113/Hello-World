@@ -1,0 +1,146 @@
+  <!DOCTYPE html>
+<html lang="zh">
+<head>
+	<title>承运人管理</title>
+	<#include "../../common/common_header.html" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+	<link rel="stylesheet" href="${basePath}/static/css/common/search.css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+	<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/table.css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		   
+		    <main class="main">
+		    	 <div class="search-panel row">
+				    <form onsubmit="return false" id="find_customer_info">
+				<div class="search-from">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">组织机构名称</div>
+								<div class="input-text">
+									<input id="orgName" name="orgDetailInfoPo.orgName" class="input"
+										placeholder="请输入组织机构名称" type="text">
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">移动电话</div>
+								<div class="input-text">
+									<input id="mobilePhone" name="orgDetailInfoPo.mobilePhone" class="input"
+										placeholder="请输入移动电话" type="text">
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">联系人姓名</div>
+								<div class="input-text">
+									<input id="contactName" name="orgDetailInfoPo.contactName" class="input"
+										placeholder="请输入联系人姓名" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" id="searchCustomer">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						 <button class="search-button" id="Reset">
+						      <div class="reset-icon"></div>
+						      <div class="text">重置</div>
+						  </button>
+					</div>
+				</div>
+			</form>
+				 </div>
+				<div class="panel">
+				  <div class="row">
+				      <div class="operation-tab row">
+				        <button class="operation-button operation-blue" onclick="addCurrierMation()">
+				          <div class="add-icon"></div>
+				          <div class="operation-text">新增</div>
+				        </button>
+				        <button class="operation-button operation-blue" onclick="updateCarrierMation()">
+				          <div class="modify-icon"></div>
+				          <div class="operation-text">修改</div>
+				        </button>
+				       <button  class="operation-button  operation-blue" onclick="deleteCurrierMation()">
+							<div class="delete-icon"></div>
+							<div class="operation-text">删除</div>
+						</button>
+				      </div>
+			      </div>	
+			      <!-- 客户管理 -->
+				<div id="show_coustomer_info"></div>
+			      <div class="panel-table">
+			        <table class="table-bule table-ellipsis" id="tableDrag">
+			          <thead>
+			             <tr class="table-title">
+			             <th  class="check" style="width:40px">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="all_user_check"> 
+			                </label>
+			              </th>
+				          <!-- <th>客户编号</th>
+				          <th>组织机构ID</th> -->
+				          <th>组织机构名称</th>
+<!-- 				          <th>注册地址</th>
+				          <th>通讯地址</th>
+				          <th>邮编</th>
+ -->				      <th>联系人姓名</th>
+				          <th>移动电话</th>
+				          <th>固定电话</th>
+				          <th>客户角色</th>
+				          <th>创建人</th>
+				          <th>创建时间</th>
+				         <!--  <th>法定代表人</th>
+				          <th>法人身份证号</th>
+				          <th>是否三证合一</th>
+				          <th>统一社会信用代码</th>
+				          <th>营业执照号</th>
+				          <th>税务登记号</th>
+				          <th>组织机构代码证</th>
+				          <th>传真</th>
+				          <th>电子邮箱</th>
+				          <th>开户行</th>
+				          <th>开户名</th>
+				          <th>银行账号</th>
+				          <th>道路运输许可证号</th>
+				          <th>营业执照附件</th>
+				          <th>税务登记证附件</th>
+				          <th>组织机构代码证附件</th>
+				          <th>统一社会信用代码证附件</th>
+				          <th>备注</th> -->
+				        </tr>
+			          </thead>
+			          <tbody id="tableList">
+			          </tbody>
+			        </table>
+			      </div>
+			     <div class="panel-pagination">
+			      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			  </div> 
+			  </div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/coustomer/carrier.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+	
+</html>

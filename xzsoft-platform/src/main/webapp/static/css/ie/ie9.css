@@ -1,0 +1,18 @@
+.login-box .input-text {
+	padding-top:5px;
+}
+
+input.placeholder{
+	color:darkgrey !important; 
+}
+
+select {
+
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background:none;
+	padding-right:0;
+}
+
+.address-box {
+	min-height:350px;
+}

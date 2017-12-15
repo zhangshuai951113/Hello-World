@@ -1,0 +1,169 @@
+<!-- 模态框 新增/编辑有价券 -->
+<style>
+</style>
+<div id="coupon-use-data-info">
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close coupon-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="myModalLabel">${operateTitle}</h4>
+				</div>
+				<div class="modal-body">
+					<form id="coupon_use_form">
+								<input type="hidden" name="couponUseInfo.couponInfoId" value="${couponInfoPo.id}" >
+								<input type="hidden" name="couponRebackInfo.couponInfoId" value="${couponInfoPo.id}" >
+								<input type="hidden" name="operateType" value= "${operateType}" id="operateType">
+								<!-- 组织信息展示 -->
+								<div id="show-org-data-info" class="modal-open"></div>
+								<div class="from-both-box">
+								
+								<div class="group-box" id="card_code_div">
+									<div class="input-lable"><span>*</span>卡号：</div>
+									<div class="input-text">
+									<input id="card_code" name="couponUseInfo.cardCode" class="input" readonly="readonly" style="background:#eee" type="text" value="${couponInfoPo.cardCode}" />
+									</div>
+								</div>
+								<div class="group-box" id="card_code_reback_div">
+									<div class="input-lable"><span>*</span>卡号：</div>
+									<div class="input-text">
+									<input id="card_code" name="couponRebackInfo.cardCode" class="input" readonly="readonly" style="background:#eee" type="text" value="${couponInfoPo.cardCode}" />
+									</div>
+								</div>
+								<div class="group-box">
+									<div class="input-lable">有价券名称：</div>
+									<div class="input-text">
+										<input id="coupon_name" name="couponInfoPo.couponName" class="input" readonly="readonly" style="background:#eee" type="text" value="${couponInfoPo.couponName}" />
+									</div>
+								</div>
+<!-- 								<div class="group-box row"> -->
+<!-- 									<div class="input-lable"><span>*</span>所属组织：</div> -->
+<!-- 									<div class="input-text"> -->
+<!-- 										<select id="org_info_id" class="input" disabled="disabled" style="background:#eee" name="couponUseInfo.orgInfoId"> -->
+<!-- 											<option value="">请选择</option> -->
+<!-- 											<#if parentOrgInfoList?exists> -->
+<!-- 												<#list parentOrgInfoList as parentOrg> -->
+<!-- 													<#if parentOrg.id==couponInfoPo.orgInfoId> -->
+<!-- 														<option value="${parentOrg.id}" selected>${parentOrg.orgName}</option> -->
+<!-- 													<#else> -->
+<!-- 														<option value="${parentOrg.id}">${parentOrg.orgName}</option> -->
+<!-- 													</#if> -->
+<!-- 												</#list> -->
+<!-- 											</#if> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+								<div class="group-box">
+					              	<div class="input-lable"><span>*</span>组织名称：</div>
+					              	<div class="input-text">
+											<input id="orgName" class="input" type="text" onclick="showOrgInfoPage(1)" value="${couponInfoPo.orgInfoName}" readonly="readonly"/>
+											<input id="org_info_id" name="couponInfoPo.orgInfoId" class="input" type="hidden" value="${couponInfoPo.orgInfoId}"/>
+				              		</div>
+					            </div>
+					            <div class="group-box">
+					              	<div class="input-lable"><span>*</span>上级组织：</div>
+					              	<div class="input-text">
+											<input id="orgParentName" class="input" type="text" readonly="readonly" style="background:#eee" value="${couponInfoPo.parentOrgName}"/>
+											<input id="orgParentId" name="couponInfoPo.parentOrgInfoId" class="input" type="hidden" value="${couponInfoPo.parentOrgInfoId}"/>
+				              		</div>
+					            </div>
+								<div class="group-box row">
+									<div class="input-lable"><span>*</span>供应商：</div>
+									<div class="input-text">
+										<select id="supplier_code" class="input" disabled="disabled" style="background:#eee" name="couponInfoPo.supplierCode">
+											<option value="">请选择</option>
+											<#if parentOrgInfoList?exists>
+												<#list couponSupplierInfoList as couponSupplier>
+													<#if couponSupplier.id==couponInfoPo.supplierCode>
+														<option value="${couponSupplier.id}" selected>${couponSupplier.supplierName}</option>
+													<#else>
+														<option value="${couponSupplier.id}">${supplier_code
+														}${couponSupplier.supplierName}</option>
+													</#if>
+												</#list>
+											</#if>
+										</select>
+									</div>
+								</div>
+								<div class="group-box row">
+									<div class="input-lable"><span>*</span>有价券类型：</div>
+									<div class="input-text">
+										<select id="coupon_type" class="input" disabled="disabled" style="background:#eee" name="couponInfoPo.couponType">
+											<option value="">请选择</option>
+											<#if couponTypeInfoList?exists>
+												<#list couponTypeInfoList as couponType>
+													<#if couponType.id=couponInfoPo.couponType>
+														<option value="${couponType.id}" selected>${couponType.couponType}</option>
+													<#else>
+														<option value="${couponType.id}">${couponType.couponType}</option>
+													</#if>
+												</#list>
+											</#if>
+										</select>
+									</div>
+								</div>
+									<div class="group-box">
+										<div class="input-lable">
+											<span>*</span>总额：
+										</div>
+										<div class="input-text">
+											<input id="amount" name="couponInfoPo.amount" class="input" readonly="readonly" style="background:#eee" type="number" value="${couponInfoPo.amount}" />
+										</div>
+									</div>
+									<div class="group-box" id="use_money_div">
+										<div class="input-lable">
+											<span>*</span>领用金额：
+										</div>
+										<div class="input-text">
+											<input id="use_money" name="couponUseInfo.money" class="input" readonly="readonly" style="background:#eee" type="number" value="${couponInfoPo.amount}" />
+										</div>
+									</div>
+									<div class="group-box" id="card_code_reback_div">
+										<div class="input-lable"><span>*</span>领用人：</div>
+											<div class="input-text">
+											<input id="useUser" name="couponUseInfo.userName" class="input" type="text" value="${couponInfoPo.receiveUser}"/>
+										</div>
+									</div>
+									<div class="group-box">
+							            <div class="input-lable"><span>*</span>领用时间：</div>
+									    <div class="input-text">
+									      <input id="useTime" name="couponUseInfo.useTimeStr" class="input date-time-ss" type="text" readonly="readonly" value="${(couponInfoPo.receiveTime)?string('yyyy-MM-dd hh:mm:ss')}"/>
+									    </div>
+						        	</div>
+									<div class="group-box" id="reback_money_div">
+										<div class="input-lable">
+											<span>*</span>退还金额：
+										</div>
+										<div class="input-text">
+											<input id="reback_money" name="couponRebackInfo.money" class="input" placeholder="请输入退还金额" type="number" value="${couponInfoPo.receiveMoney}" />
+										</div>
+									</div>
+								
+								</div>
+								<div class="from-both-box" id="use_remarks_div">
+									<div class="group-textarea">
+										<div class="input-lable">备注：</div>
+										<div class="textarea-text">
+											<textarea id="remarks" name="couponUseInfo.remarks" placeholder="请填写领用备注">${couponUseInfo.remarks}</textarea>
+										</div>
+									</div>
+								</div>
+								<div class="from-both-box" id="reback_remarks_div">
+									<div class="group-textarea">
+										<div class="input-lable">备注：</div>
+										<div class="textarea-text">
+											<textarea id="remarks" name="couponRebackInfo.remarks" placeholder="请填写退还备注">${couponRebackInfo.remarks}</textarea>
+										</div>
+									</div>
+								</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="close-button" onclick="saveCouponUseInfo()">保存</button>
+					<button class="close-button coupon-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

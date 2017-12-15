@@ -1,0 +1,41 @@
+  .panel-table {
+    width: 100%;
+    overflow: hidden;
+  }
+  .table-bule .table-title th {
+    width: 96px;
+  }
+  .table-bule .table-body td {
+    width: 96px;
+  }
+
+.table-bule .table-title .check, .table-bule .table-body .check {
+  width:40px;
+}
+
+.table-bule .table-title .op, .table-bule .table-body .op {
+  width:156px;
+}
+.panel-box {
+    position: relative;
+    height: 100%;
+    width:100%;
+}
+
+.search-box .money-input {
+	width:98px;
+}
+
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+    width: 100%;
+    height: 8px;
+    margin: 20px auto;
+}
+
+.JCLRgrip {
+	top:0px;
+}
+
+.search-box .input-lable {
+    width: 100px;
+}

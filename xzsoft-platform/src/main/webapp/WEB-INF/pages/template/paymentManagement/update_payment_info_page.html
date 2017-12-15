@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>${updatePaymentPage}</title>
+		<#include "../../common/common_header.html"/>
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/contract/contract-manage.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/coupon/couponOperation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" />
+	<style type="text/css">
+	   .remarks-from-box{
+	       padding-left:80px;
+	   }
+	</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+			    <div class="panel" >
+					<div class="panel-head">${updatePaymentPage}</div>
+			  		<div class="panel-body">
+			  			<form id="update_payment_info_form" onsubmit="return false" >
+			    			<div class="from-body">
+			      				<div class="from-both-box">
+				        			<div class="group-box">
+					          			<div class="input-lable"><span>*</span>本次付费：</div>
+					          			<div class="input-text">
+					          				<input class="input" name="paymentInfoPo.paymentId" value="${paymentInfoPo.paymentId}" type="hidden"/>
+					            			<input class="input" id="thisPayPrice" name="thisPayPrice" value="${paymentInfoPo.thisPayPrice}" placeholder="请输入本次付费" type="text"/>
+					          			</div>
+				        			</div>
+				        			<div class="group-box">
+							          	<div class="input-lable"><span>*</span>是否代理付款：</div>
+							          	<div class="input-text" onchange="isProxyPayment()">
+								          	<select id="isProxyPayment" class="input isProxy" name="paymentInfoPo.isProxyPayment">
+								          		<option value="">请选择</option>
+								          		<option value="0" <#if paymentInfoPo.isProxyPayment?exists && paymentInfoPo.isProxyPayment==0>selected</#if>>否</option>
+								          		<option value="1" <#if paymentInfoPo.isProxyPayment?exists && paymentInfoPo.isProxyPayment==1>selected</#if>>是</option>
+								          	</select>
+							          	</div>
+							        </div>
+							         <div class="group-box">
+							          	<div class="input-lable"><span>*</span>付款对象：</div>
+							          	<div class="input-text" onchange="paymentObject()">
+								          	<select id="paymentObject" class="input paymentObject" name="paymentInfoPo.paymentObject">
+								          		<option value="">请选择</option>
+								          		<option value="1" <#if paymentInfoPo.paymentObject?exists && paymentInfoPo.paymentObject==1>selected</#if>>物流公司</option>
+								          		<option value="2" <#if paymentInfoPo.paymentObject?exists && paymentInfoPo.paymentObject==2>selected</#if>>司机</option>
+								          		<option value="3" <#if paymentInfoPo.paymentObject?exists && paymentInfoPo.paymentObject==3>selected</#if>>代理机构(路歌)</option>
+								          	</select>
+							          	</div>
+							        </div>
+							        <div class="group-box">
+							          	<div class="input-lable"><span>*</span>支付类型：</div>
+							          	<div class="input-text">
+								          	<select id="paymentType" class="input" name="paymentInfoPo.paymentType">
+								          		<option value="">请选择</option>
+								          		<option value="1" <#if paymentInfoPo.paymentType?exists && paymentInfoPo.paymentType==1>selected</#if>>现金</option>
+								          		<option value="2" <#if paymentInfoPo.paymentType?exists && paymentInfoPo.paymentType==2>selected</#if>>承兑</option>
+								          		<option value="3" <#if paymentInfoPo.paymentType?exists && paymentInfoPo.paymentType==3>selected</#if>>电汇</option>
+								          		<option value="4" <#if paymentInfoPo.paymentType?exists && paymentInfoPo.paymentType==4>selected</#if>>网银</option>
+								          	</select>
+							          	</div>
+							        </div>
+							        <div class="group-box" id="settDiv">
+					          			<div class="input-lable"><span>*</span>结算信息：</div>
+					          			<div class="input-text">
+					            			<input class="input" readonly="true" id="settlementInfoInfoIdName" value="${paymentInfoPo.settlementId}" name="settlementInfoInfoIdName" placeholder="请选择结算信息" type="text" onclick="findSettlementInfoMation()"/>
+					          				<input class="input" readonly="true" id="settlementInfoInfoId" value="${paymentInfoPo.settlementInfoInfoIds}" name="settlementInfoInfoIds" type="hidden"/>
+					          			</div>
+				        			</div>
+				        			<div class="group-box" style="display:none" id="accountCheck">
+					          			<div class="input-lable" id="settMation"><span>*</span>对账信息：</div>
+					          			<div class="input-text">
+					            			<input class="input" readonly="true" id="accountCheckInfoName" name="settlementInfoInfoIdName" value="${paymentInfoPo.settlementId}" placeholder="请选择对账信息" type="text" onclick="findSettlementInfoMation()"/>
+					          			</div>
+				        			</div>
+				        			<div class="group-box" id="proxy_person" style="display:none">
+							          	<div class="input-lable"><span>*</span>代理人：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="proxyPersonName" value="${paymentInfoPo.proxyPersonName}" placeholder="请选择代理人" type="text" onclick="findProxyInfoMation()"/>
+							          	</div>
+							        </div>
+							        <!-- <div class="group-box" id="waybillDiv">
+							          	<div class="input-lable"><span>*</span>运单号：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="waybillId" readonly="readonly" value="${paymentInfoPo.waybillId}" name="paymentInfoPo.waybillId" type="text" />
+							          	</div>
+							        </div> -->
+							        <div class="group-box" id="paymentPersonNameDiv">
+							          	<div class="input-lable">支付人：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="paymentPersonName" value="${paymentInfoPo.paymentPersonName}"  readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box">
+							          	<div class="input-lable">支付单位：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="CpaymentCompanyName" value="${paymentInfoPo.paymentCompanyName}" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							         <!-- <div class="group-box" id="carCodeDiv">
+							          	<div class="input-lable">车牌号码：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="carCode" value="${paymentInfoPo.carCode}" readonly="readonly" name="paymentInfoPo.carCode" type="text"/>
+							          	</div>
+							        </div> -->
+							         <!-- <!-- <div class="group-box" id="projectInfoNameDiv">
+							          	<div class="input-lable">组织部门：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.projectInfoName}" id="projectInfoName" readonly="readonly" type="text"/>
+							          	</div>
+							        </div> --> 
+							        <!-- <div class="group-box" id="goodsInfoNameDiv">
+							          	<div class="input-lable">货物：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="goodsInfoName" value="${paymentInfoPo.goodsName}" readonly="readonly" type="text"/>
+							          	</div>
+							        </div> -->
+							       <!--  <div class="group-box" id="scatteredGoodsDiv">
+							          	<div class="input-lable">零散货物：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.scatteredGoods}" id="scatteredGoods" readonly="readonly" name="paymentInfoPo.scatteredGoods" type="text"/>
+							          	</div>
+							        </div> -->
+							        <!-- <div class="group-box" id="customerNameDiv">
+							          	<div class="input-lable">客户名称：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.customerName}" id="customerName" readonly="readonly" type="text"/>
+							          	</div>
+							        </div> -->
+							        <!-- <div class="group-box" id="lineInfoNameDiv">
+							          	<div class="input-lable"><span>*</span>线路：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="lineInfoName" value="${paymentInfoPo.lineName}" readonly="readonly" type="text"/>
+							          	</div>
+							        </div> -->
+							        <!-- <div class="group-box" id="forwardingTimeDiv">
+							          	<div class="input-lable"><span>*</span>发货时间：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.forwardingTimeStr}" id="forwardingTime" name="forwardingTime" readonly="readonly" type="text"/>
+							          	</div>
+							        </div> -->
+							        <!-- <div class="group-box" id="arriveTimeDiv">
+							          	<div class="input-lable"><span>*</span>到货时间：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.arriveTimeStr}" id="arriveTime" name="arriveTime" readonly="readonly" type="text"/>
+							          	</div>
+							        </div> -->
+							         <!-- <div class="group-box" id="transportPriceDiv">
+							          	<div class="input-lable"><span>*</span>运价：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.transportPrice}" id="transportPrice" name="transportPrice" readonly="readonly" type="text"/>
+							          	</div>
+							        </div> -->
+							         <div class="group-box">
+							          	<div class="input-lable"><span>*</span>发货吨位：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.forwardingTonnage}" id="forwardingTonnage" name="forwardingTonnage" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							         <div class="group-box">
+							          	<div class="input-lable"><span>*</span>到货吨位：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.arriveTonnage}" id="arriveTonnage" name="arriveTonnage" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box" id="driverInvoiceTaxDiv">
+							          	<div class="input-lable">司机发票税金：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.driverInvoiceTax}" id="driverInvoiceTax" name="driverInvoiceTax" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box" id="singleCarInsuranceDiv">
+							          	<div class="input-lable">单车保险：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.singleCarInsurance}" id="singleCarInsurance" name="singleCarInsurance" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box" id="costPriceDiv">
+							          	<div class="input-lable">工本费：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="costPrice" value="${paymentInfoPo.costPrice}" name="costPrice" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box" id="otherPriceDiv">
+							          	<div class="input-lable">其他扣款：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="otherPrice" value="${paymentInfoPo.otherPrice}" name="otherPrice" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div>
+							        </div>
+							         <div class="group-box" id="couponPriceDiv">
+							          	<div class="input-lable">有价券金额：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="couponPrice" value="${paymentInfoPo.couponPrice}" name="couponPrice" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box" id="couponIncomeTaxDiv">
+							          	<div class="input-lable">有价券进项税：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="couponIncomeTax" value="${paymentInfoPo.couponIncomeTax}" name="couponIncomeTax" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box" id="transportPriceCostDiv">
+							          	<div class="input-lable"><span>*</span>运费成本：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="transportPriceCost" value="${paymentInfoPo.transportPriceCost}" name="transportPriceCost" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							         <div class="group-box" id="transportPriceIncomeTaxDiv">
+							          	<div class="input-lable"><span>*</span>运费进项税：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="transportPriceIncomeTax" value="${paymentInfoPo.transportPriceIncomeTax}" name="transportPriceIncomeTax" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box" id="incomeTaxDiv">
+							          	<div class="input-lable"><span>*</span>进项税：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.incomeTax}" id="incomeTax" name="incomeTax" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							         <div class="group-box">
+							          	<div class="input-lable"><span>*</span>应付费用：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.payablePrice}" id="payablePrice" name="payablePrice" readonly="readonly" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box">
+							          	<div class="input-lable"><span>*</span>证件号：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.idCard}" id="WidCard"  name="paymentInfoPo.idCard" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box">
+							          	<div class="input-lable"><span>*</span>卡号：</div>
+							          	<div class="input-text">
+							            	<input class="input" value="${paymentInfoPo.bankCardId}" id="WbankCardId" name="paymentInfoPo.bankCardId" type="text"/>
+							          	</div>
+							        </div>
+							        <div class="group-box">
+							          	<div class="input-lable"><span>*</span>开户行：</div>
+							          	<div class="input-text">
+							            	<input class="input" id="WbankName" value="${paymentInfoPo.bankName}" name="paymentInfoPo.bankName" type="text"/>
+							          	</div>
+							        </div>
+			      				</div>
+			      				
+							       
+						      	</div>
+						      	<div class="from-both-box remarks-from-box" style="padding-left: 180px;">
+						        	<div class="group-textarea">
+							          	<div class="input-lable">备注：</div>
+							          	<div class="input-textarea">
+							            	<textarea id="remarks" name="paymentInfoPo.remarks" value="${paymentInfoPo.remarks}"></textarea>
+							          	</div>
+						        	</div>
+						      	</div>
+						      	<div id="find_settlement_info_model"></div>
+						      	<div id="find_proxy_info_model"></div>
+						      	<div id="find_accountCheck_info_model"></div>
+						      	<input class="input" id="paymentPerson" value="${paymentInfoPo.paymentPerson}" name="paymentInfoPo.paymentPerson" type="hidden"/><!-- 支付人 -->
+						      	<input class="input" id="CpaymentCompany" value="${paymentInfoPo.paymentCompany}" name="paymentInfoPo.paymentCompany" type="hidden"/><!-- 支付单位 -->
+						      	<input class="input" id="projectInfoId" value="${paymentInfoPo.projectInfoId}" name="paymentInfoPo.projectInfoId" type="hidden"/><!-- 组织部门 -->
+						      	<input class="input" id="goodsInfoId" value="${paymentInfoPo.goodsInfoId}" name="paymentInfoPo.goodsInfoId" type="hidden"/><!-- 货物 -->
+						      	<input class="input" id="lineInfoId" value="${paymentInfoPo.lineInfoId}" name="paymentInfoPo.lineInfoId" type="hidden"/><!-- 线路 -->
+						      	<input class="input" id="proxyPerson" value="${paymentInfoPo.proxyPerson}" name="paymentInfoPo.proxyPerson" type="hidden"/><!-- 代理人 -->
+						      	<input class="input" id="customerId" value="${paymentInfoPo.customerId}" name="paymentInfoPo.customerId" type="hidden"/><!-- 客户编号 -->
+						      	<input class="input" id="payId" name="paymentInfoPo.id" type="hidden" value="${PMids}"/><!-- 付款ID -->
+						      	<input class="input" id="payId" name="paymentInfoPo.settlementInfoInfoId" type="hidden" value="${paymentInfoPo.settlementInfoInfoId}"/><!-- 结算ID -->
+						      	<input class="input" id="accountCheckInfoIds" name="accountInfoIds" type="hidden" value="${paymentInfoPo.accountCheckInfoIds}"/><!-- 对账ID -->
+								<input class="input" id="settOrAcc" name="settOrAcc" type="hidden" value="${paymentInfoPo.settOrAcc}"/><!-- 结算or对账 -->						    	
+								<div class="from-both-box">
+									<div class="button-center">
+										<button class="from-save-button" onclick="updatePaymentInfoMation()">保存</button>
+										<button class="from-save-button" onclick="closeUpdatePaymentInfo()">取消</button>
+									</div>
+								</div>
+							</div>
+			    		</form>
+			    	</div>
+				</div>
+				
+				<!-- 模态框 注销弹出 -->
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+</html>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/paymentManagement/updatePaymentMationMain.js"></script>

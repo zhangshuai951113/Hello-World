@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>有价券类型管理</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<!-- <link rel="stylesheet" href="${basePath}/static/css/user/user-manage.css" type="text/css" /> -->
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main"> <!--有价券类型管理模板-->
+		<div class="coupon-type-manage">
+			<div class="search-panel row">
+				<form onsubmit="return false">
+					<div class="search-from">
+						<div class="search-row-box">
+							<div class="both-row row">
+								<div class="search-box">
+									<div class="input-lable">有价券类型</div>
+									<div class="input-text">
+										<input id="couponType" class="input" placeholder="请输入有价券类型" type="text" />
+									</div>
+								</div>
+								<div class="search-box">
+									<div class="input-lable">进项税税率</div>
+									<div class="input-text">
+										<input id="taxRate" class="input" placeholder="请输入进项税税率" type="text" />
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="search-button-box">
+							<button class="search-button" onclick="searchCouponTypeInfo(1)">
+								<div class="search-icon"></div>
+								<div class="text">查询</div>
+							</button>
+							<button class="search-button" type="reset">
+								<div class="reset-icon"></div>
+								<div class="text">重置</div>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="panel">
+				<div class="operation-tab row">
+					<@shiro.hasPermission name="platform:couponType:create">
+					<button class="operation-button operation-blue" onclick="addOrEditCouponTypeInfoPage()">
+						<div class="add-icon"></div>
+						<div class="operation-text">新增</div>
+					</button>
+					</@shiro.hasPermission>
+					<@shiro.hasPermission name="platform:couponType:enable">
+					<button id="enableBtn" class="operation-button operation-blue" onclick="operateCheckedCouponType(1)">
+						<div class="enable-icon"></div>
+						<div class="operation-text">启用</div>
+					</button>
+					</@shiro.hasPermission>
+					<@shiro.hasPermission name="platform:couponType:disable">
+					<button id="disableBtn" class="operation-button operation-blue" onclick="operateCheckedCouponType(2)">
+						<div class="disable-icon"></div>
+						<div class="operation-text">停用</div>
+					</button>
+					</@shiro.hasPermission>
+					<@shiro.hasPermission name="platform:couponType:delete">
+					<button id="delBtn" class="operation-button operation-blue" onclick="deleteCheckedCouponType()">
+						<div class="delete-icon"></div>
+						<div class="operation-text">删除</div>
+					</button>
+					</@shiro.hasPermission>
+				</div>
+				<div id="search-coupon-type-info" class="panel-table"></div>
+			</div>
+			<!-- 新增/编辑有价券类型模板 -->
+			<div id="show_coupon_type_info"></div>
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/coupon/couponTypeInfoManage.js"></script>
+</html>

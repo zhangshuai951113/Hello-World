@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>地点管理</title>
+		<#include "./common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css"type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "./common/common_top.html" />
+	  	<div class="main-body">
+		    <!-- Main content -->
+	    	<#include "./common/common_menu.html" />
+		    <!-- 内容 -->
+		    <div class="search-panel row">
+			  <div class="search-from">
+			  <form onsubmit="return false">
+			    <div class="search-row-box">
+			      <div class="both-row row">
+			        <div class="search-box">
+			          <div class="input-lable">省(州)</div>
+			          <div class="input-text">
+			            <input id="province" name="province" class="input" placeholder="请输入省(州)" type="text" />
+			          </div>
+			        </div>
+			        <div class="search-box">
+			          <div class="input-lable">市</div>
+			          <div class="input-text">
+			            <input id="city" name="city" class="input" placeholder="请输入市" type="text" />
+			          </div>
+			        </div>
+			        <div class="search-box">
+			          <div class="input-lable">县(区)</div>
+			          <div class="input-text">
+			            <input id="county" name="county" class="input" placeholder="请输入县(区)" type="text" />
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			    <div class="search-button-box">
+			    	<button class="search-button" id="searchLocationInfo">
+				      <div class="search-icon"></div>
+				      <div class="text">查询</div>
+				    </button>
+				    <button class="search-button" type="reset" >
+				      <div class="reset-icon"></div>
+				      <div class="text">重置</div>
+				    </button>
+			    </div>
+			    </form> 
+			  </div>
+			</div>
+			<div class="panel">
+			  
+			  <div class="panel-table">
+			    <table class="table-bule">
+			      <thead>
+			        <tr class="table-title">
+			          <th>国家</th>
+			          <th>省(州)</th>
+			          <th>省简称</th>
+			          <th>市</th>
+			          <th>市简称</th>
+			          <th>县（区）</th>
+			        </tr>
+			      </thead>
+			      <tbody id="tableList">
+			      </tbody>
+			    </table>
+			  </div>
+			  <!-- 分页 -->
+			  <div class="panel-pagination">
+			    <div class="panel-num" id="panel-num">搜索相关结果共0条</div>
+			    <div class="pagination-list"></div>
+			    <div class="pagination-input">到
+			      <input type="text" />页</div>
+			    <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			  </div>
+			</div>
+		    <main class="main">
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "./common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/location/locationManage.js"></script>
+</html>

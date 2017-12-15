@@ -1,0 +1,53 @@
+<!-- 模态框 新增结算公式 -->
+<div id="department-data-info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog" style="width:630px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeSett()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${addSettlementFormula}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="sett_form">
+						<div class="dep-from-box model-from">
+							<div class="group-box">
+								<div class="input-lable" style="width:171px"><span>*</span>企业代扣税税率(%)：</div>
+								<div class="input-text">
+									<input id="withholdingTaxRate"  class="input"  placeholder="请输入企业代扣税税率(%)" type="text"/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable" style="width:171px"><span>*</span>司机运费进项税税率(%)：</div>
+								<div class="input-text">
+									<input id="incomeTaxRate" class="input"   placeholder="请输入司机运费进项税税率(%)" type="text"/>
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable" style="width:171px">个人所得税(%)：</div>
+								<div class="input-text">
+									<input id="individualIncomeTax" class="input"   placeholder="请输入个人所得税(%)" type="text"/>
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable" style="width:171px">综合税率：</div>
+								<div class="input-text">
+									<input id="overallTaxRate" class="input"   placeholder="请输入综合税率(%)" type="text"/>
+								</div>
+								<!-- <div class="content-text" id="overallTaxRate"></div> -->
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="close-button" onclick="saveSettlementFormula()">保存</button>
+					<button class="close-button" data-dismiss="modal" onclick="closeSett()">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

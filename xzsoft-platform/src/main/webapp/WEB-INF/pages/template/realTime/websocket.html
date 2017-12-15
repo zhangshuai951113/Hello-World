@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+    <head lang="en">
+    
+        <meta charset="UTF-8">
+        </head>
+        <body>
+        <script src="${basePath}/static/js/common/sockjs-0.3.min.js"></script>
+<!--         <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+<!--         <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
+        <script src="${basePath}/static/js/common/jquery-3.1.1.js"></script>
+        <script src="${basePath}/static/js/common/3.3.5/js/bootstrap.js"></script>
+        <title>webSocket-用户66</title>
+        <script type="text/javascript">
+//             $(function() {
+//                 var websocket;
+//                 if('WebSocket' in window) {
+//                                         console.log("此浏览器支持websocket");
+//                     websocket = new WebSocket("ws://127.0.0.1:8080/xzsoft-platform/websocket/228");
+//                 } else if('MozWebSocket' in window) {
+//                     alert("此浏览器只支持MozWebSocket");
+//                 } else {
+//                     alert("此浏览器只支持SockJS");
+//                 }	
+//                 websocket.onopen = function(evnt) {
+//                     $("#tou").html("链接服务器成功!")
+//                 };
+//                 websocket.onmessage = function(evnt) {
+//                     $("#msg").html($("#msg").html() + "<br/>" + evnt.data);
+//                 };
+//                 websocket.onerror = function(evnt) {};
+//                 websocket.onclose = function(evnt) {
+//                     $("#tou").html("与服务器断开了链接!")
+//                 }
+//                 $('#send').bind('click', function() {
+//                     send();
+//                 });
+
+//                 function send() {
+//                     if(websocket != null) {
+//                         var message = document.getElementById('message').value;
+//                         websocket.send(message);
+//                     } else {
+//                         alert('未与服务器链接.');
+//                     }
+//                 }
+//             });
+			var websocket;
+            if ('WebSocket' in window) {
+                websocket = new WebSocket("ws://localhost:8080/xzsoft-platform/webSocketServer?userid=228");
+            } else if ('MozWebSocket' in window) {
+                websocket = new MozWebSocket("ws://localhost:8080/xzsoft-platform/webSocketServer");
+            } else {
+                websocket = new SockJS("http://localhost:8080/xzsoft-platform/sockjs/webSocketServer");
+            }
+            websocket.onopen = function (evnt) {
+                console.log('ws clint:open websocket')
+                 //发送消息
+                 var msg = 'userid=1';
+                console.log('ws clint:send msg:'+msg)
+                    websocket.send(msg);
+            };
+            websocket.onmessage = function (evnt) {
+                console.log('ws client:get message ')
+                $("#msgcount").html("(<font color='red'>"+evnt.data+"</font>)")
+            };
+            websocket.onerror = function (evnt) {
+                console.log('ws client:error '+evnt)
+            };
+            websocket.onclose = function (evnt) {
+                console.log('ws clent:close ')
+            }
+        </script>
+
+    
+<!--         <div class="page-header" id="tou"> -->
+<!--             webSocket多终端聊天测试 -->
+<!--         </div> -->
+<!--         <div class="well" id="msg"></div> -->
+<!--         <div class="col-lg"> -->
+<!--             <div class="input-group"> -->
+<!--                 <input type="text" class="form-control" placeholder="发送信息..." id="message"> -->
+<!--                 <span class="input-group-btn"> -->
+<!--                     <button class="btn btn-default" type="button" onclick="send()" >发送</button> -->
+<!--                 </span> -->
+<!--             </div> -->
+<!--         </div> -->
+    </body>
+
+</html>

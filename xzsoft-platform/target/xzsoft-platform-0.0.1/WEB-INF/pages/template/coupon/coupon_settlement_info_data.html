@@ -1,0 +1,23 @@
+<!-- 模态框 运单编号选择-->
+<div class="panel-table row" style="overflow: hidden;" id="settlement-info-data">
+	<div class="iscroll-settlement">
+		<table class="table-bule table-ellipsis"
+			style="margin-top: 8px; min-width: 500px" id="tableDrag">
+			<thead>
+				<tr class="table-title">
+					<th>结算单号</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#if settlementCouponUsePager?exists && settlementCouponUsePager.rows?exists> <#list
+				settlementCouponUsePager.rows as settlementCouponUse>
+				<tr class="table-body ">
+					<td>${(settlementCouponUse.settlementId)!''}</td>
+				</tr>
+				</#list> </#if>
+			</tbody>
+		</table>
+	</div>
+	<input id="waybill" class="input" type="hidden" value="1" />
+	<div class="panel-pagination">${settlementCouponUsePager.pageHtml}</div>
+</div>

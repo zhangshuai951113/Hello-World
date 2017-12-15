@@ -1,0 +1,94 @@
+<!-- 模态框 运单编号选择-->
+<div class="panel-table row" style="overflow: hidden;" id="waybill-info-data">
+	<div class="iscroll-waybill">
+		<table class="table-bule table-ellipsis"
+			style="margin-top: 8px; min-width: 2100px" id="tableDrag">
+			<thead>
+				<tr class="table-title">
+					<th style="width: 40px;"></th>
+					<th>运单状态</th>
+					<th>运单号</th>
+					<!--                 <th>车牌号</th> -->
+					<th>计划拉运日期</th>
+					<th>委托方</th>
+					<th>承运方</th>
+					<th>货物</th>
+					<th>零散货物</th>
+					<th>线路</th>
+					<th>发货单位</th>
+					<th>到货单位</th>
+					<th>运单分类</th>
+					<th>运单类型</th>
+					<th>制单日期</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#if waybillInfoPager?exists && waybillInfoPager.rows?exists> <#list
+				waybillInfoPager.rows as waybillInfo>
+				<tr class="table-body ">
+					<td style="width: 40px;"><label class="i-checks"> <input
+							type="checkbox" class="sub_waybill_info_check"
+							data-id="${waybillInfo.id}"
+							data-waybillId="${waybillInfo.waybillId}"
+							data-rootWaybillId="${waybillInfo.rootWaybillId}"
+							data-rootWaybillInfoId="${waybillInfo.rootWaybillInfoId}"
+							data-parentWaybillInfoId="${waybillInfo.parentWaybillInfoId}"
+							data-entrust="${waybillInfo.entrust}"
+							data-shipper="${waybillInfo.shipper}"
+							data-shipperName="${waybillInfo.shipperName}"
+							data-lineInfoId="${waybillInfo.lineInfoId}"
+							data-endPoints="${waybillInfo.endPoints}"
+							data-lineName="${waybillInfo.lineInfoName}"
+							data-goodsInfoId="${waybillInfo.goodsInfoId}"
+							data-goodsName="${waybillInfo.goodsName}"
+							data-scatteredGoods="${waybillInfo.scatteredGoods}"
+							data-forwardingUnit="${waybillInfo.forwardingUnit}"
+							data-consignee="${waybillInfo.consignee}"
+							data-shipperProject="${waybillInfo.shipperProject}"
+							data-projectName="${waybillInfo.projectName}"
+							data-cooperateStatus="${waybillInfo.cooperateStatus}"><i></i>
+					</label></td>
+					<td><#if waybillInfo.waybillStatus?exists> <#if
+						waybillInfo.waybillStatus==1> 新建 <#elseif
+						waybillInfo.waybillStatus==2> 已派发 <#elseif
+						waybillInfo.waybillStatus==3> 已撤回 <#elseif
+						waybillInfo.waybillStatus==4> 已拒绝 </#if> <#else> 未知状态 </#if></td>
+					<td>${(waybillInfo.rootWaybillId)!''}</td>
+					<!-- 					        <td>${(waybillInfo.carCode)!''}</td> -->
+					<td>${(waybillInfo.planTransportDate)?string('yyyy-MM-dd
+						hh:mm:ss')}</td>
+					<td>${(waybillInfo.entrustName)!''}</td>
+					<td>${(waybillInfo.shipperName)!''}</td>
+					<td>${(waybillInfo.goodsName)!''}</td>
+					<td>${(waybillInfo.scatteredGoods)!''}</td>
+					<td>${(waybillInfo.lineInfoName)!''}</td>
+					<td>${(waybillInfo.forwardingUnit)!''}</td>
+					<td>${(waybillInfo.consignee)!''}</td>
+					<td><#if waybillInfo.waybillClassify?exists> 
+							<#if waybillInfo.waybillClassify==1>
+								大宗货物运单 
+							<#elseif waybillInfo.waybillClassify==2>
+								零散货物运单 
+							</#if> 
+						</#if>
+					</td>
+					<td><#if waybillInfo.waybillType?exists>
+							<#if waybillInfo.waybillType==1>
+								物流运单
+							<#elseif waybillInfo.waybillType==3>
+								代理运单
+							<#elseif waybillInfo.waybillType==4>
+								转包运单
+							</#if>
+						</#if>
+					</td>
+					<td><#if
+						waybillInfo.createTime?exists>${(waybillInfo.createTime)?string('yyyy-MM-dd')}</#if></td>
+				</tr>
+				</#list> </#if>
+			</tbody>
+		</table>
+	</div>
+	<input id="waybill" class="input" type="hidden" value="1" />
+	<div class="panel-pagination">${waybillInfoPager.pageHtml}</div>
+</div>

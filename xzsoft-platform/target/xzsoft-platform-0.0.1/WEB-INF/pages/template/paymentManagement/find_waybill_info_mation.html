@@ -1,0 +1,63 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:1110px;">
+			
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeWButton()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					${findWayBillInfo}
+				</h4>
+			</div>
+			<div class="modal-body">
+			
+			<!-- 表格 -->
+			<div class="panel">
+			<div id="show_goods_info"></div>
+				<div class="panel-table">
+				    <table class="table-bule">
+				      <thead>
+				        <tr class="table-title">
+				        <th  class="check">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="all_waybillInfo_check"> 
+			                </label>
+			              </th>
+			              <th>运单编号</th>
+				          <th>运单号</th>
+				          <th>承运方</th>
+				          <th>货物</th>
+				          <th>零散货物</th>
+				          <th>司机编号</th>
+				          <th>委托方项目</th>
+				          <th>车牌号</th>
+				        </tr>
+				      </thead>
+				      <tbody id="waybillInfoTBody">
+				       
+				      </tbody>
+				    </table>
+				</div>
+				<!-- 分页 -->
+				 <div class="panel-pagination">
+				      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+				      <div class="pagination-list"></div>
+				      <div class="pagination-input">到
+				        <input type="text" />页</div>
+				      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+				  </div> 
+			</div>
+			</div>
+			<div class="modal-footer">
+		        <button class="save-button" onclick="submitFWMation()">保存</button>
+		        <button class="close-button"  onclick="closeWButton()">取消</button>
+		    </div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<script type="text/javascript" src="${basePath}/static/js/paymentManagement/find_waybill_info_page.js"></script>

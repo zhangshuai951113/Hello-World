@@ -1,0 +1,201 @@
+.search-select-list {
+    background-image: url('../../images/nav/arrow-down.png');
+    background-repeat: no-repeat;
+    background-position: 200px;
+    background-size: 10px;
+    width: 218px;
+    border: 1px solid #cccccc;
+    height: 26px;
+    line-height: 26px;
+    float: left;
+    position: relative;
+    padding: 0 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #fff;
+    text-align: left;
+    font-size: 12px;
+  }
+  .search-box .time-input{
+    width: 98px;
+  }
+
+  .table-bule {
+    margin-top: 0px;
+  }
+  .mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+    height: 8px;
+  }
+
+.panel-contet.setup1{
+    border-top: 1px solid #5d9cec;
+    margin-top: 18px;
+    padding:10px 0;
+  }
+
+  .panel-contet.setup2,.panel-contet.setup3{
+    border-top: 1px solid #ccc;
+    padding:10px 0;
+  }
+
+  .input-group {
+    padding:5px 0;
+  } 
+ .input-group-label {
+    position: relative;
+    font-size: 0;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+    display: table-cell;
+}
+.input-group-file {
+    position: relative;
+    font-size: 0;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+    display: table-cell;
+    background: #2b84ea;
+    left: 10px;
+    padding: 4px 10px;
+    color: #fff;
+    border-radius: 2px;
+}
+
+ .input-group-label .input-text,.input-group-file .input-text {
+    margin-right: -1px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width:100px;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: right;
+    /* margin-bottom: 15px; */
+ }
+
+ .input-group-file .input-text  {
+    width: auto;
+    margin-left: 20px;
+ }
+
+  .input-group-file .file-btn {
+    width:86px;
+    height:26px;
+    position: absolute;
+    z-index: 999;
+    left:0;
+    top:0;
+  }
+
+.input-group-file .file-icon {
+    position: absolute;
+    display: inline-block;
+    background-image: url('../../images/common/file-icon.png');
+    background-size: cover;
+    width: 16px;
+    height: 16px;
+}
+  
+.input-group-label .full {
+    color: #FC0200;
+    margin-right: 4px;
+}
+ .form-control {
+   height: 26px;
+   padding: 0 4px;
+ }
+
+ textarea.textarea{
+    height: 48px;
+    resize: none;
+    padding:4px;
+}
+
+.compute-button {
+    background: #2b84ea;
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    padding: 5px 11px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.search-img-button{
+	background: #2b84ea;
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    padding: 5px 11px;
+    margin-left: 114px;
+    margin-right: 5px;
+}
+
+.save-button {
+    background: #2b84ea;
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    padding: 5px 11px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.view-button {
+    background: #4caf50;
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    padding: 5px 11px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.close-button {
+    background: #f8f8f8;
+    color: #666666;
+    border: 1px solid #cccccc;
+    font-size: 12px;
+    padding: 5px 11px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.search-padding {
+      padding-right: 24px;
+}
+.input-search-icon {
+    /* background-image: url('../../images/common/input-search-icon-normal.png'); */
+    background-size: cover;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    z-index: 99;
+}
+input:focus+.input-search-icon {
+  background-image: url('../../images/common/input-search-icon-active.png');
+}
+
+.iscroll-waybill{
+	overflow: auto;
+}
+.input-disable-select{
+	display: none;
+}

@@ -1,0 +1,71 @@
+ /*--用户管理样式--*/
+.search-box .input-lable {
+  width:85px;
+}
+
+.modal .from-both-box .input-lable {
+    width: 130px;
+}
+
+.search-box .input-lable {
+    width: 90px;
+}
+
+ .select-address {
+    background-image: url(../../images/nav/arrow-down.png);
+    background-repeat: no-repeat;
+    background-position: 540px;
+    background-size: 10px;
+    width: 560px;
+    height: 24px;
+    border: 1px solid #ccc;
+    padding: 0 4px;
+    font-size: 12px;
+    line-height: 24px;
+    color: #666;
+}
+.address-input {
+    float: left;
+    background: #ffffff;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+.address-box {
+	display:none;
+    top: 24px;
+    position: absolute;
+    width: 100%;
+    z-index:9999;
+}
+.tab-box {
+    width: 100%;
+    border-left: 1px solid #ccc;
+}
+
+.tab-list {
+    float: left;
+    width: 33.333%;
+    text-align:center;
+    background-color: #e6e4e4;
+    padding: 4px;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc
+}
+
+.tab-box .active{
+  background-color: #ffffff;
+  border-bottom: 1px solid #fff;
+}
+.address-content {
+  background-color: #ffffff;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.address-content .name {
+    float: left;
+    padding: 5px;
+    color: #666666;
+    cursor: pointer;
+}

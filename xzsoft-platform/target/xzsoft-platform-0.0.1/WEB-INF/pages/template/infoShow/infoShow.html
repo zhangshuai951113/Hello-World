@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>信息展示</title>
+<#include "../../common/common_header.html" />
+<!-- <link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/carType/carTypeManage.css" type="text/css" >
+<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" /> -->
+</head>
+<script type="text/javascript" src="${basePath}/static/js/infoShow/jquery-3.js"></script>
+<script type="text/javascript">
+$(function(){
+		 var newwindow;
+		newwindow=window.open("${basePath}/userInfo/to_info","title","scrollbars=no");
+		newwindow.resizeTo(screen.width,screen.height);
+		newwindow.moveTo(0,0);
+	}); 
+</script>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main"> 
+		
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+
+</html>

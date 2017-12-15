@@ -1,0 +1,103 @@
+﻿<div id="driver_waybill_info">
+	<table class="table-bule table-ellipsis" id="tableDrag" title="司机运单信息表">
+		<thead>
+			<tr class="table-title">
+				<th style="width: 40px;">
+						<label  class="i-checks"> <input class="all_check" name="all" type="checkbox">
+						</label>
+				</th>
+				<th style="width:120px" class="operation">操作</th>
+				<th>运单号</th>
+				<th>委托方</th>
+				<th>司机姓名</th>
+				<th>当前运价</th>
+				<th>货物</th>
+				<th>线路</th>
+				<th>运距（公里）</th>
+				<th>发货单位</th>
+				<th>收货单位</th>
+				<th>计划拉运日期</th>
+				<th>计划拉运量</th>
+				<th>运单状态</th>
+				<th>创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if driverWaybillInfoPager?exists && driverWaybillInfoPager.rows?exists> <#list driverWaybillInfoPager.rows as driverWaybillInfo>
+			<tr class="table-body">
+				<td style="width: 40px;">
+					<label class="i-checks"> <input type="checkbox" class="sub_check" data-id="${driverWaybillInfo.id}" data-status="${driverWaybillInfo.waybillStatus}"></label>
+				</td>
+				<td style="white-space: inherit;">
+					<div class="operation-td" driver-waybill-info-id="${(driverWaybillInfo.id)!'0'}" shipper-org-root="${(driverWaybillInfo.shipperOrgRoot)!'0'}">
+						<#if driverWaybillInfo.waybillStatus==1 || driverWaybillInfo.waybillStatus==2 > <!--新建或已派发-->
+						<@shiro.hasPermission name="waybillDriver:confirmOrder">
+						<div class="withdraw-operation waybill-refuse-operation operation-m">
+							<div class="waybill-refuse-icon"></div>
+							<div class="text">拒绝接单</div>
+						</div>
+						</@shiro.hasPermission>
+						<@shiro.hasPermission name="waybillDriver:confirmRejection">
+						<div class="waybill-confirm-operation operation-m">
+							<div class="waybill-confirm-icon"></div>
+							<div class="text">确认接单</div>
+						</div>
+						</@shiro.hasPermission>
+						<#elseif driverWaybillInfo.waybillStatus==4> <!-- 已拒单 -->
+						<div class="disable-operation operation-m">
+							<div class="disable-icon"></div>
+							<div class="text">已拒单</div>
+						</div>
+						<#elseif driverWaybillInfo.waybillStatus==5> <!-- 已接单 -->
+						<div class="waybill-loading-operation edit-loading operation-m">
+							<div class="waybill-loading-icon"></div>
+							<div class="text">装货</div>
+						</div>
+						<#elseif driverWaybillInfo.waybillStatus==6> <!-- 已装货 -->
+					<!-- 	<div class="waybill-unloading-operation edit-discharge operation-m">
+							<div class="waybill-unloading-icon"></div>
+							<div class="text">卸货</div>
+						</div> -->
+						<#elseif driverWaybillInfo.waybillStatus==7> <!-- 在途 -->
+						<div class="modify-operation upload-onpassageimg operation-m">
+							<div class="modify-icon"></div>
+							<div class="text">上传在途磅单</div>
+						</div>
+						<div class="waybill-unloading-operation edit-discharge operation-m">
+							<div class="waybill-unloading-icon"></div>
+							<div class="text">卸货</div>
+						</div>
+						<#elseif driverWaybillInfo.waybillStatus==8> <!-- 已卸货 -->
+						<div class="view-operation view-driver-waybill operation-m">
+							<div class="view-icon"></div>
+							<div class="text">查看</div>
+						</div>
+						<#elseif driverWaybillInfo.waybillStatus==9> <!-- 已挂账 -->
+						<div class="view-operation view-driver-waybill operation-m">
+							<div class="view-icon"></div>
+							<div class="text">查看</div>
+						</div></#if>
+					</div>
+				</td>
+
+				<td>${(driverWaybillInfo.waybillId)!''}</td>
+				<td>${(driverWaybillInfo.entrustName)!''}</td>
+				<td>${(driverWaybillInfo.driverName)!''}</td>
+				<td>${(driverWaybillInfo.currentTransportPrice)!''}</td>
+				<td><#if driverWaybillInfo.waybillClassify?exists><#if driverWaybillInfo.waybillClassify ==1>${(driverWaybillInfo.goodsName)!''}<#else>${(driverWaybillInfo.scatteredGoods)!''}</#if></#if></td>
+				<td>${(driverWaybillInfo.lineInfoName)!''}</td>
+				<td>${(driverWaybillInfo.distance)!''}</td>
+				<td>${(driverWaybillInfo.forwardingUnit)!''}</td>
+				<td>${(driverWaybillInfo.consignee)!''}</td>
+				<td><#if driverWaybillInfo.planTransportDate?exists>${(driverWaybillInfo.planTransportDate)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+				<td>${(driverWaybillInfo.planTransportAmount)!''}</td>
+				<td><#if driverWaybillInfo.waybillStatus?exists> <#if driverWaybillInfo.waybillStatus==1 || driverWaybillInfo.waybillStatus==2>待接单<#elseif driverWaybillInfo.waybillStatus==4> 已拒单 <#elseif driverWaybillInfo.waybillStatus==5> 已接单 <#elseif
+						driverWaybillInfo.waybillStatus==6> 已装货 <#elseif driverWaybillInfo.waybillStatus==7> 在途 <#elseif driverWaybillInfo.waybillStatus==8> 已卸货 <#elseif
+						driverWaybillInfo.waybillStatus==9> 已挂账 </#if> </#if></td>
+				<td><#if driverWaybillInfo.createTime?exists>${(driverWaybillInfo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+			</tr>
+			</#list> </#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">${driverWaybillInfoPager.pageHtml}</div>
+</div>

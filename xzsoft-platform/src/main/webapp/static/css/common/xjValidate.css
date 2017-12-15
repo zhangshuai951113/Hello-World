@@ -1,0 +1,211 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 12px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+}
+
+a {
+    color: #ff4400;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+}
+
+.fw {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.clearfix:after {
+    content: '';
+    visibility: hidden;
+    height: 0;
+    display: block;
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.content-wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+/*表单样式*/
+.form-wrapper {
+    padding: 10px;
+}
+
+.form-item {
+    position: relative;
+    height: 45px;
+    padding: 0;
+}
+
+.form-item.form-op__left{
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.form-item.form-op__left span{
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    color: #333;
+    padding: 9px 22px;
+    border-radius: 4px;
+    line-height: 1;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.form-item span.form-op__submit {
+    border: 1px solid #23a8aa;
+}
+
+.form-item span.form-op__reset {
+    border: 1px solid #f3b57b;
+}
+
+/*表单校验*/
+.form-item .form-validate__tip {
+    color: #f00;
+    display: none;
+    line-height: 1;
+    margin: 2px 0;
+    text-align: left;
+    font-size: 10px;
+}
+
+
+/*popup弹窗提示样式*/
+.common-popup {
+    width: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -40px;
+    margin-left: -150px;
+    border: 1px solid #d8d8d8;
+    background: #eee;
+    font-size: 12px;
+    -webkit-box-shadow: 2px 2px 14px #ccc;
+    box-shadow: 2px 2px 14px #ccc;
+    color: #1b1717;
+    display: none;
+    z-index: 10000;
+}
+
+.common-popup .popup-title {
+    height: 30px;
+    line-height: 30px;
+    background: #2b84ea;
+    padding-left: 12px;
+    color: #fff;
+}
+
+.common-popup .popup-content {
+    padding-left: 12px;
+    line-height: 1.4;
+    margin: 6px 0;
+}
+
+.common-popup .popup-content p {
+    padding: 6px 0;
+}
+
+.common-popup .popup-btns {
+    text-align: right;
+    margin: 0 6px 6px 0;
+}
+
+.common-popup .popup-btns span {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 50px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.common-popup .popup-btns span:first-child {
+    background: #2b84ea;
+    color: #fff;
+}
+
+.common-popup .popup-btns span:first-child + span {
+    border: 1px solid #d8d8d8;
+    display: none;
+}
+
+.mask-popup {
+    background: #000;
+    opacity: .4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+
+/*信息提示*/
+.form-info__tips {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    z-index: 100002;
+    text-align: center;
+    display: none;
+}
+
+.form-info__tips span {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background: #767676;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

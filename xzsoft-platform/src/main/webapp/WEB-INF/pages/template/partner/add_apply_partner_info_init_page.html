@@ -1,0 +1,77 @@
+<!-- 模态框 新增合作伙伴申请 -->
+<div id="add_apply_partner_info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog">
+			<div class="modal-content" style="width: 750px;">
+				<div class="modal-header">
+					<div type="button" class="mode-close partner-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						伙伴申请
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="apply_partner_form" onsubmit="return false">
+					<div class="dep-from-box model-from">
+						<#if isCompany?exists && isCompany==1>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>发起方：</div>
+								<div class="input-text">
+									<select id="partner_info_origin_code" class="input" name="partnerInfoTempPo.originCode">
+										<option value="">请选择</option>
+										<#if orgInfoList?exists>
+											<#list orgInfoList as orgInfo>
+												<option value="${orgInfo.id}">${orgInfo.orgName}</option>
+											</#list>
+										</#if>
+									</select>
+								</div>
+							</div>
+						<#else>
+							<input id="partner_info_origin_code" name="partnerInfoTempPo.originCode" type="hidden" value="${currentOriginCode}"/>
+						</#if>
+						<div class="group-box">
+							<div class="input-lable"><span>*</span>伙伴角色：</div>
+							<div class="input-text">
+								<select id="partner_info_partner_role" class="input" name="partnerInfoTempPo.partnerRole" onchange="resetPartnerInfo()">
+									<option value="">请选择</option>
+									<option value="1">企业货主</option>
+									<option value="2">物流公司</option>
+									<option value="3">个体货主</option>
+									<option value="4">司机</option>
+								</select>
+							</div>
+						</div>
+						<div class="group-box">
+							<div class="input-lable"><span>*</span>合作伙伴：</div>
+							<div class="input-text">
+								<input id="partner_info_partner_name" class="input" placeholder="搜索合作伙伴" type="text" value="" onkeyup="searchPartner()"/>
+								<input id="partner_info_partner_code" name="partnerInfoTempPo.partnerCode" type="hidden" value=""/>
+								<div class="select-list">
+									<ul id="searchList" ></ul>
+								</div>
+							</div>
+						</div>
+						<div class="group-box">
+							<div class="input-lable"><span>*</span>业务类型：</div>
+							<div class="input-text">
+								<select id="partner_info_business_type" class="input" name="partnerInfoTempPo.businessType">
+									<option value="">请选择</option>
+									<option value="1">运输</option>
+									<option value="2">采购</option>
+									<option value="3">结算</option>
+									<option value="4">其他</option>
+								</select>
+							</div>
+						</div>  
+					</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="submitApplyPartner()">保存</button>
+					<button class="close-button partner-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

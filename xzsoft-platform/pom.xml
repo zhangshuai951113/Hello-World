@@ -1,0 +1,129 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>com.xzsoft</groupId>
+		<artifactId>xzsoft</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+  	<groupId>com.xzsoft</groupId>
+  	<artifactId>xzsoft-platform</artifactId>
+  	<version>0.0.1</version>
+  	<packaging>war</packaging>
+  	<name>xzsoft-platform</name>
+  	<description>xzsoft-platform</description>
+	<url>http://maven.apache.org</url>
+	
+  	<properties>
+  		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  		<!-- 公用rpc -->
+  		<xzsoft-rpc.version>0.0.1</xzsoft-rpc.version>
+  		<!-- servlet工具类 -->
+  		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+  		<jsp-api.version>2.2.1-b03</jsp-api.version>
+  	</properties>
+  	
+  	<dependencies>
+  		<!-- 公用rpc -->
+		<dependency>
+			<groupId>com.xzsoft</groupId>
+			<artifactId>xzsoft-rpc</artifactId>
+			<version>${xzsoft-rpc.version}</version>
+		</dependency>
+		<!-- servlet工具类 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+  	</dependencies>
+  	
+	<build>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<!-- 开启资源文件过滤 -->
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<filters>  
+            <filter>${project.basedir}/src/main/resources/filters/prop/${filters.env}/${filters.env}.properties</filter>  
+        </filters>
+		<plugins>
+			    <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin> 
+			 		 	  <!-- <plugin> 
+						<groupId>org.apache.maven.plugins</groupId> 
+						<artifactId>maven-compiler-plugin</artifactId> 
+						<configuration> 
+						<source>1.7</source> 
+						<target>1.7</target> 
+						</configuration> 
+						</plugin>  --> 
+			<plugin>  
+			    <artifactId>maven-antrun-plugin</artifactId>  
+			    <executions>  
+			        <execution>
+			            <phase>process-resources</phase>
+			            <goals>
+			            	<goal>run</goal>
+			            </goals>
+			            <configuration>  
+			                <tasks>
+			                	<delete file="target/classes/conn.properties" />
+			                	<delete file="target/classes/fdfs_client.properties" />
+								<move file="target/classes/filters/config/conn.properties" tofile="target/classes/conn.properties" />
+								<move file="target/classes/filters/config/fdfs_client.properties" tofile="target/classes/fdfs_client.properties" />
+								<delete dir="target/classes/filters" />
+			                </tasks>
+			            </configuration>  
+			        </execution>  
+			    </executions>  
+			</plugin>
+		</plugins>
+	</build>
+	
+	<!-- 配置打包变量 -->
+	<profiles>
+		<profile>
+			<!-- 生产环境 -->
+			<id>online</id>
+			<properties>  
+                <filters.env>online</filters.env>  
+            </properties>  
+		</profile>
+		<profile>
+			<!-- 测试环境 -->
+			<id>test</id>
+			<properties>  
+                <filters.env>test</filters.env>  
+            </properties>  
+		</profile>
+		<profile>
+			<!-- 开发环境 -->
+			<id>dev</id>
+			<!-- 默认激活本环境 -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>  
+                <filters.env>dev</filters.env>  
+            </properties>  
+		</profile>
+	</profiles>
+	
+</project>

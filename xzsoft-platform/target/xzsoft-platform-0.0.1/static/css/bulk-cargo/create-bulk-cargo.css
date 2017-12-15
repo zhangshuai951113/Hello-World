@@ -1,0 +1,44 @@
+  .search-box .input-lable {
+     width: 56px;
+  }
+  .search-box .time-input{
+    width: 98px;
+  }
+
+  .search-box .money-input {
+    width:80px;
+  }
+  .search-select-list {
+    background-image: url('../../images/nav/arrow-down.png');
+    background-repeat: no-repeat;
+    background-position: 200px;
+    background-size: 10px;
+    width: 218px;
+    border: 1px solid #cccccc;
+    height: 26px;
+    line-height: 26px;
+    float: left;
+    position: relative;
+    padding: 0 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: #fff;
+    text-align: left;
+        font-size: 12px;
+  }
+  .ht-textarea-text {
+    min-height: 100px;
+    height: auto;
+    float: left;
+    width: 218px;
+    position: relative;
+    border: 1px solid #ccc;
+    padding:4px 2px;
+  }
+  .mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+    height: 8px;
+  }
+  .JCLRgrip {
+    top:0;
+  }

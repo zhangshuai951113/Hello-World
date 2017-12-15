@@ -1,0 +1,140 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:1110px;">
+			
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeConBidutton()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					新增招标明细
+				</h4>
+			</div>
+			<div class="modal-body">
+			<div class="search-panel row">
+			<form onsubmit="return false">
+				<div class="search-from" >
+					<div class="search-row-box" >
+						<div class="both-row row">
+							<div class="search-box">
+					          <div class="input-lable">招标编号</div>
+					          <div class="input-text">
+					            <input name="" id="biddingCode" class="input" placeholder="请输入招标编号" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">招标名称</div>
+					          <div class="input-text">
+					            <input name="" id="biddingName" class="input" placeholder="请输入招标名称" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">制单人</div>
+					          <div class="input-text">
+					            <input name="" id="createUserName" class="input" placeholder="请输入制单人" type="text">
+					          </div>
+					        </div>
+							 <div class="search-box">
+					          <div class="input-lable">招标单位</div>
+					          <div class="input-text">
+					            <input name="" id="biddingOrg" class="input" placeholder="请输入制单人" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">货物</div>
+					          <div class="input-text">
+					            <input name="" id="goodsName" class="input" placeholder="请输入货物名称" type="text">
+					          </div>
+					        </div>
+					        <div class="search-box">
+					          <div class="input-lable">线路</div>
+					          <div class="input-text">
+					            <input name="" id="lineName" class="input" placeholder="请输入线路名称" type="text">
+					          </div>
+					        </div>
+							<div class="search-box">
+								<div class="input-lable">制单时间</div>
+								<div class="input-text time-input" style="width:153px">
+									<input id="makeStartTime" class="input date-time-ss" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input" style="width:153px">
+									<input id="makeEndTime" class="input date-time-ss" placeholder="" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="contractAddBiddingDetailMationList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetConBidInfo()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+			<!-- 表格 -->
+			<div class="panel">
+			<div id="show_goods_info"></div>
+				<div class="panel-table">
+				    <table class="table-bule">
+				       <thead>
+		             <tr class="table-title">
+		             <th  style="width:50px" class="check">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="contract_my_bid_check"> 
+			                </label>
+		              </th>
+		              <th>中标状态</th>
+			          <th>招标编号</th>
+			          <th>招标单位</th>
+			          <th>招标名称</th>
+			          <th>报价截止日期</th>
+			          <th>付款方式</th>
+			          <th>制单日期</th>
+			          <th>制单人</th>
+			          <th>货物</th>
+			          <th>线路</th>
+			          <th>发货单位</th>
+			          <th>到货单位</th>
+			          <th>中标单位</th>
+			          <th>总量</th>
+			          <th>运距</th>
+			          <th>运价</th>
+			          <th>损耗比例</th>
+			          <th>损耗金额</th>
+			          <th>报价总额</th>
+			          <th>中标金额</th>
+			        </tr>
+		          </thead>
+				      <tbody id="contractBidInfoTBody">
+				       
+				      </tbody>
+				    </table>
+				</div>
+				<!-- 分页 -->
+			 <div class="panel-pagination">
+			      <div id="conBid-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list" id="conBid-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpConBidPage(this)">确定</div>
+			  </div>  
+			</div>
+			</div>
+			<div class="modal-footer">
+		        <button class="save-button" onclick="submitConBidMation()">保存</button>
+		        <button class="close-button"  onclick="closeConBidutton()">取消</button>
+		    </div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<script type="text/javascript" src="${basePath}/static/js/contract/contrant_add_bidding_detail_mation.js"></script></html>

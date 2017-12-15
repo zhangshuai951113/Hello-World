@@ -1,0 +1,29 @@
+<script type="text/javascript" src="${basePath}/static/js/common/jquery-3.1.1.js"></script>
+ <!--[if IE 9]>
+  <script src="${basePath}/static/js/ie/placeholder.js"></script>
+ <![endif]-->
+<!--[if lt IE 9]>
+<script src="${basePath}/static/js/ie/jquery-1.12.4.js"></script>
+<script src="${basePath}/static/js/ie/placeholder.js"></script>
+ <script src="${basePath}/static/js/ie/respond.js"></script>
+ <![endif]-->
+<script type="text/javascript" src="${basePath}/static/js/common/bootstrap.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/jquery.mCustomScrollbar.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/commonUtil.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/menu.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+<script type="text/javascript">
+	//path路径
+	var basePath = "${basePath}";
+	//文件服务路径前缀
+	var fastdfsServer = "${fastdfsServer}";
+	
+	(function($) {
+		$.mCustomScrollbar.defaults.scrollButtons.enable = true; 
+	  	$.mCustomScrollbar.defaults.axis = "yx"; 
+	  	//获取菜单,ajax请求
+	  	//getMenu("/static/data/menu.json");
+	  	getMenu("/resource/findMenus");
+	})(jQuery);
+</script>

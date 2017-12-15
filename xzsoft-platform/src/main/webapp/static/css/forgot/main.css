@@ -1,0 +1,79 @@
+.forgot-content {
+    position: relative;
+    margin: 0 auto;
+    min-width: 1240px;
+}
+.forgot-line{
+    height:3px;
+    background: #2b84ea;
+    margin:0 auto;
+    min-width: 1240px;
+}
+
+.forgot-box{
+        width: 690px;
+    margin: auto;
+    text-align: center;
+}
+
+.forgot-title{
+    margin-top:50px;
+    color:#666;
+    font-size:18px;
+    text-align: left;
+}
+.forgot-from {
+    width: 536px;
+    margin: 30px auto 0;
+    padding: 20px;
+}
+.tab-box .setp1-bg-normal,.tab-box .setp1-bg-active,.tab-box .setp2-bg-normal,.tab-box .setp2-bg-active {
+    padding-left: 30px;
+    text-align: left;
+    line-height: 32px;
+    color: #ffffff;
+    font-size: 12px;
+}
+.tab-box  .setp1-bg-normal{
+    width:253px;
+    height: 32px;
+    background: url("../../images/forgot/setp1-bg-normal.png") no-repeat;
+    background-size:contain;
+    float:left;
+    color: #5a5a5a;
+}
+.tab-box .setp1-bg-active{
+    width:253px;
+    height: 32px;
+    background: url("../../images/forgot/setp1-bg-active.png") no-repeat;
+    background-size:contain;
+    float:left;
+    
+}
+.tab-box  .setp2-bg-normal{
+    width:253px;
+    height: 32px;
+    background: url("../../images/forgot/setp2-bg-normal.png") no-repeat;
+    background-size:contain;
+    float:left;
+    margin-left: -10px;
+    color: #5a5a5a;
+}
+.tab-box  .setp2-bg-active{
+    width:253px;
+    height: 32px;
+    background: url("../../images/forgot/setp2-bg-active.png") no-repeat;
+    background-size:contain;
+    float:left;
+    margin-left: -10px;
+}
+
+.forgot-inpu-box{
+    margin: auto;
+    text-align: center;
+    width: 368px;
+}
+
+.step-2{
+    display: none;
+}

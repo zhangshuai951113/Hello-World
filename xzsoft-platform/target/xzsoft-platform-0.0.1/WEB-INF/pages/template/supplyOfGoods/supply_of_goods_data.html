@@ -1,0 +1,83 @@
+<div id="supply-of-goods-data">
+	<div style="width:100%;overflow-x:auto;overflow-y:hidden;">
+		<table style="min-width:1780px" class="table-bule table-ellipsis" id="tableDrag">
+			<thead>
+				<tr class="table-title">
+					<th class="operation" style="width:150px">操作</th>
+					<th>运单编号</th>
+					<th>委托方</th>
+					<th>保证金（元）</th>
+					<th>当前运价（元）</th>
+					<th>货物</th>
+					<th>零散货物</th>
+					<th>线路</th>
+					<th>起点</th>
+					<th>终点</th>
+					<th>发货单位</th>
+					<th>到货单位</th>
+					<th>计划拉运日期</th>
+					<th>计划拉运量</th>
+					<th>计量单位</th>
+					<th>定损方式</th>
+					<th>合理损耗比例</th>
+					<th>合理损耗吨位（吨）</th>
+					<th>报价截止日期</th>
+					<th>创建时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#if waybillSourceInfoPager?exists && waybillSourceInfoPager?exists>
+					<#list waybillSourceInfoPager.rows as waybillSourceInfo>
+						<tr class="table-body ">
+							<td style="min-width: 100px;">
+								<div class="operation-td" waybill-source-info-id="${(waybillSourceInfo.id)}">
+									<#if waybillSourceInfo.id?exists>
+										<!-- 物流公司 2 司机 4-->
+											<#if userRole==2 || userRole==4>
+												<div class="modify-operation quote-operation operation-m">
+													<div class="quote-icon"></div>
+													<div class="text">参与报价</div>
+												</div>
+											</#if>
+									</#if>
+								</div>
+							</td>
+							<td>${(waybillSourceInfo.id)!''}</td>
+							<td>${(waybillSourceInfo.entrustName)!''}</td>
+							<td>${(waybillSourceInfo.cautionMoney)!''}</td>
+							<td>${(waybillSourceInfo.currentTransportPrice)!''}</td>
+							<td>${(waybillSourceInfo.goodsName)!''}</td>
+							<td>${(waybillSourceInfo.scatteredGoods)!''}</td>
+							<td>${(waybillSourceInfo.lineName)!''}</td>
+							<td>${(waybillSourceInfo.lineNameStr)!''}</td>
+							<td>${(waybillSourceInfo.lineNameEnd)!''}</td>		
+							<td>${(waybillSourceInfo.forwardingUnit)!''}</td>
+							<td>${(waybillSourceInfo.consignee)!''}</td>
+							<td><#if waybillSourceInfo.planTransportDate?exists >${(waybillSourceInfo.planTransportDate)?string('yyyy-MM-dd')}</#if></td>
+							<td>${(waybillSourceInfo.planTransportAmount)!''}</td>
+							<td>${(waybillSourceInfo.units)!''}</td>
+							<td>
+							<#if waybillSourceInfo.deductionMode?exists>
+									<#if waybillSourceInfo.deductionMode==1>
+										比例
+									<#elseif waybillSourceInfo.deductionMode==2>
+										吨位
+									</#if>
+								</#if>
+							</td>
+							<td>${(waybillSourceInfo.reasonableLossRatio)!''}</td>
+							<td>${(waybillSourceInfo.reasonableLossTonnage)!''}</td>
+							<td><#if waybillSourceInfo.offerEndDate?exists >${(waybillSourceInfo.offerEndDate)?string('yyyy-MM-dd')}</#if>
+							</td>
+							<td>${(waybillSourceInfo.createTime)?string('yyyy-MM-dd hh:mm:ss')}</td>
+							
+						</tr>
+					</#list>
+				</#if>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-pagination">
+		${waybillSourceInfoPager.pageHtml}
+	</div>
+</div>

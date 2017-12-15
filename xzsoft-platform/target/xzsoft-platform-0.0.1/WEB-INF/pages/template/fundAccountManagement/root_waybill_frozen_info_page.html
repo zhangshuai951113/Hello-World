@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>资金冻结信息</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/contract/contract-manage.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/coupon/couponOperation.css" type="text/css" />
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main" id="mainPage">
+		<div class="tab-box">
+		<a href="${basePath}/fundAccountManagement/goWaybillFrozenInfoPage"><div class="tab-text active">运单冻结信息</div></a>
+		<a href="${basePath}/fundAccountManagement/goBiddingFrozenInfoPage"><div class="tab-text">招标冻结信息</div></a>
+		</div>
+
+		<div class="search-panel row">
+			<form onsubmit="return false">
+				<div class="search-from" >
+					<div class="search-row-box" >
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">运单编号:</div>
+								<div class="input-text">
+									<input id="wayCode" class="input" placeholder="请输入运单编号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">制单时间</div>
+								<div class="input-text time-input">
+									<input id="createStartDate" class="input date-time" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input id="createEndDate" class="input date-time" placeholder="" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box" style="padding-left: 500px;margin-top: -37px;">
+						<button class="search-button" onclick="wayFrozenList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetWayFrozenList()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+						<button class="search-button" onclick="wayFreezeInformationExport()">
+							<div class="export-icon" style="margin-top:7px" ></div>
+							<div class="text">导出</div>
+						</button>
+						<button class="search-button" onclick="backRootFundAccountPage()">
+							<div class="export-icon" style="margin-top:7px"></div>
+							<div class="text">返回</div>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="panel">
+			<div class="panel-table" >
+		        <table class="table-bule" style="table-layout: fixed;">
+		          <thead>
+		             <tr class="table-title">
+		             <th  style="width:50px" class="check">
+		                <label class="i-checks">
+		                  <input name="all" type="checkbox" class="all_way_frozen"> 
+		                </label>
+		              </th>
+		              <th style="width:120px">序号</th>
+			          <th style="width:160px">运单编号</th>
+			          <th style="width:120px">运单状态</th>
+			          <th style="width:120px">运单类型</th>
+			          <th style="width:120px">委托方</th>
+			          <th style="width:120px">承运方</th>
+			          <th style="width:120px">司机姓名</th>
+			          <th style="width:120px">货物</th>
+			          <th style="width:120px">零散货物</th>
+			          <th style="width:120px">线路起点</th>
+			          <th style="width:120px">线路终点</th>
+			          <th style="width:120px">运单总额</th>
+			          <th style="width:120px">保证金</th>
+			          <th style="width:120px">冻结日期</th>
+			          <th style="width:140px">发货单位</th>
+			          <th style="width:200px">到货单位</th>
+			          <th style="width:200px">制单日期</th>
+			          <th style="width:200px">制单人</th>
+			        </tr>
+		          </thead>
+		          <tbody id="wayFrozenList">
+		          </tbody>
+		        </table>
+		      </div>
+		      <div class="panel-pagination">
+		      <div id="way_frozen_num" class="panel-num">搜索相关结果共0条</div>
+		      <div class="pagination-list"></div>
+		      <div class="pagination-input">到
+		        <input type="text" />页</div>
+		      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+		  </div> 
+		  </div>
+		  </div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/select-line.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/fundAccountManagement/waybillFrozenMain.js"></script>
+</html>

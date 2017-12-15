@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>合同查询</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/contract/contract-manage.css" type="text/css">
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main" id="mainPage">
+
+		<div class="search-panel row">
+			<div class="search-from">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<!--  第一行 -->
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">合同编号</div>
+								<div class="input-text">
+									<input id="contractCode" class="input" placeholder="请输入合同编号" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">合同名称</div>
+								<div class="input-text">
+									<input id="contractName" class="input" placeholder="请输入合同名称" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">委托方</div>
+								<div class="input-text">
+									<input id="entrustName" class="input" placeholder="请输入委托方" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">承运方</div>
+								<div class="input-text">
+									<input id="shipperName" class="input" placeholder="请输入承运方" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">合同状态</div>
+								<div class="input-text">
+									<select id="contractStatus" class="input">
+										<option value="">请选择</option>
+										<option value="1">新建</option>
+										<option value="2">审核中</option>
+										<option value="3">审核驳回</option>
+										<option value="4">审核通过</option>
+										<option value="5">等待确认</option>
+										<option value="6">已撤回</option>
+										<option value="7">已拒绝</option>
+										<option value="8">已确认</option>
+										<option value="9">已终止</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">合同分类</div>
+								<div class="input-text">
+									<select id="contractClassify" class="input">
+										<option value="">请选择</option>
+										<option value="1">物流合同</option>
+										<option value="2">转包合同</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">合同类型</div>
+								<div class="input-text">
+									<select id="contractType" class="input">
+										<option value="">请选择</option>
+										<option value="1">运输合同</option>
+										<option value="2">框架协议合同</option>
+									</select>
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">创建日期</div>
+								<div class="input-text time-input">
+									<input id="createTimeStart" class="input  date-time" placeholder="" type="text" />
+								</div>
+								<div class="input-line">—</div>
+								<div class="input-text time-input">
+									<input id="createTimeEnd" class="input  date-time" placeholder="" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">线路</div>
+								<div class="input-text">
+								<input class="input" id="lineInfoQuery" placeholder="请选择线路" readonly="readonly"/>
+								<input class="input" id="lineInfoIdQuery" hidden="true"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="searchContractInfo(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="panel">
+			<div id="search_contract_info" class="panel-table"></div>
+		</div>
+
+		<!--合同信息详情查看模板-->
+		<div id="contract_info_view" class="tab-content" style="display: block" class="modal-open"></div>
+		<form id="contract_detail_form" action="" method="post">
+		<input id="contract_info_id" type="hidden" name="contractInfoId">
+		</form>
+		
+			<!-- 线路选择列表 -->
+			<div class="modal fade" id="lineSelectModal" tabindex="-2" role="dialog">
+				<div class="modal-dialog modal-dialog-both">
+					<div class="modal-content">
+						<div class="modal-header">
+							<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+							<h4 class="modal-title">线路选择</h4>
+						</div>
+						<div class="modal-body">
+							<div class="search-from">
+								<form onsubmit="return false">
+									<div class="search-row-box">
+										<div class="both-row row">
+											<div class="search-box">
+												<div class="input-lable">线路名称</div>
+												<div class="input-text">
+													<input class="input" id="lineNameQuery" placeholder="请输入线路名称" type="text" />
+												</div>
+											</div>
+											<div class="search-box">
+												<div class="input-lable">线路起点</div>
+												<div class="input-text">
+													<input  class="input" id="startPointQuery" placeholder="请输入线路起点" type="text" />
+												</div>
+											</div>
+											<div class="search-box">
+												<div class="input-lable">线路终点</div>
+												<div class="input-text">
+													<input class="input" id="endPointQuery" placeholder="请输入线路终点" type="text" />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="search-button-box">
+										<button class="search-button" onclick="lineList(1)">
+											<div class="search-icon"></div>
+											<div class="text">查询</div>
+										</button>
+										<button class="search-button" type="reset">
+											<div class="reset-icon"></div>
+											<div class="text">重置</div>
+										</button>
+									</div>
+								</form>
+							</div>
+							<div class="modal-table row">
+								<table width="100%" class="table-bule table-ellipsis" >
+									<thead>
+										<tr class="table-title">
+											<th style="width: 40px;"><input class="all_line_check" name="all" type="checkbox"></th>
+											<th>线路编号</th>
+											<th>线路名称</th>
+											<th>线路起点</th>
+											<th>线路终点</th>
+											<th>运距</th>
+										</tr>
+									</thead>
+									<tbody id="lineTBody">
+									</tbody>
+								</table>
+								<!-- 分页 -->
+								<div class="panel-pagination">
+									<div id="panel-num-line" class="panel-num">搜索相关结果共0条</div>
+									<div id="pagination-list-line" class="pagination-list"></div>
+									<div class="pagination-input">
+										到 <input type="text" />页
+									</div>
+									<div class="pagination-button" onclick="lineJumpPage(this)">确定</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="save-button" onclick="lineSelect()">确认</button>
+								<button class="close-button" data-dismiss="modal">取消</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 日志信息列表 -->
+		<div class="modal fade" id="logModal" tabindex="-2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">操作日志查看</h4>
+					</div>
+					<div class="modal-body">
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th>操作人</th>
+										<th style="width: 180px;">操作时间</th>
+										<th>操作描述</th>
+										<th>操作意见</th>
+									</tr>
+								</thead>
+								<tbody id="logTBody">
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="logNum">0</span>条
+								</div>
+								<div id="logPage" class="log-pagination-list pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="logSelect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="close-button" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/contract/contractView.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/contract/lineSearch.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/contract/contractLogSearch.js"></script>
+</html>

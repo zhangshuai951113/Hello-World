@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>评价模板设置</title> 
+	<#include "../../common/common_header.html" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+    <link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/confirm.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+</head>
+<body class="app-body" onload = "selectEvaluationInfo(1)">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main">
+		<div class="search-panel row">
+			<div class="search-from" style = "margin-top:20px;text-align: center;">
+				<form onsubmit="return false">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+					            <div class="input-lable">创建日期</div>
+					            <div class="input-text time-input">
+                                  <input class="input date-time" type="text" id = "mhcreatTime" />
+					            </div>
+					            <div class="input-line">—</div>
+					            <div class="input-text time-input">
+					              <input class="input date-time" type="text" id = "mhcreatTime1" />
+					            </div>
+					          </div>
+							 <div class="search-box">
+					            <div class="input-lable">单据类型</div>
+					            <div class="input-text">
+					              <select class="input" id = "mhevaluationTemplateType">
+					                   <option value="">请选择</option>
+					                <option value="1">企业对司机</option>
+					                <option value="2">司机对企业</option>
+					                <option value="3">委托方对承运方</option>
+					                <option value="4">承运方对委托方</option>
+					              </select>
+					            </div>
+					          </div>
+					           <div class="search-box">
+					            <div class="input-lable">状态</div>
+					            <div class="input-text">
+					              <select class="input" id = "mhstatus">
+					                <option value="">请选择</option>
+					                <option value="1">启用</option>
+					                <option value="0">停用</option>
+					              </select>
+					            </div>
+					          </div>
+						</div>
+					</div>
+					<div class="search-button-box" style="margin-top:16px;">
+						<button class="search-button" onclick="searchDataAuthList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetDataAuth()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div>
+		<div class="panel">
+		 <div class="row">
+				    <div class="operation-tab row">
+	 <@shiro.hasPermission name="evaluate:template:add">
+				      <button class="operation-button operation-blue" onclick= "addEvaluateTemplete()">
+				        <div class="add-icon"></div>
+				        <div class="operation-text" >新增</div>
+				      </button>
+				        </@shiro.hasPermission>
+	 <@shiro.hasPermission name="evaluate:template:edit">
+				        <button class="operation-button operation-blue" onclick = "editEvaluateTemplete()">
+								<div class="modify-icon"></div>
+								<div class="operation-text">修改</div>
+						</button>
+						  </@shiro.hasPermission>
+	 <@shiro.hasPermission name="evaluate:template:del">
+				      <button class="operation-button operation-blue" onclick = "delEvaluateTemplete()">
+				        <div class="delete-icon"></div>
+				        <div class="operation-text">删除</div>
+				      </button>
+				        </@shiro.hasPermission>
+	 <@shiro.hasPermission name="evaluate:template:start">
+				      <button class="operation-button operation-blue" onclick = "eableEvaluateTemplete()">
+				        <div class="enable-icon"></div>
+				        <div class="operation-text">启用</div> 
+				      </button>
+				        </@shiro.hasPermission>
+	 <@shiro.hasPermission name="evaluate:template:end">
+				      <button class="operation-button operation-blue" onclick="diseableEvaluateTemplete()">
+							<div class="disable-icon"></div>
+							<div class="operation-text">停用</div>
+						</button>
+						  </@shiro.hasPermission>
+				    </div>
+				  </div>
+			<div id="data_auth">
+	<table width="100%" class="table-bule table-ellipsis" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width: 40px;">
+				   </th>
+				 <th>序号</th>
+				<th>表单名称</th>
+				<th>表单类型</th>
+				<th>评价阶段</th>
+				<th>创建日期</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id = "evaluationTemplateTbody">
+		<!-- <tr class="table-body ">
+			<td>
+				 <label class="i-checks">
+				      <input class="sub-auth-check" type="checkbox">
+				 </label>
+			</td>
+			<td>新疆汇通物流公司司机信用评价表</td>
+			<td>承运方对委托方</td>
+			<td>2017-10-17</td>
+			<td>启用</td>
+			<td><div class="operation-td" >
+			        <div class="modify-operation operation-m">
+					      <div class="modify-icon"></div>
+					      <div class="text" style= "font-size: 14px;">查看明细</div>
+					 </div>
+		    </div></td>
+		</tr>
+		<tr class="table-body ">
+			<td>
+				 <label class="i-checks">
+				      <input class="sub-auth-check" type="checkbox">
+				 </label>
+			</td>
+			<td>新疆汇通物流公司司机信用评价表</td>
+			<td>承运方对委托方</td>
+			<td>2017-10-17</td>
+			<td>启用</td>
+			<td><div class="operation-td" >
+			        <div class="modify-operation operation-m">
+					      <div class="view-icon"></div>
+					      <div class="text" style= "font-size: 14px;">查看明细</div>
+					 </div>
+		    </div></td>
+		</tr> -->
+		</tbody>
+	</table>
+</div>
+ <div class="panel-pagination" >
+				        <div class="panel-num">搜索相关结果共<span id="templateEvaluateNum">0</span>条</div>
+				        <div id="templateEvaluatePage" class="pagination-list"></div>
+				        <div class="pagination-input">到
+				          <input type="text" id="goPage"/>页</div>
+				        <div class="pagination-button" onclick="templateEvaluateSlect()">确定</div>
+				      </div>
+</div>
+
+		</div>
+		
+		<!-- 查看模板明细 -->
+		<div class="modal fade" id="selectEvaluationTemplateDetailModal" tabindex="-2" role="dialog">
+			  <div class="modal-dialog" style= "margin-left:110px">
+			    <div class="modal-content" style="width:1200px;height:700px">
+			      <div class="modal-header">
+			        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+			        <h3 class="modal-title " id="freight-title">评价模板明细</h3>
+			      </div>
+			      <div class="modal-body" style = "padding:0px;">
+			        <div class="model-from" style = "width:100%;">
+			         	<div>
+			<div id="data_auth" style= "margin: 12px;font-size:16px">
+			<table style = "height: 80px;" >
+			<tbody id = "showModalEvaluationDetailTbody" style = "font-size:16px;">
+			
+			</tbody>
+			</table>
+	<table style = "width:100%;" class="table-bule table-ellipsis" id="showEvaluationTable" >
+		<thead>
+			<tr class="table-title">
+				<th style = "width: 50px;">序号</th>
+				<th style = "width:200px">考核项目</th>
+				<th style = "width:70px;">权重(%)</th>
+				<th style = "width:320px">目标值要求</th>
+				<th>评分等级</th>
+			</tr>
+		</thead>
+		<tbody id = "showEvaluationTbody" style = "font-size:16px;">
+		<!-- <tr class="table-body ">
+			<td>
+				 <label class="i-checks">
+				      <input class="sub-auth-check" type="checkbox">
+				 </label>
+			</td>
+			<td>1</td>
+			<td>出车及时性</td>
+			<td>10%</td>
+			<td>接到任务，及时出车无延误</td>
+			<td>完成目标值要求100分；有短时间延误，但未造成不良影响80分；未及时出车造成不良影响0分
+			</td>
+		</tr> -->
+		</tbody>
+	</table>
+</div>
+		</div>
+			        </div>
+			      </div>
+			    </div> 
+			  </div>
+			</div>
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+
+	<!-- 子机构操作表单 -->
+	<form id="form_sub_org_opt" action="" method="post">
+		<input id="hidden_sub_operate_type" type="hidden" name="operateType">
+		<input id="hidden_sub_org_info_id" type="hidden" name="orgInfoId">
+	</form>
+</body>
+<#include "../../common/common_footer.html" />
+
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/userDataAuth/dataAuth.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/creditEvaluation/evaluation_template.js"></script>
+
+</html>

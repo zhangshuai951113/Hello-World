@@ -1,0 +1,90 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeButton()"></div>
+					<h4 class="modal-title" id="myModalLabel">
+						${addPlanInfo}
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form id="sub_plan_info_form" onsubmit="return false">
+		      				<div class="from-both-box">
+		      				<div class="group-box">
+				          			<div class="input-lable"><span>*</span>合同信息：</div>
+				          			<div class="input-text">
+				            			<input class="input"  name="planInfoPo.contractName" id="PcontractName"  placeholder="请选择合同信息" type="text" onclick="addCMationModel()"/>
+				          				<input class="input" name="planInfoPo.contractDetailInfoId" id="PcontractDetailInfoId" type="hidden"/>
+				          			</div>
+			        			</div>
+			        			<div class="group-box">
+				          			<div class="input-lable"><span>*</span>计划名称：</div>
+				          			<div class="input-text">
+				            			<input class="input" id="PplanName" name="planInfoPo.planName"   placeholder="请输入计划名称" type="text" />
+				          			</div>
+			        			</div>
+			        			<div class="group-box">
+						          	<div class="input-lable"><span>*</span>计划总量：</div>
+						          	<div class="input-text">
+						            	<input class="input" id="planSum"   name="planInfoPo.planSum"  placeholder="请输入计划总量" type="text"/>
+						          	</div>
+						        </div>
+		      					<div class="group-box">
+						          	<div class="input-lable"><span>*</span>起始日期：</div>
+									<div class="input-text money-input">
+										<input id="PstartDate" class="input date-time" type="text" name="startDate" />
+									</div>
+						        </div>
+						        <div class="group-box">
+						          	<div class="input-lable"><span>*</span>结束日期：</div>
+									<div class="input-text money-input">
+										<input id="PendDate" class="input date-time" type="text" name="endDate"/>
+									</div>
+						        </div>
+		      				</div>
+		      				<!-- <div class="from-both-box">
+			                    <div class="file-box row">
+			                        <div class="input-lable">上传附件：</div>
+			                        <div id="plan_text" class="file-input"></div>
+			                        <div class="file-button-box">
+			                            <button class="file-buttton upload_img" img-type="plan_img" img-text="plan_text">
+			                              <div class="file-icon"></div>
+			                              <div class="file-text">上传</div>
+			                            </button>
+			                    	</div>
+			                    	<input id="plan_img" type="hidden" name="planInfoPo.planImg" value="">
+			                	</div>
+			                </div> -->
+					      	  <div class="from-both-box">
+					        	<div class="group-img">
+					          		<div class="input-lable">附件：</div>
+					          		 <div class="input-img">
+					          		 			<img src="" class="img_box" img-type="plan_img" id="planImg">
+<!-- 					          				<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="plan_img" id="planImg">
+ -->					          			<input id="plan_img" type="hidden" name="planInfoPo.planImg">
+					          		</div> 
+					        	</div>
+					      	</div>
+					      	<div class="from-both-box">
+					        	<div class="group-textarea">
+						          	<div class="input-lable">备注：</div>
+						          	<div class="input-textarea">
+						            	<textarea id="Premarks" name="planInfoPo.remarks"></textarea>
+						          	</div>
+					        	</div>
+					      	</div>
+		    		</form>
+					<div id="enterprise-tab" class="tab-content"></div>
+					<div id="find_contract_info_model"></div>
+				</div>
+				<div class="modal-footer">
+					<button class="close-button" onclick="addPlanInfoBtn()">保存</button>
+					<button class="close-button " onclick="closeButton()">取消</button>
+				</div>
+			</div> 
+		</div> 
+	</div> 
+	<div class="modal-backdrop fade in"></div>
+</div>

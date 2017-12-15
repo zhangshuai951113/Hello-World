@@ -1,0 +1,63 @@
+/*.jconfirm-light.jconfirm .jconfirm-box {
+	width: 400px;
+}*/
+.from-both-box .input-text{
+	padding:1px;
+}
+
+.search-box .input-text {
+	padding-bottom: 2px;
+	background: #fff;
+}
+
+.model-from .input-text {
+	padding:1px;
+}
+
+#label {
+	background:url('../../images/ie/slide-bg.png') no-repeat;
+}
+.login-box {
+	/*behavior: url("./css/ie/PIE.htc");*/
+}
+
+.register-box .radio-box input {
+	width:auto;
+}
+.register-box .radio-icon {
+	display: none;
+}
+
+.register-box .radio-text {
+	margin-left:18px;
+	margin-top:0;
+	margin-right:14px;
+}
+
+.register-input-box .input-text {
+	padding-top:3px;
+}
+
+.panel-body .from-both-box .input-text {
+	padding:0;
+	overflow:hidden;
+}
+
+.input-group .form-control {
+	line-height:24px;
+}
+
+.input-group select.form-control {
+	padding:0;
+}
+
+select {
+
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background:none;
+	padding-right:0;
+}
+.search-box .input {
+	height:21px;
+	padding-top:4px;
+}

@@ -1,0 +1,269 @@
+  <!DOCTYPE html>
+<html lang="zh">
+<head>
+	<title>${ProprietaryPlanPage}</title>
+	<#include "../../common/common_header.html" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+	<link rel="stylesheet" href="${basePath}/static/css/common/search.css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css">
+	<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/table.css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+	<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+		
+		<style>
+		
+		.search-box .money-input {
+			width: 58px;
+		}
+		
+		.search-box .money-input {
+		    width: 188px;
+		}
+		.table-bule {
+		   margin-top:0px;
+		}
+		.JCLRgrip {
+		    top:0;
+		}
+		
+		.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar {
+		    width: 100%;
+		    height: 13px;
+		}
+		
+		</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		   
+		    <main class="main">
+		    	 <div class="search-panel row">
+				    <form onsubmit="return false" id="find_plan_info">
+						<div class="search-from">
+							<div class="search-row-box">
+								<div class="both-row row">
+						        <div class="search-box">
+						          <div class="input-lable">计划名称</div>
+						          <div class="input-text">
+						            <input name="planInfoPo.planName" id="planName" class="input" placeholder="请输入计划名称" type="text">
+						          </div>
+						        </div>
+						        <div class="search-box">
+						          <div class="input-lable">货物</div>
+						          <div class="input-text">
+						            <input id="goodsInfoId" name="planInfoPo.goodsName" class="input" placeholder="请输入货物" type="text">
+						          </div>
+						        </div>
+						          <div class="search-box">
+						          <div class="input-lable">委托方</div>
+						          <div class="input-text">
+						            <input id="entrust" name="planInfoPo.entrustName" class="input" placeholder="请输入委托方" type="text">
+						          </div>
+						        </div>
+						        <div class="search-box">
+						          <div class="input-lable">承运方</div>
+						          <div class="input-text">
+						            <input id="shipper" name="planInfoPo.shipperName" class="input" placeholder="请输入承运方" type="text">
+						          </div>
+						        </div>
+						        <div class="search-box">
+						          <div class="input-lable">发货单位</div>
+						          <div class="input-text">
+						            <input id="forwardingUnit" name="planInfoPo.forwardingUnit" class="input" placeholder="请输入到货单位" type="text">
+						          </div>
+						        </div>
+						        <div class="search-box">
+						          <div class="input-lable">到货单位</div>
+						          <div class="input-text">
+						            <input id="consignee" name="planInfoPo.consignee" class="input" placeholder="请输入到货单位" type="text">
+						          </div>
+						        </div>
+						        <div class="search-box">
+						           <div class="input-lable">计划状态</div>
+						           <div class="input-text">
+							            <select id="planStatus" name="planInfoPo.planStatus" class="input">
+							              <option value="" selected>请选择</option>
+							              <option value="1">新建</option>
+							              <option value="2">审核中</option>
+							              <option value="3">审核通过</option>
+							              <option value="4">审核驳回</option>
+							              <option value="5">已派发</option>
+							              <option value="6">已撤回</option>
+							            </select>
+						            </div>
+						          </div>
+						          
+							       <div class="search-box">
+										<div class="input-lable">起始日期</div>
+										<div class="input-text">
+											<input id="startDate" name="planInfoPo.startDate" class="input date-time" type="text"  placeholder="请输入起始日期"/>
+										</div>
+									</div>
+									<div class="search-box">
+										<div class="input-lable">结束日期</div>
+										<div class="input-text">
+											<input id="endDate" name="planInfoPo.endDate" class="input date-time" type="text"  placeholder="请输入结束日期"/>
+										</div>
+									</div>
+									<div class="search-box">
+								          <div class="input-lable">线路</div>
+								          <div class="input-text">
+				                				<select id="lineInfoId" name="planInfoPo.lineName"  class="input">
+								                	<option value="" selected>请选择</option>
+													<#if lineName?exists>
+														<#list lineName as lineInfoPo>
+																<option  value="${lineInfoPo.lineName}">${lineInfoPo.lineName}</option>
+														</#list>
+													</#if>
+				                				</select>
+				              				</div>
+								     </div>
+						      </div>
+							</div>
+							<div class="search-button-box">
+								<button class="search-button" id="searchCustomer" onclick="list(1)">
+									<div class="search-icon"></div>
+									<div class="text">查询</div>
+								</button>
+								 <button class="search-button" onclick="ProprietaryPlanReset()">
+								      <div class="reset-icon"></div>
+								      <div class="text">重置</div>
+								  </button>
+							</div>
+						</div>
+					</form>
+				 </div>
+				<div class="panel" >
+				  <div class="row">
+				      <div class="operation-tab row">
+				        <button class="operation-button operation-blue" onclick="addProprietaryPlanPage()">
+				          <div class="add-icon"></div>
+				          <div class="operation-text">新增</div>
+				        </button>
+				        <button class="operation-button operation-blue" onclick="ChoicePlanInfoMation(1)">
+				          <div class="modify-icon"></div>
+				          <div class="operation-text">修改</div>
+				        </button>
+				       <button  class="operation-button  operation-blue" onclick="ChoicePlanInfoMation(2)">
+							<div class="delete-icon"></div>
+							<div class="operation-text">删除</div>
+						</button>
+						<button  class="operation-button  operation-blue" onclick="ChoicePlanInfoMation(3)">
+							<div class="submit-icon"></div>
+							<div class="operation-text">提交</div>
+						</button>
+						<button  class="operation-button  operation-blue" onclick="ChoicePlanInfoMation(4)">
+							<div class="audit-icon"></div>
+							<div class="operation-text">审核</div>
+						</button>
+				      </div>
+			      </div>	
+			      <!-- 自营计划 -->
+				<div id="add_proprietary_plan"></div>
+				<div id="update_Pplan_info"></div>
+				<div id="find_plan_waybill_info"></div>
+			      <div class="panel-table">
+			      	<div class="iscroll">
+				        <table style="min-width:1960px" class="table-bule table-ellipsis" id="tableDrag">
+				          <thead>
+				             <tr class="table-title">
+				             <th  class="check" style="width:40px">
+				                <label class="i-checks">
+				                  <input name="all" type="checkbox" class="all_PPlan_check"> 
+				                </label>
+				              </th>
+				             <th>计划运单跟踪</th>
+				              <th>计划状态</th>
+					         <th>计划名称</th>
+					          <th>委托方</th>
+					          <th>货物</th>
+					          <th>线路</th>
+					          <th>运距(公里)</th>
+					          <th>计划总量</th>
+					          <th>发货单位</th>
+					          <th>到货单位</th>
+					          <th>起始日期</th>
+					          <th>结束日期</th>
+					          <th>创建人</th>
+					          <th>创建时间</th>
+					          <th>计划日志跟踪</th>
+					         
+					        </tr>
+				          </thead>
+				          <tbody id="ProprietaryPlanInfoTtableList">
+				          </tbody>
+				        </table>
+			      	</div>
+			      </div>
+			     <div class="panel-pagination">
+			      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			  </div> 
+			  </div>
+			  	  <!-- 日志信息列表 -->
+		<div class="modal fade" id="proprietaryPlanInfoLogModel" tabindex="-2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">操作日志查看</h4>
+					</div>
+					<div class="modal-body">
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th>操作人</th>
+										<th style="width: 200px;">操作时间</th>
+										<th>操作描述</th>
+										<th>操作意见</th>
+									</tr>
+								</thead>
+								<tbody id="proprietaryPlanlogTBody">
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="proprietaryPlanlogNum">0</span>条
+								</div>
+								<div id="logPage" class="pagination-list proprietaryPlan-info-log"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="jumpPPageNum(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="close-button" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	  	<!-- 计划跟踪查看表单 -->
+	  	<form id="plan_look_form" action="" method="post">
+	  		<input id="plan_info_id" type="hidden" name="planInfoId">
+	  	</form>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/selectList.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/planInfo/ProprietaryPlan/ProprietaryPlan.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/planInfo/ProprietaryPlan/proprietaryplan_info_log.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+	
+</html>

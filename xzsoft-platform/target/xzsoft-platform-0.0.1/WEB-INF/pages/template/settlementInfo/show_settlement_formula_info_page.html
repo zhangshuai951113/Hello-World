@@ -1,0 +1,65 @@
+<!-- 模态框 结算公式选择-->
+<div id="settlement-formula-data-info" >
+<div class="modal" id="formulaSelectModal" tabindex="-2" role="dialog" aria-hidden="true" style="display:block">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close settlement-formula-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          结算公式编号
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-button-box">
+              <button class="search-button">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-table row" style="overflow:hidden;">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;"></th>
+                <th>结算公式编号</th>
+                <th>核算主体</th>
+                <th>综合税率</th>
+                <th>企业代扣税税率</th>
+                <th>司机运费进项税税率</th>
+              </tr>
+            </thead>
+            <tbody>
+				   			<tr class="table-body ">
+				     			<td style="width:40px;">
+				       				<label class="i-checks">
+			           					<input type="checkbox" class="sub_settlement_formula_check" data-id="${settlementFormulaDetailPo.id}" data-accounting-entity="${settlementFormulaDetailPo.accountingEntity}" 
+			           					data-accounting-entity-str="${settlementFormulaDetailPo.accountingEntityStr}"><i></i>
+			         				</label>
+				     			</td>
+				     			<td>${(settlementFormulaDetailPo.id)!''}</td>
+						        <td>${(settlementFormulaDetailPo.accountingEntityStr)!''}</td>
+						        <td>${(settlementFormulaDetailPo.overallTaxRate)!''}</td>
+						        <td>${(settlementFormulaDetailPo.withholdingTaxRate)!''}</td>
+						        <td>${(settlementFormulaDetailPo.incomeTaxRate)!''}</td>
+				   			</tr>
+	 		</tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectFormula()">保存</button>
+        <button class="close-button settlement-formula-opt-close" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="modal-backdrop fade in"></div>
+</div>

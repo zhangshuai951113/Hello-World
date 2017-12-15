@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>新增结算挂账</title>
+		<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css"/>
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/settlementInfo/settlement.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/xjValidate.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/reset.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/viewer.css" type="text/css" />
+	<style>
+		.search-box .time-input {
+		    width: 98px;
+		}
+		 .from-both-box .view-img img {
+		    width:100%;
+		    height:100%;
+		  }
+		  .from-both-box .view-img .input {
+		    position: absolute;
+		      width: 100%;
+		      height: 100%;
+		      opacity: 0;
+		  }
+		.from-both-box .view-img {
+		    height: 80px;
+		    width: 90px;
+		    float: left;
+		    margin-right: 20px;
+		    position: relative;
+		    border: 1px solid #ccc;
+		}
+		.from-both-box .input-notice {
+		    float: left;
+		    color: #666666;
+		    font-size: 12px;
+		    margin-top: 10px;
+		    margin-left: 20%;
+		    width: 70%;
+		    text-align: left;
+		    line-height: 14px;
+		    letter-spacing: 6px;
+		    vertical-align: super;
+		}
+		
+	.table-bule tr:hover td input, .table-bule tr:focus td input{
+	      background: #e7f5ff;
+	}
+	</style>
+</head>
+
+	<body class="app-body" onload = "loadExpense()">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+	    	<main class="main">
+<div class="panel">
+  <div class="panel-head">新增结算信息</div>
+  <div class="panel-contet setup1">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text"><span class="full">*</span>运单号：</span>
+              </label>
+              <input type="text" id="selectWaybill" onclick="waybillSelect(1)" value = "${settlementInfo.waybillId}" class="form-control search-padding">
+              <input type="hidden" />
+              <input type="hidden" id = "rootWaybillInfoId" value="${waybillInfo.rootWaybillInfoId}"/>
+              <input type="hidden" id = "parentWaybillInfoId" value = "${waybillInfo.parentWaybillInfoId}"/>
+              <input type="hidden" id = "waybillInfoId" value = "${settlementInfo.waybillInfoId}"/>
+              <input type="hidden" id = "lineInfoId" value = "${settlementInfo.lineInfoId}"/>
+              <input type="hidden" id = "userInfoId" value = "${settlementInfo.userInfoId}"/>
+              <input type="hidden" id = "waybillInfoIdTemp" value = "${settlementInfo.waybillInfoId}"/>
+              <input type="hidden" id = "cooperateStatus" value = "${settlementInfo.cooperateStatus}"/>
+              <div class="input-search-icon"></div>
+          </div>
+        </div>
+         <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">司机名称：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "driverName" value = "${settlementInfo.driverName}"/>
+            </div>
+      </div> 
+          <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">车牌号码：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "carCode" value = "${settlementInfo.carCode}"/>
+            </div>
+      </div> 
+      <div class="col-md-4">
+          <div class="input-group  form-item">
+            <label class="input-group-label">
+            <input type="hidden" class="form-control" value = "${sign}"  id = "flag">
+            <input type="hidden" class="form-control" value = "${sign}"  id = "isCompute">
+            
+                <span class="input-text"><span class="full">*</span>是否包车：</span>
+            </label>
+            <select type="text" class="form-control" onchange = "judgeValue()" value = "${settlementInfo.isChartered}" id = "isChartered">
+			  <option value="0"  <#if (((settlementInfo.isChartered)!'') == "0")> selected="selected"</#if> > 否 </option>
+              <option value="1" <#if (((settlementInfo.isChartered)!'') == "1")> selected="selected"</#if> > 是</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4" id = "isProxyModediv">
+          <div class="input-group  form-item">
+            <label class="input-group-label">
+                <span class="input-text"><span class="full">*</span>是否代理：</span>
+            </label>
+              <select  class="form-control" id= "isProxyMode" disabled = "true" value = "${settlementInfo.isProxyMode}" readonly="readonly">
+              <option value="0"  <#if (((settlementInfo.isProxyMode)!'') == "0")> selected="selected"</#if> > 否 </option>
+              <option value="1" <#if (((settlementInfo.isProxyMode)!'') == "1")> selected="selected"</#if> > 是</option>
+              <!-- <option value="2">不可用</option>  -->
+              </select>
+<!--               <input class="form-control" id= "isProxyMode"  value = "${settlementInfo.isProxyMode}" readonly="readonly" >
+ -->            
+          </div>
+        </div>
+          <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">组织部门：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "projectName" value = "${settlementInfo.projectName}"/>
+              <input type="hidden" readonly="readonly" class="form-control" id = "entrustProject" value = "${settlementInfo.projectInfoId}"/>
+              <input type="hidden" readonly="readonly" class="form-control" id = "endPoints"/>
+            </div>
+      </div>
+      <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">委托方：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "entrustName" value = "${settlementInfo.entrustName}"/>
+              <input type="hidden" readonly="readonly" class="form-control" id = "entrust" value = "${settlementInfo.entrust}"/>
+              <input type="hidden" readonly="readonly" class="form-control" id = "entrustOrgRoot">
+              <input type="hidden" id = "planTransportDate" value = "<#if waybillInfo.planTransportDate?exists>${(waybillInfo.planTransportDate)?string('yyyy-MM-dd hh:mm:ss')}</#if>"/>
+           
+            </div>
+      </div>
+      <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">承运方：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "shipperName" value = "${settlementInfo.shipperName}"/>
+              <input type="hidden" readonly="readonly" class="form-control" id = "shipper" value = "${settlementInfo.shipper}"/>
+            </div>
+      </div>
+       <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">货物：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "goodsName" value = "${settlementInfo.goodsName}"/>
+              <input type="hidden" readonly="readonly" class="form-control" id = "goodsInfoId" value = "${settlementInfo.goodsInfoId}"/>
+            </div>
+      </div> 
+       <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">线路：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "lineName" value = "${settlementInfo.lineName}"/>
+              <input type="hidden" readonly="readonly" class="form-control" id = "lineInfoId" value = "${settlementInfo.lineInfoId}"/>
+            </div>
+      </div>
+       <div class="col-md-4" id = "scatteredGoodsdiv">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">零散货物：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "scatteredGoods" value = "${settlementInfo.scatteredGoods}"/>
+            </div>
+      </div>
+      </div>
+  </div>
+  <div class="panel-contet setup2">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">发货单号：</span>
+              </label>
+               <input type="text" class="form-control xz-letter_number" placeholder="请输入发货单号" id = "forwardingId" value = "${settlementInfo.forwardingId}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">到货单号：</span>
+              </label>
+              <input type="text" class="form-control xz-letter_number" placeholder="请输入到货单号" id = "arriveId" value = "${settlementInfo.arriveId}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">司机运单号：</span>
+              </label>
+              <input type="text" class="form-control xz-letter_number" placeholder="请输入司机运单号" id = "driverWaybillId" value = "${settlementInfo.driverWaybillId}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+            <label class="input-group-label">
+                <span class="input-text"><span class="full">*</span>发货吨位：</span>
+            </label>
+            <input type="text" class="form-control xz-digital xz-required" placeholder="请输入发货吨位" id= "forwardingTonnage" value = "${settlementInfo.forwardingTonnage}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text"><span class="full">*</span>到货吨位：</span>
+              </label>
+              <input type="text" class="form-control xz-digital xz-required" placeholder="请输入到货吨位" id = "arriveTonnage" value = "${settlementInfo.arriveTonnage}"/>
+          </div>
+        </div>
+         <div class="col-md-4">
+          <div class="input-group form-item">
+            <label class="input-group-label">
+                <span class="input-text">毛重吨位：</span>
+            </label>
+            <input type="text" class="form-control xz-digital" placeholder="请输入毛重吨位" id = "roughWeightTonnage" value = "${settlementInfo.roughWeightTonnage}"/>
+          </div>
+        </div>
+        <!-- 结算吨位 -->
+              <input type="hidden" class="form-control xz-digital" placeholder="请输入结算吨位" id = "settlementTonnage" value = "${settlementInfo.settlementTonnage}"/>
+         <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text"><span class="full">*</span>发货日期：</span>
+              </label>
+              <input type="text" class="form-control date-time-ss xz-required" placeholder="请输入发货时间" id = "forwardingTime" value = "<#if settlementInfo.forwardingTime?exists>${(settlementInfo.forwardingTime)?string('yyyy-MM-dd hh:mm:ss')}</#if>"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text"><span class="full">*</span>到货日期：</span>
+              </label>
+              <input type="text" class="form-control date-time-ss xz-required" placeholder="请输入到货时间" id = "arriveTime" value ="<#if settlementInfo.arriveTime?exists>${(settlementInfo.arriveTime)?string('yyyy-MM-dd hh:mm:ss')}</#if>" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">保险费：</span>
+              </label>
+              <input type="text" class="form-control xz-digital" placeholder="请输入保险费" id = "insurancePrice" value = "${settlementInfo.insurancePrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4" id = "charteredPricediv">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">包车运费：</span>
+              </label>
+              <input type="text" class="form-control xz-digital" placeholder="请输入包车运费" id = "charteredPrice" value = "${settlementInfo.charteredPrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">客户运费：</span>
+              </label>
+              <input type="text" class="form-control xz-digital" placeholder="请输入客户运费" id = "customerPrice" value = "${settlementInfo.customerPrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">预付款：</span>
+              </label>
+              <input type="text" class="form-control xz-digital" placeholder="请输入预付款" id = "advancePrice" value = "${settlementInfo.advancePrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">工本费：</span>
+              </label>
+              <input type="text" class="form-control xz-digital" placeholder="请输入工本费" id = "costPrice" value = "${settlementInfo.costPrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4" hidden = "hidden">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">代扣税：</span>
+              </label>
+              <input type="text" class="form-control xz-digital" placeholder="请输入代扣税" id = "withholdingTax" value = "${settlementInfo.withholdingTax}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">单车保险：</span>
+              </label>
+              <input type="text" class="form-control xz-digital" placeholder="请输入单车保险" id = "singleCarInsurance" value = "${settlementInfo.singleCarInsurance}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">其他扣款：</span>
+              </label>
+              <input type="text" class="form-control xz-digital" placeholder="请输入其他扣款" id = "otherPrice" value = "${settlementInfo.otherPrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+            <label class="input-group-label">
+                <span class="input-text">回单人：</span>
+            </label>
+            <input type="text" class="form-control" readonly="readonly" placeholder="请输入回单人" id = "returnSingleUser" value = "${returnSingleUser}"/>
+          </div>
+        </div>
+         <div class="col-md-4">
+          <div class="input-group form-item">
+            <label class="input-group-label">
+                <span class="input-text"><span class="full">*</span>是否报销：</span>
+            </label>
+            <select type="text" class="form-control select-input" id="isExpense" name="settlementInfo.isExpense" value="${settlementInfo.isExpense}" onchange="selectExpense()">
+              <option value="0" <#if settlementInfo?exists && settlementInfo.isExpense==0>selected</#if>>否</option>
+              <option value="1" <#if settlementInfo?exists && settlementInfo.isExpense==1>selected</#if>>是</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4" hidden="hidden" id="expensePriceDiv">
+          <div class="input-group form-item">
+              <label class="input-group-label">
+                  <span class="input-text">报销金额：</span>
+              </label>
+              <input type="text" id="expensePrice" name="settlementInfo.expensePrice" class="form-control" placeholder="请输入报销金额" value="${settlementInfo.expensePrice}">
+          </div>
+        </div>
+        <div class="col-md-4" hidden="hidden" id="expenseTypeDiv">
+          <div class="input-group">
+            <label class="input-group-label">
+                <span class="input-text"><span class="full">*</span>报销类型：</span>
+            </label>
+            <select type="text" class="form-control select-input" id="expenseType" name="settlementInfo.expenseType" value="${settlementInfo.expenseType}">
+              <option value="1" <#if settlementInfo?exists && settlementInfo.expenseType==1>selected</#if>>燃油</option>
+              <option value="2" <#if settlementInfo?exists && settlementInfo.expenseType==2>selected</#if>>燃气</option>
+            </select>
+          </div>
+        </div>
+          <div class="col-md-4" id="couponInfoDiv">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">有价券使用金额：</span>
+              </label>
+              <input type="text" id="couponMoney" value = "${settlementInfo.couponUseTotalPrice}" onclick="couponSelect(1)" class="form-control search-padding">
+              <!-- <input type="text" id="taxRate" value = "${waybillInfo.taxRate}" /> -->
+            <!--   修改信息是所用的结算信息ID主键 -->
+              <input type="hidden" id = "editId" value = "${settlementInfo.id}"/>
+              <div class="input-search-icon"></div>
+          </div>
+        </div>
+           <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">当前运价：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "currentTransportPrice" value = "${settlementInfo.currentTransportPrice}">
+            </div>
+      </div>
+      <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">公路通行费：</span>
+              </label>
+              <input type="text" class="form-control" id = "highwayToll" value = "${settlementInfo.highwayToll}">
+            </div>
+      </div>
+      <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">高速公路通行费：</span>
+              </label>
+              <input type="text"  class="form-control" id = "superHighwayToll" value = "${settlementInfo.superHighwayToll}">
+            </div>
+      </div>
+      <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">财政通行费：</span>
+              </label>
+              <input type="text" class="form-control" id = "otherToll" value = "${settlementInfo.otherToll}">
+            </div>
+      </div>
+       <div class="col-md-12">
+          <div class="input-group  form-item" style = "margin-bottom: 20px;">
+              <label class="input-group-label">
+                  <span class="input-text">有价券卡号：</span>
+              </label>
+              <textarea class="form-control textarea" readonly = "readonly" id = "cardCode" >${settlementInfo.cardCode}</textarea>
+          </div>
+        </div>
+        <br/><br/><br/><br/>
+        <div class="col-md-12">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">备注：</span>
+              </label>
+              <textarea class="form-control textarea" placeholder="请输入备注" id = "remarks" >${settlementInfo.remarks}</textarea>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="panel-contet setup3">
+    <div class="row">
+       <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">本次付款：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "thisPayPrice" value = "${settlementInfo.thisPayPrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">扣损吨位：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "lossTonnage" value = "${settlementInfo.lossTonnage}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">扣损金额：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "deductionPrice" value = "${settlementInfo.deductionPrice}"/>
+          </div>
+        </div>
+         <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">应付运费：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "payablePrice" value = "${settlementInfo.payablePrice}"/>
+          </div>
+        </div>
+         <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">实付金额：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "actualPaymentPrice" value = "${settlementInfo.actualPaymentPrice}"/>
+          </div>
+        </div>
+            <div class="col-md-4" id = "proxyNamediv">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">承运商：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "proxyName" value = "${settlementInfo.proxyName}"/>
+              <input type="hidden" readonly="readonly" class="form-control" id = "proxy" value = "${settlementInfo.proxy}"/>
+            </div>
+      </div>
+        <div class="col-md-4" id = "proxyInvoiceTotaldiv">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">承运商金额：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "proxyInvoiceTotal" value = "${settlementInfo.proxyInvoiceTotal}"/>
+            </div>
+      </div>
+       <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">运费成本：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "transportPriceCost" value = "${settlementInfo.transportPriceCost}"/>
+          </div>
+        </div>
+      <div class="col-md-4" hidden = "hidden">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">扣款吨位：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "deductionTonnage" value = "${settlementInfo.deductionTonnage}"/>
+            </div>
+      </div>
+      <div class="col-md-4" hidden = "hidden">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">扣损单价：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "deductionUnitPrice" value = "${settlementInfo.deductionUnitPrice}"/>
+            </div>
+      </div>
+    
+      <div class="col-md-4" hidden = "hidden">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">核算主体：</span>
+              </label>
+              <input type="text" readonly="readonly"  class="form-control" id = "accountingEntityName" value = "${settlementInfo.accountingEntityName}"/>
+              <input type="hidden" readonly="readonly"  class="form-control" id = "accountingEntity" value = "${settlementInfo.accountingEntity}"/>
+          </div>
+        </div>
+      <!--  <input type="hidden" readonly="readonly"  class="form-control" id = "overallTaxRate" value = "${waybillInfo.overallTaxRate}"/>
+       <input type="hidden" readonly="readonly"  class="form-control" id = "withholdingTaxRate" value ="${waybillInfo.withholdingTaxRate}">
+       <input type="hidden" readonly="readonly"  class="form-control" id = "incomeTaxRate" value ="${waybillInfo.incomeTaxRate}">  
+       <input type="hidden" readonly="readonly"  class="form-control" id = "individualIncomeTax" value = "${waybillInfo.individualIncomeTax}"> 
+       <input type="hidden"  id="selectFormula"  readonly="readonly" value = "${settlementInfo.settlementFormulaDetailId}" class="form-control search-padding"> -->
+        
+     <!--  <div class="col-md-4">
+            <div class="input-group">
+              <label class="input-group-label">
+                  <span class="input-text">有价券金额：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "couponMoney">
+            </div>
+      </div> -->
+       <!--  <div class="col-md-4">
+          <div class="input-group">
+              <label class="input-group-label">
+                  <span class="input-text">综合税率：</span>
+              </label>
+              <input type="text" readonly="readonly"  class="form-control" id = "overallTaxRate" value = "${settlementInfo.forwardingTonnage}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+              <label class="input-group-label">
+                  <span class="input-text">企业代扣税税率：</span>
+              </label>
+              <input type="text" readonly="readonly"  class="form-control" id = "withholdingTaxRate">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+              <label class="input-group-label">
+                  <span class="input-text">司机运费进项税税率：</span>
+              </label>
+              <input type="text" readonly="readonly"  class="form-control" id = "incomeTaxRate">
+          </div>
+        </div> -->
+        <div class="col-md-4" hidden = "hidden">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">承运方运费：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "shipperPrice" value = "${settlementInfo.shipperPrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">其他税费：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "otherTaxPrice" value = "${settlementInfo.otherTaxPrice}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">运费进项税：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "transportPriceIncomeTax" value = "${settlementInfo.transportPriceIncomeTax}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">进项税：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "incomeTax" value = "${settlementInfo.incomeTax}"/>
+          </div>
+        </div>
+           <div class="col-md-4" id = "outputTaxDiv">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">销项税：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "outputTax" value = "${settlementInfo.outputTax}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">公路进项税：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "highwayInputTax" value = "${settlementInfo.highwayInputTax}"/>
+              <input type="hidden" class="form-control"  id = "driverUserRole" value = "${settlementInfo.driverUserRole}"/>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">高速公路进项税：</span>
+              </label>
+              <input type="text" class="form-control" readonly="readonly" id = "superHighwayInputTax" value = "${settlementInfo.superHighwayInputTax}"/>
+          </div>
+        </div>
+         <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">发货单位：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "forwardingUnit" value = "${settlementInfo.forwardingUnit}"/>
+              <input type="hidden" class="form-control" readonly="readonly" id = "couponIncomeTax" value = "${settlementInfo.couponIncomeTax}"/>
+            
+            </div>
+      </div> 
+      <div class="col-md-4">
+            <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text">到货单位：</span>
+              </label>
+              <input type="text" readonly="readonly" class="form-control" id = "consignee" value = "${settlementInfo.consignee}"/>
+            </div>
+      </div>
+      <!--   <div class="col-md-5">
+          <div class="input-group  form-item">
+              <label class="input-group-label">
+                  <span class="input-text"><span class="full">*</span>附件上传：</span>
+              </label>
+              <input id="fileText" type="text" class="form-control" readonly="readonly" value="${settlementInfo.settlementImg}" />
+              <input id="fileType" type="hidden" class="form-control" value = "${settlementInfo.settlementImg}"/>
+              <label class="input-group-file">
+                  <div class="file-btn" file-type="fileType" file-text="fileText"></div>
+                  <span class="file-icon"></span>
+                  <span class="input-text">上传附件</span>
+              </label>
+          </div>
+        </div> -->
+    </div>
+  </div>
+  <div class="panel-content setup5">
+     <div class="row">
+       <div class="col-md-12">
+          <div class="text-center">
+            <button class="view-button" id = "lookAttachment" onclick = "viewAttachment()">查看附件</button>
+            <button class="save-button" onclick = "computeButton()">计算并保存</button>
+            <!-- <button class="save-button" onclick = "saveSettlementInfo()">计算并保存</button> -->
+            <button class="close-button" onclick="history.go(-1)">取消</button>
+          </div>
+       </div>
+     </div>
+  </div>
+</div>
+
+</main>
+<!-- 模态框 有价卷查询选择-->
+<div class="modal fade" id="couponSelectModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          有价券选择
+        </h4>
+      </div>
+      <div class="modal-body">
+       <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+              <div class="both-row row">
+                <div class="search-box">
+                  <div class="input-lable">有价券卡号</div>
+                  <div class="input-text">
+                    <input class="input" placeholder="请输入有价券卡号" type="text" id = "mhcardCode"/>
+                  </div>
+                </div>
+           <!--      <div class="search-box">
+            <div class="input-lable">有价劵类型</div>
+            <div class="input-text">
+              <select class="input" id = "mhcouponType">
+               <option value="">请选择</option>
+              <option value="燃油">燃油</option>
+              <option value="燃气卡">燃气卡</option>
+              </select>
+            </div>
+          </div> -->
+              </div>
+            </div>
+            <div class="search-button-box">
+              <button class="search-button" id = "selectCounponInfo">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-table row">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px" id = "couponTable">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;"></th>
+                <th>领用单号</th>
+                <th>有价券卡号</th>
+                <th>有价劵名称</th>
+                <th>使用金额(可编辑)</th>
+                <th>余额</th>
+                <th>领用金额</th>
+                <th>有价券类型</th>
+                <th>进项税税率</th>
+              </tr>
+            </thead>
+            <tbody id = "couponTbody">
+              <!-- <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                      <input data-id="1" data-name="00000001" class="coupon-check" type="checkbox">
+                    </label>
+                </td>
+                <td>有价劵编号</td>
+                <td>有价劵所属机构</td>
+                <td>领用金额</td>
+                <td>有价券类型</td>
+                <td>进项税税率</td>
+              </tr>
+              <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                      <input data-id="2" data-name="00000002" class="coupon-check" type="checkbox">
+                    </label>
+                </td>
+                <td>有价劵编号</td>
+                <td>有价劵所属机构</td>
+                <td>领用金额</td>
+                <td>有价券类型</td>
+                <td>进项税税率</td>
+              </tr> -->
+            </tbody>
+          </table>
+          <div class="panel-pagination">
+            <div class="panel-num">搜索相关结果共<span id="couponNum">0</span>条</div>
+            <div id="couponPage" class="pagination-list"></div>
+            <div class="pagination-input">到
+              <input type="text" />页</div>
+            <div class="pagination-button" onclick="couponSlect(this)">确定</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectCoupon()">保存</button>
+        <button class="close-button" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 模态框 结算公式选择-->
+<!-- <div class="modal fade" id="formulaSelectModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          结算公式编号
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-table row">
+          <table width="100%" class="table-bule table-ellipsis" style="margin-top:8px">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;"></th>
+                <th>结算公式编号</th>
+                <th>核算主体</th>
+                <th>综合税率</th>
+                <th>企业代扣税税率</th>
+                <th>司机运费进项税税率</th>
+              </tr>
+            </thead>
+            <tbody id = "formulaTbody">
+            </tbody>
+          </table>
+          <div class="panel-pagination">
+            <div class="panel-num">搜索相关结果共<span id="formulaNum">0</span>条</div>
+            <div id="formulaPage" class="pagination-list"></div>
+            <div class="pagination-input">到
+              <input type="text" />页</div>
+            <div class="pagination-button" onclick="formulaSlect(this)">确定</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectFormula()">保存</button>
+        <button class="close-button" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- 模态框 运单编号选择-->
+<div class="modal fade" id="waybillSelectModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:96%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          运单编号选择
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="search-from">
+          <form onsubmit="return false">
+            <div class="search-row-box">
+        <div class="both-row row">
+          <div class="search-box">
+            <div class="input-lable">委托方</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入委托方" type="text" id = "mhentrustName"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">承运方</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入承运方" type="text" id = "mhshipperName"/>
+            </div>
+          </div>
+           <div class="search-box">
+            <div class="input-lable">货物</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入货物名称" type="text" id = "mhgoodsName"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">零散货物</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入零散货物" type="text" id = "mhscatteredGoods"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">车牌号码</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入车牌号码" type="text" id = "mhcarCode"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">发货单位</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入发货单位" type="text" id = "mhforwardingUnit"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">到货单位</div>
+            <div class="input-text">
+              <input class="input" placeholder="请输入到货单位" type="text" id="mhconsignee"/>
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">制单日期</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mhcreateTime" />
+            </div>
+            <div class="input-line">—</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mhcreateTime1" />
+            </div>
+          </div>
+          <div class="search-box">
+            <div class="input-lable">发货日期</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mhforwardingTime" />
+            </div>
+            <div class="input-lable" style= "width:70px"><div class="input-line">—</div>到货日期</div>
+            <div class="input-text time-input">
+              <input class="input date-time" type="text" id = "mharriveTime" />
+            </div>
+          </div>
+        </div>
+      </div>
+            <div class="search-button-box">
+              <button class="search-button" id = "serachWaybillInfo">
+                <div class="search-icon"></div>
+                <div class="text">查询</div>
+              </button>
+              <button class="search-button" type="reset">
+                <div class="reset-icon"></div>
+                <div class="text">重置</div>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-table row">
+          <div class="iscroll-waybill">
+          <table class="table-bule table-ellipsis" style="margin-top:8px;min-width:2500px" id = "waybillTable">
+            <thead>
+              <tr class="table-title">
+                <th style="width:40px;"></th>
+                <th>运单编号</th>
+                <th>父运单编号</th>
+                <th>主运单编号</th>
+                <th>车牌号</th>
+                <th>委托方</th>
+                <th>承运方</th>
+                <th>司机名称</th>
+                <th>发货吨位</th>
+                <th>到货吨位</th>
+                <th>发货时间</th>
+                <th>到货时间</th>
+                <!-- <th>司机用户角色</th> -->
+                <th>货物</th>
+                <th>零散货物</th>
+                <th>线路</th>
+                <th>发货单位</th>
+                <th>到货单位</th>
+                <!-- <th>委托方项目</th> -->
+                <th>预付款金额（元）</th>
+                <!-- <th>计算方式</th>
+                <th>定损方式</th>
+                <th>合理损耗比例（%）</th>
+                <th>是否倒扣</th>
+                <th>合理损耗吨位（吨）</th> -->
+                <th>损耗扣款价格（元）</th>
+                <th>当前运价</th>
+                <th>中标方价格</th>
+                <th>是否代理模式</th>
+                <th>运单分类</th>
+                <th>运单类型</th>
+                <th>发布方式</th>
+              </tr>
+            </thead>
+            <tbody id= "wayBillTable">
+              <!-- <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                      <input data-id="1" data-name="00000001" class="waybill-check" type="checkbox">
+                    </label>
+                </td>
+                <td>运单编号</td>
+                <td>委托方</th>
+                <td>运单状态</td>
+                <td>运单分类</td>
+              </tr>
+              <tr class="table-body ">
+                <td>
+                  <label class="i-checks">
+                      <input data-id="2" data-name="00000002" class="waybill-check" type="checkbox">
+                    </label>
+                </td>
+                <td>运单编号</td>
+                <td>委托方</th>
+                <td>运单状态</td>
+                <td>运单分类</td>
+              </tr> -->
+            </tbody>
+          </table>
+          </div>
+          <div class="panel-pagination">
+            <div class="panel-num">搜索相关结果共<span id="waybillNum">0</span>条</div>
+            <div id="waybillPage" class="pagination-list"></div>
+            <div class="pagination-input">到
+              <input type="text" />页</div>
+            <div class="pagination-button" onclick="waybillSlect(this)">确定</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-button" onclick="submitSelectWaybill()">保存</button>
+        <button class="close-button" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 查看附件弹框 -->
+<div class="modal fade" id="lookDocModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width:100%">
+    <div class="modal-content" style="width:720px;height:500px;margin-left: 24%;">
+      <div class="modal-header">
+        <div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+        <h4 class="modal-title">
+          查看附件
+        </h4>
+           </div>
+     
+		          		<div class="input-lable" style = "margin: 10px 0 10px 30px;float:left"><font size = "+1">装货磅单照片：</div>
+		          		<div class="from-both-box" id = "loadingDiv" style = "float:left;margin-left:30px">
+						</div>  
+					
+							<div class="input-lable" style = "margin: 20px 0 10px 30px;float:left">在途磅单照片：</div>
+						<div class="from-both-box" id = "onpassageDiv" style = "float:left;margin-left:30px;">
+						</div>
+						<div class="input-lable" style = "margin: 20px 0 10px 30px;float:left">卸货磅单照片：</div>
+		          		<div class="from-both-box" id="unloadingDiv" style = "float:left;margin-left:30px">
+		          		</div>
+		        	</div>
+    </div>
+  </div>
+</div>
+	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/xjValidate.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/settlementInfo/settlement_losses_add.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/settlementInfo/viewer.js"></script>
+</html>

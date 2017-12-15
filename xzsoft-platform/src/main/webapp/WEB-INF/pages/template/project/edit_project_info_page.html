@@ -1,0 +1,72 @@
+<!-- 项目信息新增、修改模态框 -->
+<div id="project-info">
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="couponTypeModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close project-info-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="driverModalLabel">${operateTitle}</h4>
+				</div>
+				<div class="modal-body">
+					<form id="project_info_form">
+						<input id="hidden_coupon_type_id" type="hidden" name="projectInfoPo.id" value="${projectInfoPo.id}">
+						<!-- 组织信息展示 -->
+						<div id="show-org-data-info" class="modal-open"></div>
+						<div class="model-from">
+								<div class="group-box">
+									<div class="input-lable">
+										<span>*</span>项目编号：
+									</div>
+									<div class="input-text">
+										<input id="project_id" name="projectInfoPo.projectId" class="input" placeholder="请输入项目编号" type="text" value="${projectInfoPo.projectId}" />
+									</div>
+								</div>
+								<div class="group-box">
+									<div class="input-lable">
+										<span>*</span>项目名称：
+									</div>
+									<div class="input-text">
+										<input id="project_name" name="projectInfoPo.projectName" class="input" placeholder="请输入项目名称" type="text" value="${projectInfoPo.projectName}" />
+									</div>
+								</div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>组织名称：</div>
+				              	<div class="input-text">
+										<input id="orgName" class="input" type="text" onclick="showOrgInfoPage()" value="${projectInfoPo.orgInfoName}" readonly="readonly"/>
+										<input id="org_info_id" name="projectInfoPo.orgInfoId" class="input" type="hidden" value="${projectInfoPo.orgInfoId}"/>
+			              		</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>上级组织：</div>
+				              	<div class="input-text">
+										<input id="orgParentName" class="input" type="text" readonly="readonly" value="${projectInfoPo.parentOrgName}"/>
+										<input id="orgParentId" name="projectInfoPo.parentOrgInfoId" class="input" type="hidden" value="${projectInfoPo.parentOrgInfoId}"/>
+			              		</div>
+				            </div>
+<!-- 								<div class="group-box"> -->
+<!-- 									<div class="input-lable"> -->
+<!-- 										<span>*</span>所属组织： -->
+<!-- 									</div> -->
+<!-- 									<div class="input-text"> -->
+<!-- 										<select id="org_info_id" class="input" name="projectInfoPo.orgInfoId"> -->
+<!-- 											<option value="">请选择</option> -->
+<!-- 											<#if orgInfoList?exists>  -->
+<!-- 												<#list orgInfoList as orgInfo> -->
+<!-- 													<option value="${orgInfo.id}" <#if orgInfo.id == projectInfoPo.orgInfoId>selected</#if>>${orgInfo.orgName}</option> -->
+<!-- 												</#list> -->
+<!-- 											</#if> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onClick="saveProjectInfo()">保存</button>
+					<button class="close-button project-info-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

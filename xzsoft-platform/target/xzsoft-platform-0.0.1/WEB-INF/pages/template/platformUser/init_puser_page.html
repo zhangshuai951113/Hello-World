@@ -1,0 +1,50 @@
+<!--模态框 -->
+<div id="puser-data-info" >
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="puserModalLabel" aria-hidden="true" style="display:block">
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close puser-info-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="puserModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+	      			<form id="puser_form">
+		      			<input id="hidden_user_puser_id" type="hidden" name="userInfo.id" value="${puser.id}">
+		        		<div id="puser-tab" class="tab-content">
+		          			<div class="model-from">
+			            		<div class="group-box">
+				              		<div class="input-lable"><span>*</span>登录账号：</div>
+				              		<div class="input-text">
+				                		<input id="puser_user_name" name="userInfo.userName" class="input" placeholder="请输入登录账号" type="text" value="${puser.userName}"/>
+				              		</div>
+			            		</div>
+			            		<#if operateType?exists && operateType==2>
+			            		
+			            		<#else>
+			            		<div class="group-box">
+				              		<div class="input-lable"><span>*</span>密码：</div>
+				              		<div class="input-text">
+				                		<input id="puser_password" name="userInfo.password" class="input" placeholder="请输入密码" type="password" />
+				              		</div>
+			            		</div>
+			            		</#if>
+			            		
+			            		<div class="group-box">
+			              			<div class="input-lable"><span>*</span>手机号码：</div>
+			              			<div class="input-text">
+			                			<input id="puser_mobile_phone" name="userInfo.mobilePhone" class="input" placeholder="请输入手机号码" type="text" value="${puser.mobilePhone}"/>
+			              			</div>
+			            		</div>
+		          			</div>
+		        		</div>
+	        		</form>
+	      		</div>
+	      		<div class="modal-footer">
+	        		<button class="save-button" onClick="addOrUpdatePuser()">保存</button>
+	        		<button class="close-button puser-info-opt-close" data-dismiss="modal">取消</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

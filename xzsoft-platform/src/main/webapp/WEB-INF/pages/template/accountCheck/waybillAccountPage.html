@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>对账信息</title> <#include "../../common/common_header.html" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/search.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/table.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/from-both.css" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/modal.css" >
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/tab.css" >
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/datetimepicker.css"  />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/contract/contract-manage.css" />
+</head>
+<style type="text/css">
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar
+	{
+	height: 8px;
+}
+</style>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main" id="mainPage">
+		<div class="tab-box">
+			<div class="tab-text active" data-target="#account-check-info-tab">对账单信息</div>
+			<div class="tab-text" data-target="#waybill-info-tab">运单列表</div>
+		</div>
+
+		<!-- 对账单tab -->
+		<div id="account-check-info-tab" class="tab-content"
+			style="display: block">
+			<div class="panel">
+				<form id="account_check_info_form" name="myForm"
+					onsubmit="return false">
+					<div class="from-body">
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>对账编号：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="account_check_id"
+										name="accountCheckInfo.accountCheckId" readonly="readonly"
+										style="background: #eee" type="text"
+										value="${accountCheckInfo.accountCheckId}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>确认账款：</div>
+								<div class="input-text">
+									<input class="input" id="confirm_price"
+										name="accountCheckInfo.confirmPrice" required
+										placeholder="请输入确认账款" type="number"
+										value="${accountCheckInfo.confirmPrice}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">确认发货吨位：</div>
+								<div class="input-text">
+									<input class="input" id="confirm_forwarding_tonnage"
+										name="accountCheckInfo.confirmForwardingTonnage"
+										placeholder="请输入确认发货吨位" type="number"
+										value="${accountCheckInfo.confirmForwardingTonnage}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>确认到货吨位：</div>
+								<div class="input-text">
+									<input class="input" id="confirm_arrive_tonnage" required
+										name="accountCheckInfo.confirmArriveTonnage"
+										placeholder="请输入确认到货吨位" type="number"
+										value="${accountCheckInfo.confirmArriveTonnage}" />
+								</div>
+							</div>
+
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>确认损耗吨位：</div>
+								<div class="input-text">
+									<input class="input" id="confirm_loss_tonnage" required
+										name="accountCheckInfo.confirmLossTonnage"
+										placeholder="请输入确认损耗吨位" type="number"
+										value="${accountCheckInfo.confirmLossTonnage}" />
+								</div>
+							</div>
+
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>确认出车次数：</div>
+								<div class="input-text">
+									<input class="input" id="confirm_out_car"
+										name="accountCheckInfo.confirmOutCar" placeholder="请输入确认出车次数"
+										type="number" value="${accountCheckInfo.confirmOutCar}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>损耗差异：</div>
+								<div class="input-text">
+									<input class="input" id="loss_difference"
+										name="accountCheckInfo.lossDifference" placeholder="请输入损耗差异"
+										type="number" value="${accountCheckInfo.lossDifference}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>其它差异：</div>
+								<div class="input-text">
+									<input class="input" id="other_difference"
+										name="accountCheckInfo.otherDifference" placeholder="请输入其它差异"
+										type="number" value="${accountCheckInfo.otherDifference}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>收入税率：</div>
+								<div class="input-text">
+									<input class="input" id="income_tax_rate"
+										name="accountCheckInfo.incomeTaxRate" placeholder="请输入收入税率"
+										type="number" value="${accountCheckInfo.incomeTaxRate}" />
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-textarea">
+								<div class="input-lable">备注：</div>
+								<div class="input-textarea">
+									<textarea id="remarks" name="accountCheckInfo.remarks">${accountCheckInfo.remarks}</textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">差异收入：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="difference_income"
+										name="accountCheckInfo.differenceIncome" readonly="readonly"
+										style="background: #eee" type="number" 
+										value=
+											<#if accountCheckInfo.differenceIncome?exists>
+												${accountCheckInfo.differenceIncome}
+											<#else>0
+											</#if>
+									/>
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">应收总额（客户）：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="receivable_total"
+										name="accountCheckInfo.receivableTotal" readonly="readonly"
+										style="background: #eee" type="number"
+										value="${accountCheckInfo.receivableTotal}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">应付总额（物流/司机）：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="payable_total"
+										name="accountCheckInfo.payableTotal" readonly="readonly"
+										style="background: #eee" type="number"
+										value="${accountCheckInfo.payableTotal}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">代开总额：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="proxy_invoice_total"
+										name="accountCheckInfo.proxyInvoiceTotal" readonly="readonly"
+										style="background: #eee" type="number"
+										value="${accountCheckInfo.proxyInvoiceTotal}" />
+								</div>
+							</div>
+
+							<div class="group-box">
+								<div class="input-lable">出车数：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="out_car"
+										name="accountCheckInfo.outCar" readonly="readonly"
+										style="background: #eee" type="number"
+										value="${accountCheckInfo.outCar}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">单据总数：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="documents_total"
+										name="accountCheckInfo.documentsTotal" readonly="readonly"
+										style="background: #eee" type="number"
+										value="${accountCheckInfo.documentsTotal}" />
+								</div>
+							</div>
+
+
+							<div class="group-box">
+								<div class="input-lable">发货吨位：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="forwarding_tonnage"
+										name="accountCheckInfo.forwardingTonnage" readonly="readonly"
+										style="background: #eee" type="number"
+										value="${accountCheckInfo.forwardingTonnage}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">到货吨位：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="arrive_tonnage"
+										name="accountCheckInfo.arriveTonnage" readonly="readonly"
+										style="background: #eee" type="number"
+										value="${accountCheckInfo.arriveTonnage}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">损耗吨位：</div>
+								<div class="input-text" style="background: #eee">
+									<input class="input" id="loss_tonnage"
+										name="accountCheckInfo.lossTonnage" readonly="readonly"
+										style="background: #eee" type="number"
+										value="${accountCheckInfo.lossTonnage}" />
+								</div>
+							</div>
+
+							<input class="input" id="settlementinfoids"
+								name="accountCheckInfo.settlementInfoIds" hidden="true"
+								style="background: #eee" type="text" value="" /> 
+							<input
+								class="input" id="hidden_id" name="accountCheckInfo.id"
+								hidden="true" style="background: #eee" type="text"
+								value="${accountCheckInfo.id}" />
+
+						</div>
+					</div>
+				</form>
+				<div class="from-both-box">
+					<div class="button-center"> 
+						<button class="from-save-button" style="position:relative;">
+					     	<div id="importWaybillBtn"  style="width:100%;height: 100%;position: absolute;"></div>
+				            <div class="operation-text">导入运单</div>
+					    </button>
+						<button class="from-save-button" style="position: relative;"
+							ng-disabled="myForm.$invalid" onclick="saveAccountCheckInfo()">
+							<div id="importSettlementBtn"
+								style="width: 100%; height: 100%; position: absolute;"
+								hidden="true"></div>
+							<div class="operation-text">保存</div>
+						</button>
+						<button class="from-logout-button" style="position: relative;"
+							onclick="history.go(-1);">
+							<div id="importSettlementBtn"
+								style="width: 100%; height: 100%; position: absolute;"
+								hidden="true"></div>
+							<div class="operation-text">返回</div>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 运单tab -->
+		<div id="waybill-info-tab" class="tab-content">
+			<div class="panel">
+				<div class="search-panel row">
+					<div class="search-from">
+						<form onsubmit="return false" id="waybillQueryForm">
+							<div class="search-row-box">
+								<div class="both-row row">
+									<div class="search-box">
+										<div class="input-lable">运单号</div>
+										<div class="input-text">
+											<input id="waybillId" name="waybillId" class="input" type="text" />
+										</div>
+									</div>
+									<div class="search-box">
+										<div class="input-lable">委托方</div>
+										<div class="input-text">
+											<input id="entrustName" name="entrustName" class="input" type="text" />
+										</div>
+									</div>
+									<div class="search-box">
+										<div class="input-lable">货物</div>
+										<div class="input-text">
+											<input id="goodsName" name="goodsName" class="input" type="text" />
+										</div>
+									</div>
+									<div class="search-box">
+										<div class="input-lable">线路起点</div>
+										<div class="input-text">
+											<input id="startPoint" name="startPoint" class="input" type="text" />
+										</div>
+									</div>
+									<div class="search-box">
+										<div class="input-lable">线路终点</div>
+										<div class="input-text">
+											<input id="endPoint" name="endPoint" class="input" type="text" />
+										</div>
+									</div>
+									<div class="search-box">
+										<div class="input-lable">发货单位</div>
+										<div class="input-text">
+											<input id="forwardingUnit" name="forwardingUnit" class="input" type="text" />
+										</div>
+									</div>
+									<div class="search-box">
+										<div class="input-lable">到货单位</div>
+										<div class="input-text">
+											<input id="consignee" name="consignee" class="input" type="text" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="search-button-box">
+								<button class="search-button" onclick="loadWaybillList(1)">
+									<div class="search-icon"></div>
+									<div class="text">查询</div>
+								</button>
+								<button class="search-button" type="reset" onclick="resetButton()">
+									<div class="reset-icon"></div>
+									<div class="text">重置</div>
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- toolbar -->
+				<div class="row">
+				<div class="operation-tab row">					 
+					<button id="exportBtn" class="operation-button operation-blue" onclick="exportWaybill()">
+						<div class="export-icon"></div>
+						<div class="operation-text">导出</div>
+					</button>				
+				</div>
+			</div>
+				<!-- 运单列表 -->
+				<div style="width: 100%; overflow-x: auto; overflow-y: hidden;">
+					<table class="table-bule  table-ellipsis" style="min-width: 1672px" id="waybillTable">
+						<thead>
+							<tr class="table-title">
+								<th style="width: 40px;">
+									<label class="i-checks"> 
+										<input class="all_check" name="all" type="checkbox"><i></i>
+									</label>
+								</th>
+								<th>运单号</th>
+								<th>计划拉运日期</th>
+								<th>计划拉运量</th>
+								<th>委托方</th>
+								<th>货物</th>
+								<th>线路起点</th>
+								<th>线路终点</th>
+								<th>发货单位</th>
+								<th>到货单位</th>
+								<th>运价</th>
+								<th>发货日期</th>
+								<th>到货日期</th>
+								<th>发货吨位</th>
+								<th>到货吨位</th>
+							</tr>
+						</thead>
+						<tbody id="waybillTbody">
+
+						</tbody>
+					</table>
+				</div>
+				<div class="panel-pagination">
+					<div class="panel-num">
+						搜索相关结果共<span id="waybillNum">0</span>条
+					</div>
+					<div id="waybillPage" class="pagination-list"></div>
+					<div class="pagination-input">
+						到<input type="text" />页
+					</div>
+					<div class="pagination-button" onclick="waybillListJump(this)">确定</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- 表单提交形式 -->
+		<form id="submitForm" action="" method="post"></form>
+		
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/accountCheck/waybillAccountPage.js"></script>
+</html>

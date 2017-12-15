@@ -1,0 +1,72 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:1110px;">
+			
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeEvalplate()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					评价
+				</h4>
+			</div>
+			<div class="modal-body">
+			
+			<!-- 表格 -->
+			<div class="panel">
+			<div id="show_goods_info"></div>
+				<div class="panel-table">
+				 <table style = "height: 80px;margin-left: 187px;">
+				<tbody id = "showModalEvaluationDetailTbody" style = "font-size:16px;">
+				
+				</tbody>
+				</table>
+				    <table class="table-bule" id="tableDrag1">
+				      <thead>
+				        <tr class="table-title">
+				          <th  style='display:none'></th>
+			              <th>序号</th>
+				          <th>考核项目</th>
+				          <th>权重</th>
+				          <th>目标值要求</th>
+				          <th>评分等级</th>
+				          <th>评分(100分制)</th>
+				        </tr>
+				      </thead>
+				      <tbody id="evaluateTBody">
+				       
+				      </tbody>
+				    </table>
+				</div>
+				
+				<div class="from-both-box remarks-from-box" style="margin-left:108px">
+		        	<div class="group-textarea">
+			          	<div class="input-lable">综合评价：</div>
+			          	<div class="input-textarea">
+			            	<textarea id="ComprehensiveEvaluation" name=""></textarea>
+			          	</div>
+		        	</div>
+		      	</div>
+				
+				<!-- 分页 -->
+				 <div class="panel-pagination">
+				      <div id="evaluationEvaluate-num" class="panel-num">搜索相关结果共0条</div>
+				      <div class="pagination-list" id="evaluate-list"></div>
+				      <div class="pagination-input">到
+				        <input type="text" />页</div>
+				      <div class="pagination-button" onclick="jumpEvaluatePage(this)">确定</div>
+				  </div> 
+			</div>
+			</div>
+			<div class="modal-footer">
+		        <button class="save-button" onclick="saveEvalplate('evaluateTBody')">评价</button>
+		        <button class="close-button"  onclick="closeEvalplate()">取消</button>
+		    </div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>

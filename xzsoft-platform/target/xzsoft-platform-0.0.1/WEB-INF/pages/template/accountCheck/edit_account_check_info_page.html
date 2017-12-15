@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>对账信息</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/tab.css" type="text/css">
+<link rel="stylesheet" href="${basePath}/static/css/common/datetimepicker.css" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/contract/contract-manage.css" type="text/css" />
+</head>
+<style type="text/css">
+.mCSB_scrollTools.mCSB_scrollTools_horizontal .mCSB_dragger .mCSB_dragger_bar{
+	  	    height: 8px;
+	  	  }
+</style>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+	<div class="main-body">
+		<#include "../../common/common_menu.html" />
+		<!-- 内容 -->
+		<main class="main" id="mainPage">
+		<div class="tab-box">
+			<div class="tab-text active" data-target="#account-check-info-tab" onclick="">对账单信息</div>
+			<div class="tab-text" data-target="#settlement-info-tab" onclick="">结算单列表</div>
+		</div>
+
+		<div id="account-check-info-tab" class="tab-content" style="display: block">
+			<div class="panel">
+				<form id="account_check_info_form" name="myForm" onsubmit="return false">
+					<div class="from-body">
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>对账编号：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="account_check_id" name="accountCheckInfo.accountCheckId" readonly="readonly" style="background:#eee" type="text" value="${accountCheckInfo.accountCheckId}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>确认账款：</div>
+								<div class="input-text" >
+									<input class="input" id="confirm_price" name="accountCheckInfo.confirmPrice" required placeholder="请输入确认账款" type="number" value="${accountCheckInfo.confirmPrice}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable" ><span>*</span>确认发货吨位：</div>
+								<div class="input-text" >
+									<input class="input" id="confirm_forwarding_tonnage" name="accountCheckInfo.confirmForwardingTonnage"  placeholder="请输入确认发货吨位" type="number"
+										value="${accountCheckInfo.confirmForwardingTonnage}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable" ><span>*</span>确认到货吨位：</div>
+								<div class="input-text" >
+									<input class="input" id="confirm_arrive_tonnage" required name="accountCheckInfo.confirmArriveTonnage"  placeholder="请输入确认到货吨位" type="number" value="${accountCheckInfo.confirmArriveTonnage}" />
+								</div>
+							</div>
+
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>确认损耗吨位 </div>
+								<div class="input-text" >
+									<input class="input" id="confirm_loss_tonnage" required name="accountCheckInfo.confirmLossTonnage"  placeholder="请输入确认损耗吨位" type="number" value="${accountCheckInfo.confirmLossTonnage}" />
+								</div>
+							</div>
+
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>确认出车次数：</div>
+								<div class="input-text" >
+									<input class="input" id="confirm_out_car" name="accountCheckInfo.confirmOutCar"  placeholder="请输入确认出车次数" type="number" value="${accountCheckInfo.confirmOutCar}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>损耗差异：</div>
+								<div class="input-text">
+									<input class="input" id="loss_difference" name="accountCheckInfo.lossDifference" placeholder="请输入损耗差异" type="number" value="${accountCheckInfo.lossDifference}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>其它差异：</div>
+								<div class="input-text">
+									<input class="input" id="other_difference" name="accountCheckInfo.otherDifference" placeholder="请输入其它差异" type="number" value="${accountCheckInfo.otherDifference}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable"><span>*</span>收入税率：</div>
+								<div class="input-text">
+									<input class="input" id="income_tax_rate" name="accountCheckInfo.incomeTaxRate" placeholder="请输入收入税率" type="number" value="${accountCheckInfo.incomeTaxRate}" />
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-textarea">
+								<div class="input-lable">备注：</div>
+								<div class="input-textarea">
+									<textarea id="remarks" name="accountCheckInfo.remarks">${accountCheckInfo.remarks}</textarea>
+								</div>
+							</div>
+						</div>
+ 
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">差异收入：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="difference_income" name="accountCheckInfo.differenceIncome" readonly="readonly" style="background:#eee" type="number" value=<#if accountCheckInfo.differenceIncome?exists>${accountCheckInfo.differenceIncome}<#else>0</#if> />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable" >应收总额（客户）：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="receivable_total" name="accountCheckInfo.receivableTotal" readonly="readonly" style="background:#eee" type="number" value="${accountCheckInfo.receivableTotal}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">应付总额（物流/司机）：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="payable_total" name="accountCheckInfo.payableTotal" readonly="readonly" style="background:#eee" type="number" value="${accountCheckInfo.payableTotal}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">代开总额：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="proxy_invoice_total" name="accountCheckInfo.proxyInvoiceTotal" readonly="readonly" style="background:#eee" type="number" value="${accountCheckInfo.proxyInvoiceTotal}" />
+								</div>
+							</div>
+							
+							<div class="group-box">
+								<div class="input-lable" >出车数：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="out_car" name="accountCheckInfo.outCar" readonly="readonly" style="background:#eee" type="number" value="${accountCheckInfo.outCar}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable" >单据总数：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="documents_total" name="accountCheckInfo.documentsTotal" readonly="readonly" style="background:#eee" type="number" value="${accountCheckInfo.documentsTotal}" />
+								</div>
+							</div>
+							
+							
+							<div class="group-box">
+								<div class="input-lable" >发货吨位：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="forwarding_tonnage" name="accountCheckInfo.forwardingTonnage" readonly="readonly" style="background:#eee" type="number" value="${accountCheckInfo.forwardingTonnage}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable" >到货吨位：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="arrive_tonnage" name="accountCheckInfo.arriveTonnage" readonly="readonly" style="background:#eee" type="number" value="${accountCheckInfo.arriveTonnage}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable" >损耗吨位：</div>
+								<div class="input-text" style="background:#eee">
+									<input class="input" id="loss_tonnage" name="accountCheckInfo.lossTonnage" readonly="readonly" style="background:#eee" type="number" value="${accountCheckInfo.lossTonnage}" />
+								</div>
+							</div>
+							
+							<input class="input" id="settlementinfoids" name="accountCheckInfo.settlementInfoIds" hidden="true" style="background:#eee" type="text" value="" />
+							<input class="input" id="hidden_id" name="accountCheckInfo.id" hidden="true" style="background:#eee" type="text" value="${accountCheckInfo.id}" />						
+						
+						</div>
+					</div>
+				</form>
+				<div class="from-both-box">
+					<div class="button-center">	
+						<button class="from-save-button" style="position:relative;">
+					     	<div id="importSettlementBtn"  style="width:100%;height: 100%;position: absolute;"></div>
+				            <div class="operation-text">导入结算单</div>
+					    </button>
+						<button class="from-save-button" style="position:relative;"  ng-disabled="myForm.$invalid" onclick="saveAccountCheckInfo()">
+							<div id="importSettlementBtn"  style="width:100%;height: 100%;position: absolute;" hidden="true"></div>
+				            <div class="operation-text">保存</div>
+						</button>
+						<button class="from-logout-button" style="position:relative;" onclick="history.go(-1);">
+							<div id="importSettlementBtn"  style="width:100%;height: 100%;position: absolute;" hidden="true"></div>
+				            <div class="operation-text">返回</div>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="settlement-info-tab" class="tab-content">
+			<div class="panel">
+				<!-- 请求结算单信息 -->
+				<div id="search_settlement_info" class="panel-table"></div>
+			</div>
+		</div>
+
+		<!-- 请求明细页面 -->
+		<form id="contract_detail_form" action="" method="post">
+			<input id="contract_info_id" type="hidden" name="contractInfoId">
+		</form>
+
+		<!-- 结算单选择列表 （备用）-->
+		<div class="modal fade" id="projectSelectModal" tabindex="-2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">项目选择</h4>
+					</div>
+					<div class="modal-body">
+						<div class="search-from">
+							<form onsubmit="return false">
+								<div class="search-row-box">
+									<div class="both-row row">
+										<div class="search-box">
+											<div class="input-lable">项目名称</div>
+											<div class="input-text">
+												<input class="input" placeholder="请选择项目" type="text" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button">
+										<div class="search-icon"></div>
+										<div class="text">查询</div>
+									</button>
+									<button class="search-button" type="reset">
+										<div class="reset-icon"></div>
+										<div class="text">重置</div>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th style="width: 60px;"></th>
+										<th>项目编号</th>
+										<th>项目名称</th>
+									</tr>
+								</thead>
+								<tbody id="shipperProjectTBody">
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="goodsNum">0</span>条
+								</div>
+								<div id="goodsPage" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="goodsSelect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="save-button" onclick="shipperProjectSelect()">确定</button>
+						<button class="close-button" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 日志信息列表 -->
+		<div class="modal fade" id="logModal" tabindex="-2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+						<h4 class="modal-title">操作日志查看</h4>
+					</div>
+					<div class="modal-body">
+						<div class="modal-table row">
+							<table width="100%" class="table-bule table-ellipsis">
+								<thead>
+									<tr class="table-title">
+										<th>操作人</th>
+										<th style="width: 80px;">操作时间</th>
+										<th>操作描述</th>
+										<th>操作意见</th>
+									</tr>
+								</thead>
+								<tbody id="logTBody">
+							</table>
+							<div class="panel-pagination">
+								<div class="panel-num">
+									搜索相关结果共<span id="logNum">0</span>条
+								</div>
+								<div id="goodsPage" class="pagination-list"></div>
+								<div class="pagination-input">
+									到 <input type="text" />页
+								</div>
+								<div class="pagination-button" onclick="logSelect(this)">确定</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="close-button" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		</main>
+	</div>
+	<footer class="app-footer"> </footer>
+</body>
+<#include "../../common/common_footer.html" />
+<script type="text/javascript" src="${basePath}/static/js/common/moment.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/confirm.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/ajaxupload.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/operation.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/accountCheck/editAccountCheckInfo.js"></script>
+</html>

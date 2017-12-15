@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>主机构信息查看</title>
+		<#include "../../common/common_header.html"/>
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/from-both.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/org/orgInfoView.css" type="text/css" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/viewer.css" type="text/css" />
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		     <main class="main">
+		     	<div class="panel">
+					<div class="panel-head">主机构信息查看</div>
+			  		<div class="panel-body">
+			    		<div class="from-body">
+			    		  <!-- 隐藏的组织id -->
+			    		  <input class="input" hidden="true" id="orgInfoId"  type="text" value="${orgInfo.id}"/>
+                          <!-- 隐藏的组织状态 -->
+                          <input class="input" hidden="true" id="orgStatus"  type="text" value="${orgInfo.orgStatus}"/>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">组织机构名称：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.orgName}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">营业执照号：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.licenseNum}</div>
+				            </div>
+				          </div>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">通讯地址：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.contactAddress}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">注册地址：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.registerAddress}</div>
+				            </div>
+				          </div>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">联系人姓名：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.contactName}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">移动电话：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.mobilePhone}</div>
+				            </div>
+				          </div>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">法定代表人：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.legalPersonName}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">固定电话：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.telephone}</div>
+				            </div>
+				          </div>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">法人身份证号：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.idCard}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">统一社会信用代码： </div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.creditCode}</div>
+				            </div>
+				          </div>
+				          <#if orgInfo.orgDetailInfo.isCombine?exists && orgInfo.orgDetailInfo.isCombine==0>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">组织机构代码证：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.orgNum}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">税务登记号： </div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.taxNum}</div>
+				            </div>
+				          </div>
+				          </#if>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">邮编：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.postcode}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">传真：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.fax}</div>
+				            </div>
+				          </div>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				              <div class="input-lable">电子邮箱：</div>
+				              <div class="text-content">${orgInfo.orgDetailInfo.email}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">开户行： </div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.bankName}</div>
+				            </div>
+				          </div>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">开户名：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.accountName}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">银行账号：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.bankAccount}</div>
+				            </div>
+				          </div>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">道路运输许可证号：</div>
+				                <div class="text-content">${orgInfo.orgDetailInfo.roadTransportPermitNum}</div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">是否三证合一：</div>
+				                <div class="text-content">
+				                	<#if orgInfo.orgDetailInfo.isCombine?exists && orgInfo.orgDetailInfo.isCombine==1>是</#if>
+				                	<#if orgInfo.orgDetailInfo.isCombine?exists && orgInfo.orgDetailInfo.isCombine==0>否</#if>
+				                </div>
+				            </div>
+				          </div>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">统一社会信用代码证附件：</div>
+				                <div class="input-img">
+				                  <img src="${fastdfsServer}/${orgInfo.orgDetailInfo.creditImg}"  title="点击查看图片" class="upload_img img_box">
+				                </div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">营业执照附件：</div>
+				                <div class="input-img">
+				                  <img src="${fastdfsServer}/${orgInfo.orgDetailInfo.licenseImg}"  title="点击查看图片" class="upload_img img_box">
+				                </div>
+				            </div>
+						  </div>
+						  <#if orgInfo.orgDetailInfo.isCombine?exists && orgInfo.orgDetailInfo.isCombine==0>
+				          <div class="from-both-box">
+				            <div class="group-box">
+				                <div class="input-lable">组织机构代码证附件：</div>
+				                <div class="input-img">
+				                  <img src="${fastdfsServer}/${orgInfo.orgDetailInfo.orgImg}" title="点击查看图片" class="upload_img img_box" img-type="license_img">
+				                </div>
+				            </div>
+				            <div class="group-box">
+				                <div class="input-lable">税务登记证附件：</div>
+				                <div class="input-img">
+				                  <img src="${fastdfsServer}/${orgInfo.orgDetailInfo.taxImg}"  title="点击查看图片" class="upload_img img_box">
+				                </div>
+				            </div>
+				          </div>
+				          </#if>
+				          <div class="from-both-box">
+				            <div class="group-text">
+				              <div class="input-lable">备注：</div>
+				              <div class="text-content">${orgInfo.orgDetailInfo.remarks}</div>
+				            </div>
+				          </div>
+						</div>
+						<div class="from-both-box from-textarea-box">
+                            <div class="group-textarea">
+                                <div  class="input-lable">审核意见：</div>
+                                <div class="input-textarea">
+                                    <textarea id="auditOpinion"  placeholder="请输入审核意见">${orgInfo.auditOpinion}</textarea>
+                                </div>
+                            </div>
+                        </div>
+						<div id="btns"  style="width:100%;">
+                            <div class="button-center">
+                                <button class="from-save-button" onclick="viewAndAudit(3)">通过</button>
+                                <button class="from-logout-button" data-toggle="modal" data-target="#logoutModal" onclick="viewAndAudit(2)">不通过</button>
+                            </div>
+                        </div>
+					</div>
+				</div>
+		     </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/viewer.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/org/orgInfoViewAndAudit.js"></script>
+</html>

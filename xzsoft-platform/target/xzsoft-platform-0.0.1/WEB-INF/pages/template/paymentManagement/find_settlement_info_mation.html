@@ -1,0 +1,201 @@
+
+<div id="department-data-info" >
+	<div class="modal" tabindex="-" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:block;overflow:auto">
+		<div class="modal-dialog modal-dialog-both" style="width:1110px;">
+			
+		
+		<div class="modal-content">
+			<div class="modal-header">
+				<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true" onclick="closeSIutton()"></div>
+				<h4 class="modal-title" id="myModalLabel">
+					${findSettlementInfo}
+				</h4>
+			</div>
+			<div class="modal-body">
+			<div class="search-panel row">
+			<form onsubmit="return false">
+				<div class="search-from" >
+					<div class="search-row-box" >
+						<div class="both-row row">
+							<div class="search-box">
+							<div class="input-lable">运单号</div>
+								<div class="input-text">
+									<input id="settWaybillIdS" class="input" placeholder="请输入运单号" type="text" />
+								</div>
+								<div class="input-lable">车牌号</div>
+								<div class="input-text">
+									<input id="carCodeS" class="input" placeholder="请输入车牌号" type="text" />
+								</div>
+								<div class="input-lable">货物</div>
+								<div class="input-text">
+									<input id="goodsNameS" class="input" placeholder="请输入货物名称" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">发货日期</div>
+								<div class="input-text">
+									<input id="forwardingTimeS" class="input date-time" placeholder="请输入发货日期" type="text" />
+								</div>
+								<div class="input-lable">到货日期</div>
+								<div class="input-text">
+									<input id="arriveTimeS" class="input date-time" placeholder="请输入发货日期" type="text" />
+								</div>
+								<div class="input-lable">发货单位</div>
+								<div class="input-text">
+									<input id="forwardingUnitS" class="input" placeholder="请输入发货单位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">到货单位</div>
+								<div class="input-text">
+									<input id="consigneeS" class="input" placeholder="请输入到货单位" type="text" />
+								</div>
+								<div class="input-lable">发货吨位</div>
+								<div class="input-text">
+									<input id="forwardingTonnageS" class="input" placeholder="请输入发货吨位" type="text" />
+								</div>
+								<div class="input-lable">到货吨位</div>
+								<div class="input-text">
+									<input id="arriveTonnageS" class="input" placeholder="请输入到货吨位" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">进项税</div>
+								<div class="input-text">
+									<input id="incomeTaxS" class="input" placeholder="请输入进项税" type="text" />
+								</div>
+								<div class="input-lable">运费进项税</div>
+								<div class="input-text">
+									<input id="transportPriceIncomeTaxS" class="input" placeholder="请输入运费进项税" type="text" />
+								</div>
+								<div class="input-lable">运费成本</div>
+								<div class="input-text">
+									<input id="transportPriceCostS" class="input" placeholder="请输入运费成本" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">有价券进项税</div>
+								<div class="input-text">
+									<input id="couponIncomeTaxS" class="input" placeholder="请输入有价券进项税" type="text" />
+								</div>
+								<div class="input-lable">预付款</div>
+								<div class="input-text">
+									<input id="advancePriceS" class="input" placeholder="请输入预付款" type="text" />
+								</div>
+								<div class="input-lable">其他扣款</div>
+								<div class="input-text">
+									<input id="otherPriceS" class="input" placeholder="请输入其他扣款" type="text" />
+								</div>
+							</div>
+							<div class="search-box">
+								<div class="input-lable">损耗扣款</div>
+								<div class="input-text">
+									<input id="lossDeductionS" class="input" placeholder="请输入损耗扣款" type="text" />
+								</div>
+								<div class="input-lable">回单日期开始</div>
+								<div class="input-text">
+									<input id="makeTimeStartS" class="input date-time" placeholder="请输入回单日期" type="text" />
+								</div>
+								<div class="input-lable">回单日期结束</div>
+								<div class="input-text">
+									<input id="makeTimeEndS" class="input date-time" placeholder="请输入回单日期" type="text" />
+								</div>
+								
+							</div>
+							<div class="search-box">
+							<div class="input-lable">结算单号</div>
+								<div class="input-text">
+									<input id="settlementIdS" class="input" placeholder="请输入结算单号" type="text" />
+								</div>
+								<div class="input-lable">代理方</div>
+								<div class="input-text">
+									<input id="proxyNameS" class="input" placeholder="请输入代理方" type="text" />
+								</div>
+								<div class="input-lable">组织部门</div>
+								<div class="input-text">
+									<input id="projectInfoNameS" class="input"  placeholder="请输入组织部门" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="SIList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+						<button class="search-button" type="reset" onclick="resetSettInfo()">
+							<div class="reset-icon"></div>
+							<div class="text">重置</div>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+			<!-- 表格 -->
+			<div class="panel">
+			<div id="show_goods_info"></div>
+				<div class="panel-table">
+				    <table class="table-bule">
+				      <thead>
+				        <tr class="table-title">
+				        <th  class="check">
+			                <label class="i-checks">
+			                  <input name="all" type="checkbox" class="all_settlement_info_check"> 
+			                </label>
+			              </th>
+			              <th>结算单号</th>
+			              <th>付款状态</th>
+				          <th>运单号</th>
+				          <th>车牌号码</th>
+				          <th>代理方</th>
+				          <th>货物</th>
+				          <th>零散货物</th>
+				          <th>发货时间</th>
+				          <th>到货时间</th>
+				          <th>发货吨位</th>
+				          <th>到货吨位</th>
+				          <th>线路</th>
+				          <th>发货单位</th>
+				          <th>到货单位</th>
+				          <th>承运方</th>
+				          <th>司机</th>
+				          <th>代开总额</th>
+				          <th>组织部门</th>
+				          <th>当前运价</th>
+				          <th>应付运费</th>
+				          <th>运费成本</th>
+				          <th>运费进项税</th>
+				          <th>进项税</th>
+				          <th>本次付款</th>
+				          <th>工本费</th>
+				          <th>单车保险</th>
+				          <th>其他扣款</th>
+				        </tr>
+				      </thead>
+				      <tbody id="settlementInfoTBody">
+				       
+				      </tbody>
+				    </table>
+				</div>
+				<!-- 分页 -->
+			 <div class="panel-pagination">
+			      <div id="panel-num" class="panel-num">搜索相关结果共0条</div>
+			      <div class="pagination-list"></div>
+			      <div class="pagination-input">到
+			        <input type="text" />页</div>
+			      <div class="pagination-button" onclick="jumpPage(this)">确定</div>
+			  </div>  
+			</div>
+			</div>
+			<div class="modal-footer">
+		        <button class="save-button" onclick="submitSIMation()">保存</button>
+		        <button class="close-button"  onclick="closeSIutton()">取消</button>
+		    </div>
+		</div> 
+			</div> 
+		</div> 
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>
+	<script type="text/javascript" src="${basePath}/static/js/common/datetimepicker.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/paymentManagement/find_settlement_info_page.js"></script>

@@ -1,0 +1,141 @@
+<!-- 合同明细模板-->
+<div id="contract-detail-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="contractDetailModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close contract-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="contractModalLabel">${operateTitle}</h4>
+				</div>
+				<div class="modal-body">
+					<form id="contract_detail_info_form">
+						<input id="hidden_contract_detail_id" type="hidden" name="contractDetailInfo.id" value="${contractDetailInfo.id}"> 
+						<input id="hidden_contract_info_id" type="hidden" name="contractDetailInfo.contractInfoId" value="${contractDetailInfo.contractInfoId}">
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>货物名称：
+								</div>
+								<div class="input-text">
+									<input id="goods_name" name="contractDetailInfo.goodsName" class="input" placeholder="请选择货物" type="text" value="${contractDetailInfo.goodsName}" /> <input id="goods_info_id"
+										name="contractDetailInfo.goodsInfoId" class="input" type="hidden" type="text" value="${contractDetailInfo.goodsInfoId}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>计量单位：
+								</div>
+								<div class="input-text">
+									<input id="units" class="input"  type="text" value="${contractDetailInfo.units}" readonly="readonly"/> 
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span> 数量：
+								</div>
+								<div class="input-text">
+									<input id="quantity" name="contractDetailInfo.quantity" class="input" placeholder="请输入数量" type="number" value="${contractDetailInfo.quantity}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>单位运价：
+								</div>
+								<div class="input-text">
+									<input id="unit_price" name="contractDetailInfo.unitPrice" class="input" placeholder="请输入单位运价" type="number" value="${contractDetailInfo.unitPrice}" />
+								</div>
+							</div>
+						</div>
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>发货单位：
+								</div>
+								<div class="input-text">
+									<input id="forwarding_unit" name="contractDetailInfo.forwardingUnit" class="input" placeholder="请输入发货单位" type="text" value="${contractDetailInfo.forwardingUnit}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>收货单位：
+								</div>
+								<div class="input-text">
+									<input id="consigneefd" name="contractDetailInfo.consignee" class="input" placeholder="请输入收货单位" type="text" value="${contractDetailInfo.consignee}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>线路：
+								</div>
+								<div class="input-text">
+									<input id="line_name" name="contractDetailInfo.lineName" class="select-lists input" placeholder="请输入线路" type="text" value="${contractDetailInfo.lineName}" readonly="readonly" /> <input
+										id="line_info_id" name="contractDetailInfo.lineInfoId" class="input" hidden="true" type="text" value="${contractDetailInfo.lineInfoId}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>运距：
+								</div>
+								<div class="input-text">
+									<input id="distance" name="contractDetailInfo.distance" class="input" placeholder="请输入运距" type="number" value="${contractDetailInfo.distance}" readonly="readonly" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>总金额：
+								</div>
+								<div class="input-text">
+									<input id="total_money" name="contractDetailInfo.totalMoney" class="input" type="number" value="${contractDetailInfo.totalMoney}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>损耗扣款：
+								</div>
+								<div class="input-text">
+									<input id="loss_deduct_money" name="contractDetailInfo.lossDeductMoney" class="input" placeholder="请输入损耗扣款" type="number" value="${contractDetailInfo.lossDeductMoney}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>生效日期：
+								</div>
+								<div class="input-text">
+									<input id="effective_date" name="contractDetailInfo.effectiveDateStr" class="input" placeholder="请输入生效日期" type="date" value="${(contractDetailInfo.effectiveDate)?string('yyyy-MM-dd')}" />
+								</div>
+							</div>
+							<div class="group-box">
+								<div class="input-lable">
+									<span>*</span>截止日期：
+								</div>
+								<div class="input-text">
+									<input id="end_date" name="contractDetailInfo.endDateStr" class="input" placeholder="请输入截止日期" type="date" value="${(contractDetailInfo.endDate)?string('yyyy-MM-dd')}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="from-both-box">
+							<div class="group-textarea">
+								<div class="input-lable">备注：</div>
+								<div class="textarea-text" style="width: 586px;">
+									<textarea id="remarks" name="contractDetailInfo.remarks" placeholder="请填写备注">${contractDetailInfo.remarks}</textarea>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="saveContractDetailInfo()">保存</button>
+					<button class="close-button contract-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

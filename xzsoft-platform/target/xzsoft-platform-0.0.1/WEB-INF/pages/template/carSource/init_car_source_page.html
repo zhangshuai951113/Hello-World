@@ -1,0 +1,161 @@
+<!-- 新增/修改车源信息模板-->
+<div id="car-source-data-info" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="carSourceModalLabel" aria-hidden="true" style="display: block">
+	  	<div class="modal-dialog modal-dialog-both">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<div type="button" class="mode-close car-source-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+		        	<h4 class="modal-title" id="carSourceModalLabel">${operateTitle}</h4>
+		      	</div>
+	      		<div class="modal-body">
+		        	<form id="car_source_info_form">
+		        		<input id="hidden_car_source_info_id" type="hidden" name="carSourceInfoPo.id" value="${carSourceInfoPo.id}">
+		        		<input id="userRole" type="hidden" value="${userRole}">
+		          		<div class="from-both-box">
+		            		<div class="group-box">
+		              			<div class="input-lable"><span>*</span>车牌号码：</div>
+		              			<div class="input-text form-item">
+		              				<input id="car_code" name="carSourceInfoPo.carCode" class="input required" placeholder="请输入车牌号码" type="text" value="${carSourceInfoPo.carCode}" onclick="searchCarInfo()"/>
+		                			<!-- <input id="car_code_id" name="carSourceInfoPo.carCode" class="input" placeholder="" type="hidden" value="${carSourceInfoPo.carCode}"/> -->
+		              			</div>
+		            		</div>
+		            		
+		            		<div class="group-box">
+				              	<div class="input-lable"><span>*</span>车辆状态：</div>
+				              	<div class="input-text">
+					                <select id="car_status" name="carSourceInfoPo.carStatus" class="input">
+					                  	<option value="2" <#if carSourceInfoPo?exists && carSourceInfoPo.carStatus==2>selected</#if>>审核通过</option>
+					                </select>
+				              	</div>
+			            	</div>
+		            		<div class="group-box">
+		              			<div class="input-lable"><span>*</span>车辆类型：</div>
+		              			<div class="input-text">
+		                			<input id="car_type_name" class="input"  placeholder="请输入车辆类型" type="text" value="${carSourceInfoPo.carTypeName}" readonly="readonly"/>		                			
+		                			<input id="car_type" name="carSourceInfoPo.carType" class="input" placeholder="请输入车辆类型" type="hidden" value="${carSourceInfoPo.carType}"/>
+		              			</div>
+		            		</div>
+		            		<div class="group-box">
+				              	<div class="input-lable"><span>*</span>载重量（吨）：</div>
+				              	<div class="input-text">
+				                	<input id="loads" name="carSourceInfoPo.loads" class="input" placeholder="请输入载重量（吨）" type="text" value="${carSourceInfoPo.loads}" readonly="readonly"/>
+				              	</div>
+				            </div>
+		          		</div>
+		          		<div class="from-both-box">
+		          			<div class="group-box">
+				              	<div class="input-lable"><span>*</span>外廓尺寸（米）：</div>
+				              	<div class="input-text">
+				                	<input id="gabarite" name="carSourceInfoPo.gabarite" class="input" placeholder="请输入外廓尺寸" type="text" value="${carSourceInfoPo.gabarite}" readonly="readonly"/>
+				              	</div>
+				            </div>
+				            <div class="group-box">
+				              	<div class="input-lable"><span>*</span>车辆当前所在地：</div>
+				              	<div class="address-input">
+				              		 <div class="select-address" onclick="addLineData(this)">${carSourceInfoPo.carLocationName}</div>
+					                 <div class="address-box">
+					                  <div class="tab-box row">
+					                      <div onclick="getProvince()" class="tab-list active">省（州）</div>
+					                      <div onclick="getCity()" class="tab-list">市</div>
+					                      <div onclick="getArea()" class="tab-list">县（区）</div>
+					                  </div>
+					                  <div class="address-content row">
+					                  </div>
+					                </div>
+					                <input id="car_location" name="carSourceInfoPo.carLocation" class="input"  type="hidden" value="${carSourceInfoPo.carLocation}"/>
+					            </div>
+				            </div>
+				            
+			            	<div class="group-box row" id="org_div">
+			            		<div class="group-box">
+					              	<div class="input-lable"><span>*</span>发布方主机构：</div>
+					              	<div class="input-text">
+					              		<input id="root_release_person_name"class="input" placeholder="" type="text" value="${rootReleasePersonName}" readonly="readonly"/>
+					                	<input id="root_release_person" name="carSourceInfoPo.rootReleasePerson" class="input" type="hidden" value="${rootReleasePerson}"/>
+					              	</div>
+					            </div>
+								<div class="input-lable"><span>*</span>发布方：</div>
+								<div class="input-text">
+									<select id="release_person" class="input" name="carSourceInfoPo.releasePerson">
+										<option value="">请选择</option>
+										<#if parentOrgInfoList?exists>
+											<#list parentOrgInfoList as parentOrg>
+												<#if parentOrg.id==carSourceInfoPo.releasePerson>
+													<option value="${parentOrg.id}" selected>${parentOrg.orgName}</option>
+												<#else>
+													<option value="${parentOrg.id}">${parentOrg.orgName}</option>
+												</#if>
+											</#list>
+										</#if>
+									</select>
+								</div>
+							</div>
+								<div class="group-box" id="driver_div">
+								<div class="group-box">
+					              	<div class="input-lable"><span>*</span>发布方主机构：</div>
+					              	<div class="input-text">
+					              		<input id="root_release_person_name"class="input" placeholder="" type="text" value="${rootReleasePersonName}" readonly="readonly"/>
+					                	<input id="root_release_person" name="carSourceInfoPo.rootReleasePerson" class="input" type="hidden" value="${rootReleasePersonId}"/>
+					              	</div>
+					            </div>
+		              			<div class="input-lable"><span>*</span>发布方：</div>
+		              			<div class="input-text">
+		                			<input id="release_person_driver_name" class="input" readonly="readonly" placeholder="请输入发布方" type="text" value="${driverName}"/>
+		                			<input id="release_person_driver" name="carSourceInfoPo.releasePerson" class="input" placeholder="请输入发布方" type="hidden" value="${rootReleasePersonId}"/>
+		              			</div>
+		            		</div>
+		          		</div>
+		          		<div class="from-both-box">
+		          			<div class="group-box">
+		              			<div class="input-lable"><span>*</span>联系人：</div>
+		              			<div class="input-text">
+		                			<input id="contact_name" name="carSourceInfoPo.contactName" class="input" placeholder="请输入联系人" type="text" value="${carSourceInfoPo.contactName}"/>
+		              			</div>
+		            		</div>
+			          		<div class="group-box">
+			              			<div class="input-lable"><span>*</span>联系方式：</div>
+			              			<div class="input-text form-item">
+			                			<input id="mobile_phone" name="carSourceInfoPo.mobilePhone" class="input mobile" placeholder="请输入联系方式" type="text" value="${carSourceInfoPo.mobilePhone}"/>
+			              			</div>
+			            	</div>
+			            	<div class="group-box">
+		              			<div class="input-lable"><span>*</span>截止日期：</div>
+		              			<div class="input-text">
+		                			<input id="end_time" name="carSourceInfoPo.endTimeStr" class="input date-time" placeholder="请输入截止日期" type="text" value="<#if carSourceInfoPo.endTime?exists>${(carSourceInfoPo.endTime)?string('yyyy-MM-dd')}</#if>"/>
+		              			</div>
+		            		</div>
+		          		</div>
+		          		<div class="from-both-box">
+		            		<div class="group-textarea">
+		              			<div class="input-lable"><span>*</span>发布内容：</div>
+		              			<div class="textarea-text">
+		                			<textarea id="release_content" name="carSourceInfoPo.releaseContent" placeholder="请填写发布内容">${carSourceInfoPo.releaseContent}</textarea>
+		              			</div>
+		            		</div>
+		          		</div>
+		          		<div class="from-both-box">
+			            	<div class="group-img">
+			              		<div class="input-lable"><span>*</span>车辆图片：</div>
+				              	<div class="input-img">
+				              		<#if carSourceInfoPo.carImage?exists && carSourceInfoPo.carImage!="">
+				              			<img src="${fastdfsServer}/${carSourceInfoPo.carImage}" class="upload_img img_box" img-type="car_image">
+				              		<#else>
+				                		<img src="${basePath}/static/images/common/addimg.png" class="upload_img img_box" img-type="car_image">
+				              		</#if>
+				                	<input id="car_image" type="hidden" name="carSourceInfoPo.carImage" value="${carSourceInfoPo.carImage}">
+				              	</div>
+			              		<div class="input-notice">*上传证件必须为彩色原件，可以是扫描件或数码拍摄照片。文件仅支持jpg，bmp,png的图片格式。<br/>图片大小不超过3M。</div>
+			            	</div>
+		          		</div>
+		          	</form>
+		        </div>
+	      		
+		      	<div class="modal-footer">
+		        	<button class="save-button" onclick="addOrUpdateCarSourceInfo()">保存</button>
+		        	<button class="close-button car-source-opt-close" data-dismiss="modal">取消</button>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

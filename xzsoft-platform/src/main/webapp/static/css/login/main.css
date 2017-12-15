@@ -1,0 +1,259 @@
+/*----------login------------*/
+.login-content{
+    width: 100%;
+    height: 100%;
+    min-height: 550px;
+    min-width: 1240px;
+    background: url(../../images/login/logo-bg.png) center center #2b84ea no-repeat;
+
+}
+ 
+.ts-footer{
+	height: 60px;
+	width: 100%;
+	background: #fff;
+    overflow: hidden;
+}
+
+.footer-text{
+    text-align: right;
+    color: #666666;
+    font-size: 12px;
+    width: 1240px;
+    padding: 0 20px;
+    margin: 30px auto 0;
+}
+
+.login-main{
+	height: 576px;
+    width: 100%;
+    position: relative;
+}
+
+.login-banner{
+    position: relative;
+    height: 100%;
+    width: 1240px;
+    padding: 0 20px;
+    margin: auto;
+}
+
+.login-box{
+    height: 330px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 50px 20px rgba(1,1,1,0.3);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    background: #fff;
+    margin-top: -165px;
+}
+
+.login-title{
+	height: 49px;
+    border-bottom: 1px solid #cccccc;
+    padding-left: 60px;
+    color: #666666;
+    line-height: 49px;
+    font-size: 18px;
+}
+
+.from-box{
+	margin: 0 60px;
+}
+.login-box .user-box{
+  margin-top:30px;
+	
+}
+.login-box .password-box{
+  margin-top:20px;
+}
+.input-box {
+	width: 280px;
+	height: 36px;
+	border: 1px solid #CCCCCC;
+	border-radius: 5px;
+}
+.input-box .user-icon {
+	background: url(../../images/login/user-icon.png) no-repeat;
+    width: 32px;
+    height: 100%;
+    float: left;
+    background-position: center center;
+}
+
+.input-box .password-icon {
+	background: url(../../images/login/password-icon.png) no-repeat;
+    width: 32px;
+    height: 100%;
+    float: left;
+    background-position: center center;
+}
+.input-box .input-text {
+	float: left;
+    width: 229px;
+    margin-left: 15px;
+    height: 34px;
+    line-height: 34px;
+}
+.input-box .input{
+	border: 0;
+	outline:none;
+	height: 100%;
+	width:100%;
+}
+
+.login-box .register-text{
+	float: left;
+}
+.login-box .register-text a{
+	color: #7294D4;
+	
+}
+.login-box .forget-text{
+	float: right;
+}
+.login-box .forget-text a {
+	color: #adadad;
+	text-decoration: underline;
+}
+.login-box .register-box{
+	margin-top:30px;
+	width: 100%;
+}
+
+.img-box{
+    height: 100%;
+    padding-top: 6px;
+    overflow: hidden;
+}
+
+.img-auto {
+	height:100%;
+	margin: 0 auto;
+	text-align: center;
+    position: absolute;
+    top: 50%;
+    right: 116px;
+    margin-top: -302px;
+}
+
+.img-box img {
+   width: 850px;
+}
+
+#slider {
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	margin-top: 30px;
+	height: 32px;
+	border-radius: 30px;
+	background-color: #E8E8E8;
+	width: 100%;
+	border: 1px solid #CCCCCC;
+}
+
+#slider_bg {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    background-color: #7bc33d;
+    z-index: 1;
+}
+
+#label {
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    background-color: #7bc33d;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    z-index: 3;
+    cursor: move;
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+#labelTip {
+     position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 30px;
+    text-align: center;
+    z-index: 2;
+    font-size: 14px;
+    color: #666666;
+}
+
+.login-box .slide-icon {
+	background:url("../../images/login/sliding-icon.png") no-repeat;
+	width:32px; 
+	height: 32px;
+	background-size: contain;
+}
+
+.jc-bs3-row {
+	width:400px;
+	margin:auto;
+}
+
+
+/**-----100%--------**/
+/*.login-content {
+    width: 100%;
+    height: 100%;
+    min-height: 550px;
+    min-width: 1240px;
+    position: absolute;
+    padding: 96px 0;
+}
+
+.tb-nav {
+    height: 96px;
+    width: 100%;
+    background: #fff;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+}
+.login-main {
+    height: 100%;
+    width: 100%;
+}
+.img-box {
+       float: left;
+    height: 100%;
+    margin-left: 60px;
+    padding-top: 1%;
+    text-align: right;
+}
+
+.login-box {
+    height: 330px;
+    width: 400px;
+    background: #fff;
+    margin: 5% 20px 5% 0;
+    float: right;
+    border-radius: 10px;
+    box-shadow: 0 0 50px 20px rgba(1,1,1,0.3);
+}
+
+.ts-footer {
+    height: 96px;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+}
+.img-box img {
+    width: auto;
+    height:98%;
+}*/

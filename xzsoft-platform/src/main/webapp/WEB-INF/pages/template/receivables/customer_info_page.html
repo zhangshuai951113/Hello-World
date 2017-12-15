@@ -1,0 +1,58 @@
+﻿<!-- 客户编号信息列表-->
+<div id="customerlistInfo" class="modal-open">
+	<div class="modal" tabindex="-2" role="dialog" aria-labelledby="receivablerModalLabel" aria-hidden="true" style="display: block">
+		<div class="modal-dialog modal-dialog-both">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div type="button" class="mode-close customer-opt-close" data-dismiss="modal" aria-hidden="true"></div>
+					<h4 class="modal-title" id="receivablerModalLabel">项目列表</h4>
+				</div>
+				<div class="modal-body">
+				<div class="search-from" style="width: 450px;">
+					<div class="search-row-box">
+						<div class="both-row row">
+							<div class="search-box">
+								<div class="input-lable">项目名称</div>
+								<div class="input-text">
+									<input id="ci_car_code" class="input" placeholder="请输入项目名称" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="search-button-box">
+						<button class="search-button" onclick="projectList(1)">
+							<div class="search-icon"></div>
+							<div class="text">查询</div>
+						</button>
+					</div>
+				</div>
+					<table class="table-bule" align="center">
+						<thead>
+							<tr class="table-title">
+								<th style="width: 20px;"><input class="all_customer_check" name="all" type="checkbox"></th>
+								<th>客户编号</th>
+								<th>客户名称</th>
+							</tr>
+						</thead>
+						<tbody id="customerTBody">
+						</tbody>
+					</table>
+					<!-- 分页 -->
+					<div class="panel-pagination">
+						<div id="panel-num-customer" class="panel-num">搜索相关结果共0条</div>
+						<div class="pagination-list-customer"></div>
+						<div class="pagination-input">
+							到 <input type="text" />页
+						</div>
+						<div class="pagination-button" onclick="customerJumpPage(this)">确定</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="save-button" onclick="customerSelect()">确认</button>
+					<button class="close-button customer-opt-close" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-backdrop fade in"></div>
+</div>

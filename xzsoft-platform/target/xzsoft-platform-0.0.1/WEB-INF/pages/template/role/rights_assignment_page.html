@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<title>权限分配</title>
+<#include "../../common/common_header.html" />
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/shiro/bootstrap-table.css">
+<link rel="stylesheet" type="text/css" href="${basePath}/static/jqwidgets/styles/jqx.base.css">
+<link rel="stylesheet" type="text/css" href="${basePath}/static/css/common/operation.css">
+<style type="text/css">
+.operation-button .add-icon,
+.operation-button .delete-icon,
+.operation-button .modify-icon,
+.operation-button .authorization-icon{
+	margin-top: 7px;
+}
+.maincontent{
+	overflow-x: hidden;
+}
+.fixed-table-container{
+	width: 500px;
+}
+.jqx-widget-header{
+	background: #9dc6dd;
+	color: #fff;
+}
+.fixed-table-container thead th .th-inner, .fixed-table-container tbody td .th-inner{
+	padding: 4px;
+}
+table thead th{
+	background: #9dc6dd;
+	color: #fff;
+}
+.fixed-table-toolbar:after{
+	content: '';
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+.pull-right.search{
+	float: left !important;
+    margin-left: 44px;
+}
+.operation-button{
+	margin-left: 0;
+	margin-right: 10px;
+}
+</style>
+</head>
+<body class="app-body">
+	<#include "../../common/common_top.html" />
+  	<div class="main-body">
+   	<#include "../../common/common_menu.html" />
+    <!-- 内容 -->
+    <main class="main">
+	<div class="maincontent">
+		<div class="row">
+			<div class="col-md-6" style="margin-left: 40px;">
+				<div>
+					<table id="roleTab" data-toggle="table" data-url="${basePath}/role/findRoles"
+						data-classes="table table-hover"
+						data-pagination="true" data-page-list="[5, 10, 20, 50]"
+						data-click-to-select="true" data-single-select="true"
+						data-toolbar="#custom-toolbar" data-search="true">
+						<thead>
+							<tr>
+								<th data-align="center" data-radio="true"></th>
+								<th data-field="role" data-align="center">角色名称</th>
+								<th data-field="description" data-align="center">角色描述</th>
+								<th data-field="roleType" data-align="center" data-formatter="typeFormatter">角色类型</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			
+			<div class="col-md-6" style="overflow: hidden;padding: 0;margin-left: -65px;width: 577px;">
+				<div id="treeGrid" style="margin-top: 54px;"></div>
+			</div>
+		</div>
+		
+		<div id="custom-toolbar">
+			<div>
+				<@shiro.hasPermission name="basicInfo:resource:role:create">
+				<button class="operation-button operation-blue" onclick="showAddRole();">
+					<div class="add-icon"></div>
+					<div class="operation-text">新增</div>
+				</button>
+				</@shiro.hasPermission>
+				<@shiro.hasPermission name="basicInfo:resource:role:update">
+				<button class="operation-button operation-blue" onclick="showEditRole();">
+			        <div class="modify-icon"></div>
+			        <div class="operation-text">编辑</div>
+		        </button>
+		        </@shiro.hasPermission>
+				<@shiro.hasPermission name="basicInfo:resource:role:delete">
+				<button class="operation-button operation-blue" onclick="showDeleteRole();">
+			        <div class="delete-icon"></div>
+			        <div class="operation-text">删除</div>
+		        </button>
+		        </@shiro.hasPermission>
+		        <@shiro.hasPermission name="basicInfo:resource:role:auth">
+				<button class="operation-button operation-blue" onclick="save();">
+			        <div class="authorization-icon"></div>
+			        <div class="operation-text">授权</div>
+		        </button>
+		        </@shiro.hasPermission>
+			</div>
+		</div>
+	</div>
+	</main>
+	</div>
+	<footer class="app-footer">
+	</footer>
+	
+	<div class="modal fade" id="addRoleModal" tabindex="0" role="dialog" aria-labelledby="myAddModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myAddModalLabel">添加</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="addRole_form" onsubmit="return false;">
+		          		<div class="form-group">
+	              			<label for="a_role" class="col-sm-2 control-label">角色名称<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="a_role" name="role" class="form-control" placeholder="请输入角色名称" type="text"/>
+	              			</div>
+	              			<label for="a_description" class="col-sm-2 control-label">角色描述<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="a_description" name="description" class="form-control" placeholder="请输入角色描述" type="text"/>
+	              			</div>
+		          		</div>
+		          		<div class="form-group">
+			          		<div id="a_type_div">
+			          			<label for="e_type" class="col-sm-2 control-label">角色类型<span style="color: red">*</span></label>
+		              			<div class="col-sm-4">
+		                			<select class="form-control" id="a_roleType" name="roleType">
+	                                	<option value="2">物流公司</option>
+	                                	<option value="1">企业货主</option>
+	                                	<option value="3">个体货主</option>
+	                                	<option value="4">司机</option>
+	                            	</select>
+		              			</div>
+			          		</div>
+		          		</div>
+		          		<div class="form-group" style="margin-left: 450px;">
+		                	<button class="btn btn-primary" onclick="createRole()">保存</button> 
+		                	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                    </div>
+	                    <input type="hidden" class="form-control" id="a_roleId" name="roleId" value="${userInfo.roleId}" >
+		          	</form>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="modal fade" id="editRoleModal" role="dialog" aria-labelledby="myEditModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myEditModalLabel">编辑</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="editRole_form" onsubmit="return false;">
+						<div class="form-group">
+	              			<label for="e_role" class="col-sm-2 control-label">角色名称<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="e_role" name="role" class="form-control" placeholder="请输入角色名称" type="text"/>
+	              			</div>
+	              			<label for="e_description" class="col-sm-2 control-label">角色描述<span style="color: red">*</span></label>
+	              			<div class="col-sm-4">
+	                			<input id="e_description" name="description" class="form-control" placeholder="请输入角色描述" type="text"/>
+	              			</div>
+		          		</div>
+						<div class="form-group" style="margin-left: 450px;">
+		                	<button class="btn btn-primary" onclick="updateRole()">保存</button> 
+		                	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	                    </div>
+	                    <input type="hidden" class="form-control" id="e_id" name="id"  >
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/shiro/bootstrap-table.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/shiro/jQuery.bootstrap.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxcore.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxdata.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxbuttons.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxscrollbar.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxdatatable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/jqwidgets/jqxtreegrid.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/shiro/role.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+</html>

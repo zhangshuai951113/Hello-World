@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>组织管理</title>
+		<#include "../../common/common_header.html" />
+		<link rel="stylesheet" href="${basePath}/static/css/common/search.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/modal.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/operation.css" type="text/css">
+		<link rel="stylesheet" href="${basePath}/static/css/common/table.css" type="text/css" />
+		<style>
+			.search-box .input-lable {
+			    width: 90px;
+			}
+		</style>
+	</head>
+	<body class="app-body">
+		<#include "../../common/common_top.html" />
+	  	<div class="main-body">
+	    	<#include "../../common/common_menu.html" />
+		    <!-- 内容 -->
+		    <main class="main">
+				<!--组织管理模板-->
+				<div class="org-manage" >
+					<div class="search-panel row">
+						<form onsubmit="return false">
+						    <div class="search-from" style="max-width:1390px">
+						      	<div class="search-row-box">
+						        	<div class="both-row row">
+						          		<div class="search-box">
+						            		<div class="input-lable">组织名称</div>
+						            		<div class="input-text">
+						              			<input id="orgName" class="input" placeholder="请输入组织名称" type="text" />
+						            		</div>
+						          		</div>
+						          		<div class="search-box">
+							            	<div class="input-lable">组织类型</div>
+							            	<div class="input-text">
+							              		<select id="orgType" class="input">
+							                		<option value="">请选择</option>
+							                		<option value="1">机构</option>
+							                		<option value="2">部门</option>
+							              		</select>
+							            	</div>
+							          	</div>
+						          		<div class="search-box">
+						            		<div class="input-lable">启用状态</div>
+						            		<div class="input-text">
+							              		<select id="isAvailable" class="input">
+							              			<option value="">请选择</option>
+							                		<option value="1">启用</option>
+							                		<option value="0">停用</option>
+							              		</select>
+						            		</div>
+						          		</div>
+							          	
+						          		<div class="search-box">
+						            		<div class="input-lable">审核状态</div>
+						            		<div class="input-text">
+							              		<select id="orgStatus" class="input">
+									            	<option value="">请选择</option>
+									            	<option value="0">初始化</option>
+									            	<option value="1">待审核</option>
+									                <option value="2">审核不通过</option>
+									                <option value="3">审核通过</option>
+									                <option value="4">已注销</option>
+							             		</select>
+						            		</div>
+						          		</div>
+						          		<div class="search-box">
+						            		<div class="input-lable">社会信用代码</div>
+						            		<div class="input-text">
+						              			<input id="creditCode" class="input" placeholder="请输入统一社会信用代码" type="text" />
+						            		</div>
+						          		</div>
+						          		<div class="search-box" style="width:320px;">
+						            		 
+						          		</div>
+						        	</div>
+								</div>
+								<div class="search-button-box">
+									<button class="search-button" onclick="searchOrgInfo(1)">
+							        	<div class="search-icon"></div>
+							        	<div class="text">查询</div>
+							      	</button>
+							      	<button class="search-button" type="reset" >
+									      <div class="reset-icon"></div>
+									      <div class="text">重置</div>
+									 </button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="panel">
+						<div class="row">
+					    	<div class="operation-tab row">
+						      	<button class="operation-button operation-blue" onclick="addOrEditDepartmentInfoPage()">
+						        	<div class="add-icon"></div>
+						        	<div class="operation-text">新增部门</div>
+						      	</button>
+						      	<button class="operation-button operation-gray" onclick="addSubOrgInfoPage()">
+						        	<div class="add-icon"></div>
+						        	<div class="operation-text">新增子机构</div>
+						      	</button>
+					    	</div>
+				    	</div>
+				    	<div id="search_org_info" class="panel-table">
+				    	</div>
+				  	</div>
+				  	
+					<!-- 部门展示 -->
+					<div id="show_department_info" class="modal-open"></div>
+					
+					<!-- 启用/停用/注销模板 -->
+					<div class="modal fede" id="disableModal" tabindex="-3" role="dialog" aria-labelledby="myOptModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<div type="button" class="mode-close" data-dismiss="modal" aria-hidden="true"></div>
+									<h4 class="modal-title" id="myOptModalLabel">
+										组织停用
+									</h4>
+								</div>
+								<div class="modal-body">
+									<div class="model-from row">
+										<div class="group-box">
+											<div id="modal_opearate_title" class="input-lable">停用原因:</div>
+											<div class="textarea-text" style="width:294px">
+												<textarea id="modal_opearate_reason" class="input" placeholder="请输入停用原因"></textarea>
+											</div>
+											<input id="modal_org_info_id" type="hidden" operate-type="">
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="close-button" onclick="operateSubOrgInfo()">确认</button>
+									<button class="close-button" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		    </main>
+	  	</div>
+	  	<footer class="app-footer">
+	  	</footer>
+	  	
+	  	<!-- 子机构操作表单 -->
+	  	<form id="form_sub_org_opt" action="" method="post">
+	  		<input id="hidden_sub_operate_type" type="hidden" name="operateType">
+	  		<input id="hidden_sub_org_info_id" type="hidden" name="orgInfoId">
+	  	</form>
+	</body>
+	<#include "../../common/common_footer.html" />
+	<script type="text/javascript" src="${basePath}/static/js/common/colResizable.js"></script>
+	<script type="text/javascript" src="${basePath}/static/js/org/orgManage.js"></script>
+</html>
+

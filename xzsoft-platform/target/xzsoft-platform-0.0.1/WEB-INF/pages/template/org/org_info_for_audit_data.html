@@ -1,0 +1,67 @@
+﻿<div id="org_info">
+	<table  width="100%"  class="table-bule table-ellipsis" style="margin-top:0" id="tableDrag">
+		<thead>
+			<tr class="table-title">
+				<th style="width: 40px;">
+					<label class="i-checks"> <input class="all_root_org_check" name="all" type="checkbox"><i></i></label>
+				</th>
+				<th>组织机构名称</th>
+				<th>注册地址</th>
+				<th>通讯地址</th>
+				<th>联系人姓名</th>
+				<th>移动电话</th>
+				<th>法定代表人</th>
+				<th>法人身份证号</th>
+				<th>统一社会信用代码</th>
+				<th>道路运输许可证号</th>
+				<th>组织机构状态</th>
+				<th style="width:120px">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#if orgInfoPoPager?exists && orgInfoPoPager.rows?exists> <#list orgInfoPoPager.rows as orgInfo>
+			<tr class="table-body ">
+				<td style="width: 40px;">
+					<label class="i-checks"> <input type="checkbox" class="sub_root_org_check" data-id="${orgInfo.id}" data-org-status="${orgInfo.orgStatus}"><i></i></label>
+				</td>
+				<td>${(orgInfo.orgName)!''}</td>
+				<td>${(orgInfo.registerAddress)!''}</td>
+				<td>${(orgInfo.contactAddress)!''}</td>
+				<td>${(orgInfo.contactName)!''}</td>
+				<td>${(orgInfo.mobilePhone)!''}</td>
+				<td>${(orgInfo.legalPersonName)!''}</td>
+				<td>${(orgInfo.idCard)!''}</td>
+				<td>${(orgInfo.creditCode)!''}</td>
+				<td>${(orgInfo.roadTransportPermitNum)!''}</td>
+				<td><#if orgInfo.orgStatus?exists> <#if orgInfo.orgStatus==1> 待审核 <#elseif orgInfo.orgStatus==2> 审核不通过 <#elseif orgInfo.orgStatus==3> 审核通过 </#if> </#if></td>
+				<td>
+					<div class="operation-td" org-info-id="${(orgInfo.id)!'0'}">
+						<#if orgInfo.orgStatus==1> <!--待审核状态可查看、审核操作-->
+						<div class="audit-operation operation-m">
+				        	<div class="audit-icon"></div>
+				         	<div class="text">审核</div>
+				        </div>
+						<div class="view-operation operation-m">
+					          <div class="view-icon"></div>
+					          <div class="text">查看</div>
+					    </div>
+						<#else> <#if orgInfo.orgStatus==2> <!-- 不通过 -->
+						<div class="view-operation operation-m">
+					          <div class="view-icon"></div>
+					          <div class="text">查看</div>
+					    </div>
+						<#else> <!-- 未注销机构 -->
+						 <#if orgInfo.orgStatus==3>
+						<div class="view-operation operation-m">
+					          <div class="view-icon"></div>
+					          <div class="text">查看</div>
+					    </div>
+						</#if></#if></#if>
+					</div>
+				</td>
+			</tr>
+			</#list> </#if>
+		</tbody>
+	</table>
+	<div class="panel-pagination">${orgInfoPoPager.pageHtml}</div>
+</div>
